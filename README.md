@@ -1,10 +1,6 @@
-# Bienvenue dans note projet
+# Bienvenue dans notre projet
 
 # Contributeurs :
-# Baptiste MOULAY
-#
-#
-#
 
 # Description
 
