@@ -1,7 +1,7 @@
 CC= gcc
 CFLAGS= -Wall -Wextra
 
-EXE= projet.exe
+EXE= projet
 
 BINDIR= bin
 SRCDIR= src
@@ -12,7 +12,7 @@ G=
 all: $(BINDIR)/$(EXE)
 
 debug: G= -g
-debug: projet
+debug: $(BINDIR)/$(EXE)
 
 $(BINDIR)/$(EXE) : $(OBJDIR)/main.o
 	$(CC) $(CFLAGS) $(G) -o $@ $^
