@@ -1,10 +1,9 @@
 --- Bienvenue dans notre projet ---
 
--- Contributeurs --
+--- Contributeurs ---
 Baptiste MOULAY
 Lucas REVERBEL--LONGHI
 Nathan MORIN
 Ilann THOURAULT
 
--- Description --
-    prout
+--- Description ---
