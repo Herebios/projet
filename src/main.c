@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include <SDL.h>
-#include <SDL_Image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include "prepro.h"
 #include "def.h"
+#include "fonctions.h"
 
 t_jeu jeu;//?? pourrait tout contenir, dupliquer les pointeurs à l'extérieur
 t_map *map = &jeu.map;
@@ -133,10 +134,15 @@ void charger_tuile_courante(){//jeu
 }
 
 void init_jeu(){
+	//init_objets();
 	init_biomes();
 	init_map();
+
 	jeu.nb_perso=0;
-	nouv_perso("orc3");//joueur
+	nouv_perso("orc3");
+	//??Le joueur est créé ici, mais ce sera le serv qui donnera l'id de tel joueur
+	//dans le tableau pour que tous soient pareils
+
 	jeu.texture_tuile = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, W, H);//toute la fenêtre
 	jeu.tuile_courante = ptr_tuile_courante();
 }
@@ -164,7 +170,7 @@ void init_biomes(){
 
 	//charger textures selon les biomes
 	t_biome *biome_cour;
-	char *noms[]={"base","plaine","glace"}, path[100]="textures/";
+	char *noms[]={"base","plaine","glace"}, path[100]="img/";
 
 	for(i=0; i<NB_BIOMES; i++){//actuellement 3
 		//!! base, id 0
@@ -186,7 +192,7 @@ void init_biomes(){
 					break;
 			}
 			nouv_surface(path);
-			path[9]='\0';//écrire à nouveau après 'textures/'
+			path[4]='\0';//écrire à nouveau après 'textures/'
 			nouv_texture(biome_cour->textures, &biome_cour->nb_textures);
 		}
 		}
@@ -196,8 +202,10 @@ void init_biomes(){
 void nouv_surface(char * image) {
 /*Charge une nouvelle surface à partir du path reçu en param*/
     if (surface) SDL_FreeSurface(surface);
-    if ((surface = IMG_Load(image)) == NULL)//SDL_LoadBMP(image)
+    if ((surface = IMG_Load(image)) == NULL){//SDL_LoadBMP(image)
+		printf("%s introuvable\n", image);
 		end(6);
+	}
 }
 void nouv_texture(SDL_Texture** textures, unsigned char *nb_textures){
 /*Les paramètres sont supposés corrects,
@@ -255,9 +263,10 @@ void nouv_perso(char *s){//jeu, perso
 	perso->sprite = (SDL_Rect){0, 0, jw, jh};
 	perso->rect = (SDL_Rect){xdep, ydep, jw, jh};//position sur tuile
 
+	//!!au lieu de char *s, on utilisera l'attribut classe du joueur
 	//charger textures perso
 	char chemin[50];
-	strcpy(chemin, "orc_anim/");
+	strcpy(chemin, "img/");
 	strcat(chemin, s);
 	int fin=strlen(chemin);
 
@@ -408,16 +417,12 @@ void changer_dir(t_perso *p, Uint8 mask){
 	}
 }
 
-void setup(){
+void init_sdl(){
 	if (SDL_Init(SDL_INIT_VIDEO) || !(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) end(1);
     window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, W, H, SDL_WINDOW_SHOWN);
     if (!window) end(2);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) end(3);
-
-	init_jeu();
-	//init_objets();
-
 }
 
 void afficher_tuile_courante(){
@@ -442,7 +447,8 @@ void position_perso(t_perso *p, t_pos* pos){
 //taille texture : SDL_QueryTexture(textures[0], NULL, NULL, &largeur_texture, &hauteur_texture);
 int main(int argc, char *argv[]) {
 	/*window, renderer, jeu(map(textures, tuiles), texture_tuile, perso)*/
-	setup();
+	init_sdl();
+	init_jeu();
 
 	charger_tuile_courante();
 	afficher_tuile_courante();
@@ -464,13 +470,11 @@ int main(int argc, char *argv[]) {
 			}
 		}
 
-
 		clavier=SDL_GetKeyboardState(NULL);
 		Uint8 mask=clavier[SDL_SCANCODE_RIGHT] << 3 | clavier[SDL_SCANCODE_LEFT] << 2 | clavier[SDL_SCANCODE_DOWN] << 1 | clavier[SDL_SCANCODE_UP];
 
 		effacer_perso(j);
 
-		//--gère touches
 		//sauvegarde de dir et anim
 		t_dir dir=j->dir;
 		//on change la direction en fonction des input

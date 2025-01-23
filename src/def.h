@@ -82,22 +82,3 @@ typedef struct{
 	SDL_Texture *texture_tuile;
 	//?? texture_prec + pos_prec
 }t_jeu;
-
-void end(int code);
-//void init_objets(void);
-void generer_tuile(t_tuile*, nom_biome);//id_texture
-void charger_tuile_courante(void);
-void init_jeu(void);
-void init_map(void);
-void init_biomes(void);
-void nouv_surface(char* path);
-void nouv_texture(SDL_Texture** textures, unsigned char* nb);//voir définition pour spéc.
-void changer_anim(t_perso*, t_anim);
-void nouv_perso(char* nom);//pour trouver ses textures
-void avancer(t_perso*);
-void changer_dir(t_perso*, Uint8 mask);
-void setup(void);
-void afficher_tuile_courante();
-void effacer_joueur(t_perso*);
-void afficher_perso(t_perso*);
-void position_perso(t_perso*, t_pos*);
