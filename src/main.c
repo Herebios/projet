@@ -258,8 +258,12 @@ void nouv_perso(char *s){//jeu, perso
 	perso = jeu.perso + jeu.nb_perso;//pointeur sur nouv perso
 	//valeurs par defaut
 	t_classe classe=administrateur;
-	*perso = (t_perso){0,0,0,VITESSE_BASE,NIVEAU_BASE,VIE_BASE,ATTAQUE_BASE,DEFENSE_BASE,MAGIE_BASE,MANA_BASE,classe};
-	perso->pos_map = (t_pos){0,0};//position : map.tuiles[y][x]
+	*perso = (t_perso){
+		0,0,0,
+		VITESSE_BASE,NIVEAU_BASE,VIE_BASE,ATTAQUE_BASE,DEFENSE_BASE,MAGIE_BASE,MANA_BASE,
+		classe,
+		{0,0}//!!position : map.tuiles[y][x]
+	};
 	perso->sprite = (SDL_Rect){0, 0, jw, jh};
 	perso->rect = (SDL_Rect){xdep, ydep, jw, jh};//position sur tuile
 
@@ -283,6 +287,7 @@ void nouv_perso(char *s){//jeu, perso
 	//sprite et anim de base
 	perso->dir=droite;
 	changer_anim(perso,idle);
+
 	jeu.nb_perso++;
 }
 t_pos deplacement[] = {
