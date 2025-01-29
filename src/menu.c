@@ -89,7 +89,7 @@ int menu(){
     police = TTF_OpenFont("../include/Go-Regular.ttf", 45);
     int sortieMenu = 0;
 
-    //SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    // SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
     
     //créations des boutons avec structures
     
