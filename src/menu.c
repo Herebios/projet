@@ -1,83 +1,150 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <stdio.h>
 #include <SDL2/SDL_ttf.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-SDL_Rect posBouton = {274, 170, 302, 300};
 
-
-
-void cree_bouton(SDL_Renderer * renderer, SDL_Rect rect, TTF_Font * police, SDL_Colour couleur, char * nomBouton){
-    SDL_Surface * texteBouton = TTF_RenderText_Solid(police, nomBouton, couleur);
-    SDL_Texture * textureTexte = SDL_CreateTextureFromSurface(renderer, texteBouton);
-    //SDL_RenderDrawRect(renderer, &rect);
-    SDL_Surface *surfaceBouton = IMG_Load("../img/boutonMenu.png");
-    SDL_Texture *imageTexture = SDL_CreateTextureFromSurface(renderer, surfaceBouton);
-    
-    SDL_RenderCopy(renderer, imageTexture, &posBouton, &rect);
-    SDL_RenderCopy(renderer, textureTexte, NULL, &rect);
-}
-
+#define BOUTON_X 400
+#define BOUTON_LARG 125
+#define BOUTON_LONG 400
+#define NB_BOUTONS 10
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 SDL_Surface *surface = NULL;
 
+TTF_Font * police;
+
+
+typedef struct {
+    SDL_Rect posBoutonFen;
+    SDL_Texture * texture;
+}bouton_t;
+
+unsigned char nb_boutons_charge = 0;
+
+bouton_t tab[NB_BOUTONS];
+
+SDL_Color couleurBlanche = { 255, 255, 255, 255 };
+SDL_Color couleurNoire = { 0, 0, 0, 255 };
+
+
+
+
+
+
+//temporaire
+void end(int nb){
+    if (renderer)
+		SDL_DestroyRenderer(renderer);
+    if (window)
+		SDL_DestroyWindow(window);
+    for(int i = 0 ; i < nb_boutons_charge ; i++){
+        SDL_DestroyTexture(tab[i].texture);
+    }
+    
+
+    IMG_Quit();
+	SDL_Quit();
+    exit(nb);
+}
+
+
+void init_sdl(){
+	if (SDL_Init(SDL_INIT_VIDEO) || !(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) end(1);
+    window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 1080, SDL_WINDOW_SHOWN);
+    if (!window) end(2);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (!renderer) end(3);
+}
+
+
+
+void cree_bouton(bouton_t * bouton, char * nomFich){
+    surface = IMG_Load(nomFich);
+    if(!surface) end(4);
+
+    bouton->texture = SDL_CreateTextureFromSurface(renderer, surface);
+    if(!bouton->texture) end(5);
+   
+    SDL_FreeSurface(surface);
+    nb_boutons_charge++;
+    
+}
+
+void affiche_boutons(){
+    for(int i = 0 ; i < nb_boutons_charge ; i++){
+        int t = SDL_RenderCopy(renderer, tab[i].texture, NULL, &tab[i].posBoutonFen);
+    }
+}
+
+
 char * nomJeu = "nom temporaire";
 
 int menu(){
+    init_sdl();
+    TTF_Init();
+    
+    police = TTF_OpenFont("../include/Go-Regular.ttf", 45);
     int sortieMenu = 0;
 
-    window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1800, 1080, SDL_WINDOW_SHOWN);
+    //SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    
+    //créations des boutons avec structures
+    
+    tab[0] = (bouton_t) {(SDL_Rect){BOUTON_X, 400, BOUTON_LONG, BOUTON_LARG}, NULL};
+    tab[1] = (bouton_t){(SDL_Rect){BOUTON_X, 800, BOUTON_LONG, BOUTON_LARG}, NULL};
+    
+    cree_bouton(tab, "../img/boutonMenu.png");   
+    cree_bouton(tab + 1, "../img/boutonMenu.png");
 
-
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     surface = IMG_Load("../img/imgMenu.jpg");
-
+    
     SDL_Texture * backgroundTexture = SDL_CreateTextureFromSurface(renderer, surface);
-    
-    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-
-    TTF_Init();
-
-    TTF_Font * police = TTF_OpenFont("../include/Go-Regular.ttf", 45);
-    
-
-    SDL_Color couleurBlanche = { 255, 255, 255, 255 };
-    SDL_Color couleurNoire = { 0, 0, 0, 255 };
+    if(!backgroundTexture) end(6);
+    SDL_FreeSurface(surface);
 
 
-    SDL_Surface *surfaceTexte = TTF_RenderText_Solid(police, nomJeu, couleurBlanche);
-    SDL_Texture * textureTexte = SDL_CreateTextureFromSurface(renderer, surfaceTexte);
+    surface = TTF_RenderText_Solid(police, nomJeu, couleurBlanche);
+
+    SDL_Texture * textureTexte = SDL_CreateTextureFromSurface(renderer, surface);
+    if(!textureTexte) end(7);
+    SDL_FreeSurface(surface);
+
+
+    SDL_Rect rectNomJeu = {300, 50, 400, 200};
+
+    SDL_RenderCopy(renderer, backgroundTexture, NULL, NULL);
+    SDL_RenderCopy(renderer, textureTexte, NULL, &rectNomJeu);
+         
+ 
+
+    affiche_boutons();
+
+
+    SDL_RenderPresent(renderer);
+
+
     SDL_Event event;
-
-    SDL_Rect zoneTexte = {300, 50, 400, 200};
-
-    SDL_Rect boutonSelectPerso = {400, 400, 400, 125};
-
-
 
     while(!sortieMenu){
         while(SDL_PollEvent(&event)){
             if (event.type == SDL_QUIT) sortieMenu = 1;
             if(event.key.keysym.sym == SDLK_ESCAPE) sortieMenu = 1;
-        }
+        }     
 
-        SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer, backgroundTexture, NULL, NULL);
-        SDL_RenderCopy(renderer, textureTexte, NULL, &zoneTexte);  
-        cree_bouton(renderer, boutonSelectPerso, police, couleurNoire, "test");    
-        SDL_RenderPresent(renderer);
-
+        SDL_Delay(100);   
     }
-    SDL_DestroyRenderer(renderer);
+
     SDL_DestroyTexture(backgroundTexture);
+    SDL_DestroyTexture(textureTexte);
+
     return 0;
 }
 
 int main(void){
     menu();
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    end(0);
     return 0;
 }
