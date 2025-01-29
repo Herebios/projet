@@ -37,22 +37,22 @@ SDL_Color couleurNoire = { 0, 0, 0, 255 };
 //temporaire
 void end(int nb){
     if (renderer)
-		SDL_DestroyRenderer(renderer);
+        SDL_DestroyRenderer(renderer);
     if (window)
-		SDL_DestroyWindow(window);
+        SDL_DestroyWindow(window);
     for(int i = 0 ; i < nb_boutons_charge ; i++){
         SDL_DestroyTexture(tab[i].texture);
     }
     
 
     IMG_Quit();
-	SDL_Quit();
+    SDL_Quit();
     exit(nb);
 }
 
 
 void init_sdl(){
-	if (SDL_Init(SDL_INIT_VIDEO) || !(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) end(1);
+    if (SDL_Init(SDL_INIT_VIDEO) || !(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) end(1);
     window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 1080, SDL_WINDOW_SHOWN);
     if (!window) end(2);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -89,15 +89,16 @@ int menu(){
     police = TTF_OpenFont("../include/Go-Regular.ttf", 45);
     int sortieMenu = 0;
 
-    // SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    //SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
     
     //créations des boutons avec structures
     
     tab[0] = (bouton_t) {(SDL_Rect){BOUTON_X, 400, BOUTON_LONG, BOUTON_LARG}, NULL};
     tab[1] = (bouton_t){(SDL_Rect){BOUTON_X, 800, BOUTON_LONG, BOUTON_LARG}, NULL};
     
-    cree_bouton(tab, "../img/boutonMenu.png");   
-    cree_bouton(tab + 1, "../img/boutonMenu.png");
+    cree_bouton(tab, "../img/Boutons/boutonMenuLarge.png");   
+    cree_bouton(tab + 1, "../img/Boutons/boutonMenuLarge.png");   
+
 
     surface = IMG_Load("../img/imgMenu.jpg");
     
