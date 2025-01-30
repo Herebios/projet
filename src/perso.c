@@ -72,7 +72,6 @@ t_perso creerPerso(porteePerso persoACreer){
 void initListePersos(char ** tabPersos, int nbJoueurs, t_perso * tabRes) {
     t_perso temp;
     for (int i = 0; i < nbJoueursMax; i++) {
-        printf("%s", tabPersos[i]);
         if (!strcmp("mage", tabPersos[i])) {
              tabRes[i] = creerPerso(mage);
         }
