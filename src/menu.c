@@ -5,7 +5,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #define BOUTON_X 400
-#define BOUTON_H 125
+#define BOUTON_H 150
 #define BOUTON_W 400
 #define NB_BOUTONS 10
 
@@ -17,6 +17,8 @@ TTF_Font *police;
 typedef struct {
     SDL_Rect posBoutonFen;
     SDL_Texture * texture;
+    SDL_Texture * texte;
+
 }bouton_t;
 
 unsigned char nb_boutons = 0;
@@ -59,24 +61,9 @@ void init_sdl(){
     if (!renderer) end(3);
 }
 
-void creer_bouton(bouton_t * bouton, char * nomFich){
-    surface = IMG_Load(nomFich);
-    if(!surface) end(4);
-
-    bouton->texture = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_FreeSurface(surface);
-    if(!bouton->texture) end(5);
-    nb_boutons++;
-}
-
-void afficher_boutons(){
-    for(int i = 0 ; i < nb_boutons ; i++){
-        int t = SDL_RenderCopy(renderer, tab_boutons[i].texture, NULL, &tab_boutons[i].posBoutonFen);
-    }
-}
 
 SDL_Texture * creer_texture(char * chemin){
-	surface = IMG_Load("../img/imgMenu.jpg");
+	surface = IMG_Load(chemin);
 	if(!surface) end(4);
     SDL_Texture * nouv_texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
@@ -84,20 +71,49 @@ SDL_Texture * creer_texture(char * chemin){
 	return nouv_texture;
 }
 
+
+
+void creer_bouton(bouton_t * bouton, char * nomFich, char * texte){
+    bouton->texture = creer_texture(nomFich);
+    if(!bouton->texture) end(5);
+
+    surface = TTF_RenderUTF8_Blended(police, texte, couleurBlanche);
+    //SDL_Blit pas mal à utiliser avec 
+    //SDL_CreateRGBSurface
+    SDL_Texture * textureTexte = SDL_CreateTextureFromSurface(renderer, surface);
+
+    bouton->texte = textureTexte;
+    nb_boutons++;
+}
+
+void afficher_boutons(){
+    for(int i = 0 ; i < nb_boutons ; i++){
+        SDL_RenderCopy(renderer, tab_boutons[i].texture, NULL, &tab_boutons[i].posBoutonFen);
+        SDL_RenderCopy(renderer, tab_boutons[i].texte, NULL, &tab_boutons[i].posBoutonFen);
+    }
+}
+
+
+
+
+
 char nomJeu[] = "nom temporaire";
 
 int menu(){
     init_sdl();
 
-    police = TTF_OpenFont("../include/Go-Regular.ttf", 45);
+    police = TTF_OpenFont("../include/Go-Regular.ttf", 100);
 	if (!police) end(6);
 
     //créations des boutons avec structures
     tab_boutons[0] = (bouton_t) {(SDL_Rect){BOUTON_X, 400, BOUTON_W, BOUTON_H}, NULL};
-    tab_boutons[1] = (bouton_t) {(SDL_Rect){BOUTON_X, 800, BOUTON_W, BOUTON_H}, NULL};
+    tab_boutons[1] = (bouton_t) {(SDL_Rect){BOUTON_X, 600, BOUTON_W, BOUTON_H}, NULL};
+    tab_boutons[2] = (bouton_t) {(SDL_Rect){BOUTON_X, 800, BOUTON_W, BOUTON_H}, NULL};
 
-    creer_bouton(tab_boutons, "../img/Boutons/boutonMenuLarge.png");
-    creer_bouton(tab_boutons + 1, "../img/Boutons/boutonMenuLarge.png");
+
+    creer_bouton(tab_boutons, "../img/Boutons/boutonMenuLarge.png", "jouer"); //bouton jouer
+    creer_bouton(tab_boutons + 1, "../img/Boutons/boutonMenuLarge.png", "paramètres"); //bouton paramètres
+    creer_bouton(tab_boutons + 2, "../img/Boutons/boutonMenuLarge.png", "quitter"); //bouton quitter
 
 	//arrière-plan
 	SDL_Texture * backgroundTexture = creer_texture("../img/imgMenu.jpg");
@@ -116,6 +132,7 @@ int menu(){
 
     SDL_Event event;
 
+
     int sortieMenu = 0;
 	int xmouse, ymouse;
     while(!sortieMenu){
@@ -124,6 +141,16 @@ int menu(){
 				sortieMenu = 1;
 				break;
 			}
+
+            //test clic bouton quitter
+            
+            if(event.type == SDL_MOUSEBUTTONDOWN){
+                SDL_Point point = {event.button.x, event.button.y};
+                if(SDL_PointInRect(&point, &tab_boutons[2].posBoutonFen)){
+                    sortieMenu = 1;
+                }
+            }
+            
         }
 
         SDL_Delay(100);
