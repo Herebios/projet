@@ -17,7 +17,6 @@ void init_jeu(void);
 		void generer_tuile(t_tuile*, nom_biome);
 
 	void init_biomes(void);
-
 /* Relatif aux joueurs */
 void nouv_perso(char* nom);//le nom donne le chemin des textures
 //indices de la position du joueur sur la tuile
