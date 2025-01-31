@@ -16,6 +16,7 @@ TTF_Font *police;
 
 typedef struct {
     SDL_Rect posBoutonFen;
+    SDL_Rect posTexte;
     SDL_Texture * texture;
     SDL_Texture * texte;
 
@@ -89,7 +90,7 @@ void creer_bouton(bouton_t * bouton, char * nomFich, char * texte){
 void afficher_boutons(){
     for(int i = 0 ; i < nb_boutons ; i++){
         SDL_RenderCopy(renderer, tab_boutons[i].texture, NULL, &tab_boutons[i].posBoutonFen);
-        SDL_RenderCopy(renderer, tab_boutons[i].texte, NULL, &tab_boutons[i].posBoutonFen);
+        SDL_RenderCopy(renderer, tab_boutons[i].texte, NULL, &tab_boutons[i].posTexte);
     }
 }
 
@@ -106,14 +107,14 @@ int menu(){
 	if (!police) end(6);
 
     //créations des boutons avec structures
-    tab_boutons[0] = (bouton_t) {(SDL_Rect){BOUTON_X, 400, BOUTON_W, BOUTON_H}, NULL, NULL};
-    tab_boutons[1] = (bouton_t) {(SDL_Rect){BOUTON_X, 600, BOUTON_W, BOUTON_H}, NULL, NULL};
-    tab_boutons[2] = (bouton_t) {(SDL_Rect){BOUTON_X, 800, BOUTON_W, BOUTON_H}, NULL, NULL};
+    tab_boutons[0] = (bouton_t) {(SDL_Rect){BOUTON_X, 400, BOUTON_W, BOUTON_H}, (SDL_Rect){BOUTON_X + 50, 410, BOUTON_W - 100, BOUTON_H - 40}, NULL, NULL};
+    tab_boutons[1] = (bouton_t) {(SDL_Rect){BOUTON_X, 600, BOUTON_W, BOUTON_H}, (SDL_Rect){BOUTON_X + 50, 615, BOUTON_W - 100, BOUTON_H - 40}, NULL, NULL};
+    tab_boutons[2] = (bouton_t) {(SDL_Rect){BOUTON_X, 800, BOUTON_W, BOUTON_H}, (SDL_Rect){BOUTON_X + 50, 810, BOUTON_W - 100, BOUTON_H - 40}, NULL, NULL};
 
 
-    creer_bouton(tab_boutons, "../img/Boutons/boutonMenuLarge.png", "jouer"); //bouton jouer
-    creer_bouton(tab_boutons + 1, "../img/Boutons/boutonMenuLarge.png", "paramètres"); //bouton paramètres
-    creer_bouton(tab_boutons + 2, "../img/Boutons/boutonMenuLarge.png", "quitter"); //bouton quitter
+    creer_bouton(tab_boutons, "../img/Boutons/boutonMenuLarge.png", "Jouer"); //bouton jouer
+    creer_bouton(tab_boutons + 1, "../img/Boutons/boutonMenuLarge.png", "Paramètres"); //bouton paramètres
+    creer_bouton(tab_boutons + 2, "../img/Boutons/boutonMenuLarge.png", "Quitter"); //bouton quitter
 
 
 	//arrière-plan
