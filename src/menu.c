@@ -85,7 +85,7 @@ void init_sdl(){
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) end(3);
 }
-
+//
 
 
 /*suivant() et precedent() servent à se déplacer pour sélectionner un des personnages créés*/
