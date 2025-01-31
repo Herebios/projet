@@ -106,17 +106,18 @@ int menu(){
 	if (!police) end(6);
 
     //créations des boutons avec structures
-    tab_boutons[0] = (bouton_t) {(SDL_Rect){BOUTON_X, 400, BOUTON_W, BOUTON_H}, NULL};
-    tab_boutons[1] = (bouton_t) {(SDL_Rect){BOUTON_X, 600, BOUTON_W, BOUTON_H}, NULL};
-    tab_boutons[2] = (bouton_t) {(SDL_Rect){BOUTON_X, 800, BOUTON_W, BOUTON_H}, NULL};
+    tab_boutons[0] = (bouton_t) {(SDL_Rect){BOUTON_X, 400, BOUTON_W, BOUTON_H}, NULL, NULL};
+    tab_boutons[1] = (bouton_t) {(SDL_Rect){BOUTON_X, 600, BOUTON_W, BOUTON_H}, NULL, NULL};
+    tab_boutons[2] = (bouton_t) {(SDL_Rect){BOUTON_X, 800, BOUTON_W, BOUTON_H}, NULL, NULL};
 
 
     creer_bouton(tab_boutons, "../img/Boutons/boutonMenuLarge.png", "jouer"); //bouton jouer
     creer_bouton(tab_boutons + 1, "../img/Boutons/boutonMenuLarge.png", "paramètres"); //bouton paramètres
     creer_bouton(tab_boutons + 2, "../img/Boutons/boutonMenuLarge.png", "quitter"); //bouton quitter
 
+
 	//arrière-plan
-	SDL_Texture * backgroundTexture = creer_texture("../img/imgMenu.jpg");
+	SDL_Texture * backgroundTexture = creer_texture("../img/imgMenu.png");
 
 	//nom du jeu
     SDL_Rect rectNomJeu = {300, 50, 400, 200};
