@@ -7,7 +7,10 @@
 #define BOUTON_X 400
 #define BOUTON_H 150
 #define BOUTON_W 400
+#define H_FLECHE 920
 #define NB_MAX_BOUTONS 10
+#define NB_MAX_TEXTE 10
+
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
@@ -16,14 +19,31 @@ TTF_Font *police;
 
 typedef struct {
     SDL_Rect posBoutonFen;
-    SDL_Rect posTexte;
     SDL_Texture * texture;
-    SDL_Texture * texte;
-
 }bouton_t;
 
+
+typedef struct {
+    SDL_Rect posTexte;
+    SDL_Texture * message;
+}texte_t;
+
+
+typedef struct elm {
+    struct elm * suivant;
+    struct elm * precedent;
+    char * nomPerso;
+}elm_t;
+
+
 unsigned char nb_boutons = 0;
+unsigned char nb_texte = 0;
+
+
+
 bouton_t tab_boutons[NB_MAX_BOUTONS];
+texte_t tab_texte[NB_MAX_TEXTE];
+
 
 SDL_Color couleurBlanche = { 255, 255, 255, 255 };
 SDL_Color couleurNoire = { 0, 0, 0, 255 };
@@ -37,6 +57,9 @@ void end(int nb){
         SDL_DestroyWindow(window);
     for(int i = 0 ; i < nb_boutons ; i++){
         SDL_DestroyTexture(tab_boutons[i].texture);
+    }
+    for(int i = 0 ; i < nb_texte ; i++){
+        SDL_DestroyTexture(tab_texte[i].message);
     }
 	if (police)
 		TTF_CloseFont(police);
@@ -65,32 +88,39 @@ void init_sdl(){
 
 SDL_Texture * creer_texture(char * chemin){
 	surface = IMG_Load(chemin);
-	if(!surface) end(4);
+	if(!surface) end(20);
     SDL_Texture * nouv_texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
     if(!nouv_texture) end(5);
 	return nouv_texture;
 }
 
+void creer_texte(texte_t * texte, char * txt){
+    surface = TTF_RenderUTF8_Blended(police, txt, couleurBlanche);
+    if(!surface) end(10);
 
-
-void creer_bouton(bouton_t * bouton, char * nomFich, char * texte){
-    bouton->texture = creer_texture(nomFich);
-    if(!bouton->texture) end(5);
-
-    surface = TTF_RenderUTF8_Blended(police, texte, couleurBlanche);
+    texte->message = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface); 
+    nb_texte++;
     //SDL_Blit pas mal à utiliser avec 
     //SDL_CreateRGBSurface
-    SDL_Texture * textureTexte = SDL_CreateTextureFromSurface(renderer, surface);
+}
 
-    bouton->texte = textureTexte;
+void creer_bouton(bouton_t * bouton, char * nomFich){
+    bouton->texture = creer_texture(nomFich);
+    if(!bouton->texture) end(5);
     nb_boutons++;
+}
+
+void afficher_texte(){
+    for(int i = 0 ; i < nb_texte ; i++){
+        SDL_RenderCopy(renderer, tab_texte[i].message, NULL, &tab_texte[i].posTexte);
+    }
 }
 
 void afficher_boutons(){
     for(int i = 0 ; i < nb_boutons ; i++){
         SDL_RenderCopy(renderer, tab_boutons[i].texture, NULL, &tab_boutons[i].posBoutonFen);
-        SDL_RenderCopy(renderer, tab_boutons[i].texte, NULL, &tab_boutons[i].posTexte);
     }
 }
 
@@ -98,20 +128,45 @@ void afficher_boutons(){
 char nomJeu[] = "nom temporaire";
 
 int menu(){
+
     init_sdl();
 
     police = TTF_OpenFont("../include/Go-Regular.ttf", 100);
 	if (!police) end(6);
 
-    //créations des boutons avec structures
-    tab_boutons[0] = (bouton_t) {(SDL_Rect){BOUTON_X, 400, BOUTON_W, BOUTON_H}, (SDL_Rect){BOUTON_X + 50, 410, BOUTON_W - 100, BOUTON_H - 40}, NULL, NULL};
-    tab_boutons[1] = (bouton_t) {(SDL_Rect){BOUTON_X, 600, BOUTON_W, BOUTON_H}, (SDL_Rect){BOUTON_X + 50, 615, BOUTON_W - 100, BOUTON_H - 40}, NULL, NULL};
-    tab_boutons[2] = (bouton_t) {(SDL_Rect){BOUTON_X, 800, BOUTON_W, BOUTON_H}, (SDL_Rect){BOUTON_X + 50, 810, BOUTON_W - 100, BOUTON_H - 40}, NULL, NULL};
+
+    //boutons Jouer, Paramètres et Quitter
+    tab_boutons[0] = (bouton_t) {(SDL_Rect){BOUTON_X, 400, BOUTON_W, BOUTON_H}, NULL};
+    tab_boutons[1] = (bouton_t) {(SDL_Rect){BOUTON_X, 600, BOUTON_W, BOUTON_H}, NULL};
+    tab_boutons[2] = (bouton_t) {(SDL_Rect){BOUTON_X, 800, BOUTON_W, BOUTON_H}, NULL};
+    //fleches de selection des personnages
+    tab_boutons[3] = (bouton_t) {(SDL_Rect){1350, H_FLECHE, BOUTON_W / 2, BOUTON_H }, NULL};
+    tab_boutons[4] = (bouton_t) {(SDL_Rect){1700, H_FLECHE, BOUTON_W / 2, BOUTON_H }, NULL};
+    //tab_boutons[5] = (bouton_t) {(SDL_Rect){1400, 500, 400, 400 }, NULL};
 
 
-    creer_bouton(tab_boutons, "../img/Boutons/boutonMenuLarge.png", "Jouer"); //bouton jouer
-    creer_bouton(tab_boutons + 1, "../img/Boutons/boutonMenuLarge.png", "Paramètres"); //bouton paramètres
-    creer_bouton(tab_boutons + 2, "../img/Boutons/boutonMenuLarge.png", "Quitter"); //bouton quitter
+    tab_texte[0] = (texte_t) {(SDL_Rect)(SDL_Rect){BOUTON_X + 50, 410, BOUTON_W - 100, BOUTON_H - 40}, NULL};
+    tab_texte[1] = (texte_t) {(SDL_Rect){BOUTON_X + 50, 615, BOUTON_W - 100, BOUTON_H - 40}, NULL};
+    tab_texte[2] = (texte_t) {(SDL_Rect){BOUTON_X + 50, 810, BOUTON_W - 100, BOUTON_H - 40}, NULL};
+    tab_texte[3] = (texte_t) {(SDL_Rect){1450, 550, 300, 100}, NULL};
+
+
+
+    //créations de tous les boutons
+    creer_bouton(tab_boutons, "../img/Boutons/boutonMenuLarge.png"); //bouton jouer
+    creer_bouton(tab_boutons + 1, "../img/Boutons/boutonMenuLarge.png"); //bouton paramètres
+    creer_bouton(tab_boutons + 2, "../img/Boutons/boutonMenuLarge.png"); //bouton quitter
+    creer_bouton(tab_boutons + 3, "../img/Boutons/flecheGauche.png"); //bouton fleche gauche
+    creer_bouton(tab_boutons + 4, "../img/Boutons/flecheDroite.png"); //bouton fleche droite
+    //creer_bouton(tab_boutons + 5, "../img/Boutons/boutonMenuCarre.png"); //bouton fleche droite
+
+
+    //création de toutes les zones de texte
+    creer_texte(tab_texte, "Jouer");
+    creer_texte(tab_texte + 1, "Paramètres");
+    creer_texte(tab_texte + 2, "Quitter");
+    creer_texte(tab_texte + 3, "nomPerso");
+
 
 
 	//arrière-plan
@@ -126,7 +181,11 @@ int menu(){
 
     SDL_RenderCopy(renderer, backgroundTexture, NULL, NULL);
     SDL_RenderCopy(renderer, textureTexte, NULL, &rectNomJeu);
+
     afficher_boutons();
+    afficher_texte();
+
+
     SDL_RenderPresent(renderer);
 
     SDL_Event event;
