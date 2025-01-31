@@ -3,27 +3,27 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include <string.h>
 
-#define BOUTON_X 400
-#define BOUTON_H 150
-#define BOUTON_W 400
+#define IMG_X 400
+#define IMG_H 150
+#define IMG_W 400
 #define H_FLECHE 920
 #define NB_MAX_BOUTONS 10
 #define NB_MAX_TEXTE 10
-#define NB_PERSO 10
-
-
+#define NB_MAX_PERSO 10
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 SDL_Surface *surface = NULL;
 TTF_Font *police;
 
+
+
 typedef struct {
     SDL_Rect posBoutonFen;
     SDL_Texture * texture;
-}bouton_t;
-
+}img_t;
 
 typedef struct {
     SDL_Rect posTexte;
@@ -31,32 +31,46 @@ typedef struct {
 }texte_t;
 
 
+int nb_img = 0; //nombre de textures cliquables crées
+int nb_texte = 0; //nombre de texture texte crées
+int nb_perso_ajoutes = 0; //nombre de personnages ajoutés avec la fonction ajout_personnage()
+int actuel = 0; //pour se déplacer avec les flèches dans la liste des personnages à choisir
 
+char nomJeu[] = "BADDOS FOREVER";
 
-unsigned char nb_boutons = 0;
-unsigned char nb_texte = 0;
+char * tab_perso[NB_MAX_PERSO]; //liste des personnages disponibles à choisir
+img_t tab_img[NB_MAX_BOUTONS]; //tableau de textures boutons
+texte_t tab_texte[NB_MAX_TEXTE];//tableau de textures texte
 
-int actuel = 0;
-
-char * tab_perso[NB_PERSO];
-
-bouton_t tab_boutons[NB_MAX_BOUTONS];
-texte_t tab_texte[NB_MAX_TEXTE];
-
-
-
+//couleurs sdl
 SDL_Color couleurBlanche = { 255, 255, 255, 255 };
 SDL_Color couleurNoire = { 0, 0, 0, 255 };
 
+//A METTRE DANS .h
+void end(int);
+void init_sdl(void);
+void maj_texte(texte_t *, char *);
+void suivant(SDL_Texture * , SDL_Texture * , SDL_Rect);
+void precedent(SDL_Texture * , SDL_Texture * , SDL_Rect);
+void ajout_personnage(char *);
+void creer_texte(texte_t *, char *);
+void creer_bouton(img_t *, char *);
+void afficher_texte(void);
+void afficher_boutons(void);
+void maj_perso_actuel();
+void detruit_img(img_t *);
+SDL_Texture * creer_texture(char *);
+char * chemin_perso();
 
-//temporaire
+
+//temporaire, existe déjà dans main.c
 void end(int nb){
     if (renderer)
         SDL_DestroyRenderer(renderer);
     if (window)
         SDL_DestroyWindow(window);
-    for(int i = 0 ; i < nb_boutons ; i++){
-        SDL_DestroyTexture(tab_boutons[i].texture);
+    for(int i = 0 ; i < nb_img ; i++){
+        SDL_DestroyTexture(tab_img[i].texture);
     }
     for(int i = 0 ; i < nb_texte ; i++){
         SDL_DestroyTexture(tab_texte[i].message);
@@ -70,7 +84,7 @@ void end(int nb){
     if(nb) exit(nb);
 }
 
-
+/*pareil que la fonction end()*/
 void init_sdl(){
     if (SDL_Init(SDL_INIT_VIDEO) ||
 		!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) ||
@@ -85,24 +99,110 @@ void init_sdl(){
     if (!renderer) end(3);
 }
 
+/*
+met à jour une texture créée à base de texte
+en détruisant la précédente et en recréant une nouvelle 
+avec un texte différent
 
-
-/*suivant() et precedent() servent à se déplacer pour sélectionner un des personnages créés*/
-void suivant(){
-    if(actuel == NB_PERSO - 1) actuel = 0;
-    else actuel++;
+Fonction utilisée pour changer l'affichage du nom du
+personnage sélectionné
+*/
+void maj_texte(texte_t * texte, char * nouvTxt){
+    if(nouvTxt == NULL) end(11);
+    SDL_DestroyTexture(texte->message);
+    texte->message = NULL;
+    creer_texte(texte, nouvTxt);
 }
 
-void precedent(){
-    if(actuel == 0) actuel = NB_PERSO - 1;
-    else actuel--;
-}
-
+/*
+ajoute un personnage dans la liste des personnages
+incrémente le nombre de personnages pour qu'il soit tout le temps à jour
+incrémente l'indice courant pour ne pas écraser le nom des personnages déja ajoutés
+*/
 void ajout_personnage(char * nom){
-    tab_perso[actuel++] = nom;
+    tab_perso[actuel] = nom;
+    actuel++;
+    nb_perso_ajoutes++;
 }
 
+/*
+change l'indice courant du tableau tab_perso pour aller au suivant
+fonctionne circulairement : on revient au début si on dépasse la fin du tableau
+Appelle ensuite la fonction qui met à jour l'affichage
+*/
+void suivant(SDL_Texture * backgroundTexture, SDL_Texture * textureNomJeu, SDL_Rect rectNomJeu){
+    if(actuel < nb_perso_ajoutes - 1) actuel++;
+    else actuel = 0;
+    maj_perso_actuel(backgroundTexture, textureNomJeu, rectNomJeu);
+    
+}
 
+/*
+change l'indice courant du tableau tab_perso pour aller au precedent
+fonctionne circulairement : on revient à la fin si on arrive avant le début du tableau début
+Appelle ensuite la fonction qui met à jour l'affichage
+*/
+void precedent(SDL_Texture * backgroundTexture, SDL_Texture * textureNomJeu, SDL_Rect rectNomJeu){
+    if (actuel > 0) actuel--;
+    else actuel = nb_perso_ajoutes - 1;
+    maj_perso_actuel(backgroundTexture, textureNomJeu, rectNomJeu);
+}
+
+/*
+met à jour l'affichage du menu lorsqu'une flèche est cliquée pour avoir le nom du personnage sélectionné ainsi qu'une 
+image correspondantre d'affiché
+*/
+void maj_perso_actuel(SDL_Texture * backgroundTexture, SDL_Texture * textureNomJeu, SDL_Rect rectNomJeu){
+    maj_texte(&tab_texte[3], tab_perso[actuel]);
+    detruit_img(tab_img + 5);
+    creer_bouton(tab_img + 5, chemin_perso());
+
+    if (!tab_img[5].texture) {
+        end(13);
+    }
+    SDL_RenderClear(renderer);
+
+    SDL_RenderCopy(renderer, backgroundTexture, NULL, NULL);
+    SDL_RenderCopy(renderer, textureNomJeu, NULL, &rectNomJeu);
+
+    afficher_boutons();
+    afficher_texte();
+
+    SDL_RenderPresent(renderer);
+}
+
+/*
+renvoie le chemin du fichier correspondant au perso actuel choisi
+*/
+char * chemin_perso(){
+    switch(actuel){
+        case 0:
+            return "../img/Characters/mage/Face.png";
+        case 1:
+            return "../img/Characters/ninja/ninjaFace.png";
+        case 2:
+            return "../img/Characters/vampire.png";
+        default:
+            end(12);
+    }
+}
+
+/*
+detruit une image passée en paramètre
+*/
+void detruit_img(img_t * image){
+    if (image && image->texture) {
+        SDL_DestroyTexture(image->texture);
+        image->texture = NULL;
+        nb_img--;
+    }
+    
+}
+
+/*
+créée une texture à partir du chemin vers une image
+renvoie un pointeur sur cette texture
+*/
 SDL_Texture * creer_texture(char * chemin){
 	surface = IMG_Load(chemin);
 	if(!surface) end(20);
@@ -112,6 +212,10 @@ SDL_Texture * creer_texture(char * chemin){
 	return nouv_texture;
 }
 
+/*
+créée une texture de type texte avec la string passée en paramètre et la
+stocke dans la structure texte_t dans le champ message
+*/
 void creer_texte(texte_t * texte, char * txt){
     surface = TTF_RenderUTF8_Blended(police, txt, couleurBlanche);
     if(!surface) end(10);
@@ -123,39 +227,39 @@ void creer_texte(texte_t * texte, char * txt){
     //SDL_CreateRGBSurface
 }
 
-void creer_bouton(bouton_t * bouton, char * nomFich){
+/*
+créée une texture à partir du chemin vers une image, le stocke dans le champ texture de la structure img_t
+
+*/
+void creer_bouton(img_t * bouton, char * nomFich){
     bouton->texture = creer_texture(nomFich);
     if(!bouton->texture) end(5);
-    nb_boutons++;
+    nb_img++;
 }
 
-void maj_texte(texte_t * texte, char * nouvTxt){
-    SDL_DestroyTexture(texte->message);
-    creer_texte(texte, nouvTxt);
-}
-
-
+/*
+affiche toutes les textures texte chargées
+*/
 void afficher_texte(){
     for(int i = 0 ; i < nb_texte ; i++){
         SDL_RenderCopy(renderer, tab_texte[i].message, NULL, &tab_texte[i].posTexte);
     }
 }
 
+/*
+affiche toutes les textures boutons chargées
+*/
 void afficher_boutons(){
-    for(int i = 0 ; i < nb_boutons ; i++){
-        SDL_RenderCopy(renderer, tab_boutons[i].texture, NULL, &tab_boutons[i].posBoutonFen);
+    for(int i = 0 ; i < nb_img ; i++){
+        SDL_RenderCopy(renderer, tab_img[i].texture, NULL, &tab_img[i].posBoutonFen);
     }
 }
-
-
-char nomJeu[] = "nom temporaire";
 
 void menu(){
     init_sdl();
     ajout_personnage("mage");
-    ajout_personnage("druide");
-    ajout_personnage("fée");
-
+    ajout_personnage("ninja");
+    ajout_personnage("vampire");
 
 
     police = TTF_OpenFont("../include/Go-Regular.ttf", 100);
@@ -163,29 +267,29 @@ void menu(){
 
 
     //boutons Jouer, Paramètres et Quitter
-    tab_boutons[0] = (bouton_t) {(SDL_Rect){BOUTON_X, 400, BOUTON_W, BOUTON_H}, NULL};
-    tab_boutons[1] = (bouton_t) {(SDL_Rect){BOUTON_X, 600, BOUTON_W, BOUTON_H}, NULL};
-    tab_boutons[2] = (bouton_t) {(SDL_Rect){BOUTON_X, 800, BOUTON_W, BOUTON_H}, NULL};
+    tab_img[0] = (img_t) {(SDL_Rect){IMG_X, 400, IMG_W, IMG_H}, NULL};
+    tab_img[1] = (img_t) {(SDL_Rect){IMG_X, 600, IMG_W, IMG_H}, NULL};
+    tab_img[2] = (img_t) {(SDL_Rect){IMG_X, 800, IMG_W, IMG_H}, NULL};
     //fleches de selection des personnages
-    tab_boutons[3] = (bouton_t) {(SDL_Rect){1350, H_FLECHE, BOUTON_W / 2, BOUTON_H }, NULL};
-    tab_boutons[4] = (bouton_t) {(SDL_Rect){1700, H_FLECHE, BOUTON_W / 2, BOUTON_H }, NULL};
-    //tab_boutons[5] = (bouton_t) {(SDL_Rect){1400, 500, 400, 400 }, NULL};
+    tab_img[3] = (img_t) {(SDL_Rect){1350, H_FLECHE, IMG_W / 2, IMG_H }, NULL};
+    tab_img[4] = (img_t) {(SDL_Rect){1700, H_FLECHE, IMG_W / 2, IMG_H }, NULL};
+    tab_img[5] = (img_t) {(SDL_Rect){1500, 660, 250, 250 }, NULL};
 
 
-    tab_texte[0] = (texte_t) {(SDL_Rect)(SDL_Rect){BOUTON_X + 50, 410, BOUTON_W - 100, BOUTON_H - 40}, NULL};
-    tab_texte[1] = (texte_t) {(SDL_Rect){BOUTON_X + 50, 615, BOUTON_W - 100, BOUTON_H - 40}, NULL};
-    tab_texte[2] = (texte_t) {(SDL_Rect){BOUTON_X + 50, 810, BOUTON_W - 100, BOUTON_H - 40}, NULL};
+    tab_texte[0] = (texte_t) {(SDL_Rect)(SDL_Rect){IMG_X + 50, 410, IMG_W - 100, IMG_H - 40}, NULL};
+    tab_texte[1] = (texte_t) {(SDL_Rect){IMG_X + 50, 615, IMG_W - 100, IMG_H - 40}, NULL};
+    tab_texte[2] = (texte_t) {(SDL_Rect){IMG_X + 50, 810, IMG_W - 100, IMG_H - 40}, NULL};
     tab_texte[3] = (texte_t) {(SDL_Rect){1450, 550, 300, 100}, NULL};
 
 
 
     //créations de tous les boutons
-    creer_bouton(tab_boutons, "../img/Boutons/boutonMenuLarge.png"); //bouton jouer
-    creer_bouton(tab_boutons + 1, "../img/Boutons/boutonMenuLarge.png"); //bouton paramètres
-    creer_bouton(tab_boutons + 2, "../img/Boutons/boutonMenuLarge.png"); //bouton quitter
-    creer_bouton(tab_boutons + 3, "../img/Boutons/flecheGauche.png"); //bouton fleche gauche
-    creer_bouton(tab_boutons + 4, "../img/Boutons/flecheDroite.png"); //bouton fleche droite
-    //creer_bouton(tab_boutons + 5, "../img/Boutons/boutonMenuCarre.png"); //bouton fleche droite
+    creer_bouton(tab_img, "../img/Boutons/boutonMenuLarge.png"); //bouton jouer
+    creer_bouton(tab_img + 1, "../img/Boutons/boutonMenuLarge.png"); //bouton paramètres
+    creer_bouton(tab_img + 2, "../img/Boutons/boutonMenuLarge.png"); //bouton quitter
+    creer_bouton(tab_img + 3, "../img/Boutons/flecheGauche.png"); //bouton fleche gauche
+    creer_bouton(tab_img + 4, "../img/Boutons/flecheDroite.png"); //bouton fleche droite
+    creer_bouton(tab_img + 5, "../img/Characters/mage/Face.png"); //image du personnage choisi
 
 
     //création de toutes les zones de texte
@@ -200,26 +304,25 @@ void menu(){
 	SDL_Texture * backgroundTexture = creer_texture("../img/imgMenu.png");
 
 	//nom du jeu
-    SDL_Rect rectNomJeu = {300, 50, 400, 200};
-    surface = TTF_RenderText_Solid(police, nomJeu, couleurBlanche);
-    SDL_Texture * textureTexte = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Rect rectNomJeu = {250, 100, 650, 200};
+    surface = TTF_RenderUTF8_Blended(police, nomJeu, couleurBlanche);
+    SDL_Texture * textureNomJeu = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
-    if(!textureTexte) end(7);
+    if(!textureNomJeu) end(7);
 
+    //affichage d" l'image de fond et du nom du jeu
     SDL_RenderCopy(renderer, backgroundTexture, NULL, NULL);
-    SDL_RenderCopy(renderer, textureTexte, NULL, &rectNomJeu);
+    SDL_RenderCopy(renderer, textureNomJeu, NULL, &rectNomJeu);
 
     afficher_boutons();
     afficher_texte();
 
-
+    //affiche le rendu à l'écran
     SDL_RenderPresent(renderer);
 
     SDL_Event event;
 
-
     int sortieMenu = 0;
-	int xmouse, ymouse;
     while(!sortieMenu){
         while(SDL_PollEvent(&event)){
             if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)){
@@ -232,32 +335,23 @@ void menu(){
                 SDL_Point point = {event.button.x, event.button.y};
     
                 //bouton quitter ?            
-                if(SDL_PointInRect(&point, &tab_boutons[2].posBoutonFen)){
+                if(SDL_PointInRect(&point, &tab_img[2].posBoutonFen)){
                     sortieMenu = 1;
                 }
 
                 //bouton paramètre ?
-                else if(SDL_PointInRect(&point, &tab_boutons[1].posBoutonFen)){
+                else if(SDL_PointInRect(&point, &tab_img[1].posBoutonFen)){
                     printf("Paramètre\n");
                 }
                 
                 //flèche gauche ?
-                /*
-                A FINIR
-                */
-                else if(SDL_PointInRect(&point, &tab_boutons[3].posBoutonFen)){
-                    printf("flèche gauche\n");
-                    precedent();
-                    maj_texte(&tab_texte[3], tab_perso[actuel]);
-                    afficher_texte();
-                    SDL_RenderPresent(renderer);
-                   
+                else if(SDL_PointInRect(&point, &tab_img[3].posBoutonFen)){
+                    precedent(backgroundTexture, textureNomJeu, rectNomJeu);                   
                 }
 
                 //flèche droite ?
-                else if(SDL_PointInRect(&point, &tab_boutons[4].posBoutonFen)){
-                    printf("flèche droite\n");
-                    suivant();
+                else if(SDL_PointInRect(&point, &tab_img[4].posBoutonFen)){
+                    suivant(backgroundTexture, textureNomJeu, rectNomJeu);
                 }
                 
             }
@@ -268,7 +362,7 @@ void menu(){
     }
 
     SDL_DestroyTexture(backgroundTexture);
-    SDL_DestroyTexture(textureTexte);
+    SDL_DestroyTexture(textureNomJeu);
 }
 
 int main(void){
