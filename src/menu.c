@@ -44,6 +44,7 @@ unsigned char nb_texte = 0;
 bouton_t tab_boutons[NB_MAX_BOUTONS];
 texte_t tab_texte[NB_MAX_TEXTE];
 
+elm_t * actuel;
 
 SDL_Color couleurBlanche = { 255, 255, 255, 255 };
 SDL_Color couleurNoire = { 0, 0, 0, 255 };
@@ -84,6 +85,30 @@ void init_sdl(){
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) end(3);
 }
+
+
+
+/*suivant() et precedent() servent à se déplacer pour sélectionner un des personnages créés*/
+void suivant(){
+    actuel = actuel->suivant;
+}
+
+void precedent(){
+    actuel = actuel->precedent;
+}
+
+void ajout_personnage(char * nom){
+    elm_t * nouveau = malloc(sizeof(elm_t));
+    //si on ajoute le premier élément
+    if(actuel->suivant == NULL){
+        actuel->suivant = nouveau;
+
+    }
+
+}
+
+
+
 
 
 SDL_Texture * creer_texture(char * chemin){
@@ -128,6 +153,10 @@ void afficher_boutons(){
 char nomJeu[] = "nom temporaire";
 
 int menu(){
+
+    actuel->precedent = NULL;
+    actuel->suivant = NULL;
+
 
     init_sdl();
 
@@ -200,13 +229,32 @@ int menu(){
 				break;
 			}
 
-            //test clic bouton quitter
+            
             if(event.type == SDL_MOUSEBUTTONDOWN){
-                //bouton quitter ?
                 SDL_Point point = {event.button.x, event.button.y};
+    
+                //bouton quitter ?            
                 if(SDL_PointInRect(&point, &tab_boutons[2].posBoutonFen)){
                     sortieMenu = 1;
                 }
+
+                //bouton paramètre ?
+                else if(SDL_PointInRect(&point, &tab_boutons[1].posBoutonFen)){
+                    printf("Paramètre\n");
+                }
+                
+                //flèche gauche ?
+                else if(SDL_PointInRect(&point, &tab_boutons[3].posBoutonFen)){
+                    printf("flèche gauche\n");
+                    precedent();
+                }
+
+                //flèche droite ?
+                else if(SDL_PointInRect(&point, &tab_boutons[4].posBoutonFen)){
+                    printf("flèche droite\n");
+                    suivant();
+                }
+                
             }
             
         }
