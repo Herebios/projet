@@ -7,7 +7,7 @@
 #define BOUTON_X 400
 #define BOUTON_H 150
 #define BOUTON_W 400
-#define NB_BOUTONS 10
+#define NB_MAX_BOUTONS 10
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
@@ -23,7 +23,7 @@ typedef struct {
 }bouton_t;
 
 unsigned char nb_boutons = 0;
-bouton_t tab_boutons[NB_BOUTONS];
+bouton_t tab_boutons[NB_MAX_BOUTONS];
 
 SDL_Color couleurBlanche = { 255, 255, 255, 255 };
 SDL_Color couleurNoire = { 0, 0, 0, 255 };
@@ -95,9 +95,6 @@ void afficher_boutons(){
 }
 
 
-
-
-
 char nomJeu[] = "nom temporaire";
 
 int menu(){
@@ -145,8 +142,8 @@ int menu(){
 			}
 
             //test clic bouton quitter
-            
             if(event.type == SDL_MOUSEBUTTONDOWN){
+                //bouton quitter ?
                 SDL_Point point = {event.button.x, event.button.y};
                 if(SDL_PointInRect(&point, &tab_boutons[2].posBoutonFen)){
                     sortieMenu = 1;
