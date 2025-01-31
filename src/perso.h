@@ -32,9 +32,9 @@ typedef enum{
 
 
 typedef struct {
-    char * nom;
-    int portee;
-    float pv;
+    char * nom; ///< nom du personnage
+    int portee; ///< portée de l'attaque du perso
+    float pv;   ///< points de vie du personnage
     char * capa;
     char * dash;
 }t_perso;
