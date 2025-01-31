@@ -10,6 +10,8 @@
 #define H_FLECHE 920
 #define NB_MAX_BOUTONS 10
 #define NB_MAX_TEXTE 10
+#define NB_PERSO 10
+
 
 
 SDL_Window *window = NULL;
@@ -29,22 +31,19 @@ typedef struct {
 }texte_t;
 
 
-typedef struct elm {
-    struct elm * suivant;
-    struct elm * precedent;
-    char * nomPerso;
-}elm_t;
 
 
 unsigned char nb_boutons = 0;
 unsigned char nb_texte = 0;
 
+int actuel = 0;
 
+char * tab_perso[NB_PERSO];
 
 bouton_t tab_boutons[NB_MAX_BOUTONS];
 texte_t tab_texte[NB_MAX_TEXTE];
 
-elm_t * actuel;
+
 
 SDL_Color couleurBlanche = { 255, 255, 255, 255 };
 SDL_Color couleurNoire = { 0, 0, 0, 255 };
@@ -85,30 +84,23 @@ void init_sdl(){
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) end(3);
 }
-//
+
 
 
 /*suivant() et precedent() servent à se déplacer pour sélectionner un des personnages créés*/
 void suivant(){
-    actuel = actuel->suivant;
+    if(actuel == NB_PERSO - 1) actuel = 0;
+    else actuel++;
 }
 
 void precedent(){
-    actuel = actuel->precedent;
+    if(actuel == 0) actuel = NB_PERSO - 1;
+    else actuel--;
 }
 
 void ajout_personnage(char * nom){
-    elm_t * nouveau = malloc(sizeof(elm_t));
-    //si on ajoute le premier élément
-    if(actuel->suivant == NULL){
-        actuel->suivant = nouveau;
-
-    }
-
+    tab_perso[actuel++] = nom;
 }
-
-
-
 
 
 SDL_Texture * creer_texture(char * chemin){
@@ -137,6 +129,12 @@ void creer_bouton(bouton_t * bouton, char * nomFich){
     nb_boutons++;
 }
 
+void maj_texte(texte_t * texte, char * nouvTxt){
+    SDL_DestroyTexture(texte->message);
+    creer_texte(texte, nouvTxt);
+}
+
+
 void afficher_texte(){
     for(int i = 0 ; i < nb_texte ; i++){
         SDL_RenderCopy(renderer, tab_texte[i].message, NULL, &tab_texte[i].posTexte);
@@ -152,13 +150,13 @@ void afficher_boutons(){
 
 char nomJeu[] = "nom temporaire";
 
-int menu(){
-
-    actuel->precedent = NULL;
-    actuel->suivant = NULL;
-
-
+void menu(){
     init_sdl();
+    ajout_personnage("mage");
+    ajout_personnage("druide");
+    ajout_personnage("fée");
+
+
 
     police = TTF_OpenFont("../include/Go-Regular.ttf", 100);
 	if (!police) end(6);
@@ -194,7 +192,7 @@ int menu(){
     creer_texte(tab_texte, "Jouer");
     creer_texte(tab_texte + 1, "Paramètres");
     creer_texte(tab_texte + 2, "Quitter");
-    creer_texte(tab_texte + 3, "nomPerso");
+    creer_texte(tab_texte + 3, tab_perso[0]);
 
 
 
@@ -244,9 +242,16 @@ int menu(){
                 }
                 
                 //flèche gauche ?
+                /*
+                A FINIR
+                */
                 else if(SDL_PointInRect(&point, &tab_boutons[3].posBoutonFen)){
                     printf("flèche gauche\n");
                     precedent();
+                    maj_texte(&tab_texte[3], tab_perso[actuel]);
+                    afficher_texte();
+                    SDL_RenderPresent(renderer);
+                   
                 }
 
                 //flèche droite ?
@@ -264,7 +269,6 @@ int menu(){
 
     SDL_DestroyTexture(backgroundTexture);
     SDL_DestroyTexture(textureTexte);
-    return 0;
 }
 
 int main(void){
