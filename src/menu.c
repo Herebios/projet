@@ -1,24 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <string.h>
 
+
+
 #define IMG_X 400
 #define IMG_H 150
 #define IMG_W 400
+#define X_BOUTON_PARAM 600
+#define W_BOUTON_PARAM 700
+#define H_BOUTON_PARAM 200
 #define H_FLECHE 920
 #define NB_MAX_IMG 10
 #define NB_MAX_TEXTE 10
 #define NB_MAX_PERSO 10
 
+
+
+/*
+compilation :
+gcc menu.c -o menu -lSDL2 -lSDL2_image -lSDL2_ttf
+*/
+
+
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 SDL_Surface *surface = NULL;
 TTF_Font *police;
-
-
 
 typedef struct {
     SDL_Rect posBoutonFen;
@@ -37,6 +49,7 @@ int nb_perso_ajoutes = 0; //nombre de personnages ajoutés avec la fonction ajou
 int actuel = 0; //pour se déplacer avec les flèches dans la liste des personnages à choisir
 
 char nomJeu[] = "BADDOS FOREVER";
+
 
 char * tab_perso[NB_MAX_PERSO]; //liste des personnages disponibles à choisir
 img_t tab_img[NB_MAX_IMG]; //tableau de textures images
@@ -89,11 +102,8 @@ void end(int nb){
 
 /*pareil que la fonction end()*/
 void init_sdl(){
-    if (SDL_Init(SDL_INIT_VIDEO) ||
-		!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) ||
-		TTF_Init()
-	) end(1);
-
+    if (SDL_Init(SDL_INIT_VIDEO) || !(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) end(1);
+    
     window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 1080, SDL_WINDOW_SHOWN);
     if (!window) end(2);
     SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
@@ -107,7 +117,7 @@ céée toutes les textures pour l'affichage de base du menu
 */
 void creer_menu(){
     detruit_tout();
-
+    
     //boutons Jouer, Paramètres et Quitter
     tab_img[0] = (img_t) {(SDL_Rect){IMG_X, 400, IMG_W, IMG_H}, NULL};
     tab_img[1] = (img_t) {(SDL_Rect){IMG_X, 600, IMG_W, IMG_H}, NULL};
@@ -303,7 +313,6 @@ void creer_texte(texte_t * texte, char * txt){
 
 /*
 créée une texture à partir du chemin vers une image, le stocke dans le champ texture de la structure img_t
-
 */
 void creer_image(img_t * image, char * nomFich){
     image->texture = creer_texture(nomFich);
@@ -331,6 +340,7 @@ void afficher_image(){
 
 void menu(){
     init_sdl();
+    TTF_Init();
 
     police = TTF_OpenFont("../include/Go-Regular.ttf", 100);
 	if (!police) end(6);
@@ -352,8 +362,11 @@ void menu(){
     SDL_Event event;
 
     int dansParam = 0;
-
     int sortieMenu = 0;
+
+
+
+
     while(!sortieMenu){
         while(SDL_PollEvent(&event)){
             if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)){
@@ -362,58 +375,72 @@ void menu(){
 			}
             if(event.type == SDL_MOUSEBUTTONDOWN){
                 SDL_Point point = {event.button.x, event.button.y};
-    
-                //bouton quitter ?            
-                if(SDL_PointInRect(&point, &tab_img[2].posBoutonFen)){
-                    sortieMenu = 1;
-                }
-
-                else if(SDL_PointInRect(&point, &tab_img[0].posBoutonFen) && dansParam){
-                    creer_menu();
-                    dansParam = 0;
-                }
-
-                //bouton paramètre ?
-                else if(SDL_PointInRect(&point, &tab_img[1].posBoutonFen)){
-                    dansParam = 1;
-                    /*
-                    enlève les options de sélection du personnage et du nom du joueur
-                    */      
-
-                    detruit_tout();
-                    
-                    //ajout bouton retour (img bois + img retour)
-                    tab_img[0] = (img_t) {(SDL_Rect){50, 50, 200, 200}, NULL};
-                    tab_img[1] = (img_t) {(SDL_Rect){88, 88, 120, 120}, NULL};
-                    //boutons de charge et de sauvegarde des paramètres
-                    tab_img[2] = (img_t) {(SDL_Rect){600, 200, 700, 200}, NULL};
-                    tab_img[3] = (img_t) {(SDL_Rect){600, 500, 700, 200}, NULL};
-
-                    //texte : sauvegarde
-                    tab_texte[0] = (texte_t) {(SDL_Rect)(SDL_Rect){670, 200, 540, 100}, NULL};
-                    //texte :paramètres
-                    tab_texte[1] = (texte_t) {(SDL_Rect)(SDL_Rect){670, 300, 540, 100}, NULL};
-                    
-
-                    creer_image(tab_img, "../img/Boutons/boutonMenuRond.png"); 
-                    creer_image(tab_img + 1, "../img/Boutons/boutonRetour.png");
-                    creer_image(tab_img + 2, "../img/Boutons/boutonMenuLargeCarre.png");  
-                    creer_image(tab_img + 3, "../img/Boutons/boutonMenuLargeCarre.png");  
-
-                    creer_texte(tab_texte, "Sauvegarde");
-                    creer_texte(tab_texte + 1, "Paramètres");
-
-                }
                 
-                //flèche gauche ?
-                else if(SDL_PointInRect(&point, &tab_img[3].posBoutonFen)){
-                    precedent();                     
+                //a-t-on cliqué sur paramètre ?
+                if(dansParam){
+                    //bouton retour en etant dans paramètre ?
+                    if(SDL_PointInRect(&point, &tab_img[0].posBoutonFen)){
+                        creer_menu();
+                        dansParam = 0;
+                    }
+                    //sauvegarder paramètres
+                    else if(SDL_PointInRect(&point, &tab_img[2].posBoutonFen)){
+                        printf("sauvegarde\n");
+                    }   
+                    //charger paramètres
+                    else if(SDL_PointInRect(&point, &tab_img[3].posBoutonFen)){
+                        printf("charge\n");
+                    }
+                    
                 }
+                else{
+                    //bouton quitter ?            
+                    if(SDL_PointInRect(&point, &tab_img[2].posBoutonFen)){
+                        sortieMenu = 1;
+                    }
 
-                //flèche droite ?
-                else if(SDL_PointInRect(&point, &tab_img[4].posBoutonFen)){
-                    suivant();
-                }
+                    //bouton paramètre ?
+                    else if(SDL_PointInRect(&point, &tab_img[1].posBoutonFen)){
+                        dansParam = 1;
+                        detruit_tout();
+                        
+                        //ajout bouton retour (img bois + img retour)
+                        tab_img[0] = (img_t) {(SDL_Rect){50, 50, 200, 200}, NULL};
+                        tab_img[1] = (img_t) {(SDL_Rect){88, 88, 120, 120}, NULL};
+                        //boutons de charge et de sauvegarde des paramètres
+                        tab_img[2] = (img_t) {(SDL_Rect){X_BOUTON_PARAM, 200, W_BOUTON_PARAM, H_BOUTON_PARAM}, NULL};
+                        tab_img[3] = (img_t) {(SDL_Rect){X_BOUTON_PARAM, 500, W_BOUTON_PARAM, H_BOUTON_PARAM}, NULL};
+
+                        //texte : sauvegarder
+                        tab_texte[0] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 200, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
+                        //texte :paramètre
+                        tab_texte[1] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 300, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
+                        //texte : charger
+                        tab_texte[2] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 500, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
+                        //texte :paramètre
+                        tab_texte[3] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 600, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
+                        
+
+                        creer_image(tab_img, "../img/Boutons/boutonMenuRond.png"); 
+                        creer_image(tab_img + 1, "../img/Boutons/boutonRetour.png");
+                        creer_image(tab_img + 2, "../img/Boutons/boutonMenuLargeCarre.png");  
+                        creer_image(tab_img + 3, "../img/Boutons/boutonMenuLargeCarre.png"); 
+                             
+                        creer_texte(tab_texte, "Sauvegarder");
+                        creer_texte(tab_texte + 1, "Paramètres");
+                        creer_texte(tab_texte + 2, "Charger");
+                        creer_texte(tab_texte + 3, "Paramètres");
+                    }
+                    //flèche gauche ?
+                    else if(SDL_PointInRect(&point, &tab_img[3].posBoutonFen) && !dansParam){
+                        precedent();                     
+                    }
+
+                    //flèche droite ?
+                    else if(SDL_PointInRect(&point, &tab_img[4].posBoutonFen) && !dansParam){
+                        suivant();
+                    }
+                }                
                 maj_affichage(backgroundTexture);                   
             }
         }
