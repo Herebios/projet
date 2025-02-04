@@ -15,9 +15,10 @@
 #define W_BOUTON_PARAM 700
 #define H_BOUTON_PARAM 200
 #define H_FLECHE 920
-#define NB_MAX_IMG 10
+#define NB_MAX_IMG 15
 #define NB_MAX_TEXTE 10
 #define NB_MAX_PERSO 10
+#define MAX_CAR_JOUEUR 20
 
 
 
@@ -43,13 +44,18 @@ typedef struct {
 }texte_t;
 
 
+int nbCarJoueur = 0;
+int volume = 100; 
 int nb_img = 0; //nombre de textures cliquables crées
 int nb_texte = 0; //nombre de texture texte crées
 int nb_perso_ajoutes = 0; //nombre de personnages ajoutés avec la fonction ajout_personnage()
 int actuel = 0; //pour se déplacer avec les flèches dans la liste des personnages à choisir
 
-char nomJeu[] = "BADDOS FOREVER";
 
+char nomJoueur[MAX_CAR_JOUEUR + 1] = ""; //nom saisi par l'utilisateur
+char nomJeu[] = "BADDOS FOREVER";
+char cheminParamTxt[] = "../include/sauvegarde.txt";
+char valVolume[4] = "100"; //sert à convertir la valeur du volume pour l'afficher
 
 char * tab_perso[NB_MAX_PERSO]; //liste des personnages disponibles à choisir
 img_t tab_img[NB_MAX_IMG]; //tableau de textures images
@@ -63,6 +69,8 @@ SDL_Color couleurNoire = { 0, 0, 0, 255 };
 void end(int);
 void init_sdl(void);
 void maj_texte(int, char *);
+void maj_affichage(SDL_Texture *);
+void maj_perso_actuel();
 void suivant(void);
 void precedent(void);
 void ajout_personnage(char *);
@@ -70,13 +78,16 @@ void creer_texte(texte_t *, char *);
 void creer_image(img_t *, char *);
 void afficher_texte(void);
 void afficher_image(void);
-void maj_perso_actuel();
 void detruit_img(int);
 void detruit_texte(int);
 void detruit_tout(void);
 void creer_menu(void);
+void sauv_param(void);
+void charge_param(void);
+void modif_volume();
 SDL_Texture * creer_texture(char *);
 char * chemin_perso();
+
 
 
 //temporaire, existe déjà dans main.c
@@ -128,11 +139,13 @@ void creer_menu(){
     //perso sélectionné
     tab_img[5] = (img_t) {(SDL_Rect){1500, 660, 250, 250 }, NULL};
 
+
     tab_texte[0] = (texte_t) {(SDL_Rect)(SDL_Rect){IMG_X + 50, 410, IMG_W - 100, IMG_H - 40}, NULL};
     tab_texte[1] = (texte_t) {(SDL_Rect){IMG_X + 50, 615, IMG_W - 100, IMG_H - 40}, NULL};
     tab_texte[2] = (texte_t) {(SDL_Rect){IMG_X + 50, 810, IMG_W - 100, IMG_H - 40}, NULL};
     tab_texte[3] = (texte_t) {(SDL_Rect){1450, 550, 300, 100}, NULL};
     tab_texte[4] = (texte_t) {(SDL_Rect){250, 100, 650, 200}, NULL};
+    tab_texte[5] = (texte_t) {(SDL_Rect){1250, 100, 600, 250 }, NULL};
 
     //créations de tous les boutons
     creer_image(tab_img, "../img/Boutons/boutonMenuLarge.png"); //bouton jouer
@@ -140,14 +153,19 @@ void creer_menu(){
     creer_image(tab_img + 2, "../img/Boutons/boutonMenuLarge.png"); //bouton quitter
     creer_image(tab_img + 3, "../img/Boutons/flecheGauche.png"); //bouton fleche gauche
     creer_image(tab_img + 4, "../img/Boutons/flecheDroite.png"); //bouton fleche droite
-    creer_image(tab_img + 5, "../img/Characters/mage/Face.png"); //image du personnage choisi
+    creer_image(tab_img + 5, chemin_perso()); //image du personnage choisi
 
     //création de toutes les zones de texte
     creer_texte(tab_texte, "Jouer"); //texte bouton jouer
     creer_texte(tab_texte + 1, "Paramètres"); //texte bouton paramètres
     creer_texte(tab_texte + 2, "Quitter"); //texte bouton quitter
-    creer_texte(tab_texte + 3, tab_perso[0]); //texte nom du perso actuel
+    creer_texte(tab_texte + 3, tab_perso[actuel]); //texte nom du perso actuel
     creer_texte(tab_texte + 4, nomJeu); //texte nom du jeu
+    if(!strcmp(nomJoueur, ""))
+        creer_texte(tab_texte + 5, "Entrez votre nom"); //texte nom du joueur
+    else 
+        creer_texte(tab_texte + 5, "test"); //texte nom du joueur
+
 }
 
 /*
@@ -305,10 +323,6 @@ void creer_texte(texte_t * texte, char * txt){
     texte->message = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface); 
     nb_texte++;
-    /*
-    SDL_Blit pas mal à utiliser avec 
-    SDL_CreateRGBSurface
-    */
 }
 
 /*
@@ -338,9 +352,68 @@ void afficher_image(){
     }
 }
 
+/*
+sauvegarde dans le fichier sauvegarde.txt (dans include) le volume et le personnage actuel choisi par l'utilisateur
+*/
+void sauv_param(){
+    FILE * fichier = fopen(cheminParamTxt, "w");
+    fprintf(fichier, "%d\n%d\n%s", actuel, volume, nomJoueur);
+    fclose(fichier);
+}
+
+/*
+charge les paramètres sauvegardés dans le fichier sauvegarde.txt (dans include)
+*/
+void charge_param(){
+    FILE * fichier = fopen(cheminParamTxt, "r");
+    if(fichier){
+        fscanf(fichier, "%d %d %s", &actuel, &volume, nomJoueur);
+        fclose(fichier);
+    }
+    else printf("Fichier %s introuvable\n", cheminParamTxt);
+    
+}
+
+/*
+modifie l'affichage de la valeur du volume lorsque l'on clique sur le bouton + ou -
+*/
+void modif_volume(){
+    snprintf(valVolume, sizeof(valVolume), "%d", volume);
+    detruit_texte(5);
+    tab_texte[5] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + W_BOUTON_PARAM / 2 + 100, 850, 150, H_BOUTON_PARAM / 2}, NULL};                        
+
+    creer_texte(tab_texte + 5, valVolume);
+}
+
+/*
+met à jour le nom du joueur saisi
+*/
+
+/*
+marche pas :/
+void gestion_saisie(SDL_Event event){
+    if(event.type == SDL_TEXTINPUT){
+        if(nbCarJoueur < MAX_CAR_JOUEUR){
+            strcat(nomJoueur, event.text.text);
+            nbCarJoueur++;
+            maj_nom_joueur();
+        }
+        else if(event.type == SDL_KEYDOWN){
+            if (event.key.keysym.sym == SDLK_BACKSPACE && nbCarJoueur > 0) {
+                nomJoueur[--nbCarJoueur] = '\0';
+                maj_nom_joueur();
+            } else if (event.key.keysym.sym == SDLK_RETURN) {
+                printf("Nom du joueur validé : %s\n", nomJoueur);
+            }
+        }
+    }
+}
+*/
+
 void menu(){
     init_sdl();
     TTF_Init();
+    SDL_StartTextInput();
 
     police = TTF_OpenFont("../include/Go-Regular.ttf", 100);
 	if (!police) end(6);
@@ -363,35 +436,50 @@ void menu(){
 
     int dansParam = 0;
     int sortieMenu = 0;
-
-
-
+    int clic = 0;
 
     while(!sortieMenu){
         while(SDL_PollEvent(&event)){
-            if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)){
-				sortieMenu = 1;
-				break;
-			}
+            //saisie du nom du joueur
+            //gestion_saisie(event);
+			
             if(event.type == SDL_MOUSEBUTTONDOWN){
+                clic = 1;
                 SDL_Point point = {event.button.x, event.button.y};
-                
+
+                                
                 //a-t-on cliqué sur paramètre ?
                 if(dansParam){
-                    //bouton retour en etant dans paramètre ?
+                    //retour menu d'accueil
                     if(SDL_PointInRect(&point, &tab_img[0].posBoutonFen)){
                         creer_menu();
                         dansParam = 0;
                     }
                     //sauvegarder paramètres
                     else if(SDL_PointInRect(&point, &tab_img[2].posBoutonFen)){
-                        printf("sauvegarde\n");
+                        sauv_param();
                     }   
                     //charger paramètres
                     else if(SDL_PointInRect(&point, &tab_img[3].posBoutonFen)){
-                        printf("charge\n");
+                        charge_param();
+                        modif_volume();
+                        
+
                     }
-                    
+                    //volume +
+                    else if(SDL_PointInRect(&point, &tab_img[5].posBoutonFen)){
+                        if(volume < 100) {
+                            volume++;
+                            modif_volume();
+                        }
+                    }
+                    //volume -
+                    else if(SDL_PointInRect(&point, &tab_img[7].posBoutonFen)){
+                        if(volume > 0) {
+                            volume--;
+                            modif_volume();
+                        }
+                    }
                 }
                 else{
                     //bouton quitter ?            
@@ -410,7 +498,18 @@ void menu(){
                         //boutons de charge et de sauvegarde des paramètres
                         tab_img[2] = (img_t) {(SDL_Rect){X_BOUTON_PARAM, 200, W_BOUTON_PARAM, H_BOUTON_PARAM}, NULL};
                         tab_img[3] = (img_t) {(SDL_Rect){X_BOUTON_PARAM, 500, W_BOUTON_PARAM, H_BOUTON_PARAM}, NULL};
-
+                        tab_img[4] = (img_t) {(SDL_Rect){X_BOUTON_PARAM, 800, W_BOUTON_PARAM, H_BOUTON_PARAM}, NULL};
+                        //bouton volume plus
+                        tab_img[5] = (img_t) {(SDL_Rect){X_BOUTON_PARAM - 175, 825, H_BOUTON_PARAM - 50, H_BOUTON_PARAM - 50}, NULL};
+                        tab_img[6] = (img_t) {(SDL_Rect){X_BOUTON_PARAM - 152, 850, H_BOUTON_PARAM - 95, H_BOUTON_PARAM - 100}, NULL};
+                        //bouton volume moins
+                        tab_img[7] = (img_t) {(SDL_Rect){X_BOUTON_PARAM + W_BOUTON_PARAM + 25, 825, H_BOUTON_PARAM - 50, H_BOUTON_PARAM - 50}, NULL};
+                        tab_img[8] = (img_t) {(SDL_Rect){X_BOUTON_PARAM + W_BOUTON_PARAM + 52, 885, H_BOUTON_PARAM - 102, H_BOUTON_PARAM - 175}, NULL};
+                        //bouton volume coupé
+                        /*
+                        tab_img[9] = (img_t) {(SDL_Rect){W_BOUTON_PARAM * 2, 850, H_BOUTON_PARAM - 15, H_BOUTON_PARAM - 15}, NULL};
+                        tab_img[10] = (img_t) {(SDL_Rect){W_BOUTON_PARAM * 2 + 10, 860, H_BOUTON_PARAM - 70, H_BOUTON_PARAM - 60}, NULL};
+                        */
                         //texte : sauvegarder
                         tab_texte[0] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 200, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
                         //texte :paramètre
@@ -419,17 +518,32 @@ void menu(){
                         tab_texte[2] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 500, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
                         //texte :paramètre
                         tab_texte[3] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 600, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
-                        
+                        //texte : volume
+                        tab_texte[4] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 850, W_BOUTON_PARAM / 2, H_BOUTON_PARAM / 2}, NULL};     
+                        //valeur du volume
+                        tab_texte[5] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + W_BOUTON_PARAM / 2 + 100, 850, 150, H_BOUTON_PARAM / 2}, NULL};                        
 
                         creer_image(tab_img, "../img/Boutons/boutonMenuRond.png"); 
                         creer_image(tab_img + 1, "../img/Boutons/boutonRetour.png");
                         creer_image(tab_img + 2, "../img/Boutons/boutonMenuLargeCarre.png");  
                         creer_image(tab_img + 3, "../img/Boutons/boutonMenuLargeCarre.png"); 
+                        creer_image(tab_img + 4, "../img/Boutons/boutonMenuLargeCarre.png"); 
+                        creer_image(tab_img + 5, "../img/Boutons/boutonMenuCarre.png"); 
+                        creer_image(tab_img + 6, "../img/Boutons/boutonPlus.png"); 
+                        creer_image(tab_img + 7, "../img/Boutons/boutonMenuCarre.png"); 
+                        creer_image(tab_img + 8, "../img/Boutons/boutonMoins.png"); 
+                        /*
+                        creer_image(tab_img + 9, "../img/Boutons/boutonMenuRond.png"); 
+                        creer_image(tab_img + 10, "../img/Boutons/boutonVolumeOn.png"); 
+                        */
+
                              
                         creer_texte(tab_texte, "Sauvegarder");
                         creer_texte(tab_texte + 1, "Paramètres");
                         creer_texte(tab_texte + 2, "Charger");
                         creer_texte(tab_texte + 3, "Paramètres");
+                        creer_texte(tab_texte + 4, "Volume");
+                        creer_texte(tab_texte + 5, valVolume);
                     }
                     //flèche gauche ?
                     else if(SDL_PointInRect(&point, &tab_img[3].posBoutonFen) && !dansParam){
@@ -443,10 +557,13 @@ void menu(){
                 }                
                 maj_affichage(backgroundTexture);                   
             }
+            else{
+                clic = 0;
+            }
         }
-        SDL_Delay(100);
+        SDL_Delay(10);
     }
-
+    SDL_StopTextInput();
     SDL_DestroyTexture(backgroundTexture);
 }
 
