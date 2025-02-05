@@ -10,7 +10,7 @@ typedef struct {
 } liste;
 
 liste * creer_liste();
-void detruire_liste(liste *l);
+void detruire_liste(liste **l);
 
 int liste_vide(liste *l);
 int hors_liste(liste *l);
