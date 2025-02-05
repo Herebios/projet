@@ -30,7 +30,7 @@ gcc menu.c -o menu -lSDL2 -lSDL2_image -lSDL2_ttf
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 SDL_Surface *surface = NULL;
-TTF_Font *police;
+TTF_Font *police = NULL;
 
 typedef struct {
     SDL_Rect posBoutonFen;
