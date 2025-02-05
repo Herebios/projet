@@ -168,7 +168,7 @@ céée toutes les textures pour l'affichage de base du menu
     if(!strcmp(nomJoueur, ""))
         creer_texte(tab_texte + 5, "Entrez votre nom"); //texte nom du joueur
     else 
-        creer_texte(tab_texte + 5, "test"); //texte nom du joueur
+        creer_texte(tab_texte + 5, nomJoueur); //texte nom du joueur
 }
 
 void maj_texte(int indice, char * nouvTxt){
@@ -445,7 +445,6 @@ void menu(){
 
     int dansParam = 0;
     int sortieMenu = 0;
-    int clic = 0;
     int volumeOn = 1;
     int modifNom;
 
@@ -453,34 +452,37 @@ void menu(){
         while(SDL_PollEvent(&event)){
             modifNom = 0; //vaut 1 lorsqu'une touche alphanumérique est appuyée
             //saisie du nom du joueur
-            /*
-            PROBLEME : quand je clik sur 1 touche jeu peu plu cliké sur lait bouttoN
-            */
             if(event.type == SDL_KEYDOWN){
                 SDL_Keycode touche = event.key.keysym.sym;
+                //si c'est a-z ou 1-9
                 if (nbCarJoueur < NB_MAX_CAR_JOUEUR && ((touche >= SDLK_a && touche <= SDLK_z) || (touche >= SDLK_0 && touche <= SDLK_9))) {
                     nomJoueur[nbCarJoueur++] = (char)touche;
                     nomJoueur[nbCarJoueur] = '\0';
                     modifNom = 1;
                 }
+                //suppression d'un caractère
                 else if(touche == SDLK_BACKSPACE){
-                    if(nbCarJoueur >= 1)
+                    if(nbCarJoueur >= 1){
                         nomJoueur[--nbCarJoueur] = '\0';
-                    else if(nbCarJoueur == 1)
+                        modifNom = 1;
+                    }
+                    else if(nbCarJoueur == 1){
                         nomJoueur[--nbCarJoueur] = '\0';
-                    modifNom = 1;
+                        modifNom = 1;
+                    }                    
                 }
+                //maj du nom affiché à l'écran
                 if(modifNom){
                     tab_texte[5] = (texte_t) {(SDL_Rect){1250, 100, 600, 250 }, NULL};
                     detruit_texte(5);
                     if(nbCarJoueur != 0)
                         creer_texte(tab_texte + 5, nomJoueur);
+                        nb_texte--;
                     maj_affichage(backgroundTexture);
                 }
             }
             
             else if(event.type == SDL_MOUSEBUTTONDOWN){
-                clic = 1;
                 SDL_Point point = {event.button.x, event.button.y};             
                 //a-t-on cliqué sur paramètre ?
                 if(dansParam){
@@ -523,6 +525,10 @@ void menu(){
                     //bouton quitter ?            
                     if(SDL_PointInRect(&point, &tab_img[2].posBoutonFen)){
                         sortieMenu = 1;
+                    }
+                    //bouton jouer ?
+                    if(SDL_PointInRect(&point, &tab_img[0].posBoutonFen)){
+                        printf("jouer\n");                         
                     }
                     //bouton paramètre ?
                     else if(SDL_PointInRect(&point, &tab_img[1].posBoutonFen)){
@@ -591,9 +597,6 @@ void menu(){
                     }
                 }                
                 maj_affichage(backgroundTexture);                   
-            }
-            else{
-                clic = 0;
             }
         }
         SDL_Delay(10);
