@@ -4,7 +4,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
-#include <string.h>
 
 
 
@@ -262,9 +261,9 @@ char * chemin_perso(){
         case 0:
             return "../img/Characters/mage/Face.png";
         case 1:
-            return "../img/Characters/ninja/ninjaFace.png";
+            return "../img/Characters/ninja/Face.png";
         case 2:
-            return "../img/Characters/vampire.png";
+            return "../img/Characters/vampire/Face.png";
         default:
             end(12);
     }
