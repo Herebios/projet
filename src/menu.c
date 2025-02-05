@@ -53,7 +53,7 @@ int actuel = 0; //pour se déplacer avec les flèches dans la liste des personna
 
 
 char nomJoueur[MAX_CAR_JOUEUR + 1] = ""; //nom saisi par l'utilisateur
-char nomJeu[] = "BADDOS FOREVER";
+char nomJeu[] = "BAD'DOS 4EVER";
 char cheminParamTxt[] = "../include/sauvegarde.txt";
 char valVolume[4] = "100"; //sert à convertir la valeur du volume pour l'afficher
 
