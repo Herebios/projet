@@ -22,7 +22,7 @@
 
 /*
 compilation :
-gcc menu.c -o menu -lSDL2 -lSDL2_image -lSDL2_ttf
+gcc menu.c -o menu -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 */
 
 SDL_Window *window = NULL;
@@ -57,6 +57,7 @@ char cheminMusique[] = "../include/musiqueMenu.ogg";
 char cheminParamTxt[] = "../include/sauvegarde.txt";
 char valVolume[4] = "100"; //sert à convertir la valeur du volume pour l'afficher
 
+
 char * tab_perso[NB_MAX_PERSO]; //liste des personnages disponibles à choisir
 img_t tab_img[NB_MAX_IMG]; //tableau de textures images
 texte_t tab_texte[NB_MAX_TEXTE];//tableau de textures texte
@@ -88,6 +89,9 @@ void sauv_param(void);
 void charge_param(void);
 void modif_volume(void);
 void inverse_img_vol(int);
+void creer_toutes_images(char **, int);
+
+
 
 void menu(void);
 
@@ -408,6 +412,19 @@ void inverse_img_vol(int volumeOn){
     }
 }
 
+void creer_toutes_images(char * tab[], int nbElm){
+    for(int i = 0 ; i < nbElm ; i++){
+        creer_image(tab_img + i, tab[i]);
+    }
+}
+
+void creer_tous_textes(char * tab[], int nbElm){
+    for(int i = 0 ; i < nbElm ; i++){
+        creer_texte(tab_texte + 1, tab[i]);
+    }
+}
+
+
 void menu(){
     init_sdl();
     TTF_Init();
@@ -444,6 +461,7 @@ void menu(){
     SDL_Event event;
 
     int dansParam = 0;
+    int dansJouer = 0;
     int sortieMenu = 0;
     int volumeOn = 1;
     int modifNom;
@@ -483,9 +501,20 @@ void menu(){
             }
             
             else if(event.type == SDL_MOUSEBUTTONDOWN){
-                SDL_Point point = {event.button.x, event.button.y};             
-                //a-t-on cliqué sur paramètre ?
-                if(dansParam){
+                SDL_Point point = {event.button.x, event.button.y};        
+
+                //
+                if(dansJouer){
+                    if(SDL_PointInRect(&point, &tab_img[0].posBoutonFen)){
+                        dansJouer = 0;
+                        sortieMenu = 1;
+                    }
+
+                }
+
+
+                //est-on dans l'option paramètre ?
+                else if(dansParam){
                     //retour menu d'accueil
                     if(SDL_PointInRect(&point, &tab_img[0].posBoutonFen)){
                         creer_menu();
@@ -528,7 +557,17 @@ void menu(){
                     }
                     //bouton jouer ?
                     if(SDL_PointInRect(&point, &tab_img[0].posBoutonFen)){
-                        printf("jouer\n");                         
+                        printf("jouer\n");
+                        dansJouer = 1;
+                        detruit_tout();               
+
+                        tab_img[0] = (img_t) {(SDL_Rect){X_BOUTON_PARAM, 200, W_BOUTON_PARAM, H_BOUTON_PARAM}, NULL};
+                        tab_img[1] = (img_t) {(SDL_Rect){X_BOUTON_PARAM, 500, W_BOUTON_PARAM, H_BOUTON_PARAM}, NULL};
+
+                        creer_image(tab_img, "../img/Boutons/boutonMenuLargeCarre.png");  
+                        creer_image(tab_img  + 1, "../img/Boutons/boutonMenuLargeCarre.png");  
+
+                               
                     }
                     //bouton paramètre ?
                     else if(SDL_PointInRect(&point, &tab_img[1].posBoutonFen)){
@@ -564,28 +603,34 @@ void menu(){
                         tab_texte[4] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 850, W_BOUTON_PARAM / 2, H_BOUTON_PARAM / 2}, NULL};     
                         //valeur du volume
                         tab_texte[5] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + W_BOUTON_PARAM / 2 + 100, 850, 150, H_BOUTON_PARAM / 2}, NULL};                        
-
-                        creer_image(tab_img, "../img/Boutons/boutonMenuRond.png"); 
-                        creer_image(tab_img + 1, "../img/Boutons/boutonRetour.png");
-                        creer_image(tab_img + 2, "../img/Boutons/boutonMenuLargeCarre.png");  
-                        creer_image(tab_img + 3, "../img/Boutons/boutonMenuLargeCarre.png"); 
-                        creer_image(tab_img + 4, "../img/Boutons/boutonMenuLargeCarre.png"); 
-                        creer_image(tab_img + 5, "../img/Boutons/boutonMenuCarre.png"); 
-                        creer_image(tab_img + 6, "../img/Boutons/boutonPlus.png"); 
-                        creer_image(tab_img + 7, "../img/Boutons/boutonMenuCarre.png"); 
-                        creer_image(tab_img + 8, "../img/Boutons/boutonMoins.png"); 
-                        creer_image(tab_img + 9, "../img/Boutons/boutonMenuRond.png");
+                        
+                        
+                        char * cheminTexte[] = {"Sauvegarder", "Charger", "Paramètres", "Volume", valVolume};
+                        char * cheminImg[] = {"../img/Boutons/boutonMenuRond.png",
+                                            "../img/Boutons/boutonRetour.png",
+                                            "../img/Boutons/boutonMenuLargeCarre.png",
+                                            "../img/Boutons/boutonMenuLargeCarre.png",
+                                            "../img/Boutons/boutonMenuLargeCarre.png",
+                                            "../img/Boutons/boutonMenuCarre.png",
+                                            "../img/Boutons/boutonPlus.png",
+                                            "../img/Boutons/boutonMenuCarre.png",
+                                            "../img/Boutons/boutonMoins.png",
+                                            "../img/Boutons/boutonMenuRond.png"};
+                        
+                        creer_toutes_images(cheminImg, 10);
                         if(volume) 
                             creer_image(tab_img + 10, "../img/Boutons/boutonVolumeOn.png"); 
                         else
                             creer_image(tab_img + 10, "../img/Boutons/boutonVolumeOff.png"); 
-                         
+                        
+                        /*
                         creer_texte(tab_texte, "Sauvegarder");
                         creer_texte(tab_texte + 1, "Paramètres");
                         creer_texte(tab_texte + 2, "Charger");
                         creer_texte(tab_texte + 3, "Paramètres");
                         creer_texte(tab_texte + 4, "Volume");
                         creer_texte(tab_texte + 5, valVolume);
+                        */
                     }
                     //flèche gauche ?
                     else if(SDL_PointInRect(&point, &tab_img[3].posBoutonFen) && !dansParam){
