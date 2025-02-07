@@ -1,24 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_mixer.h>
-
-
-
-#define IMG_X 400
-#define IMG_H 150
-#define IMG_W 400
-#define X_BOUTON_PARAM 600
-#define W_BOUTON_PARAM 700
-#define H_BOUTON_PARAM 200
-#define H_FLECHE 920
-#define NB_MAX_IMG 15
-#define NB_MAX_TEXTE 10
-#define NB_MAX_PERSO 10
-#define NB_MAX_CAR_JOUEUR 20
+#include "menu.h"
 
 /*
 compilation :
@@ -30,17 +10,7 @@ SDL_Renderer *renderer = NULL;
 SDL_Surface *surface = NULL;
 TTF_Font *police = NULL;
 Mix_Music *musique = NULL;
-
-
-typedef struct {
-    SDL_Rect posBoutonFen;
-    SDL_Texture * texture;
-}img_t;
-
-typedef struct {
-    SDL_Rect posTexte;
-    SDL_Texture * message;
-}texte_t;
+SDL_Texture * backgroundTexture = NULL;
 
 int nbCarJoueur = 0; //indice des lettres à ajouter lorsqu'on clique sur le clavier
 int volume = 100; 
@@ -65,37 +35,6 @@ texte_t tab_texte[NB_MAX_TEXTE];//tableau de textures texte
 //couleurs sdl
 SDL_Color couleurBlanche = { 255, 255, 255, 255 };
 SDL_Color couleurNoire = { 0, 0, 0, 255 };
-
-//A METTRE DANS .h
-void end(int);
-void init_sdl(void);
-void creer_menu(void);
-void maj_texte(int, char *);
-void maj_perso_actuel();
-void maj_affichage(SDL_Texture *);
-void ajout_personnage(char *);
-void suivant(void);
-void precedent(void);
-SDL_Texture * creer_texture(char *);
-char * chemin_perso(void);
-void detruit_tout(void);
-void detruit_img(int);
-void detruit_texte(int);
-void creer_texte(texte_t *, char *);
-void creer_image(img_t *, char *);
-void afficher_texte(void);
-void afficher_image(void);
-void sauv_param(void);
-void charge_param(void);
-void modif_volume(void);
-void inverse_img_vol(int);
-void creer_toutes_images(char **, int);
-
-
-
-void menu(void);
-
-
 
 void end(int nb){
     //temporaire, existe déjà dans main.c
@@ -122,7 +61,7 @@ void init_sdl(){
     /*pareil que la fonction end()*/
     if (SDL_Init(SDL_INIT_VIDEO) || !(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) end(1);
     
-    window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 1080, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1080, SDL_WINDOW_SHOWN);
     if (!window) end(2);
     SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
@@ -168,6 +107,7 @@ céée toutes les textures pour l'affichage de base du menu
     creer_texte(tab_texte + 2, "Quitter"); //texte bouton quitter
     creer_texte(tab_texte + 3, tab_perso[actuel]); //texte nom du perso actuel
     creer_texte(tab_texte + 4, nomJeu); //texte nom du jeu
+
     //si le nom du joueur n'est pas chargé, on affiche "entrez votre nom"
     if(!strcmp(nomJoueur, ""))
         creer_texte(tab_texte + 5, "Entrez votre nom"); //texte nom du joueur
@@ -205,7 +145,7 @@ image correspondantre d'affiché
     }
 }
 
-void maj_affichage(SDL_Texture * backgroundTexture){
+void maj_affichage(){
 /*
 met à jour l'affichage à l'écran : affichage l'image de fond et tous les textes et images chargées
 */
@@ -219,8 +159,6 @@ met à jour l'affichage à l'écran : affichage l'image de fond et tous les text
 void ajout_personnage(char * nom){
 /*
 ajoute un personnage dans la liste des personnages
-incrémente le nombre de personnages pour qu'il soit tout le temps à jour
-incrémente l'indice courant pour ne pas écraser le nom des personnages déja ajoutés
 */
     tab_perso[nb_perso_ajoutes] = nom;
     nb_perso_ajoutes++;
@@ -261,6 +199,8 @@ renvoie un pointeur sur cette texture
 	return nouv_texture;
 }
 
+
+//modifier si on ajoute des perso
 char * chemin_perso(){
 /*
 renvoie le chemin du fichier correspondant au perso actuel choisi
@@ -352,7 +292,7 @@ affiche toutes les textures texte chargées
 
 void afficher_image(){
 /*
-affiche toutes les textures boutons chargées
+affiche toutes les textures imagges chargées
 */
     for(int i = 0 ; i < nb_img ; i++){
         SDL_RenderCopy(renderer, tab_img[i].texture, NULL, &tab_img[i].posBoutonFen);  
@@ -420,10 +360,25 @@ void creer_toutes_images(char * tab[], int nbElm){
 
 void creer_tous_textes(char * tab[], int nbElm){
     for(int i = 0 ; i < nbElm ; i++){
-        creer_texte(tab_texte + 1, tab[i]);
+        creer_texte(tab_texte + i, tab[i]);
     }
 }
 
+void modif_nom(){
+    tab_texte[5] = (texte_t) {(SDL_Rect){1250, 100, 600, 250 }, NULL};
+    
+    detruit_texte(5);
+    
+    if(nbCarJoueur > 0){
+        creer_texte(tab_texte + 5, nomJoueur);
+        
+    }
+    else{
+        creer_texte(tab_texte + 5, "Entrez votre nom");
+    }
+    nb_texte--;
+    maj_affichage();   
+}
 
 void menu(){
     init_sdl();
@@ -445,7 +400,7 @@ void menu(){
 	if (!police) end(6);
 
     //image de fond
-	SDL_Texture * backgroundTexture = creer_texture("../img/imgMenu.png");
+	backgroundTexture = creer_texture("../img/imgMenu.png");
 
     //liste des personnages à sélectionner
     ajout_personnage("mage");
@@ -456,7 +411,7 @@ void menu(){
     creer_menu();
 
     //affiche à l'écran l'image de fond, le nom du jeu, les images et les textes chargés
-    maj_affichage(backgroundTexture);                
+    maj_affichage();                
 
     SDL_Event event;
 
@@ -464,54 +419,37 @@ void menu(){
     int dansJouer = 0;
     int sortieMenu = 0;
     int volumeOn = 1;
-    int modifNom;
 
     while(!sortieMenu){
         while(SDL_PollEvent(&event)){
-            modifNom = 0; //vaut 1 lorsqu'une touche alphanumérique est appuyée
+            
             //saisie du nom du joueur
             if(event.type == SDL_KEYDOWN){
                 SDL_Keycode touche = event.key.keysym.sym;
+
                 //si c'est a-z ou 1-9
                 if (nbCarJoueur < NB_MAX_CAR_JOUEUR && ((touche >= SDLK_a && touche <= SDLK_z) || (touche >= SDLK_0 && touche <= SDLK_9))) {
                     nomJoueur[nbCarJoueur++] = (char)touche;
                     nomJoueur[nbCarJoueur] = '\0';
-                    modifNom = 1;
+                    modif_nom();                    
                 }
                 //suppression d'un caractère
                 else if(touche == SDLK_BACKSPACE){
                     if(nbCarJoueur >= 1){
                         nomJoueur[--nbCarJoueur] = '\0';
-                        modifNom = 1;
-                    }
-                    else if(nbCarJoueur == 1){
-                        nomJoueur[--nbCarJoueur] = '\0';
-                        modifNom = 1;
-                    }                    
-                }
-                //maj du nom affiché à l'écran
-                if(modifNom){
-                    tab_texte[5] = (texte_t) {(SDL_Rect){1250, 100, 600, 250 }, NULL};
-                    detruit_texte(5);
-                    if(nbCarJoueur != 0)
-                        creer_texte(tab_texte + 5, nomJoueur);
-                        nb_texte--;
-                    maj_affichage(backgroundTexture);
-                }
+                        modif_nom();
+                    }                          
+                }      
             }
             
             else if(event.type == SDL_MOUSEBUTTONDOWN){
                 SDL_Point point = {event.button.x, event.button.y};        
-
-                //
                 if(dansJouer){
                     if(SDL_PointInRect(&point, &tab_img[0].posBoutonFen)){
                         dansJouer = 0;
                         sortieMenu = 1;
                     }
-
                 }
-
 
                 //est-on dans l'option paramètre ?
                 else if(dansParam){
@@ -528,6 +466,7 @@ void menu(){
                     else if(SDL_PointInRect(&point, &tab_img[3].posBoutonFen)){
                         charge_param();
                         modif_volume();
+                        nbCarJoueur = strlen(nomJoueur);
                     }
                     //volume +
                     else if(SDL_PointInRect(&point, &tab_img[5].posBoutonFen)){
@@ -592,20 +531,20 @@ void menu(){
                         tab_img[10] = (img_t) {(SDL_Rect){W_BOUTON_PARAM / 4 + 10, 845, H_BOUTON_PARAM - 70, H_BOUTON_PARAM - 60}, NULL};
                         
                         //texte : sauvegarder
-                        tab_texte[0] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 200, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
+                        tab_texte[0] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 70, 200, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
                         //texte :paramètre
-                        tab_texte[1] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 300, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
+                        tab_texte[1] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 70, 300, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
                         //texte : charger
-                        tab_texte[2] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 500, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
+                        tab_texte[2] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 70, 500, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
                         //texte :paramètre
-                        tab_texte[3] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 600, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
+                        tab_texte[3] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 70, 600, W_BOUTON_PARAM - 150, H_BOUTON_PARAM / 2}, NULL};
                         //texte : volume
-                        tab_texte[4] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + 70, 850, W_BOUTON_PARAM / 2, H_BOUTON_PARAM / 2}, NULL};     
+                        tab_texte[4] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 70, 850, W_BOUTON_PARAM / 2, H_BOUTON_PARAM / 2}, NULL};     
                         //valeur du volume
-                        tab_texte[5] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + W_BOUTON_PARAM / 2 + 100, 850, 150, H_BOUTON_PARAM / 2}, NULL};                        
+                        tab_texte[5] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + W_BOUTON_PARAM / 2 + 100, 850, 150, H_BOUTON_PARAM / 2}, NULL};                        
                         
                         
-                        char * cheminTexte[] = {"Sauvegarder", "Charger", "Paramètres", "Volume", valVolume};
+                        char * cheminTexte[] = {"Sauvegarder", "Paramètres", "Charger", "Paramètres", "Volume", valVolume};
                         char * cheminImg[] = {"../img/Boutons/boutonMenuRond.png",
                                             "../img/Boutons/boutonRetour.png",
                                             "../img/Boutons/boutonMenuLargeCarre.png",
@@ -623,7 +562,8 @@ void menu(){
                         else
                             creer_image(tab_img + 10, "../img/Boutons/boutonVolumeOff.png"); 
                         
-                        /*
+                        creer_tous_textes(cheminTexte, 6);
+                            /*
                         creer_texte(tab_texte, "Sauvegarder");
                         creer_texte(tab_texte + 1, "Paramètres");
                         creer_texte(tab_texte + 2, "Charger");
@@ -641,18 +581,18 @@ void menu(){
                         suivant();
                     }
                 }                
-                maj_affichage(backgroundTexture);                   
+                maj_affichage();                   
             }
         }
         SDL_Delay(10);
     }
+    detruit_tout();
     SDL_DestroyTexture(backgroundTexture);
     Mix_FreeMusic(musique);
     Mix_CloseAudio();
 }
 
-int main(void){
+void main(void){
     menu();
     end(0);
-    return 0;
 }

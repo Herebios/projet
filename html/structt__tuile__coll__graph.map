@@ -1,0 +1,13 @@
+<map id="t_tuile" name="t_tuile">
+<area shape="rect" id="Node000001" title=" " alt="" coords="149,181,211,207"/>
+<area shape="rect" id="Node000002" href="$structt__biome.html" title=" " alt="" coords="5,93,80,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,127,94,155,121,170,149,181,147,186,119,175,90,160,59,131"/>
+<area shape="rect" id="Node000003" href="$structt__objet.html" title=" " alt="" coords="104,93,171,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="143,132,150,156,168,179,164,182,146,159,138,133"/>
+<area shape="rect" id="Node000004" href="$structt__pnj.html" title=" " alt="" coords="195,93,250,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="213,132,188,182,184,180,208,130"/>
+<area shape="rect" id="Node000005" href="$structt__perso.html" title=" " alt="" coords="274,93,345,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="282,129,236,160,199,184,196,179,233,155,279,124"/>
+<area shape="rect" id="Node000006" href="$structt__pos.html" title=" " alt="" coords="281,5,338,31"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="312,45,312,93,307,93,307,45"/>
+</map>
