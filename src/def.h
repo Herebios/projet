@@ -21,7 +21,8 @@ rect est l'emplacement sur l'écran, sprite le rectangle sur la texture
 */
 	//bool monstre/joueur
     unsigned char num_anim, max_anim, nb_textures, vit, niveau;
-	int vie, attaque, defense, magie, mana;
+	int vie, attaque, magie;
+	//int mana; Pas implémenté pour le moment
 	t_classe classe;
 	t_pos pos_map;//indices pour map.tuiles
     SDL_Rect sprite, rect;//rect = coo sur tuile

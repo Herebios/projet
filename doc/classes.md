@@ -5,7 +5,7 @@ type : rôle du personnage
 
 
 
--- Mage
+-- Mage:
 type : polyvalent (spécialisation)
 Pv : 50
 Portée d’attaque : moyenne / longue
@@ -20,8 +20,7 @@ Déplacement - téléportation :
     distance : tuile
 
 
-
--- Archer
+-- Archer:
 type : dégâts à distance
 Pv : 60
 Portée d’attaque : longue
@@ -57,24 +56,56 @@ Déplacement - charge :
     déplacement assez rapide dans une direction verouillée
     cd : 20s
 
+
 -- Guerrier:
 type : dégâts au corps-à-corps
 Pv : 80
-Capacités : dash  ?? (tape fort le monsieur)
-Portée d’attaque : courte
-Dash: Saute les montagne(différence de niveau)
+Portée d'attaque : courte
+Attaque de base - coup d'épée :
+	dmg : 15
+	cd : 0.8s
+Attaque puissante - attaque rotative :
+	peut être lancée juste après un coup d'épée
+	attaque en cercle autour du guerrier
+	dmg : 10
+	cd : 15s
+Compétence utilitaire - récupération rapide :
+	Soin 10 Pv + augmente sa régénération naturelle de pv pour 10s
+	baisse sa vitesse de déplacement
+	cd : 30s
+Déplacement - saut :
+	saute par-dessus un obstacle au sol
+	déplacement rapide de plusieurs cases
+	cd : 12s
 
 
 -- Informaticien:
 type : information
-Pv: 30 (temporaire)
-Capacités : pose un truc sur une case,
-si déjà posé affiche la tuile sur lequel est le truc.
-Portée d’attaque : ??
-Dash: ce tp au truc même si dans une autre tuile
+Pv: 50
+Portée d'attaque : courte
+Attaque de base - coup de taser :
+	dmg : 8
+	cd : 1s
+Compétence 1 - tourelle d'attaque :
+	tourelle fixe (devient plus forte en fonction du niveau)
+		pv : 30
+		portée : longue
+		dmg : 5
+		cd : 1s
+		nombre max : de 2 à N
+Compétence 2 - tourelle à information :
+	si pas encore posée, pose une caméra sur une tuile (?destruction possible?)	
+		cd : 10s
+	sinon:
+		si même tuile, récupère la caméra
+			cd : 5s
+		sinon, change la vision pour voir à travers la caméra à distance (?toute la tuile?)
+			cd : 10s après être revenu au personnage
+Passif - maître de l'information :
+	Si minimap, plus d'informations sur alliés, ennemis?
+	Information sur quêtes et évènements en avance
 
-
--- Ninja :
+-- Ninja:
 type : furtif
 Description :
     Déplacements furtifs et rapides;
@@ -84,7 +115,7 @@ Portée d’attaque :
 Dash : invisible pendant quelques secondes tant qu’il ne tire pas ou ne se fait pas tirer dessus
 
 
--- Druide :
+-- Druide:
 type : support
 Description :
     Quêtes pour améliorer et protéger sa forêt;
@@ -95,21 +126,44 @@ Portée d’attaque : variable
 Dash : ?
 
 
--- Vampire :
+-- Vampire:
 type : dégâts à distance
 Description :
     Absorbe le sang des adversaires et monstres pour utiliser ses compétences;
     Sacrifie des PV pour attaquer.
 
--- Imitateur :
+-- Imitateur:
 type : polyvalent
 Description : 
     Copie pour le combat, attaques et statistiques d'un allié;
     Copie d'apparence, les ennemis vont recevoir les mauvaises informations.
 
-# Solo :
--- Druide :
-""
+# Solo
 
-	
-	
+-- Druide:
+Description :
+	Progression très forte au cours de la partie avec ses quêtes propres;
+	Revient à la vie dans sa forêt en cas de mort sans pénalité (sauf temps);
+Victoire :
+	Forêt complètement étendue;
+Défaite :
+	Victoire d'une équipe;
+	Destruction de son arbre sacré;
+Quêtes :
+	Sauver des animaux pour débloquer des transformations;
+	Agrandir sa forêt;
+	Renforcer l'arbre pour gagner des avantages dans la forêt
+
+
+-- Ninja -> Assassin:
+Description :
+	Le meilleur des combattants dès le début, mais ne progresse pas
+	comme les autres joueurs, il doit pas être rattrapé.
+Victoire :
+	Tuer chaque joueur au moins une fois
+Défaite :
+	Victoire d'une équipe;
+	Son temps est compté, il gagne du temps en éliminant les monstres
+	mais surtout les joueurs;
+Quêtes :
+	Contrats particuliers pour tuer un joueur/monstre et gagne un bonus
