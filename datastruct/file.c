@@ -1,14 +1,5 @@
 #include "file.h"
 
-typedef struct fileElem_s{void * val; struct fileElem_s *next;} fileElem; // structure pour un élément d'une file.
-typedef struct file_s{fileElem *head, *queue;} file; // structure pour une file.
-
-
-// Fonction pour la destrucion 
-void file_destroyType(void *val){
-	free(val);
-}
-
 // Fonction pour créer une nouvelle file.
 file *newFile(){
 	file *f = (file*) malloc(sizeof (file));
@@ -39,7 +30,7 @@ void fileFree(file **f, void (*destroyFunction)(void*)){
 	f* = NULL;
 }
 
-void *fileRetirerTete(file *f){
+void *defiler(file *f){
 	if (f == NULL || f->head == NULL){
 		return NULL;
 	}
@@ -48,6 +39,14 @@ void *fileRetirerTete(file *f){
 	free(f->head);
 	f->head = temp;
 	return retVal;
+}
+
+void enfiler(file *f, void* val, size_t size){
+	f->queue->next = (fileElem*) malloc(sizeof(fileElem));
+	f->queue = f->queue->next;
+	f->queue->val = malloc(size);
+	memcpy(f->queue->val, val, size);
+	f->queue->next = NULL;
 }
 
 void fileAjoutQueue(file *f, void* val){

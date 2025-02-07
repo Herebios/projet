@@ -1,9 +1,14 @@
+#include <stdlib.h>
+
 /**
  * @file file.h
  * @brief Fichier d'accés à une file et aux fonctions principales. Fortement lié à file.c.
  * @author Lucas REVERBEL--LONGHI
  * @date 2025-02-04
 */ 
+
+typedef struct fileElem_s{void * val; struct fileElem_s *next;} fileElem; // structure pour un élément d'une file.
+typedef struct file_s{fileElem *head, *queue;} file; // structure pour une file.
 
 /**
  * @fn file *newFile()
@@ -28,12 +33,14 @@ char fileVide(file *f);
 void fileFree(file **f);
 
 /**
- * @fn void *fileRetirerTete(file *f)
+ * @fn void *defiler(file *f)
  * @brief Renvoie et retire la valeur positionné en tête de la File.
  * @param[in] f Un pointeur sur une File.
  * @return Renvoie le pointeur sur la valeur positionné en tête de la File.
  */
-void *fileRetirerTete(file *f);
+void *defiler(file *f);
+
+void enfiler(file *f, void* val, size_t size)
 
 /**
  * @fn void fileAjoutQueue(file *f, void* val)
@@ -50,10 +57,3 @@ void fileAjoutQueue(file *f, void* val);
  * @return Renvoie un entier correspondant à la taille de la File.
  */
 int fileLength(file *f);
-
-/**
- * @fn void file_destroyType(void *val)
- * @brief Fonction de destruction des types de bases
- * @param[in] val Une variable allouée dynamiquement à detruire.
- */  
-void file_destroyType(void *val);
