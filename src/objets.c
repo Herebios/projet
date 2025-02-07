@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "objet.h"
+#include <stdlib.h>
+#include "objets.h"
 
 t_objet tabObjets[NB_OBJETS];
 
@@ -17,7 +18,8 @@ void creer_objet(t_objet * objet, char * nomObjet, t_raretee raretee, t_objetPri
     objet->moveSpeed.priority = structmoveSpeed.priority;
 }
 
-void affiche_objet(t_objet * objet) {
+
+void affiche_tout_objets(t_objet * objet) {
     printf("%s : \n", objet->nom);
     printf("\tRaretee : %d\n", objet->raretee);
     printf("\tMagie   : val=%f\tprio=%d\n", objet->magie.valeur, objet->magie.priority);
@@ -27,46 +29,108 @@ void affiche_objet(t_objet * objet) {
 }
 
 
-void udpdateStats(t_statsPerso * perso, int * nbObjetsActuels) {
-    for (int i = 0; i < *nbObjetsActuels; i++) {
+void creer_stats_perso(t_statsPerso * perso, char * nom, float magie, float force, int pv, int vitesse) {
+    perso->nom = nom;
+    perso->magie.statsBase = magie;
+    perso->force.statsBase = force;
+    perso->pv.statsBase = pv;
+    perso->vitesse.statsBase = vitesse;
+    perso->nbObjets = 0;
+}
+
+
+void udpdate_stats(t_statsPerso * perso) {
+    for (int i = 0; i < perso->nbObjets; i++) {
+        if (perso->listeObj[i].magie.priority == 0) {
+            perso->magie.newStats = perso->magie.statsBase;
+        }
+        if (perso->listeObj[i].force.priority == 0) {
+            perso->force.newStats = perso->force.statsBase;
+        }
+        if (perso->listeObj[i].soin.priority == 0) {
+            perso->pv.newStats = perso->pv.statsBase;
+        }
+        if (perso->listeObj[i].moveSpeed.priority == 0) {
+            perso->vitesse.newStats = perso->vitesse.statsBase;
+        }
+    }
+
+    for (int i = 0; i < perso->nbObjets; i++) {
         if (perso->listeObj[i].magie.priority == 1) {
-            perso->magie *= perso->listeObj[i].magie.valeur;
+            perso->magie.newStats = (perso->magie.statsBase) * (perso->listeObj[i].magie.valeur);
         }
         if (perso->listeObj[i].force.priority == 1) {
-            perso->force *= perso->listeObj[i].force.valeur;
+            perso->force.newStats = (perso->force.statsBase) * (perso->listeObj[i].force.valeur);
         }
         if (perso->listeObj[i].soin.priority == 1) {
-            perso->pv *= perso->listeObj[i].soin.valeur;
+            perso->pv.newStats = (perso->pv.statsBase) * (perso->listeObj[i].soin.valeur);
         }
-        if (perso->listeObj[i].magie.priority == 1) {
-            perso->vitesse *= perso->listeObj[i].moveSpeed.valeur;
+        if (perso->listeObj[i].moveSpeed.priority == 1) {
+            perso->vitesse.newStats =(perso->vitesse.statsBase) * (perso->listeObj[i].moveSpeed.valeur);
         }
     }
 
 
-    for (int i = 0; i < *nbObjetsActuels; i++) {
+    for (int i = 0; i < perso->nbObjets; i++) {
         if (perso->listeObj[i].magie.priority == 2) {
-            perso->magie += perso->listeObj[i].magie.valeur;
+            perso->magie.newStats = (perso->magie.statsBase) + (perso->listeObj[i].magie.valeur);
         }
         if (perso->listeObj[i].force.priority == 2) {
-            perso->force += perso->listeObj[i].force.valeur;
+            perso->force.newStats = (perso->force.statsBase) + (perso->listeObj[i].force.valeur);
         }
         if (perso->listeObj[i].soin.priority == 2) {
-            perso->pv += perso->listeObj[i].soin.valeur;
+            perso->pv.newStats =(perso->pv.statsBase) + (perso->listeObj[i].soin.valeur);
         }
-        if (perso->listeObj[i].magie.priority == 2) {
-            perso->vitesse += perso->listeObj[i].moveSpeed.valeur;
+        if (perso->listeObj[i].moveSpeed.priority == 2) {
+            perso->vitesse.newStats = (perso->vitesse.statsBase) + (perso->listeObj[i].moveSpeed.valeur);
         }
     }
 }
 
-void nouvelObjet(t_statsPerso * perso, t_objet objetAjoute, int * nbObjetsActuels) {
-    perso->listeObj[*nbObjetsActuels] = objetAjoute;
-    (*nbObjetsActuels)++;
+void affiche_stats_perso(t_statsPerso * perso) {
+    printf("Stats de base :\n");
+    printf("\tMagie   : %f\n", perso->magie.statsBase);
+    printf("\tForce   : %f\n", perso->force.statsBase);
+    printf("\tPV      : %d\n", perso->pv.statsBase);
+    printf("\tVitesse : %d\n\n", perso->vitesse.statsBase);
+    printf("Stats actualisées :\n");
+    printf("\tMagie   : %f\n", perso->magie.newStats);
+    printf("\tForce   : %f\n", perso->force.newStats);
+    printf("\tPV      : %d\n", perso->pv.newStats);
+    printf("\tVitesse : %d\n\n", perso->vitesse.newStats);
+} 
+
+void nouvel_objet(t_statsPerso * perso, t_objet objetAjoute) {
+    if (perso->nbObjets == 5) {
+        printf("Le joueur a déja 5 objets, on ne peut pas en rajouter un autre\n");
+        exit(0);
+    }
+    else {
+        perso->listeObj[perso->nbObjets] = objetAjoute;
+        (perso->nbObjets)++;
+    }
+    
 }
-void retirerObjet(t_statsPerso * perso, t_objet objetAjoute, int * nbObjetsActuels) {
-    (*nbObjetsActuels)--;
-    perso->listeObj[*nbObjetsActuels] = NULL; //mettre a jour en tableau de poiteur sur t_objet (peut etre...)
+void retirer_objet(t_statsPerso * perso, int positionInventaire) {
+    if (perso->nbObjets == 0) {
+        printf("Le joueur n'a plus d'objets, on ne peut pas lui en retirer\n");
+        exit(1);
+    }
+    else {
+        for (int i = 1; i < (perso->nbObjets) + 1; i++) {
+            if (i >= positionInventaire) {
+                perso->listeObj[i - 1] = perso->listeObj[i];
+            }
+        }
+        (perso->nbObjets)--;
+    }
+    
+}
+
+void afficher_objets_perso(t_statsPerso * perso) {
+    for (int i = 0; i < perso->nbObjets; i++) {
+        printf("Objet %d : %s\n", i + 1, perso->listeObj[i].nom);
+    }
 }
 
 
@@ -107,10 +171,22 @@ int main() {
     creer_objet(tabObjets + i++, "Lance des cieux", epique, (t_objetPrio){1.2, 1}, (t_objetPrio){1.3, 1}, (t_objetPrio){0, 0}, (t_objetPrio){-5, 2});
     creer_objet(tabObjets + i++, "Cuirasse du paladin", legendaire, (t_objetPrio){0, 0}, (t_objetPrio){1.1, 1}, (t_objetPrio){25, 2}, (t_objetPrio){-3, 2});
 
-        
+    /*
     for (int i = 0; i < NB_OBJETS; i++) {
-        affiche_objet(tabObjets + i);
+        affiche_tout_objets(tabObjets + i);
     }
+    */
+
+
+    t_statsPerso mage;
+    creer_stats_perso(&mage, "Mage", 2, 0.5, 50, 10);
+
+    nouvel_objet(&mage, tabObjets[0]);
+    nouvel_objet(&mage, tabObjets[33]);
+    afficher_objets_perso(&mage);
+
+    udpdate_stats(&mage);
+    affiche_stats_perso(&mage);
 
     return 0;
 }
