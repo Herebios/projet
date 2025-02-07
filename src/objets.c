@@ -19,7 +19,7 @@ void creer_objet(t_objet * objet, char * nomObjet, t_raretee raretee, t_objetPri
 }
 
 
-void affiche_tout_objets(t_objet * objet) {
+void affiche_1_objet(t_objet * objet) {
     printf("%s : \n", objet->nom);
     printf("\tRaretee : %d\n", objet->raretee);
     printf("\tMagie   : val=%f\tprio=%d\n", objet->magie.valeur, objet->magie.priority);
@@ -179,8 +179,9 @@ int main() {
     }
     */
 
+    affiche_1_objet(tabObjets + 22);
+    t_statsPerso mage; 
 
-    t_statsPerso mage;
     creer_stats_perso(&mage, "Mage", 2, 0.5, 50, 10);
 
     nouvel_objet(&mage, tabObjets[0]);

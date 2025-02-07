@@ -54,7 +54,7 @@ void creer_objet(t_objet * objet, char * nomObjet, t_raretee raretee, t_objetPri
  * @brief Fonction qui permet d'afficher les champs d'un objet en console
  * @param objet pointeur sur l'objet à afficher
  */
-void affiche_tout_objets(t_objet * objet);
+void affiche_1_objet(t_objet * objet);
 
 /**
  * @brief Fonction qui permet de créer les statistiques d'un perso
