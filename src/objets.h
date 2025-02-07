@@ -58,7 +58,7 @@ void affiche_tout_objets(t_objet * objet);
 
 /**
  * @brief Fonction qui permet de créer les statistiques d'un perso
- * @param perso pointeur sur l'objet à afficher
+ * @param perso pointeur sur la structure à afficher
  * @param nom nom du personnage
  * @param magie magie de base du perso
  * @param force forcede base du perso
@@ -69,9 +69,26 @@ void creer_stats_perso(t_statsPerso * perso, char * nom, float magie, float forc
 
 /**
  * @brief Fonction qui met a jour les stats d'un personnage en fonction des ses objets
- * @param perso pointeur sur l'objet à afficher
+ * @param perso pointeur sur la structure à mettre à jour
  */
 void udpdate_stats(t_statsPerso * perso);
+
+/**
+ * @brief Fonction qui ajoute un objet à l'inventaire d'un personnage
+ * @param perso pointeur sur la structure à qui on ajoute un objet
+ * @param objetAjoute l'objet que l'on veut ajouter
+ */
 void nouvel_objet(t_statsPerso * perso, t_objet objetAjoute);
+
+/**
+ * @brief Fonction qui retire un objet à l'inventaire, la fonction retire l'objet d'indice "positionInventaire" (le premier élément de l'inventaire est l'indice 1)
+ * @param perso pointeur sur la structure à qui on retire un objet
+ * @param positionInventaire l'indice de l'objet que l'on veut retirer (l'indexation commence par 1 et non 0)
+ */
 void retirer_objet(t_statsPerso * perso, int positionInventaire);
+
+/**
+ * @brief Fonction qui affiche tous les objets d'un joueur 
+ * @param perso pointeur sur la structure à qui on retire un objet
+ */
 void afficher_objets_perso(t_statsPerso * perso);

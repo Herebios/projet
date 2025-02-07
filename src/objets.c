@@ -40,6 +40,7 @@ void creer_stats_perso(t_statsPerso * perso, char * nom, float magie, float forc
 
 
 void udpdate_stats(t_statsPerso * perso) {
+    // Parcourt des éléments non modifiés, on leur appplique les stats de base du perso
     for (int i = 0; i < perso->nbObjets; i++) {
         if (perso->listeObj[i].magie.priority == 0) {
             perso->magie.newStats = perso->magie.statsBase;
@@ -55,6 +56,7 @@ void udpdate_stats(t_statsPerso * perso) {
         }
     }
 
+    //parcourt des élément à multiplier
     for (int i = 0; i < perso->nbObjets; i++) {
         if (perso->listeObj[i].magie.priority == 1) {
             perso->magie.newStats = (perso->magie.statsBase) * (perso->listeObj[i].magie.valeur);
@@ -70,7 +72,7 @@ void udpdate_stats(t_statsPerso * perso) {
         }
     }
 
-
+    //parcourt des éléments à ajouter
     for (int i = 0; i < perso->nbObjets; i++) {
         if (perso->listeObj[i].magie.priority == 2) {
             perso->magie.newStats = (perso->magie.statsBase) + (perso->listeObj[i].magie.valeur);
