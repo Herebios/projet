@@ -30,7 +30,7 @@ char fileVide(file *f);
  * @brief Supprime une File et met le pointeur sur NULL.
  * @param[in] L'address d'un pointeur sur une File.
  */
-void fileFree(file **f);
+void fileFree(file **f, void (*destroyFunction)(void*));
 
 /**
  * @fn void *defiler(file *f)
@@ -40,7 +40,7 @@ void fileFree(file **f);
  */
 void *defiler(file *f);
 
-void enfiler(file *f, void* val, size_t size)
+void enfiler(file *f, void* val, size_t size);
 
 /**
  * @fn void fileAjoutQueue(file *f, void* val)
