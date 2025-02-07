@@ -27,7 +27,7 @@ void fileFree(file **f, void (*destroyFunction)(void*)){
 	}
 
 	free(*f);
-	f* = NULL;
+	*f = NULL;
 }
 
 void *defiler(file *f){
@@ -58,8 +58,8 @@ void fileAjoutQueue(file *f, void* val){
 
 int fileLength(file *f){
 	int k = 0;
-	fileElem *fe = f->head; 
-	while (fileElem->next){
+	fileElem *fe = f->head;
+	while (fe->next){
 		k++;
 		fe = fe->next;
 	}

@@ -1,11 +1,12 @@
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * @file file.h
  * @brief Fichier d'accés à une file et aux fonctions principales. Fortement lié à file.c.
  * @author Lucas REVERBEL--LONGHI
  * @date 2025-02-04
-*/ 
+*/
 
 typedef struct fileElem_s{void * val; struct fileElem_s *next;} fileElem; // structure pour un élément d'une file.
 typedef struct file_s{fileElem *head, *queue;} file; // structure pour une file.
