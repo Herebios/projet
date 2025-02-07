@@ -1,17 +1,18 @@
 #include "file.h"
 
-// Fonction pour créer une nouvelle file.
+/* Fonction pour créer une nouvelle file.
+Renvoie NULL en cas d'échec, la file en cas de réussite
+*/
 file *newFile(){
 	file *f = (file*) malloc(sizeof (file));
-	if (f){ // On assigne les valeurs à NULL si l'allocation à réussit.
-		f->head = NULL;
-		f->queue = NULL;
+	if (f){
+		f->head = f->queue = NULL;
 	}
-	return f; // Renvoie le pointeur ou NULL si l'allocation a échoué
+	return f;
 }
 
 char fileVide(file * f){
-	return (f->head != NULL);
+	return f->head==NULL;
 }
 
 void fileFree(file **f, void (*destroyFunction)(void*)){
@@ -19,21 +20,19 @@ void fileFree(file **f, void (*destroyFunction)(void*)){
 		return;
 	}
 	fileElem *temp;
-	while ((*f)->head != NULL){
+	while ((*f)->head){
 		temp = (*f)->head->next;
 		destroyFunction((*f)->head->val);
 		free((*f)->head);
 		(*f)->head = temp;
 	}
-
 	free(*f);
 	*f = NULL;
 }
 
 void *defiler(file *f){
-	if (f == NULL || f->head == NULL){
+	if (f->head == NULL)
 		return NULL;
-	}
 	fileElem *temp = f->head->next;
 	void *retVal = f->head->val;
 	free(f->head);
@@ -42,26 +41,23 @@ void *defiler(file *f){
 }
 
 void enfiler(file *f, void* val, size_t size){
-	f->queue->next = (fileElem*) malloc(sizeof(fileElem));
-	f->queue = f->queue->next;
+	if(f->queue){
+		f->queue->next = (fileElem*) malloc(sizeof(fileElem));
+		f->queue = f->queue->next;
+	}else{
+		f->head=f->queue = (fileElem*) malloc(sizeof(fileElem));
+	}
 	f->queue->val = malloc(size);
 	memcpy(f->queue->val, val, size);
 	f->queue->next = NULL;
 }
 
-void fileAjoutQueue(file *f, void* val){
-	f->queue->next = (fileElem*) malloc(sizeof(fileElem));
-	f->queue = f->queue->next;
-	f->queue->val = val;
-	f->queue->next = NULL;
-}
-
 int fileLength(file *f){
-	int k = 0;
-	fileElem *fe = f->head;
-	while (fe->next){
-		k++;
-		fe = fe->next;
+	int len = 0;
+	fileElem *temp = f->head;
+	while (temp->next){
+		len++;
+		temp = temp->next;
 	}
-	return k;
+	return len;
 }

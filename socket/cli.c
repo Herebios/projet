@@ -11,6 +11,10 @@
     #include <sys/socket.h>
 #endif
 
+#include "../datastruct/file.h"
+
+file * file_socket;
+
 #define PORT 2048
 #define BUFFER_SIZE 101
 #define flush fflush(stdout)
@@ -27,7 +31,6 @@ void * ecoute_thread(void *);
 int setup_client(socket_struct *, char *);
 void fermeture_client(int, socket_struct *);
 
-
 int main_client(char * ip) {
 	//setup socket
 	printf("'%s'\n", ip);flush;
@@ -38,6 +41,7 @@ int main_client(char * ip) {
 		return error_code;
 	}
 	puts("setup client OK\n");flush;
+	file_socket = newFile();
 
 	int ecr_size;
 	char ecr[BUFFER_SIZE];
@@ -45,7 +49,8 @@ int main_client(char * ip) {
 	pthread_create(&client.thread, NULL, ecoute_thread, (void*)&client);
 
 	bool valide=1;
-	while(valide){
+	void * data;
+	while(valide && client.online){//si le thread est fermé prématurément
 		fgets(ecr,BUFFER_SIZE,stdin);
 		ecr_size=strlen(ecr);
 		if (ecr_size>1){
@@ -56,6 +61,12 @@ int main_client(char * ip) {
 			valide=0;
 			send(client.socket, "!", 1, 0);
 		}
+		while(!fileVide(file_socket)){
+			data=defiler(file_socket);
+			printf("'%s'\n", (char*)data);flush;
+			free(data);
+		}
+		sleep(1);
 	}
 	while(client.online) sleep(1);//attend l'arrêt du thread d'écoute
 
@@ -69,20 +80,22 @@ S'arrête quand le serveur envoie '!'
 Signal par pointeur qui arrête le main
 */
 	socket_struct* client=(socket_struct*)arg;
-	int lec_size;
-    char lec[BUFFER_SIZE];
+	int buffer_size;
+    char buffer[BUFFER_SIZE];
     bool valide=1;
-	do{
-		lec_size = recv(client->socket, lec, BUFFER_SIZE-1, 0);
-		if(lec_size > 0){
-            lec[lec_size] = '\0';
-            switch(*lec){
+	while(valide){
+		buffer_size = recv(client->socket, buffer, BUFFER_SIZE-1, 0);
+		if(buffer_size > 0){
+            buffer[buffer_size] = '\0';
+            switch(*buffer){
                 case '!': valide=0;break;
                 default:
-                    printf("%d)> '%s'\n", lec_size, lec);flush;
+					//copie du message dans la file
+					enfiler(file_socket, buffer, buffer_size+1);
             }
-        }else return (void*) 1;
-	}while(valide);
+        }else valide=0;
+	}
+	printf("fin ecoute thread\n");flush;
 	client->online=0;
 	return NULL;
 }
