@@ -1,3 +1,9 @@
+/**
+ * @file objets.h
+ * @author nathan
+ * @brief déclaration des types permettants de créer les objets equipables et de mettre a jour les stats des persos
+ */
+
 #define NB_OBJETS 34
 #define NB_OBJETS_PAR_PERSO 5
 
