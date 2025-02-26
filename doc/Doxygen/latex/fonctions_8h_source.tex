@@ -1,0 +1,48 @@
+\doxysection{fonctions.\+h}
+\hypertarget{fonctions_8h_source}{}\label{fonctions_8h_source}\index{src/fonctions.h@{src/fonctions.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Déclarations\ des\ fonctions}}
+\DoxyCodeLine{00002\ \textcolor{comment}{Les\ dépendances\ sont\ marquées\ par\ une\ tab.\ La\ fonction\ appelle\ les\ autres}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv);}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//fin\ du\ programme}}
+\DoxyCodeLine{00008\ \textcolor{keywordtype}{void}\ end(\textcolor{keywordtype}{int});}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{/*\ init\ les\ ressources\ du\ jeu\ */}}
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{void}\ init\_sdl(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keywordtype}{void}\ init\_jeu(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{//void\ init\_objets(void);}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ init\_map(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{comment}{//génère\ une\ tuile\ en\ fonction\ du\ biome\ qu'on\ veut}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ generer\_tuile(\mbox{\hyperlink{structt__tuile}{t\_tuile}}*,\ nom\_biome);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ init\_biomes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00020\ \textcolor{comment}{/*\ Relatif\ aux\ joueurs\ */}}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ nouv\_perso(\textcolor{keywordtype}{char}*\ nom);\textcolor{comment}{//le\ nom\ donne\ le\ chemin\ des\ textures}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//indices\ de\ la\ position\ du\ joueur\ sur\ la\ tuile}}
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{void}\ position\_perso(\mbox{\hyperlink{structt__perso}{t\_perso}}*,\ \mbox{\hyperlink{structt__pos}{t\_pos}}*);}
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{void}\ avancer(\mbox{\hyperlink{structt__perso}{t\_perso}}*);\textcolor{comment}{//déplacement\ d'un\ joueur\ en\ fonction\ de\ sa\ direction}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{bool}\ inclus(SDL\_Rect*\ a,\ SDL\_Rect*\ b);\textcolor{comment}{//pour\ l'instant,\ vérifie\ si\ le\ joueur\ ne\ sort\ pas\ de\ l'écran}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//modification\ des\ attributs}}
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}\ changer\_anim(\mbox{\hyperlink{structt__perso}{t\_perso}}*,\ t\_anim);\textcolor{comment}{//modifier\ l'animation\ d'un\ joueur}}
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{void}\ changer\_dir(\mbox{\hyperlink{structt__perso}{t\_perso}}*,\ Uint8\ mask);\textcolor{comment}{//modifie\ la\ dir\ d'un\ joueur\ selon\ le\ clavier\ (4\ flèches)}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//place\ la\ texture\ à\ l'écran}}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{void}\ effacer\_joueur(\mbox{\hyperlink{structt__perso}{t\_perso}}*);}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{void}\ afficher\_perso(\mbox{\hyperlink{structt__perso}{t\_perso}}*);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{//appel\ de\ surface\ puis\ de\ texture\ pour\ charger\ une\ image}}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{void}\ nouv\_surface(\textcolor{keywordtype}{char}*\ path);}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ nouv\_texture(SDL\_Texture**\ textures,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ nb);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{//renvoie\ un\ pointeur\ sur\ la\ tuile\ du\ joueur}}
+\DoxyCodeLine{00038\ \mbox{\hyperlink{structt__tuile}{t\_tuile}}*\ ptr\_tuile\_courante();}
+\DoxyCodeLine{00039\ \textcolor{comment}{//charge\ jeu.tuile\_courante\ dans\ jeu.texture\_tuile\ (prêt\ à\ afficher)}}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{void}\ charger\_tuile\_courante(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ afficher\_tuile\_courante();}
+\DoxyCodeLine{00042\ }
+
+\end{DoxyCode}
