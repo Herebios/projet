@@ -29,13 +29,13 @@
 
 
 typedef struct {
-    SDL_Rect posBoutonFen; ///<coordonnées x, y et hauteur et largeur de l'image dans la fenêtre
-    SDL_Texture * texture; ///<texture de l'image
+    SDL_Rect posBoutonFen; ///<Coordonnées x, y et hauteur et largeur de l'image dans la fenêtre
+    SDL_Texture * texture; ///<Texture de l'image
 }img_t;
 
 typedef struct {
-    SDL_Rect posTexte; ///<coordonnées x, y et hauteur et largeur du texte dans la fenêtre
-    SDL_Texture * message; ///<texture du texte
+    SDL_Rect posTexte; ///<Coordonnées x, y et hauteur et largeur du texte dans la fenêtre
+    SDL_Texture * message; ///<Texture du texte
 }texte_t;
 
 
@@ -61,29 +61,29 @@ void end(int nb);
 void init_sdl(void);
 
 /**
- * @brief Créer le menu de base avec toutes les textures nécessaires
+ * @brief Créée le menu de base avec toutes les textures nécessaires
  */
 void creer_menu(void);
 
 /**
- * @brief met à jour une texture de texte en détruisant la précédente et en recréant une nouvelle avec un texte différent
+ * @brief Met à jour une texture de texte en détruisant la précédente et en recréant une nouvelle avec un texte différent
  * @param indice L'indice de la texture du tableau de texte que l'on veut détruire
  * @param nouvtxt La nouvelle chaîne de caractères qui remplacera celle d'avant
  */
 void maj_texte(int indice, char * nouvTxt);
 
  /**
-  * @brief met à jour l'affichage du menu lorsqu'une flèche est cliquée pour avoir le nom du personnage sélectionné ainsi qu'une image correspondantre d'affiché
+  * @brief Met à jour l'affichage du menu lorsqu'une flèche est cliquée pour avoir le nom du personnage sélectionné ainsi qu'une image correspondantre d'affiché
   */
 void maj_perso_actuel(void);
 
 /**
- * @brief met à jour l'affichage à l'écran : affichage l'image de fond et tous les textes et images chargées 
+ * @brief Met à jour l'affichage à l'écran : affichage l'image de fond et tous les textes et images chargées 
  */
 void maj_affichage(void);
 
 /**
- * @brief ajoute un personnage dans la liste des personnages à sélectionner
+ * @brief Ajoute un personnage dans la liste des personnages à sélectionner
  * @param nom Le nom du personnage qu'on veut ajouter
  */
 void ajout_personnage(char * nom);
@@ -106,7 +106,7 @@ void precedent(void);
 SDL_Texture * creer_texture(char * chemin);
 
 /**
- * @brief renvoie le chemin du fichier en fonctiondu personnage choisi par l'utilisateur
+ * @brief Renvoie le chemin du fichier en fonctiondu personnage choisi par l'utilisateur
  * @return Renvoie une chaîne de caractères correspondant au chemin vers le bon fichier 
  */
 char * chemin_perso(void);
@@ -129,14 +129,14 @@ void detruit_texte(int indice);
 void detruit_tout(void);
 
 /**
- * @brief créée une SDL_Texture de type texte avec le texte passé en paramètre et la stocke dans le tableau de texte_t
+ * @brief Créée une SDL_Texture de type texte avec le texte passé en paramètre et la stocke dans le tableau de texte_t
  * @param texte Le tableau de texte_t où sont stockées toutes les textures de type texte
  * @param txt Le texte que l'on veut créer
  */
 void creer_texte(texte_t * texte, char * txt);
 
 /**
- * @brief créée une SDL_Texture avec le chemin vers l'image passé en paramètre et la stocke dans le tableau de img_t
+ * @brief Créée une SDL_Texture avec le chemin vers l'image passé en paramètre et la stocke dans le tableau de img_t
  * @param image Le tableau de texte_t où sont stockées toutes les textures de type texte
  * @param nomfich Le chemin vers l'image que l'on veut créer
  */
@@ -176,14 +176,14 @@ void inverse_img_vol(int volumeOn);
 /**
  * @brief Créer toutes les images à partir d'un tableau où sont stockés tous les chemins vers les images
  * @param tab Le tableau de char * qui contient les chemins vers les images que l'on veut créer
- * @param nbElm le nombre d'images que l'on veut créer (doit être égal au nombre de chemins dans tab)
+ * @param nbElm Le nombre d'images que l'on veut créer (doit être égal au nombre de chemins dans tab)
  */
 void creer_toutes_images(char * tab[], int nbElm);
 
 /**
- * @brief Créer tous les textes à partir d'un tableau où sont stockés tous les textes que l'on veut afficher
+ * @brief Créer tous les textes à partir d'un tableau de chaînes de caractère où sont stockés tous les textes que l'on veut afficher
  * @param tab Le tableau de char * qui contient les textes que l'on doit afficher
- * @param nbElm le nombre de textes que l'on veut créer (doit être égal au nombre de texte dans tab)
+ * @param nbElm Le nombre de textes que l'on veut créer (doit être égal au nombre de texte dans tab)
  */
 void creer_tous_textes(char * tab[], int nbElm);
 
@@ -193,6 +193,6 @@ void creer_tous_textes(char * tab[], int nbElm);
 void modif_nom(void);
 
 /**
- * @brief Fonction qui appelle toutes les précédentes pour créer le menu fonctionnel. Boucle principale de gestion d'événements SDL pour gérer les interractions avecv l'utilisateur
+ * @brief Fonction qui appelle toutes les précédentes pour créer le menu fonctionnel. Boucle principale de gestion d'événements SDL pour gérer les interractions avec l'utilisateur
  */
 void menu(void);
