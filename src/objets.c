@@ -1,3 +1,9 @@
+/**
+ * @file objets.c
+ * @author nathan
+ * @brief fichier contenant les fonctions permettant la création des objets et la mises à jour des compétences des persos
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "objets.h"
