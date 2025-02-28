@@ -15,33 +15,31 @@ typedef struct {
 } prio_t;
 
 typedef struct {
-    char * nom;//permet de trouver la texture
+    char * nom;//permet de charger la texture
     rarete_t rarete;
-	objetPrio_t vie;
-	objetPrio_t force;
-	objetPrio_t magie;
-	objetPrio_t speed;
+	prio_t vie;
+	prio_t force;
+	prio_t magie;
+	prio_t speed;
 } objet_t;
-
-
 
 /**
  * @brief Fonction qui permet de créer un nouvel objet
  * @param objet pointeur sur l'objet à créer
  * @param nomObjet nom de l'objet à créer
- * @param raretee raretée de l'objet à créer
+ * @param rarete raretée de l'objet à créer
  * @param structMagie structure contenant les modification de magie de l'objet
  * @param structForce structure contenant les modification de force de l'objet
  * @param structSoin structure contenant les modification de soin de l'objet
  * @param structmoveSpeed structure contenant les modification de vitesse de déplacement de l'objet
  */
-void creer_objet(t_objet * objet, char * nomObjet, t_raretee raretee, t_objetPrio structMagie, t_objetPrio structForce, t_objetPrio structSoin, t_objetPrio structmoveSpeed);
+void creer_objet(objet_t * objet, char * nom, rarete_t rarete, prio_t vie, prio_t force, prio_t magie, prio_t speed);
 
 /**
  * @brief Fonction qui permet d'afficher les champs d'un objet en console
  * @param objet pointeur sur l'objet à afficher
  */
-void affiche_1_objet(t_objet * objet);
+void affiche_objet(objet_t * objet);
 
 /**
  * @brief Fonction qui permet de créer les statistiques d'un perso
@@ -65,7 +63,7 @@ void udpdate_stats(t_statsPerso * perso);
  * @param perso pointeur sur la structure à qui on ajoute un objet
  * @param objetAjoute l'objet que l'on veut ajouter
  */
-void nouvel_objet(t_statsPerso * perso, t_objet objetAjoute);
+void nouvel_objet(t_statsPerso * perso, objet_t objetAjoute);
 
 /**
  * @brief Fonction qui retire un objet à l'inventaire, la fonction retire l'objet d'indice "positionInventaire" (le premier élément de l'inventaire est l'indice 1)
@@ -75,7 +73,7 @@ void nouvel_objet(t_statsPerso * perso, t_objet objetAjoute);
 void retirer_objet(t_statsPerso * perso, int positionInventaire);
 
 /**
- * @brief Fonction qui affiche tous les objets d'un joueur 
+ * @brief Fonction qui affiche tous les objets d'un joueur
  * @param perso pointeur sur la structure à qui on retire un objet
  */
 void afficher_objets_perso(t_statsPerso * perso);

@@ -13,7 +13,7 @@
 #define unsigned char octet;
 
 typedef enum {administrateur, guerrier, mage, archer, assassin, informaticien, druide, necromancien} classe_t;
-typedef enum {vie, force, magie, speed} stats_t;
+typedef enum {vie, force, magie, speed} stats_t;//force = attaque physique + défense physique / magie pareil
 
 typedef enum {zone, projectile, instant} comp_type;
 typedef enum {atk1, atk2, skill, mouv, ult, NB_COMP} icomp_t;

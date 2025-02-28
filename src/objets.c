@@ -10,40 +10,26 @@
 
 t_objet tabObjets[NB_OBJETS];
 
-
-void creer_objet(t_objet * objet, char * nomObjet, t_raretee raretee, t_objetPrio structMagie, t_objetPrio structForce, t_objetPrio structSoin, t_objetPrio structmoveSpeed) {
-    objet->nom = nomObjet;
-    objet->raretee = raretee;
-    objet->magie.valeur = structMagie.valeur;
-    objet->magie.priority = structMagie.priority;
-    objet->force.valeur = structForce.valeur;
-    objet->force.priority = structForce.priority;
-    objet->soin.valeur = structSoin.valeur;
-    objet->soin.priority = structSoin.priority;
-    objet->moveSpeed.valeur = structmoveSpeed.valeur;
-    objet->moveSpeed.priority = structmoveSpeed.priority;
+void creer_objet(objet_t * objet, char * nom, rarete_t rarete, prio_t vie, prio_t force, prio_t magie, prio_t speed){
+    objet->nom = nom;
+    objet->rarete = rarete;
+    objet->vie = vie;
+    objet->force = force;
+    objet->magie = magie;
+    objet->speed = speed;
 }
 
-
-void affiche_1_objet(t_objet * objet) {
-    printf("%s : \n", objet->nom);
-    printf("\tRaretee : %d\n", objet->raretee);
-    printf("\tMagie   : val=%f\tprio=%d\n", objet->magie.valeur, objet->magie.priority);
-    printf("\tForce   : val=%f\tprio=%d\n", objet->force.valeur, objet->force.priority);
-    printf("\tSoin    : val=%f\tprio=%d\n", objet->soin.valeur, objet->soin.priority);
-    printf("\tSpeed   : val=%f\tprio=%d\n\n", objet->moveSpeed.valeur, objet->moveSpeed.priority);
+/*
+Il faudra afficher sur la fenêtre sdl
+*/
+void affiche_objet(t_objet * objet) {
+    printf("%s :\n", objet->nom);
+    printf("\tRarete : %d\n", objet->raretee);
+    printf("\tMagie  : val=%f\tprio=%d\n", objet->magie.valeur, objet->magie.priority);
+    printf("\tForce  : val=%f\tprio=%d\n", objet->force.valeur, objet->force.priority);
+    printf("\tSoin   : val=%f\tprio=%d\n", objet->soin.valeur, objet->soin.priority);
+    printf("\tSpeed  : val=%f\tprio=%d\n\n", objet->moveSpeed.valeur, objet->moveSpeed.priority);
 }
-
-
-void creer_stats_perso(t_statsPerso * perso, char * nom, float magie, float force, int pv, int vitesse) {
-    perso->nom = nom;
-    perso->magie.statsBase = magie;
-    perso->force.statsBase = force;
-    perso->pv.statsBase = pv;
-    perso->vitesse.statsBase = vitesse;
-    perso->nbObjets = 0;
-}
-
 
 void udpdate_stats(t_statsPerso * perso) {
     // Parcourt des éléments non modifiés, on leur appplique les stats de base du perso
