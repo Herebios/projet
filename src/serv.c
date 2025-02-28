@@ -14,6 +14,7 @@
 #define NB_CLIENTS 2
 #define flush fflush(stdout)
 #define endl putchar('\n')
+
 typedef struct {
 	int socket;
 	struct sockaddr_in addr;
@@ -31,6 +32,7 @@ void * client_thread(void *);
 void * accept_thread(void *);
 int setup_server(info_server *);
 void fermeture_server(int, info_server *, socket_struct *);
+
 int setup_server(info_server * server){
 	//uniquement pour windows
 	#ifdef _WIN32
