@@ -92,8 +92,14 @@ type_carre indice de texture dans biome->textures[]
 	//textures aléatoires sur toute la zone
 	//!! ajouter règles de génération, dépendantes du biome?
 	for(lig=0; lig<HAUTEUR_TUILE; lig++)
-		for(col=0; col<LARGEUR_TUILE; col++)
-			tuile->id_texture[lig][col]=rand()%(NB_TEXTURES_BIOME-1) +1;//ne prend pas l'id 0, carre de sortie
+		for(col=0; col<LARGEUR_TUILE; col++) {
+			if (rand() % 6 == 0) {	//1 chance sur 4 qu'il y ai un obstacle
+				tuile->id_texture[lig][col]=obstacle;	
+			}
+			else {					//3 chance sur 4 qu'il y ai un obstacle
+				tuile->id_texture[lig][col]=normal;		
+			}
+		}
 
 	//sortie gauche
 	if (posMapX != 0) {
@@ -102,7 +108,6 @@ type_carre indice de texture dans biome->textures[]
 		if(HAUTEUR_TUILE%2)//3 carres de sortie si impair
 			tuile->id_texture[HAUTEUR_TUILE/2 +1][0]=sortie;
 	}
-	
 	//sortie droite
 	if (posMapX != LARGEUR_MAP - 1) {
 		tuile->id_texture[HAUTEUR_TUILE/2 -1][LARGEUR_TUILE-1]=sortie;
@@ -111,7 +116,6 @@ type_carre indice de texture dans biome->textures[]
 			tuile->id_texture[HAUTEUR_TUILE/2 +1][LARGEUR_TUILE-1]=sortie;
 	}
 	
-
 	//sortie haut
 	if (posMapY != 0) {
 		tuile->id_texture[0][LARGEUR_TUILE/2 -1]=sortie;
@@ -119,8 +123,6 @@ type_carre indice de texture dans biome->textures[]
 		if(LARGEUR_TUILE%2)
 			tuile->id_texture[0][LARGEUR_TUILE/2 +1]=sortie;
 	}
-	
-
 	//sortie bas
 	if (posMapY != HAUTEUR_MAP - 1) {
 		tuile->id_texture[HAUTEUR_TUILE-1][LARGEUR_TUILE/2 -1]=sortie;
@@ -128,7 +130,6 @@ type_carre indice de texture dans biome->textures[]
 		if(LARGEUR_TUILE%2)
 			tuile->id_texture[HAUTEUR_TUILE-1][LARGEUR_TUILE/2 +1]=sortie;
 	}
-
 }
 
 /*void afficher_idtextures_tuile(t_tuile *t){
