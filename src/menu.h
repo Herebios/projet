@@ -20,12 +20,10 @@
 #define W_BOUTON_PARAM 700
 #define H_BOUTON_PARAM 200
 #define H_FLECHE 920
-#define NB_MAX_IMG 15
-#define NB_MAX_TEXTE 10
+#define NB_MAX_IMG 25
+#define NB_MAX_TEXTE 30
 #define NB_MAX_PERSO 10
 #define NB_MAX_CAR_JOUEUR 20
-
-
 
 
 typedef struct {
@@ -173,19 +171,6 @@ void modif_volume(void);
  */
 void inverse_img_vol(int volumeOn);
 
-/**
- * @brief Créer toutes les images à partir d'un tableau où sont stockés tous les chemins vers les images
- * @param tab Le tableau de char * qui contient les chemins vers les images que l'on veut créer
- * @param nbElm Le nombre d'images que l'on veut créer (doit être égal au nombre de chemins dans tab)
- */
-void creer_toutes_images(char * tab[], int nbElm);
-
-/**
- * @brief Créer tous les textes à partir d'un tableau de chaînes de caractère où sont stockés tous les textes que l'on veut afficher
- * @param tab Le tableau de char * qui contient les textes que l'on doit afficher
- * @param nbElm Le nombre de textes que l'on veut créer (doit être égal au nombre de texte dans tab)
- */
-void creer_tous_textes(char * tab[], int nbElm);
 
 /**
  * @brief Met à jour l'affichage du nom du joueur à chaque caractère saisi par l'utilisateur en détruisant et recréant la texture de texte

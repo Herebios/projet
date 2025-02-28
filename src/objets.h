@@ -5,43 +5,24 @@
  */
 
 #define NB_OBJETS 34
-#define NB_OBJETS_PAR_PERSO 5
+#define PERSO_OBJETS_MAX 5
 
-typedef enum {commun, rare, epique, legendaire} t_raretee;
+typedef enum {commun, rare, epique, legendaire} rarete_t;
 
 typedef struct {
     float valeur;
     int priority;
-} t_objetPrio;
+} prio_t;
 
 typedef struct {
-    char * nom;
-    t_raretee raretee;
-    t_objetPrio magie;
-    t_objetPrio force;
-    t_objetPrio soin;
-    t_objetPrio moveSpeed;
-} t_objet;
+    char * nom;//permet de trouver la texture
+    rarete_t rarete;
+	objetPrio_t vie;
+	objetPrio_t force;
+	objetPrio_t magie;
+	objetPrio_t speed;
+} objet_t;
 
-typedef struct {
-    float statsBase;
-    float newStats;
-} t_statsFloat;
-
-typedef struct {
-    int statsBase;
-    int newStats;
-} t_statsInt;
-
-typedef struct {
-    char * nom;
-    t_statsFloat magie;
-    t_statsFloat force;
-    t_statsInt pv;
-    t_statsInt vitesse;
-    t_objet listeObj[NB_OBJETS_PAR_PERSO]; 
-    int nbObjets;
-} t_statsPerso;
 
 
 /**
