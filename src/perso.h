@@ -35,6 +35,9 @@ typedef struct {
 	stats_t stats[4];//stats après objets
 	comp_t competences[NB_COMP];//icomp_t
 	objet_t objets[PERSO_OBJETS_MAX];
+	int posX;
+	int posY;
+	size_t persoIndex;
 }perso_t;
 
 /**
