@@ -14,7 +14,7 @@ void init_jeu(void);
 	//void init_objets(void);
 	void init_map(void);
 		//génère une tuile en fonction du biome qu'on veut
-		void generer_tuile(t_tuile*, nom_biome);
+		void generer_tuile(t_tuile*, nom_biome, int, int);
 
 	void init_biomes(void);
 /* Relatif aux joueurs */

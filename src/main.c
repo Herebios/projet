@@ -74,7 +74,7 @@ void init_objets(){
 	//manque texture à charger et rect au moment où l'objet est affecté à une tuile
 }
 */
-void generer_tuile(t_tuile* tuile, nom_biome id_biome){//map
+void generer_tuile(t_tuile* tuile, nom_biome id_biome, int posMapY, int posMapX){//map
 /*suppose que les biomes sont construits de la même manière avec
 type_carre indice de texture dans biome->textures[]
 */
@@ -95,20 +95,40 @@ type_carre indice de texture dans biome->textures[]
 		for(col=0; col<LARGEUR_TUILE; col++)
 			tuile->id_texture[lig][col]=rand()%(NB_TEXTURES_BIOME-1) +1;//ne prend pas l'id 0, carre de sortie
 
-	//sorties gauche et droite, indice 0
-	for(col=0; col < LARGEUR_TUILE; col+=LARGEUR_TUILE-1){
-		tuile->id_texture[HAUTEUR_TUILE/2 -1][col]=sortie;
-		tuile->id_texture[HAUTEUR_TUILE/2][col]=sortie;
+	//sortie gauche
+	if (posMapX != 0) {
+		tuile->id_texture[HAUTEUR_TUILE/2 -1][0]=sortie;
+		tuile->id_texture[HAUTEUR_TUILE/2][0]=sortie;
 		if(HAUTEUR_TUILE%2)//3 carres de sortie si impair
-			tuile->id_texture[HAUTEUR_TUILE/2 +1][col]=sortie;
+			tuile->id_texture[HAUTEUR_TUILE/2 +1][0]=sortie;
 	}
-	//sorties haut et bas
-	for(lig=0; lig < HAUTEUR_TUILE; lig+=HAUTEUR_TUILE-1){
-		tuile->id_texture[lig][LARGEUR_TUILE/2 -1]=sortie;
-		tuile->id_texture[lig][LARGEUR_TUILE/2]=sortie;
+	
+	//sortie droite
+	if (posMapX != LARGEUR_MAP - 1) {
+		tuile->id_texture[HAUTEUR_TUILE/2 -1][LARGEUR_TUILE-1]=sortie;
+		tuile->id_texture[HAUTEUR_TUILE/2][LARGEUR_TUILE-1]=sortie;
+		if(HAUTEUR_TUILE%2)//3 carres de sortie si impair
+			tuile->id_texture[HAUTEUR_TUILE/2 +1][LARGEUR_TUILE-1]=sortie;
+	}
+	
+
+	//sortie haut
+	if (posMapY != 0) {
+		tuile->id_texture[0][LARGEUR_TUILE/2 -1]=sortie;
+		tuile->id_texture[0][LARGEUR_TUILE/2]=sortie;
 		if(LARGEUR_TUILE%2)
-			tuile->id_texture[lig][LARGEUR_TUILE/2 +1]=sortie;
+			tuile->id_texture[0][LARGEUR_TUILE/2 +1]=sortie;
 	}
+	
+
+	//sortie bas
+	if (posMapY != HAUTEUR_MAP - 1) {
+		tuile->id_texture[HAUTEUR_TUILE-1][LARGEUR_TUILE/2 -1]=sortie;
+		tuile->id_texture[HAUTEUR_TUILE-1][LARGEUR_TUILE/2]=sortie;
+		if(LARGEUR_TUILE%2)
+			tuile->id_texture[HAUTEUR_TUILE-1][LARGEUR_TUILE/2 +1]=sortie;
+	}
+
 }
 
 /*void afficher_idtextures_tuile(t_tuile *t){
@@ -151,9 +171,10 @@ void init_map(){//map
 //!! Système pour placer les biomes
 	//tuiles
 	for (int l=0,c; l<HAUTEUR_MAP; l++)
-		for (c=0; c<LARGEUR_MAP; c++)
-			//adresse de la tuile, biome aléatoire
-			generer_tuile(map->tuiles[l*LARGEUR_MAP] + c, (nom_biome) c+1);//actuellement plaine puis glace
+	for (c=0; c<LARGEUR_MAP; c++){
+		//adresse de la tuile, biome aléatoire
+			generer_tuile(map->tuiles[l] + c, rand() % (NB_BIOMES - 1) + 1, l, c);
+		}
 }
 
 void init_biomes(){
@@ -170,29 +191,30 @@ void init_biomes(){
 
 	//charger textures selon les biomes
 	t_biome *biome_cour;
-	char *noms[]={"base","plaine","glace"}, path[100]="img/";
+	char *noms[]={"base", "desert", "foret", "glace", "montagne", "neige", "plaine"};
+	char path[100]="img/Tiles/Biomes/";
 
-	for(i=0; i<NB_BIOMES; i++){//actuellement 3
+	for(i=0; i<NB_BIOMES; i++){
 		//!! base, id 0
 		if(i){
 
 		biome_cour=biomes+i;
 
-		for(j=0; j<NB_TEXTURES_BIOME; j++){//actuellement 3
+		for(j=0; j<NB_TEXTURES_BIOME; j++){
 			strcat(path, noms[i]);
 			switch(j){
 				case 0:
-					strcat(path, "_sortie.png");
+					strcat(path, "/sortie.png");
 					break;
 				case 1:
-					strcat(path, "_normal.png");
+					strcat(path, "/normal.png");
 					break;
 				case 2:
-					strcat(path, "_obstacle.png");
+					strcat(path, "/obstacle.png");
 					break;
 			}
 			nouv_surface(path);
-			path[4]='\0';//écrire à nouveau après 'textures/'
+			path[17]='\0';//écrire à nouveau après 'textures/'
 			nouv_texture(biome_cour->textures, &biome_cour->nb_textures);
 		}
 		}
@@ -270,7 +292,7 @@ void nouv_perso(char *s){//jeu, perso
 	//!!au lieu de char *s, on utilisera l'attribut classe du joueur
 	//charger textures perso
 	char chemin[50];
-	strcpy(chemin, "img/");
+	strcpy(chemin, "img/Characters/");
 	strcat(chemin, s);
 	int fin=strlen(chemin);
 
@@ -328,7 +350,7 @@ void avancer(t_perso *p){//uniquement pour le joueur
 		position_perso(p, &pos);
 		printf("%d %d\n", pos.x, pos.y);flush;
 		//tuile de sortie?
-		if(jeu.tuile_courante->id_texture[pos.y][pos.x]==0){
+		if(jeu.tuile_courante->id_texture[pos.y][pos.x]==sortie){
 			if(pos.x==0 && p->pos_map.x!=0){//sortie gauche tuile et tuile pas bord gauche map
 				p->pos_map.x--;
 				p->rect.x = W - p->rect.w;//se retrouve côté droit

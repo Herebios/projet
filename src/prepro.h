@@ -17,7 +17,7 @@ H = CARRE_H * HAUTEUR_TUILE
 #define MAGIE_BASE 0
 #define MANA_BASE 0
 
-#define NB_BIOMES 3//correspond à l'enum nom_biome
+#define NB_BIOMES 7//correspond à l'enum nom_biome
 #define NB_TEXTURES_BIOME 3//correspond à l'enum type_carre
 
 #define NB_CAT_OBJETS 3
@@ -28,8 +28,8 @@ H = CARRE_H * HAUTEUR_TUILE
 #define NB_PNJ_TUILE 1
 #define NB_ENNEMIS_TUILE 1
 
-#define HAUTEUR_MAP 1
-#define LARGEUR_MAP 2
+#define HAUTEUR_MAP 2
+#define LARGEUR_MAP 4
 
 //différencier perso et biome dans nouv_texture
 #define TEXTURE_BIOME 0
