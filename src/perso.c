@@ -1,9 +1,6 @@
 #include "perso.h"
 
-
-t_perso creerPerso(porteePerso persoACreer){
-    t_perso nouveau;
-    nouveau.portee = persoACreer;
+void creerPerso(perso_t * nouveau){
     int valide = 1;
     switch(persoACreer){
         case mage:
@@ -69,8 +66,8 @@ t_perso creerPerso(porteePerso persoACreer){
 }
 
 
-void initListePersos(char ** tabPersos, int nbJoueurs, t_perso * tabRes) {
-    t_perso temp;
+void initPersos(classe_t * tab, int nb, t_perso * tabRes) {
+    perso_t temp;
     for (int i = 0; i < nbJoueursMax; i++) {
         if (!strcmp("mage", tabPersos[i])) {
              tabRes[i] = creerPerso(mage);
@@ -93,18 +90,13 @@ void initListePersos(char ** tabPersos, int nbJoueurs, t_perso * tabRes) {
         else if (!strcmp("druide", tabPersos[i])) {
              tabRes[i] = creerPerso(druide);
         }
-        else if (!strcmp("aspergeur", tabPersos[i])) {
-             tabRes[i] = creerPerso(aspergeur);
-        }
     }
 }
 
-
-
 int main(void){
-    int nbJoueurs = 4;   // envoyé par le jeu
-    char *joueurs[20] =  {"archer", "tank", "informaticien", "mage"};   // exemple tableau des personnages presents dans la partie qui sera envoyée par le jeu
-    t_perso testTabPerso[nbJoueursMax];
+    int nb_joueurs = 4;//info du server
+    classe_t joueurs[nb_joueurs]={guerrier, mage, archer, assassin};
+    t_perso testTabPerso[nb_joueurs];
 
     initListePersos(joueurs, nbJoueurs, testTabPerso);
 
