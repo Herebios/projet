@@ -9,5 +9,3 @@ typedef struct {
 	point a; // from a to b
 	point b;
 } vector;
-
-double norme(vector v);
