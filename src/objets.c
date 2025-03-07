@@ -9,12 +9,11 @@
 
 //modifier NB_OBJETS dans le .h
 objet_t tab_objets[NB_OBJETS]={
-{"Baguette de magicien", commun, {{0,null},{0,null},{10,add},{0,0}}},
+{"Baguette du magicien", commun, {{0,null},{0,null},{10,add},{0,0}}},
 {"Epee lourde", commun, {{0,null},{10,add},{0,null},{-2,add}}},
-{"Orbe divin", legendaire, {{10,add},{0.9,mult},{2,mult},{0,null}}},
+{"Orbe divine", legendaire, {{10,add},{0.9,mult},{2,mult},{0,null}}},
 {"Bague du magicien", commun, {{1.2, mult}, {0, null}, {0, null}, {0, null}}},
 {"Bottes du magicien", commun, {{1.1, mult}, {0, null}, {0, null}, {6, add}}},
-{"Baguette du magicien", commun, {{1.3, mult}, {0, null}, {0, null}, {-4, add}}},
 {"Bracelet du GOAT", commun, {{0, null}, {0, null}, {23, add}, {0, null}}},
 {"Bague du mage noir", commun, {{1.25, mult}, {0, null}, {0, null}, {0, null}}},
 {"Talisman des arcanes", rare, {{1.4, mult}, {0, null}, {0, null}, {-2, add}}},
