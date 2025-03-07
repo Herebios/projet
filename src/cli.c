@@ -13,7 +13,7 @@
 #endif
 
 #include "../datastruct/file.h"
-#include "perso_cli.h"
+//#include "perso_cli.h" il n'était pas push
 
 file * file_socket;
 
@@ -32,7 +32,7 @@ typedef struct {
 void * ecoute_thread(void *);
 int setup_client(socket_struct *, char *);
 void fermeture_client(int, socket_struct *);
-
+/* pas push
 void init_joueurs(perso_cli joueurs[]){
 	char * data;
 	int i;
@@ -43,7 +43,7 @@ void init_joueurs(perso_cli joueurs[]){
 		sscanf(data, "%d %s %d %d", (int*)&joueurs[i].perso.classe, joueurs[i].perso.nom, (int*)&joueurs[i].perso.iperso, (int*)&joueurs[i].perso.equipe);
 	}
 }
-
+*/
 int main_client(int nb_joueurs, char * ip) {
 	//setup socket
 	printf("'%s'\n", ip);flush;
@@ -71,11 +71,11 @@ int main_client(int nb_joueurs, char * ip) {
 			printf("Message : ");
 			if(strcmp(data, "start")==0)
 				end=1;
-			printf("%s !!", data);flush;
 			free(data);
 			data=NULL;
 		}
 		putchar('\n');
+		//sleep(1);
 		usleep(1000000);
 	}
 	if(data){

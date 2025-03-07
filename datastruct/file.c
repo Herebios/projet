@@ -37,6 +37,9 @@ void *defiler(file *f){
 	void *retVal = f->head->val;
 	free(f->head);
 	f->head = temp;
+	if (f->head == NULL){
+		f->queue = NULL;
+	}
 	return retVal;
 }
 
