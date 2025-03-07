@@ -4,54 +4,70 @@
  * @author Baptiste
  */
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
+#include "types.h"
 #include "objets.h"
+#include "competences.h"
 
-#define unsigned char octet;
-
-typedef enum {administrateur, guerrier, mage, archer, assassin, informaticien, druide, necromancien} classe_t;
-typedef enum {vie, force, magie, speed} stats_t;//force = attaque physique + défense physique / magie pareil
-
-typedef enum {zone, projectile, instant} comp_type;
-typedef enum {atk1, atk2, skill, mouv, ult, NB_COMP} icomp_t;
-
-typedef struct{
-	char *nom, *description;
-	comp_type type;
-	float value;
-	short int distance;//pour un déplacement ou la portée d'un skill
-	int cd;//rechargement en ms
-	int (*fonction)(perso_t *, comp_t*);
-}comp_t;
-
-typedef struct {
+struct perso_s{
 	classe_t classe;
 	octet niveau;
     char * nom;
-	stats_t stats_base[4];//stats de base
-	stats_t stats[4];//stats après objets
-	comp_t competences[NB_COMP];//icomp_t
-	objet_t objets[PERSO_OBJETS_MAX];
-	int posX;
-	int posY;
-	size_t persoIndex;
-}perso_t;
+
+	//statistiques du perso, stat_t indice
+	int stats_base[4];//stats de base
+	int stats[4];//stats après objets
+	//?? stats -> stats_max | ajout stats_reelles
+
+	comp_t * competences[NB_COMP];//icomp_t indice
+	objet_t * objets[PERSO_OBJETS_MAX];//pointeurs sur les objets statiques
+
+	int x, y, iperso;
+};
 
 /**
- * @brief Créer une structure en fonction du nom passé en paramètre
- * @param persoACreer nom du personnage à creer
- * @return Renvoie une structure t_perso en fonction du nom passé en paramètre
+ * @brief Créer un perso
+ * @param sortie : Pointeur sur le perso
+ * @param classe du perso
+ * @param pseudo joueur
+ * @param indice client
  */
-void creerPerso(perso_t *);
+void creer_perso(perso_t *, classe_t, char *, int);
 
 /**
- * @brief Créer la liste des personnages qui seront jouées
- * @param tabPersos La liste des personnages en entrée (char*) qui seront à créer
- * @param nbJoueurs Le nombre de joueurs présents dans la partie.
- * @param tabRes Le tableau de structure t_perso
- * @return Renvoie un pointeur sur une liste de personnages de type t_perso.
+ * @brief Détruire un perso
+ * @param Pointeur sur le perso
  */
-void initListePersos(char ** tabPersos, int nbJoueurs, t_perso * tabRes);
+void detruire_perso(perso_t *);
+
+/**
+ * @brief Affiche les objets d'un joueur en console
+ * @param Pointeur sur perso
+ */
+void afficher_objets_perso(perso_t *);
+
+/**
+ * @brief Affiche les stats d'un perso en console
+ * @param Pointeur sur le perso
+ */
+void afficher_stats_perso(perso_t *);
+
+/**
+ * @brief Recalcule les stats d'un personnage en prenant en compte ses objets
+ * @param Pointeur sur perso
+ */
+void update_stats(perso_t *);
+
+
+/**
+ * @brief Ajoute un objet à l'inventaire d'un joueur
+ * @param Pointeur sur perso
+ * @param Pointeur sur objet
+ */
+void ajouter_objet(perso_t *, objet_t *);
+
+/**
+ * @brief Retire un objet de l'inventaire du joueur
+ * @param Pointeur sur perso
+ * @param Indice de l'objet à retirer
+ */
+void retirer_objet(perso_t *, int);

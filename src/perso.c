@@ -1,107 +1,134 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "perso.h"
 
-void creerPerso(perso_t * nouveau){
-    int valide = 1;
-    switch(persoACreer){
-        case mage:
-            nouveau.nom = "mage";
-            nouveau.pv = 50;
-            nouveau.capa = "heal";
-            nouveau.dash = "tpTuile";
-            break;
-        case archer:
-            nouveau.nom = "archer";
-            nouveau.pv = 60;
-            nouveau.capa = "tirRapide";
-            nouveau.dash = "dash4cases";
-            break;
-        case tank:
-            nouveau.nom = "tank";
-            nouveau.pv = 100;
-            nouveau.capa = "bouclier";
-            nouveau.dash = "0 dash";
-            break;
-        case epeiste:
-            nouveau.nom = "epeiste";
-            nouveau.pv = 80;
-            nouveau.capa = "heal";
-            nouveau.dash = "sauteMontagne";
-            break;
-        case informaticien:
-            nouveau.nom = "informaticien";
-            nouveau.pv = 30;
-            nouveau.capa = "observateur";
-            nouveau.dash = "tpObservateur";
-            break;
-        case ninja:
-            nouveau.nom = "ninja";
-            nouveau.pv = 60;
-            nouveau.capa = "poison";
-            nouveau.dash = "invisibility";
-            break;
-        case druide:
-            nouveau.nom = "druide";
-            nouveau.pv = 50;
-            nouveau.capa = "jsp";
-            nouveau.dash = "jspNonPlus";
-            break;
-        case aspergeur:
-            nouveau.nom = "aspergeur";
-            nouveau.pv = 40;
-            nouveau.capa = "slow";
-            nouveau.dash = "encreMarioKart";
-            break;
-        default:
-            printf("Nom de personage non valide : %d\n", persoACreer);
-            valide = 0;
-            break;
-    }
-    if(valide){
-            printf("Perso créé avec succès\n");
-            return nouveau;        
-    }
-    else{
-        printf("erreur\n");
+void creer_perso(perso_t * p, classe_t classe, char * nom, int indice){
+	p->classe=classe;
+	p->niveau=1;
+	p->nom=strdup(nom);
+	p->x=p->y=0;
+	p->iperso=indice;
+
+	int i;
+	for (i=0; i<NB_COMP; i++)
+		p->competences[i]=NULL;
+	for (i=0; i<PERSO_OBJETS_MAX; i++)
+		p->objets[i]=NULL;
+
+	//stats de base en fonction de la classe
+	switch(classe){
+		case tank:
+            memcpy(p->stats_base, (int[4]){120,60,5,8}, sizeof(int[4]));
+			break;
+		case guerrier:
+            memcpy(p->stats_base, (int[4]){100,50,10,16}, sizeof(int[4]));
+			break;
+		case mage:
+			memcpy(p->stats_base, (int[4]){50,10,50,12}, sizeof(int[4]));
+			break;
+		case archer:
+			memcpy(p->stats_base, (int[4]){60,40,15,18}, sizeof(int[4]));
+			break;
+		case informaticien:
+			memcpy(p->stats_base, (int[4]){70,15,20,12}, sizeof(int[4]));
+			break;
+		case ninja:
+			memcpy(p->stats_base, (int[4]){65,30,10,20}, sizeof(int[4]));
+			break;
+		case druide:
+			memcpy(p->stats_base, (int[4]){85,25,40,14}, sizeof(int[4]));
+			break;
+	}
+}
+
+/*
+A compléter en fonction de l'implémentation de objets/compétences, etc.
+*/
+void detruire_perso(perso_t * p){
+	free(p->nom);
+	p->nom=NULL;
+}
+
+void afficher_objets_perso(perso_t * perso) {
+    for (int i = 0; i < PERSO_OBJETS_MAX; i++) {
+        if(perso->objets[i]){
+            printf("Objet %d : ", i + 1);
+			afficher_objet(perso->objets[i]);
+		}
     }
 }
 
+void afficher_stats_perso(perso_t * perso) {
+    printf("Stats de base :\n");
+    printf("\tVie     : %d\n", perso->stats_base[vie]);
+    printf("\tForce   : %d\n", perso->stats_base[force]);
+    printf("\tMagie   : %d\n", perso->stats_base[magie]);
+    printf("\tSpeed   : %d\n", perso->stats_base[speed]);
+    printf("Stats avec objets :\n");
+    printf("\tVie     : %d\n", perso->stats[vie]);
+    printf("\tForce   : %d\n", perso->stats[force]);
+    printf("\tMagie   : %d\n", perso->stats[magie]);
+    printf("\tSpeed   : %d\n", perso->stats[speed]);
+}
 
-void initPersos(classe_t * tab, int nb, t_perso * tabRes) {
-    perso_t temp;
-    for (int i = 0; i < nbJoueursMax; i++) {
-        if (!strcmp("mage", tabPersos[i])) {
-             tabRes[i] = creerPerso(mage);
-        }
-        else if (!strcmp("archer", tabPersos[i])) {
-             tabRes[i] = creerPerso(archer);
-        }
-        else if (!strcmp("tank", tabPersos[i])) {
-             tabRes[i] = creerPerso(tank);
-        }
-        else if (!strcmp("epeiste", tabPersos[i])) {
-             tabRes[i] = creerPerso(epeiste);
-        }
-        else if (!strcmp("informaticien", tabPersos[i])) {
-             tabRes[i] = creerPerso(informaticien);
-        }
-        else if (!strcmp("ninja", tabPersos[i])) {
-             tabRes[i] = creerPerso(ninja);
-        }
-        else if (!strcmp("druide", tabPersos[i])) {
-             tabRes[i] = creerPerso(druide);
+/*
+Appel à cette fonction après chaque ajout/retrait
+pour que l'ordre de calcul soit respecté
+*/
+void update_stats(perso_t * p) {
+	//remise à 0
+	memcpy(p->stats, p->stats_base, sizeof(int[4]));
+	//calcul
+    for(int i=0,stat; i<PERSO_OBJETS_MAX; i++){
+    if(p->objets[i])
+        for(stat=0; stat<4; stat++){
+            switch(p->objets[i]->stats[stat].priority){
+                case add:
+                    //ajoute la valeur de l'objet
+                    p->stats[stat] += p->objets[i]->stats[stat].valeur;
+                    break;
+                case mult:
+                    //ajoute une multiplication de la stat de base
+                    p->stats[stat] += (p->objets[i]->stats[stat].valeur - 1) * p->stats_base[stat];
+                    break;
+                case null:
+                    //pas de valeur
+                    break;
+            }
+
         }
     }
+}
+
+void ajouter_objet(perso_t * perso, objet_t * obj) {
+    int i=0;
+    //trouver la première place libre
+    while(perso->objets[i] && i<PERSO_OBJETS_MAX) i++;
+    if(i==PERSO_OBJETS_MAX)return;//pas de place
+    perso->objets[i] = obj;
+}
+void retirer_objet(perso_t * perso, int position) {
+    perso->objets[position] = NULL;
 }
 
 int main(void){
-    int nb_joueurs = 4;//info du server
-    classe_t joueurs[nb_joueurs]={guerrier, mage, archer, assassin};
-    t_perso testTabPerso[nb_joueurs];
+    int nb_joueurs = 1;//info du server
+    perso_t tab_perso[nb_joueurs];
+	perso_t *p=tab_perso;
+	creer_perso(p, mage, "Maggie", 0);
 
-    initListePersos(joueurs, nbJoueurs, testTabPerso);
+	ajouter_objet(p, tab_objets+0);
+	ajouter_objet(p, tab_objets+1);
+	ajouter_objet(p, tab_objets+2);
+	update_stats(p);
+	retirer_objet(p, 1);
+	ajouter_objet(p, tab_objets+2);
+	update_stats(p);
 
-    for (int i = 0; i < nbJoueurs; i++) {
-        printf("%i ) %s\n", i + 1, (testTabPerso + i)->nom);
-    }
+	afficher_objets_perso(p);
+	afficher_stats_perso(p);
+
+	detruire_perso(tab_perso);
     return 0;
 }

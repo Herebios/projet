@@ -3,11 +3,44 @@
 -- Nom de classe
 type : rôle du personnage
 
+-- Tank:
+type : défense
+Portée d’attaque : cac
+Attaque de base -  :
+    dmg : 20
+    cd : 2
+Attaque puissante -  :
+	??
+Compétence utilitaire - cri de guerre :
+    les monstres ciblent ce personnage pendant 6s
+    résistance aux capacités de contrôle pendant 6s
+    cd : 12s
+Déplacement - charge :
+    déplacement assez rapide dans une direction verouillée
+    cd : 20s
 
+-- Guerrier:
+type : dégâts au corps-à-corps
+Portée d'attaque : courte
+Attaque de base - coup d'épée :
+    dmg : 15
+    cd : 0.8s
+Attaque puissante - attaque rotative :
+    peut être lancée juste après un coup d'épée
+    attaque en cercle autour du guerrier
+    dmg : 10
+    cd : 15s
+Compétence utilitaire - récupération rapide :
+    Soin 10 Pv + augmente sa régénération naturelle de pv pour 10s
+    baisse sa vitesse de déplacement
+    cd : 30s
+Déplacement - saut :
+    saute par-dessus un obstacle au sol
+    déplacement rapide de plusieurs cases
+    cd : 12s
 
 -- Mage:
 type : polyvalent (spécialisation)
-Pv : 50
 Portée d’attaque : moyenne / longue
 Attaque de base - boule de feu :
     dmg : 15
@@ -22,7 +55,6 @@ Déplacement - téléportation :
 
 -- Archer:
 type : dégâts à distance
-Pv : 60
 Portée d’attaque : longue
 Attaque de base - tir à l'arc :
     dmg : 10
@@ -38,50 +70,8 @@ Déplacement - roulade :
     cd : 10s
 
 
--- Tank:
-type : défense
-Pv : 100
-Portée d’attaque : cac
-Attaque de base -  :
-    dmg : 20
-    cd : 2
-Attaque puissante -  :
-    X tirs sur une zone
-    cd : 15s
-Compétence utilitaire - cri de guerre :
-    les monstres ciblent ce personnage pendant 6s
-    résistance aux capacités de contrôle pendant 6s
-    cd : 12s
-Déplacement - charge :
-    déplacement assez rapide dans une direction verouillée
-    cd : 20s
-
-
--- Guerrier:
-type : dégâts au corps-à-corps
-Pv : 80
-Portée d'attaque : courte
-Attaque de base - coup d'épée :
-	dmg : 15
-	cd : 0.8s
-Attaque puissante - attaque rotative :
-	peut être lancée juste après un coup d'épée
-	attaque en cercle autour du guerrier
-	dmg : 10
-	cd : 15s
-Compétence utilitaire - récupération rapide :
-	Soin 10 Pv + augmente sa régénération naturelle de pv pour 10s
-	baisse sa vitesse de déplacement
-	cd : 30s
-Déplacement - saut :
-	saute par-dessus un obstacle au sol
-	déplacement rapide de plusieurs cases
-	cd : 12s
-
-
 -- Informaticien:
 type : information
-Pv: 50
 Portée d'attaque : courte
 Attaque de base - coup de taser :
 	dmg : 8
@@ -110,7 +100,6 @@ type : furtif
 Description :
     Déplacements furtifs et rapides;
     Coups critiques lorsqu'il attaque par surprise.
-Pv : 60
 Portée d’attaque : 
 Dash : invisible pendant quelques secondes tant qu’il ne tire pas ou ne se fait pas tirer dessus
 
@@ -121,18 +110,17 @@ Description :
     Quêtes pour améliorer et protéger sa forêt;
     Gagne des bonus dans biome forêt (déplacement facile, soin, ...);
     Gagne des transformations en animaux pour se renforcer.
-Pv : 50
 Portée d’attaque : variable
 Dash : ?
 
 
--- Vampire:
+??-- Vampire:
 type : dégâts à distance
 Description :
     Absorbe le sang des adversaires et monstres pour utiliser ses compétences;
     Sacrifie des PV pour attaquer.
 
--- Imitateur:
+??-- Imitateur:
 type : polyvalent
 Description : 
     Copie pour le combat, attaques et statistiques d'un allié;

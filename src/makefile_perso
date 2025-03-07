@@ -1,0 +1,6 @@
+test_perso : perso.o objets.o
+	gcc $^ -o $@
+perso.o : perso.c perso.h objets.h
+	gcc perso.c -c
+objets.o : objets.c objets.h
+	gcc objets.c -c
