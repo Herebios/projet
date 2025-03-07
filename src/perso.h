@@ -4,6 +4,9 @@
  * @author Baptiste
  */
 
+#ifndef _PERSO_H_
+#define _PERSO_H_
+
 #include "types.h"
 #include "objets.h"
 #include "competences.h"
@@ -16,12 +19,13 @@ struct perso_s{
 	//statistiques du perso, stat_t indice
 	int stats_base[4];//stats de base
 	int stats[4];//stats après objets
-	//?? stats -> stats_max | ajout stats_reelles
+	int vie_reelle;
 
 	comp_t * competences[NB_COMP];//icomp_t indice
 	objet_t * objets[PERSO_OBJETS_MAX];//pointeurs sur les objets statiques
 
-	int x, y, iperso;
+	octet iperso, equipe;
+	int x, y;
 };
 
 /**
@@ -71,3 +75,5 @@ void ajouter_objet(perso_t *, objet_t *);
  * @param Indice de l'objet à retirer
  */
 void retirer_objet(perso_t *, int);
+
+#endif//_PERSO_H_
