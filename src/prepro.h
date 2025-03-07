@@ -18,7 +18,7 @@ H = CARRE_H * HAUTEUR_TUILE
 #define MANA_BASE 0
 
 #define NB_BIOMES 7//correspond à l'enum nom_biome
-#define NB_TEXTURES_BIOME 3//correspond à l'enum type_carre
+#define NB_TEXTURES_BIOME 4//correspond à l'enum type_carre
 
 #define NB_CAT_OBJETS 3
 

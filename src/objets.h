@@ -16,6 +16,7 @@ typedef struct {
     priority_t priority;
 } prio_t;
 
+
 struct objet_s {
     char * nom;//permet de charger la texture
     rarete_t rarete;

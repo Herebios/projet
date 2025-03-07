@@ -1,6 +1,6 @@
 typedef enum {idle,course,attaque}t_anim;
 typedef enum {bas,haut,gauche,droite,basgauche,basdroite,hautgauche,hautdroite}t_dir;
-typedef enum {sortie, normal, obstacle} type_carre;
+typedef enum {sortie, normal, obstacle1, obstacle2} type_carre;
 typedef enum {base, desert, foret, glace, montagne, neige, plaine} nom_biome;//foret, volcan, marais, grotte, enfer, tour_magie, chateau_fort
 typedef enum {consommable, arme, armure} cat_objet;
 

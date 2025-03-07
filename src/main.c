@@ -93,11 +93,17 @@ type_carre indice de texture dans biome->textures[]
 	//!! ajouter règles de génération, dépendantes du biome?
 	for(lig=0; lig<HAUTEUR_TUILE; lig++)
 		for(col=0; col<LARGEUR_TUILE; col++) {
-			if (rand() % 6 == 0) {	//1 chance sur 4 qu'il y ai un obstacle
-				tuile->id_texture[lig][col]=obstacle;	
+			if (rand() % 6 == 0) {	//1 chance sur 6 qu'il y ai un obstacle1
+				tuile->id_texture[lig][col]=obstacle1;	
 			}
-			else {					//3 chance sur 4 qu'il y ai un obstacle
-				tuile->id_texture[lig][col]=normal;		
+			else {	
+				if (rand() % 6 == 0) {	//1 chance sur 6 qu'il y ai un obstacle2
+					tuile->id_texture[lig][col]=obstacle2;
+				}
+				else {
+					tuile->id_texture[lig][col]=normal;	//pas d'obstacle
+				}				
+					
 			}
 		}
 
@@ -211,7 +217,10 @@ void init_biomes(){
 					strcat(path, "/normal.png");
 					break;
 				case 2:
-					strcat(path, "/obstacle.png");
+					strcat(path, "/obstacle1.png");
+					break;
+				case 3:
+					strcat(path, "/obstacle2.png");
 					break;
 			}
 			nouv_surface(path);
@@ -337,7 +346,8 @@ void avancer(t_perso *p){//uniquement pour le joueur
 	if(!p)return;
 	SDL_Rect rect_tuile={0,0,W,H};
 	SDL_Rect rect = p->rect;//séparé
-	int deltax=deplacement[p->dir].x * p->vit, deltay=deplacement[p->dir].y * p->vit;
+	int deltax=deplacement[p->dir].x * p->vit;
+	int deltay=deplacement[p->dir].y * p->vit;
 	bool sortie=0;
 	t_pos pos;
 
