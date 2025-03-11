@@ -1,0 +1,8 @@
+- setup
+- attente de connexion des clients : message (il y a x clients) puis "start"
+- clients wait, server envoie indice de chaque client
+
+/ A finir /
+- les clients envoient les infos de leur perso, serv attend et récupère
+- serv broadcast ces mêmes infos
+/ suite /

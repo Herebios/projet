@@ -11,13 +11,17 @@
     #include <sys/socket.h>
 #endif
 
+#include "../datastruct/file.h"
 #include "perso.h"
-#define PORT 2051
+
+#define PORT 2048
 #define BUFFER_SIZE 101
-#define NB_CLIENTS 3
+#define NB_CLIENTS 2
 
 #define flush fflush(stdout)
 #define endl putchar('\n')
+
+extern file * serv_file;
 
 typedef struct {
     int socket;
@@ -30,7 +34,6 @@ typedef struct {
 	socket_struct socket;
 } server_socket_struct;
 
-
 typedef struct {
     socket_struct server_struct;
     bool premier_client, clients_on[NB_CLIENTS];
@@ -42,10 +45,3 @@ void * accept_thread(void *);
 int setup_server(info_server *);
 void fermeture_server(int, info_server *, socket_struct *);
 void broadcast(char *string, info_server *s, socket_struct clients[NB_CLIENTS]);
-
-
-
-
-
-
-

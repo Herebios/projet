@@ -1,10 +1,37 @@
 #include "servHandler.h"
 
+file * serv_file;
+
 void broadcast(char *string, info_server *serv, socket_struct clients[NB_CLIENTS]){
 	for (int i = 0; i < serv->nb_clients; i++){
 		/*if (clients[i].online){
 		}*/
 		send(clients[i].socket, string, strlen(string), 0);
+	}
+}
+
+/*Reçoit les infos de chaque client*/
+void init_joueurs_server(perso_t * joueurs, int nb){
+	char * data; int ind;
+	while(nb){//décrémenté pour savoir combien de messages sont attendus
+		if(fileVide(serv_file))
+			sleep(1);
+		else{
+			data=defiler(serv_file);
+			sscanf(data, "%d", &ind);
+			/*A changer si ind peut être >= 10*/
+			sscanf(data+1, "%d %s %d", &joueurs[ind].classe, &joueurs[ind].nom, &joueurs[ind].equipe);
+			free(data);
+		}
+	}
+}
+
+/*Envoie à tous les clients les autres infos*/
+void send_joueurs_server(info_server * serv, socket_struct clients[NB_CLIENTS], perso_t * joueurs, int nb){
+	char data[128];
+	for(int i=0; i<nb; i++){
+		sprintf(data, "%d", i);
+		broadcast(data, serv, clients);
 	}
 }
 
@@ -16,28 +43,23 @@ void *client_thread(void *arg){
     free(arg);
     printf("thread ecoute du client %d\n", ind);flush;
 
-    int buff_size;
+    int buffer_size;
     char buffer[BUFFER_SIZE];
     bool valide=1;
     while(valide){
-        buff_size = recv(clients[ind].socket, buffer, BUFFER_SIZE-1, 0);
-        if(buff_size > 0){
-            buffer[buff_size] = '\0';
+        buffer_size = recv(clients[ind].socket, buffer, BUFFER_SIZE-1, 0);
+        if(buffer_size > 0){
+            buffer[buffer_size] = '\0';
             switch(*buffer){
                 //signal qui met fin au thread, le client ind se déconnecte
                 case '!': valide=0;break;
                 //message normal
                 default:
-                    printf("%d)> '%s'\n", buff_size, buffer);flush;
-                    for (int i=0; i < *nb_clients; i++) {
-                    //on envoie à chaque client encore connecté qui n'est pas l'envoyeur
-                        if(i!=ind && clients[i].online)
-                            send(clients[i].socket, buffer, buff_size, 0);
-                    }
+					enfiler(serv_file, buffer, buffer_size+1);
             }
         }else{
             valide=0;
-            printf("déconnexion brutale %d\n", ind);
+            printf("Le client %d a quitté ce monde, RIP.\n", ind);
         }
     }
 
@@ -95,6 +117,7 @@ server est fantôme si code 1 ou 2
 clients est NULL si code != 0
 */
     printf("libération\n");
+	if(serv_file)fileFree(&serv_file, free);
     switch(error_code){
 case 0:
     for (int i=0; i<server->nb_clients; i++)

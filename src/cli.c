@@ -17,7 +17,7 @@
 
 file * file_socket;
 
-#define PORT 2051
+#define PORT 2048
 #define BUFFER_SIZE 101
 #define flush fflush(stdout)
 #define endl putchar('\n')
@@ -44,7 +44,11 @@ void init_joueurs(perso_cli joueurs[]){
 	}
 }
 */
-int main_client(int nb_joueurs, char * ip) {
+/* !!
+Faire une fonction qui s'occupe du send
+et qui commence par envoyer l'indice du client ?
+*/
+int main_client(char * ip) {
 	//setup socket
 	printf("'%s'\n", ip);flush;
 	socket_struct client;
@@ -68,20 +72,27 @@ int main_client(int nb_joueurs, char * ip) {
 	while(!end){
 		data=defiler(file_socket);
 		if(data){
-			printf("Message : ");
+			printf("Message : '%s'\n", data);flush;
 			if(strcmp(data, "start")==0)
 				end=1;
 			free(data);
 			data=NULL;
 		}
 		putchar('\n');
-		//sleep(1);
-		usleep(1000000);
+		sleep(1);
 	}
 	if(data){
 		puts(data);
 		free(data);
 	}
+
+	//Récupère son indice
+	while(fileVide(file_socket))
+		sleep(1);
+	data=defiler(file_socket);
+	int indice = atoi(data);
+	free(data);
+	printf("Je suis le client %d !\n", indice);
 
 //	perso_cli joueurs[nb_joueurs];
 //	init_joueurs(joueurs);
@@ -112,7 +123,7 @@ int main_client(int nb_joueurs, char * ip) {
 }
 
 int main(){
-	return main_client(1, "172.18.41.164");
+	return main_client("127.0.0.1");
 }
 
 void* ecoute_thread(void* arg){
@@ -126,7 +137,6 @@ Signal par pointeur qui arrête le main
     bool valide=1;
 	while(valide){
 		buffer_size = recv(client->socket, buffer, BUFFER_SIZE-1, 0);
-		printf("Message reçu\n");
 		if(buffer_size > 0){
             buffer[buffer_size] = '\0';
             switch(*buffer){
@@ -135,11 +145,12 @@ Signal par pointeur qui arrête le main
 					break;
                 default:
 					//copie du message dans la file
-					printf("On enfile : %s\n", buffer);
 					enfiler(file_socket, buffer, buffer_size+1);
             }
-        }else
+        }else{
 			valide=0;
+			puts("Le serveur est mort, je crois.");
+		}
 	}
 	puts("fin ecoute thread\n");flush;
 	client->online=0;
@@ -151,7 +162,7 @@ Libération correspondant au code renvoyé par le setup en cas d'échec,
 tout à la fin du programme, avec le code 0.
 */
 	printf("fermeture\n");
-	fileFree(&file_socket, free);
+	if(file_socket)fileFree(&file_socket, free);
 	switch(error_code){
 case 0:
 case 3:
