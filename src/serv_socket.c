@@ -1,39 +1,9 @@
-#include "servHandler.h"
-
-file * serv_file;
-
-void broadcast(char *string, info_server *serv, socket_struct clients[NB_CLIENTS]){
-	for (int i = 0; i < serv->nb_clients; i++){
-		/*if (clients[i].online){
-		}*/
-		send(clients[i].socket, string, strlen(string), 0);
-	}
-}
-
-/*Reçoit les infos de chaque client*/
-void init_joueurs_server(perso_t * joueurs, int nb){
-	char * data; int ind;
-	while(nb){//décrémenté pour savoir combien de messages sont attendus
-		if(fileVide(serv_file))
-			sleep(1);
-		else{
-			data=defiler(serv_file);
-			sscanf(data, "%d", &ind);
-			/*A changer si ind peut être >= 10*/
-			sscanf(data+1, "%d %s %d", &joueurs[ind].classe, &joueurs[ind].nom, &joueurs[ind].equipe);
-			free(data);
-		}
-	}
-}
-
-/*Envoie à tous les clients les autres infos*/
-void send_joueurs_server(info_server * serv, socket_struct clients[NB_CLIENTS], perso_t * joueurs, int nb){
-	char data[128];
-	for(int i=0; i<nb; i++){
-		sprintf(data, "%d", i);
-		broadcast(data, serv, clients);
-	}
-}
+/**
+ * @file serv_socket.c
+ * @author Baptiste
+ * @brief fonctions socket pour le serv
+ */
+#include "serv_socket.h"
 
 void *client_thread(void *arg){
 /*on récupère un pointeur sur nb_clients et le tableau de socket_struct clients avec l'indice du client courant*/
@@ -44,12 +14,13 @@ void *client_thread(void *arg){
     printf("thread ecoute du client %d\n", ind);flush;
 
     int buffer_size;
-    char buffer[BUFFER_SIZE];
+    char buffer[BUFFERLEN];
     bool valide=1;
     while(valide){
-        buffer_size = recv(clients[ind].socket, buffer, BUFFER_SIZE-1, 0);
+        buffer_size = recv(clients[ind].socket, buffer, BUFFERLEN, 0);
         if(buffer_size > 0){
             buffer[buffer_size] = '\0';
+			printf("Recu %d : '%s'\n", ind, buffer);
             switch(*buffer){
                 //signal qui met fin au thread, le client ind se déconnecte
                 case '!': valide=0;break;
@@ -110,7 +81,7 @@ donc on passe directement l'indice du client en paramètre pour être sûr d'avo
     return NULL;
 }
 
-void fermeture_server(int error_code, info_server * server, socket_struct * clients){
+void fermeture_server(info_server * server, socket_struct clients[NB_CLIENTS], int error_code){
 /*
 code 0 est le comportement normal, on détruit tout à la fin
 server est fantôme si code 1 ou 2

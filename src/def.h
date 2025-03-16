@@ -1,42 +1,37 @@
-typedef enum {idle,course,attaque}t_anim;
-typedef enum {bas,haut,gauche,droite,basgauche,basdroite,hautgauche,hautdroite}t_dir;
+#include "types.h"
+#include "perso.h"
+#include "SDL_def.h"
+
+typedef enum {idle,course,attaque}anim_t;
+typedef enum {bas,haut,gauche,droite,basgauche,basdroite,hautgauche,hautdroite}dir_t;
 typedef enum {sortie, normal, obstacle1, obstacle2} type_carre;
 typedef enum {base, desert, foret, glace, montagne, neige, plaine} nom_biome;//foret, volcan, marais, grotte, enfer, tour_magie, chateau_fort
 typedef enum {consommable, arme, armure} cat_objet;
 
-//?? pour les monstres
-typedef enum {administrateur, guerrier, mage, archer, assassin, informaticien, druide, necromancien} t_classe;
-
-typedef struct {
-    int x;
-    int y;
-}t_pos;
-
-typedef struct{
 /*
+typedef struct{
 anim est l'indice de la texture courante
 max_anim sert à boucler sur l'animation (taille maximale de la texture)
 dir et num_anim sont les indices pour le sprite (multipliés par la taille)
 rect est l'emplacement sur l'écran, sprite le rectangle sur la texture
-*/
+
 	//bool monstre/joueur
     unsigned char num_anim, max_anim, nb_textures, vit, niveau;
 	int vie, attaque, magie;
 	//int mana; Pas implémenté pour le moment
-	t_classe classe;
-	t_pos pos_map;//indices pour map.tuiles
+	classe_t classe;
+	pos_t pos_map;//indices pour map.tuiles
     SDL_Rect sprite, rect;//rect = coo sur tuile
-    t_anim anim;
-    t_dir dir;
+    anim_t anim;
+    dir_t dir;
     SDL_Texture *textures[NB_ANIM], *texture_courante;//sprite
-}t_perso;
+}perso_t;
+*/
 
 typedef struct{
-	int id;
-	char nom[16];
-	SDL_Texture *texture;
-	SDL_Rect rect;
-}t_objet;
+	objet_t * objet;
+	pos_t pos;
+}objet_tuile_t;
 
 typedef struct{
 	int id;
@@ -44,7 +39,7 @@ typedef struct{
 	char nom[16];
 	SDL_Texture *texture;
 	int *quetes;//pas encore de struct
-}t_pnj;
+}pnj_t;
 
 typedef struct{
 /*enum type_carre comme indice dans textures
@@ -54,32 +49,33 @@ typedef struct{
 	SDL_Texture *textures[NB_TEXTURES_BIOME];
 	unsigned char nb_textures;
 //?? etat, relatif aux évènements, si chaque biome est unique sur la map, sinon dans tuile
-}t_biome;
+}biome_t;
 
 typedef struct{
 //15x8 textures de 128x128 pour écran 1920x1080
 
-	t_biome *biome;//pointeur sur un des biomes du tableau chargé un mémoire
+	biome_t *biome;//pointeur sur un des biomes du tableau chargé un mémoire
 	type_carre id_texture[HAUTEUR_TUILE][LARGEUR_TUILE];
 
-	//tableau de pointeurs car les objets sont déjà en mémoire
-	t_objet *objets[NB_OBJETS_TUILE];
-	t_pnj *pnj[NB_PNJ_TUILE];
-	t_perso *ennemis[NB_ENNEMIS_TUILE];
-}t_tuile;
+	//!! initialiser les pointeurs à NULL
+	objet_tuile_t objets[NB_OBJETS_TUILE];
+	//quand un objet est initialisé on copie le ptr et on initialise la pos
+	pnj_t *pnj[NB_PNJ_TUILE];
+	perso_t *ennemis[NB_ENNEMIS_TUILE];
+}tuile_t;
 
 //?? map est peut-être inutile comme j'ai déplacé séparé les textures dans les biomes
 typedef struct{
-	t_tuile tuiles[HAUTEUR_MAP][LARGEUR_MAP];
+	tuile_t tuiles[HAUTEUR_MAP][LARGEUR_MAP];
 //	SDL_Texture *textures[NB_TEXTURES]; unsigned char nb_textures;
-}t_map;
+}map_t;
 
 typedef struct{
 	//?? int seed;
-	t_map map;
-	t_perso perso[NB_PERS_MAX];//tableau, joueur en 0
+	map_t map;
+	perso_t perso[NB_PERS_MAX];//tableau, joueur en 0
 	unsigned char nb_perso;
-	t_tuile *tuile_courante;
+	tuile_t *tuile_courante;
 	SDL_Texture *texture_tuile;
 	//?? texture_prec + pos_prec
 }t_jeu;

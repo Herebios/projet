@@ -3,12 +3,16 @@
 #include <string.h>
 #include "perso.h"
 
-void creer_perso(perso_t * p, classe_t classe, char * nom, int indice){
+void creer_perso(perso_t * p, classe_t classe, char * nom, int indice, int equipe){
+	if(nom && *nom)
+		p->nom=strdup(nom);
+	else
+		p->nom=strdup("Gauss");
 	p->classe=classe;
 	p->niveau=1;
-	p->nom=strdup(nom);
 	p->x=p->y=0;
 	p->iperso=indice;
+	p->equipe=equipe;
 
 	int i;
 	for (i=0; i<NB_COMP; i++)
@@ -40,6 +44,7 @@ void creer_perso(perso_t * p, classe_t classe, char * nom, int indice){
 			memcpy(p->stats_base, (int[4]){85,25,40,14}, sizeof(int[4]));
 			break;
 	}
+	update_stats(p);
 }
 
 /*
@@ -101,17 +106,17 @@ void update_stats(perso_t * p) {
     }
 }
 
-void ajouter_objet(perso_t * perso, objet_t * obj) {
+void ajouter_objet(perso_t * perso, int ind_obj) {
     int i=0;
     //trouver la première place libre
     while(perso->objets[i] && i<PERSO_OBJETS_MAX) i++;
     if(i==PERSO_OBJETS_MAX)return;//pas de place
-    perso->objets[i] = obj;
+    perso->objets[i] = tab_objets+ind_obj;
 }
-void retirer_objet(perso_t * perso, int position) {
-    perso->objets[position] = NULL;
+void retirer_objet(perso_t * perso, int ind_inv) {
+    perso->objets[ind_inv] = NULL;
 }
-
+/*
 int main(void){
     int nb_joueurs = 1;//info du server
     perso_t tab_perso[nb_joueurs];
@@ -132,3 +137,4 @@ int main(void){
 	detruire_perso(tab_perso);
     return 0;
 }
+*/

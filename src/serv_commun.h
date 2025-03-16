@@ -1,9 +1,17 @@
+/**
+ * @file serv_commun.h
+ * @author Baptiste
+ */
+#ifndef _SERV_COMMUN_H_
+#define _SERV_COMMUN_H_
+
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
-#include <stdbool.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
+
 #ifdef _WIN32
     #include <winsock2.h>
 #else
@@ -11,15 +19,11 @@
     #include <sys/socket.h>
 #endif
 
+#include "prepro.h"
 #include "../datastruct/file.h"
-#include "perso.h"
 
-#define PORT 2048
-#define BUFFER_SIZE 101
+#define BUFFERLEN 101
 #define NB_CLIENTS 2
-
-#define flush fflush(stdout)
-#define endl putchar('\n')
 
 extern file * serv_file;
 
@@ -27,12 +31,8 @@ typedef struct {
     int socket;
     pthread_t thread;
     bool online;
-	struct sockaddr_in addr;
+    struct sockaddr_in addr;
 } socket_struct;
-
-typedef struct {
-	socket_struct socket;
-} server_socket_struct;
 
 typedef struct {
     socket_struct server_struct;
@@ -40,8 +40,7 @@ typedef struct {
     int nb_clients, nb_on;
 } info_server;
 
-void * client_thread(void *);
-void * accept_thread(void *);
-int setup_server(info_server *);
-void fermeture_server(int, info_server *, socket_struct *);
-void broadcast(char *string, info_server *s, socket_struct clients[NB_CLIENTS]);
+char * data_skip(char *, int);
+void broadcast(char *, info_server *, socket_struct[NB_CLIENTS], int exception);
+
+#endif

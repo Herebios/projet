@@ -1,11 +1,11 @@
 #ifndef _PERSO_CLI_H_
 #define _PERSO_CLI_H_
 
-#include "sdl.h"
+#include "SDL_def.h"
 #include "perso.h"
 typedef struct{
 	perso_t perso;
 	sdl_struct sdl;
-}perso_cli;
+}perso_cli_t;
 
-#endif//_PERSO_CLI_H_
+#endif

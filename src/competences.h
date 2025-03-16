@@ -1,3 +1,6 @@
+#ifndef _COMPETENCES_H_
+#define _COMPETENCES_H_
+
 #include "types.h"
 struct comp_s{
     char *nom, *description;
@@ -9,3 +12,4 @@ struct comp_s{
     int (*fonction)(perso_t *, comp_t*);
 };
 
+#endif

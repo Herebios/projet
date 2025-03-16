@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+
+#include "SDL_def.h"
 
 #include "prepro.h"
 #include "def.h"
 #include "fonctions.h"
 
 t_jeu jeu;//?? pourrait tout contenir, dupliquer les pointeurs à l'extérieur
-t_map *map = &jeu.map;
-t_perso *perso;//?? fonction pour perso = jeu.perso + jeu.nb_perso
+map_t *map = &jeu.map;
+perso_t *perso;//?? fonction pour perso = jeu.perso + jeu.nb_perso
 
-t_biome biomes[NB_BIOMES];//?? inclus dans jeu ou map
+biome_t biomes[NB_BIOMES];//?? inclus dans jeu ou map
 
 //t_objet *objets[NB_CAT_OBJETS];
 
@@ -74,7 +74,7 @@ void init_objets(){
 	//manque texture à charger et rect au moment où l'objet est affecté à une tuile
 }
 */
-void generer_tuile(t_tuile* tuile, nom_biome id_biome, int posMapY, int posMapX){//map
+void generer_tuile(tuile_t* tuile, nom_biome id_biome, int posMapY, int posMapX){//map
 /*suppose que les biomes sont construits de la même manière avec
 type_carre indice de texture dans biome->textures[]
 */
@@ -93,18 +93,12 @@ type_carre indice de texture dans biome->textures[]
 	//!! ajouter règles de génération, dépendantes du biome?
 	for(lig=0; lig<HAUTEUR_TUILE; lig++)
 		for(col=0; col<LARGEUR_TUILE; col++) {
-			if (rand() % 6 == 0) {	//1 chance sur 6 qu'il y ai un obstacle1
-				tuile->id_texture[lig][col]=obstacle1;	
-			}
-			else {	
-				if (rand() % 6 == 0) {	//1 chance sur 6 qu'il y ai un obstacle2
-					tuile->id_texture[lig][col]=obstacle2;
-				}
-				else {
-					tuile->id_texture[lig][col]=normal;	//pas d'obstacle
-				}				
-					
-			}
+			if (rand() % 6 == 0)//1/6 obstacle1
+				tuile->id_texture[lig][col]=obstacle1;
+			else if (rand() % 6 == 0)//1/6 obstacle2
+				tuile->id_texture[lig][col]=obstacle2;
+			else
+				tuile->id_texture[lig][col]=normal;//normal
 		}
 
 	//sortie gauche
@@ -121,7 +115,7 @@ type_carre indice de texture dans biome->textures[]
 		if(HAUTEUR_TUILE%2)//3 carres de sortie si impair
 			tuile->id_texture[HAUTEUR_TUILE/2 +1][LARGEUR_TUILE-1]=sortie;
 	}
-	
+
 	//sortie haut
 	if (posMapY != 0) {
 		tuile->id_texture[0][LARGEUR_TUILE/2 -1]=sortie;
@@ -138,7 +132,7 @@ type_carre indice de texture dans biome->textures[]
 	}
 }
 
-/*void afficher_idtextures_tuile(t_tuile *t){
+/*void afficher_idtextures_tuile(tuile_t *t){
 	for(int lig=0,col; lig<HAUTEUR_TUILE; lig++){
         for(col=0; col<LARGEUR_TUILE; col++)
 			printf("%d ", t->id_texture[lig][col]);
@@ -146,13 +140,13 @@ type_carre indice de texture dans biome->textures[]
 	}
 }*/
 
-t_tuile* ptr_tuile_courante(){//map
+tuile_t* ptr_tuile_courante(){//map
 	perso = jeu.perso;//joueur
 	return map->tuiles[perso->pos_map.y] + perso->pos_map.x;
 }
 
 void charger_tuile_courante(){//jeu
-	t_tuile* tuile = jeu.tuile_courante;
+	tuile_t* tuile = jeu.tuile_courante;
 	SDL_SetRenderTarget(renderer, jeu.texture_tuile);
 	for (int l=0,c; l<HAUTEUR_TUILE; l++)
 		for (c=0; c<LARGEUR_TUILE; c++)
@@ -162,7 +156,7 @@ void charger_tuile_courante(){//jeu
 
 void init_jeu(){
 	//init_objets();
-	init_biomes();
+	init_biome();
 	init_map();
 
 	jeu.nb_perso=0;
@@ -184,7 +178,7 @@ void init_map(){//map
 		}
 }
 
-void init_biomes(){
+void init_biome(){
 /*Tous les biomes doivent respecter le même format pour que les textures chargent bien
 */
 	//init
@@ -197,7 +191,7 @@ void init_biomes(){
 	}
 
 	//charger textures selon les biomes
-	t_biome *biome_cour;
+	biome_t *biome_cour;
 	char *noms[]={"base", "desert", "foret", "glace", "montagne", "neige", "plaine"};
 	char path[100]="img/Tiles/Biomes/";
 
@@ -224,7 +218,7 @@ void init_biomes(){
 					break;
 			}
 			nouv_surface(path);
-			path[17]='\0';//écrire à nouveau après 'textures/'
+			path[17]='\0';//devient 'img/Tiles/Biomes/'
 			nouv_texture(biome_cour->textures, &biome_cour->nb_textures);
 		}
 		}
@@ -249,7 +243,7 @@ termine le programme en cas d'échec, aucune vérification n'est nécessaire apr
 	(*nb_textures)++;
 }
 
-void changer_anim(t_perso *p, t_anim anim){
+void changer_anim(perso_t *p, anim_t anim){
 	p->anim=anim;
 	//texture qui correspond à l'anim
 	p->texture_courante=p->textures[anim];
@@ -290,7 +284,7 @@ void nouv_perso(char *s){//jeu, perso
 	perso = jeu.perso + jeu.nb_perso;//pointeur sur nouv perso
 	//valeurs par defaut
 	t_classe classe=administrateur;
-	*perso = (t_perso){
+	*perso = (perso_t){
 		0,0,0,
 		VITESSE_BASE,NIVEAU_BASE,VIE_BASE,ATTAQUE_BASE,DEFENSE_BASE,MAGIE_BASE,MANA_BASE,
 		classe,
@@ -322,7 +316,7 @@ void nouv_perso(char *s){//jeu, perso
 
 	jeu.nb_perso++;
 }
-t_pos deplacement[] = {
+pos_t deplacement[] = {
     {0,1}, // BAS
     {0,-1}, // HAUT
     {-1,0}, // GAUCHE
@@ -337,25 +331,25 @@ bool inclus(SDL_Rect* a, SDL_Rect* b){
     return (a->x >= b->x) && (a->y >= b->y) && ((a->x + a->w) <= (b->x + b->w)) && ((a->y + a->h) <= (b->y + b->h));
 }
 
-void avancer(t_perso *p){//uniquement pour le joueur
+void avancer(perso_t *p){//uniquement pour le joueur
 //!!gérer collisions avec obstacles
 //?? carrés de sortie même pour les tuiles sur un bord de map ?
 //-si non, modifier un peu cette fonction, et adapter génération des tuiles
 //?? si sauvegarde précédente tuile dans struct jeu, il faudra ajouter un peu de code
 
 	if(!p)return;
-	SDL_Rect rect_tuile={0,0,W,H};
+	SDL_Rect rectuile_t={0,0,W,H};
 	SDL_Rect rect = p->rect;//séparé
 	int deltax=deplacement[p->dir].x * p->vit;
 	int deltay=deplacement[p->dir].y * p->vit;
 	bool sortie=0;
-	t_pos pos;
+	pos_t pos;
 
-	/*Ne pas dépasser les bords.
-	2 tests pour ne pas être bloqué si 2 touches sont appuyées et une des directions est un bord*/
+	/*Ne pas dépasser les bords. Tests x et y séparés pour ne pas être bloqué
+	si 2 touches sont appuyées et une des directions est un bord*/
 
 	rect.x+=deltax;
-	if(inclus(&rect, &rect_tuile))
+	if(inclus(&rect, &rectuile_t))
 		p->rect.x=rect.x;
 	else{//bord tuile dépassé
 		position_perso(p, &pos);
@@ -377,7 +371,7 @@ void avancer(t_perso *p){//uniquement pour le joueur
 	}
 
 	rect.y+=deltay;
-	if(inclus(&rect, &rect_tuile))
+	if(inclus(&rect, &rectuile_t))
 		p->rect.y=rect.y;
 	else{
 		position_perso(p, &pos);
@@ -400,22 +394,11 @@ void avancer(t_perso *p){//uniquement pour le joueur
 		afficher_tuile_courante();
 		afficher_perso(p);
 	}
-	/*Anciens tests des bords
-	if ((rect->x += deltax) + rect->w > W)
-		rect->x -= deltax;
-	else if(rect->x < 0)
-		rect->x -= deltax;
-
-	if ((rect->y += deltay) + rect->h > H)
-		rect->y -= deltay;
-	else if(rect->y < 0)
-		rect->y -= deltay;
-	*/
 }
 
 
 
-void changer_dir(t_perso *p, Uint8 mask){
+void changer_dir(perso_t *p, Uint8 mask){
 	switch(mask){
 		//basdroite
 		case 10:
@@ -467,15 +450,15 @@ void afficher_tuile_courante(){
 	SDL_RenderCopy(renderer, jeu.texture_tuile, 0, 0);
 }
 
-void effacer_perso(t_perso *p){
+void effacer_perso(perso_t *p){
 	SDL_RenderCopy(renderer, jeu.texture_tuile, &p->rect, &p->rect);//ce qu'il y avait dessous, redessiné dessus
 }
 
-void afficher_perso(t_perso *p){
+void afficher_perso(perso_t *p){
 	SDL_RenderCopy(renderer, p->texture_courante, &p->sprite, &p->rect);
 }
 
-void position_perso(t_perso *p, t_pos* pos){
+void position_perso(perso_t *p, pos_t* pos){
 	int y=p->rect.y + (p->rect.h >> 1);//ajout de hauteur/2, ~milieu du perso
 	pos->y = y/CARRE_H;
 	int x=p->rect.x + (p->rect.w >> 1);
@@ -491,11 +474,8 @@ int main(int argc, char *argv[]) {
 	charger_tuile_courante();
 	afficher_tuile_courante();
 
-	t_perso *j=jeu.perso;//perso 0 = joueur
+	perso_t *j=jeu.perso;//perso 0 = joueur
 	afficher_perso(j);
-
-//	t_tuile *tuiles = map->tuiles;//& map->tuiles[0][0]
-
 
     SDL_RenderPresent(renderer);
     SDL_Event event;
@@ -514,7 +494,7 @@ int main(int argc, char *argv[]) {
 		effacer_perso(j);
 
 		//sauvegarde de dir et anim
-		t_dir dir=j->dir;
+		dir_t dir=j->dir;
 		//on change la direction en fonction des input
 		changer_dir(j, mask);
 		switch(j->anim){

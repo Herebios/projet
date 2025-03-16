@@ -1,3 +1,6 @@
+#ifndef _PREPRO_H_
+#define _PREPRO_H_
+
 /*Ratio important
 W = CARRE_W * LARGEUR_TUILE
 H = CARRE_H * HAUTEUR_TUILE
@@ -42,3 +45,5 @@ H = CARRE_H * HAUTEUR_TUILE
 
 #define endl putchar('\n')
 #define flush fflush(stdout)
+
+#endif

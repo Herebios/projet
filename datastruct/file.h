@@ -1,12 +1,13 @@
-#include <stdlib.h>
-#include <string.h>
+#ifndef _FILE_H_
+#define _FILE_H_
 
 /**
  * @file file.h
- * @brief Fichier d'accés à une file et aux fonctions principales. Fortement lié à file.c.
- * @author Lucas REVERBEL--LONGHI
- * @date 2025-02-04
+ * @author Lucas
+ * @brief Fonctions de manipulation de file
 */
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct fileElem_s{void * val; struct fileElem_s *next;} fileElem; // structure pour un élément d'une file.
 typedef struct file_s{fileElem *head, *queue;} file; // structure pour une file.
@@ -58,3 +59,5 @@ void fileAjoutQueue(file *f, void* val);
  * @return Renvoie un entier correspondant à la taille de la File.
  */
 int fileLength(file *f);
+
+#endif
