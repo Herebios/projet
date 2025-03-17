@@ -6,16 +6,14 @@ typedef enum {onTouch, onEnd} state;
 
 typedef struct cast_s cast;
 typedef struct cast_s{
+	tile* tile;
 	castType type;
 	vector *v;
-	unsigned int casterIndex;
-	unsigned int victimIndex; // default value : -1
+	 caster;
 	unsigned int velocity; // zone : ticks; instant : speedofthecast; projectil : speed
 	unsigned int size;
 	long damage;
 	point pos;
-	void (*followUp)(cast *c, int state);
-	cast *next;
 };
 
 

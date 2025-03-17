@@ -26,6 +26,7 @@ struct perso_s{
 	octet iperso, equipe;
 	//??iperso inutile
 	int x, y;
+	pos_t pos_map;//indices pour map.tuiles
 };
 
 /**

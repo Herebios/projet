@@ -8,6 +8,10 @@
 #include "def.h"
 #include "fonctions.h"
 
+#include "menu.h"
+#include "cli.c"
+#include "serv.c"
+
 t_jeu jeu;//?? pourrait tout contenir, dupliquer les pointeurs à l'extérieur
 map_t *map = &jeu.map;
 perso_t *perso;//?? fonction pour perso = jeu.perso + jeu.nb_perso
@@ -467,6 +471,25 @@ void position_perso(perso_t *p, pos_t* pos){
 
 //taille texture : SDL_QueryTexture(textures[0], NULL, NULL, &largeur_texture, &hauteur_texture);
 int main(int argc, char *argv[]) {
+	char *pseudo, classe, *ipAddress;
+	int code = menu(pseudo, &classe, ipAddress);
+	switch (code){
+	case 0: // client
+		return main_client(ip, pseudo, (classe_t) classe);
+	case 2: // server and client
+		pthread_t thread;
+		pthread_create(&thread, NULL, main_client_thread, NULL);
+	case 1: // only server
+		return main_server();
+	}
+
+
+
+
+
+
+
+
 	/*window, renderer, jeu(map(textures, tuiles), texture_tuile, perso)*/
 	init_sdl();
 	init_jeu();

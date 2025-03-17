@@ -14,3 +14,14 @@ cast *newCast(perso_t *p, compt_t *comp){
 	c->victimIndex = -1;
 	c->damage = comp->fonction(p, comp);
 	c->next = NULL;
+}
+
+void castUpdate(liste *castListe){
+	tete_liste(castListe);
+	while (!hors_liste(castListe)){
+		
+
+
+
+
+

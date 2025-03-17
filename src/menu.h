@@ -180,4 +180,4 @@ void modif_nom(void);
 /**
  * @brief Fonction qui appelle toutes les précédentes pour créer le menu fonctionnel. Boucle principale de gestion d'événements SDL pour gérer les interractions avec l'utilisateur
  */
-void menu(void);
+int menu(char *pseudo, unsigned char *classe, char* ipAddress);

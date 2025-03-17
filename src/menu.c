@@ -341,7 +341,7 @@ void modif_nom(){
     maj_affichage();   
 }
 
-void menu(){
+int menu(char *pseudo, unsigned char *classe, char* ipAddress){
     init_sdl();
     TTF_Init();
     SDL_Init(SDL_INIT_AUDIO);
