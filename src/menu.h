@@ -27,7 +27,11 @@
  #define NB_MAX_CAR_JOUEUR 20
  #define NB_MAX_CAR_IP 16
  #define REGEXIP "^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$"
- 
+ #define JOUER 0
+ #define SERVEUR 1
+ #define JOUER_SERVEUR 2
+
+
  
  
  typedef struct {
@@ -89,8 +93,9 @@ void init_sdl(void);
  void maj_perso_actuel(void);
  
  /**
-  * @brief Met à jour l'affichage à l'écran : affichage l'image de fond et tous les textes et images chargées 
-  */
+    @brief met à jour l'affichage à l'écran : affichage l'image de fond et supprime toutes les textures qui étaient affichées à l'écran
+  * 
+*/
  void clear_ecran(void);
  
  /**
@@ -170,5 +175,17 @@ void init_sdl(void);
  
  /**
   * @brief Fonction qui appelle toutes les précédentes pour créer le menu fonctionnel. Boucle principale de gestion d'événements SDL pour gérer les interractions avec l'utilisateur
+  * @return Renvoie -1 si on quitte le menu avec echap ; 0 si on joue au jeu ; 1 si on est juste serveur ; 2 si on est serveur et joueur en même temps
   */
-int menu(char **pseudo, char **classe, char** ipAddress);
+int menu(char **pseudo, char *classe, char** ipAddress);
+
+
+/**
+ * @brief Affiche les options de création du serveur
+ */
+void affiche_host_game();
+
+/**
+ * @brief Permet de mettre à jour l'adresse ip saisie avec les touches du keypad et du clavier normal
+ */
+int saisie_touche_ip(SDL_Keycode touche);

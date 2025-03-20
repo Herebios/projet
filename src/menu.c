@@ -5,29 +5,9 @@
 compilation :
 gcc menu.c -o menu -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer  
 
-PF : continuer à faire les boutons pour créer ou rejoindre une partie comme le main du B (main socket)
-PF : eviter les var globales
-PF : continuer d'adapter le code
+
+PF : continuer fonction charger param
 */
-
-int valider_ip(char *ip) {
-    regex_t regex;
-    int result;
-
-    // Compilation de la regex
-    if (regcomp(&regex, REGEXIP, REG_EXTENDED)) {
-        fprintf(stderr, "Erreur de compilation de la regex\n");
-        return 0;
-    }
-
-    result = regexec(&regex, ip, 0, NULL, 0);
-
-    // Libération de la mémoire de la regex
-    regfree(&regex);
-
-    // Retourne 1 si l'IP est valide, 0 sinon
-    return (result == 0);  
-}
 
 
 SDL_Window *window = NULL;
@@ -117,22 +97,78 @@ void init_sdl(){
 
 }
 
+int valider_ip(char *ip) {
+    regex_t regex;
+    int result;
+
+    // Compilation de la regex
+    if (regcomp(&regex, REGEXIP, REG_EXTENDED)) {
+        fprintf(stderr, "Erreur de compilation de la regex\n");
+        return 0;
+    }
+
+    result = regexec(&regex, ip, 0, NULL, 0);
+
+    // Libération de la mémoire de la regex
+    regfree(&regex);
+
+    // Retourne 1 si l'IP est valide, 0 sinon
+    return (result == 0);  
+}
+
+int saisie_touche_ip(SDL_Keycode touche){
+    if(nbcarIp < NB_MAX_CAR_IP){
+        char c = '\0';
+
+        if(((touche >= SDLK_0 && touche <= SDLK_9))){
+            c = (char)touche;
+        }
+        else{
+            switch(touche){
+                case SDLK_SEMICOLON :
+                case SDLK_KP_PERIOD : c = '.'; break;
+                case SDLK_KP_0 : c = '0'; break;
+                case SDLK_KP_1 : c = '1'; break;
+                case SDLK_KP_2 : c = '2'; break;
+                case SDLK_KP_3 : c = '3'; break;
+                case SDLK_KP_4 : c = '4'; break;
+                case SDLK_KP_5 : c = '5'; break;
+                case SDLK_KP_6 : c = '6'; break;
+                case SDLK_KP_7 : c = '7'; break;
+                case SDLK_KP_8 : c = '8'; break;
+                case SDLK_KP_9 : c = '9'; break;
+                default : return 0;
+            }
+
+        }
+        saisieIp[nbcarIp++] = c;
+        saisieIp[nbcarIp] = '\0';
+        affiche_host_game();
+        SDL_RenderPresent(renderer); 
+        return 1;
+
+    }
+    
+}
+
 void affiche_host_game(){
     clear_ecran();              
     //bouton retour 
     SDL_RenderCopy(renderer, tab_img[6].texture, NULL, &tab_img[6].posBoutonFen);
     SDL_RenderCopy(renderer, tab_img[7].texture, NULL, &tab_img[7].posBoutonFen);  
     SDL_RenderCopy(renderer, tab_img[21].texture, NULL, &tab_img[21].posBoutonFen);  
-    SDL_RenderCopy(renderer, tab_img[22].texture, NULL, &tab_img[22].posBoutonFen);  
+    SDL_RenderCopy(renderer, tab_img[23].texture, NULL, &tab_img[23].posBoutonFen);  
 
+    
 
     //bouton saisie ip 
     SDL_RenderCopy(renderer, tab_img[10].texture, NULL, &tab_img[10].posBoutonFen);   
     SDL_RenderCopy(renderer, tab_texte[15].message, NULL, &tab_texte[15].posTexte);
     SDL_RenderCopy(renderer, tab_texte[17].message, NULL, &tab_texte[17].posTexte);
+    SDL_RenderCopy(renderer, tab_texte[20].message, NULL, &tab_texte[20].posTexte);
+
 
     
-
 
     if(nbcarIp > 0){
         //texte ip
@@ -140,8 +176,6 @@ void affiche_host_game(){
         creer_texte(tab_texte + 16, saisieIp);
         SDL_RenderCopy(renderer, tab_texte[16].message, NULL, &tab_texte[16].posTexte);
     }
-    SDL_RenderPresent(renderer); 
-    
 }
 
 void affiche_menu(){
@@ -362,7 +396,7 @@ créée une texture à partir du chemin vers une image, le stocke dans le champ 
 }
 
 
-int menu(char **pseudo, char **classe, char ** ipAddress){
+int menu(char **pseudo, char *classe, char ** ipAddress){
     init_sdl();
     
     //lance la musique dans le menu
@@ -375,6 +409,8 @@ int menu(char **pseudo, char **classe, char ** ipAddress){
     }
     Mix_VolumeMusic(volume);
     Mix_PlayMusic(musique, -1);
+
+    int retour;
 
     //image de fond
 	backgroundTexture = creer_texture("../img/imgMenu.png");
@@ -405,7 +441,7 @@ int menu(char **pseudo, char **classe, char ** ipAddress){
     tab_img[9] = (img_t) {(SDL_Rect){X_BOUTON_PARAM, 500, W_BOUTON_PARAM, H_BOUTON_PARAM}, NULL}; //position bouton rejoindre partie
 
     //bouton créer partie
-    tab_img[10] = (img_t) {(SDL_Rect){X_BOUTON_PARAM - 100, 300, W_BOUTON_PARAM + 200, H_BOUTON_PARAM * 1.5}, NULL}; //bouton saisie de l'ip
+    tab_img[10] = (img_t) {(SDL_Rect){X_BOUTON_PARAM - 100, 200, W_BOUTON_PARAM + 200, H_BOUTON_PARAM * 1.5}, NULL}; //bouton saisie de l'ip
 
     //bouton param
     tab_img[11] = (img_t) {(SDL_Rect){X_BOUTON_PARAM, 200, W_BOUTON_PARAM, H_BOUTON_PARAM}, NULL};//bouton sauv param
@@ -418,8 +454,11 @@ int menu(char **pseudo, char **classe, char ** ipAddress){
     tab_img[18] = (img_t) {(SDL_Rect){W_BOUTON_PARAM / 4 - 15, 825, H_BOUTON_PARAM - 15, H_BOUTON_PARAM - 15}, NULL};//arriere plan volume coupé
     tab_img[19] = (img_t) {(SDL_Rect){W_BOUTON_PARAM / 4 + 10, 845, H_BOUTON_PARAM - 70, H_BOUTON_PARAM - 60}, NULL};//bouton volume on
     tab_img[20] = (img_t) {(SDL_Rect){W_BOUTON_PARAM / 4 + 10, 845, H_BOUTON_PARAM - 70, H_BOUTON_PARAM - 60}, NULL};//bouton volume off
-    tab_img[21] = (img_t) {(SDL_Rect){X_BOUTON_PARAM + 25, 700, W_BOUTON_PARAM - 25, H_BOUTON_PARAM / 1.25}, NULL};//bouton lancer serveur avec son ip
-    tab_img[22] = (img_t) {(SDL_Rect){1400, 200, 200, H_BOUTON_PARAM}, NULL};//bouton ip invalide
+    tab_img[21] = (img_t) {(SDL_Rect){X_BOUTON_PARAM + 25, 550, W_BOUTON_PARAM - 25, H_BOUTON_PARAM / 1.25}, NULL};//bouton etre joueur et serveur 
+    
+    tab_img[22] = (img_t) {(SDL_Rect){1475, 200, 350, H_BOUTON_PARAM * 2}, NULL};//bouton ip invalide
+    tab_img[23] = (img_t) {(SDL_Rect){X_BOUTON_PARAM + 25, 800, W_BOUTON_PARAM - 25, H_BOUTON_PARAM / 1.25}, NULL};//bouton être serveur
+
 
 
 
@@ -445,8 +484,13 @@ int menu(char **pseudo, char **classe, char ** ipAddress){
     tab_texte[13] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 70, 850, W_BOUTON_PARAM / 2, H_BOUTON_PARAM / 2}, NULL};//texte : volume     
     tab_texte[14] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + W_BOUTON_PARAM / 2 + 100, 850, 150, H_BOUTON_PARAM / 2}, NULL};//valeur du volume
     tab_texte[15] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 275, 100, W_BOUTON_PARAM / 4, H_BOUTON_PARAM / 2}, NULL};// texte IP
-    tab_texte[16] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM - 50, 350, W_BOUTON_PARAM + 100, H_BOUTON_PARAM * 1.1}, NULL}; //texte ip saisie
-    tab_texte[17] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 50, 710, W_BOUTON_PARAM - 75, H_BOUTON_PARAM / 1.5}, NULL}; //texte lancer le serveur
+    tab_texte[16] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM - 50, 240, W_BOUTON_PARAM + 100, H_BOUTON_PARAM * 1.1}, NULL}; //texte ip saisie
+    tab_texte[17] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 50, 560, W_BOUTON_PARAM - 75, H_BOUTON_PARAM / 1.5}, NULL}; //texte être serveur
+    tab_texte[20] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 50, 805, W_BOUTON_PARAM - 75, H_BOUTON_PARAM / 1.5}, NULL}; //texte être Joueur (et serveur)
+
+    //warning saisie ip
+    tab_texte[18] = (texte_t) {(SDL_Rect){1500, 220, 300, H_BOUTON_PARAM}, NULL}; //texte ip saisie
+    tab_texte[19] = (texte_t) {(SDL_Rect){1500, 420, 300, H_BOUTON_PARAM}, NULL}; //texte invalide
 
 
 
@@ -475,11 +519,10 @@ int menu(char **pseudo, char **classe, char ** ipAddress){
     creer_image(tab_img + 20, "../img/Boutons/boutonVolumeOff.png");
     creer_image(tab_img + 21, "../img/Boutons/boutonMenuLargeCarre.png");
     creer_image(tab_img + 22, "../img/Boutons/boutonMenuLargeCarre.png");
+    creer_image(tab_img + 23, "../img/Boutons/boutonMenuLargeCarre.png");
 
 
 
-    
-    
 
     
     creer_texte(tab_texte, "Jouer");
@@ -498,9 +541,10 @@ int menu(char **pseudo, char **classe, char ** ipAddress){
     creer_texte(tab_texte + 13, "Volume");
     creer_texte(tab_texte + 14, valVolume);
     creer_texte(tab_texte + 15, "IP");
-    creer_texte(tab_texte + 17, "Lancer le serveur");
-
-    
+    creer_texte(tab_texte + 17, "Etre serveur");
+    creer_texte(tab_texte + 18, "Ip saisie");
+    creer_texte(tab_texte + 19, " invalide");
+    creer_texte(tab_texte + 20, " Etre joueur");
 
 
 
@@ -519,11 +563,12 @@ int menu(char **pseudo, char **classe, char ** ipAddress){
             if(event.type == SDL_KEYDOWN){
                 SDL_Keycode touche = event.key.keysym.sym;
 
-                if(event.key.keysym.sym == SDLK_ESCAPE){
+                if(touche == SDLK_ESCAPE){
+                    retour = -1;
                     sortieMenu = 1;
                 }
                 //si on est sur le menu d'accueil
-                if(!dansEstServeur && !dansJouer && !dansParam){
+                else if(!dansEstServeur && !dansJouer && !dansParam){
 
                     //si c'est a-z ou 1-9
                     if (nbCarJoueur < NB_MAX_CAR_JOUEUR && ((touche >= SDLK_a && touche <= SDLK_z) || (touche >= SDLK_0 && touche <= SDLK_9) || touche >= SDLK_KP_0 && touche <= SDLK_KP_9)) {
@@ -538,24 +583,17 @@ int menu(char **pseudo, char **classe, char ** ipAddress){
                             affiche_menu();
                         }     
                     } 
-                    
                 }
                 
                 else if(dansEstServeur){    
-                    if(nbcarIp < NB_MAX_CAR_IP && ((touche >= SDLK_0 && touche <= SDLK_9) || touche == SDLK_SEMICOLON)){
-                        if(touche == SDLK_SEMICOLON) saisieIp[nbcarIp++] = '.';
-                        else saisieIp[nbcarIp++] = (char)touche;
-                        saisieIp[nbcarIp] = '\0';
-                        affiche_host_game();
-                    }
+                    if(saisie_touche_ip(touche));
                     else if(touche == SDLK_BACKSPACE){
                         if(nbcarIp >= 1){
-                            saisieIp[--nbcarIp] = '\0';
+                            saisieIp[--nbcarIp] = 'a';
                             affiche_host_game();
+                            SDL_RenderPresent(renderer); 
+
                         }
-                    }
-                    else if(touche == SDLK_KP_ENTER || touche == SDLK_RETURN){
-                        sortieMenu = 1;
                     }
                 }
             }
@@ -570,18 +608,20 @@ int menu(char **pseudo, char **classe, char ** ipAddress){
 
                 //bouton jouer ?
                 else if(SDL_PointInRect(&point, &tab_img[0].posBoutonFen) &&!dansJouer && !dansParam){
-                    dansJouer = 1;
-                    //affichage des boutons du menu jouer
-                    clear_ecran();
-                    for(int i = 6 ; i < 10 ; i++){
-                        SDL_RenderCopy(renderer, tab_img[i].texture, NULL, &tab_img[i].posBoutonFen);
+                   
+                    if(strcmp(nomJoueur, " ") || strcmp(nomJoueur, "\0")){
+                        dansJouer = 1;
+                        //affichage des boutons du menu jouer
+                        clear_ecran();
+                        for(int i = 6 ; i < 10 ; i++){
+                            SDL_RenderCopy(renderer, tab_img[i].texture, NULL, &tab_img[i].posBoutonFen);
 
+                        }
+                        //bouton retour
+                        SDL_RenderCopy(renderer, tab_texte[7].message, NULL, &tab_texte[7].posTexte);
+                        SDL_RenderCopy(renderer, tab_texte[8].message, NULL, &tab_texte[8].posTexte);
+                        SDL_RenderPresent(renderer);
                     }
-                    //bouton retour
-                    SDL_RenderCopy(renderer, tab_texte[7].message, NULL, &tab_texte[7].posTexte);
-                    SDL_RenderCopy(renderer, tab_texte[8].message, NULL, &tab_texte[8].posTexte);
-
-                    SDL_RenderPresent(renderer);
                 }
 
                 //bouton paramètre ?
@@ -612,23 +652,43 @@ int menu(char **pseudo, char **classe, char ** ipAddress){
                 //sauvegarde param
                 else if(SDL_PointInRect(&point, &tab_img[11].posBoutonFen) && dansParam){
                     FILE * fichier = fopen(cheminParamTxt, "w");
-                    fprintf(fichier, "%d\n%d\n%s", actuel, volume, nomJoueur);
+                    if(!nbCarJoueur)nomJoueur[0] = '#';
+                    if(!nbcarIp)saisieIp[0] = '@';
+
+                    fprintf(fichier, "%d\n%d\n%s\n%s", actuel, volume, nomJoueur, saisieIp);
                     fclose(fichier);
                 }
 
                 //charger param
                 else if(SDL_PointInRect(&point, &tab_img[12].posBoutonFen) && dansParam){
                     FILE * fichier = fopen(cheminParamTxt, "r");
+                    char * joueur;
                     if(fichier){
-                        fscanf(fichier, "%d %d %s", &actuel, &volume, nomJoueur);
+                        fscanf(fichier, "%d %d %s %s", &actuel, &volume, joueur, saisieIp);
+                        if(joueur == "#"){
+                            printf("ok");
+                            //strcpy(nomJoueur, joueur);
+                        }
+                        else{
+                            nbCarJoueur = strlen(nomJoueur);
+                        }
+                        if(!strcmp(saisieIp, "@"))saisieIp[0] = ' ';
+
+
+                        
+
                         detruit_texte(6);
+                        detruit_texte(16);
+
                         creer_texte(tab_texte + 6, nomJoueur);
+                        creer_texte(tab_texte + 16, saisieIp);
                         fclose(fichier);
                     }
                     else printf("Fichier %s introuvable\n", cheminParamTxt);
                     affiche_param();
-                    nbCarJoueur = strlen(nomJoueur);
+                    
                 }
+                
 
                 //volume +
                 else if(SDL_PointInRect(&point, &tab_img[14].posBoutonFen) && dansParam){
@@ -660,6 +720,7 @@ int menu(char **pseudo, char **classe, char ** ipAddress){
                 //bouton rejondre ?
                 else if(SDL_PointInRect(&point, &tab_img[9].posBoutonFen) && dansJouer){
                     printf("Rejoindre\n");
+                    retour = JOUER;
                     sortieMenu = 1;
                 }
 
@@ -668,27 +729,48 @@ int menu(char **pseudo, char **classe, char ** ipAddress){
                     dansJouer = 0;
                     dansEstServeur = 1;
                     affiche_host_game();
+                    SDL_RenderPresent(renderer); 
                 }
 
                 //bouton lancer serveur ?
-                else if(SDL_PointInRect(&point, &tab_img[21].posBoutonFen) && dansEstServeur){                                  
-                    printf("%d\n", valider_ip(saisieIp));
+                else if(SDL_PointInRect(&point, &tab_img[21].posBoutonFen) || SDL_PointInRect(&point, &tab_img[23].posBoutonFen) && dansEstServeur){        
+                    //affiche_host_game();   
+
+                    if(valider_ip(saisieIp)){
+                        if(SDL_PointInRect(&point, &tab_img[21].posBoutonFen)){
+                            retour = JOUER_SERVEUR;
+                        }
+                        else{
+                            retour = SERVEUR;
+                        }
+                        sortieMenu = 1;
+
+                        
+                    }                       
+                    else{
+                        SDL_RenderCopy(renderer, tab_img[22].texture, NULL, &tab_img[22].posBoutonFen);  
+
+                        SDL_RenderCopy(renderer, tab_texte[18].message, NULL, &tab_texte[18].posTexte);
+                        SDL_RenderCopy(renderer, tab_texte[19].message, NULL, &tab_texte[19].posTexte);
+                    }
+                    SDL_RenderPresent(renderer); 
                 }             
             }
         }
         SDL_Delay(10);
     }
-    strcpy(*classe, tab_perso[actuel]);
+    strcpy(classe, tab_perso[actuel]);
     *pseudo = nomJoueur;
    *ipAddress = saisieIp;
     detruit_tout();
+    return retour;
 }
 
 void main(void){
     char * pseudo;
     char * ipAddress;
     char * classe;
-    menu(&pseudo, &classe, &ipAddress);
+    menu(&pseudo, classe, &ipAddress); 
     printf("%s %s %s\n", pseudo, classe, ipAddress);
     end(0);
 }
