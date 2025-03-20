@@ -191,6 +191,7 @@ void afficher_joueur(perso_t *p){
     SDL_RenderCopy(renderer, p->texture_courante, &p->sprite, &p->rect);
 }
 
+
 //taille texture : SDL_QueryTexture(textures[0], NULL, NULL, &largeur_texture, &hauteur_texture);
 int main(int argc, char *argv[]) {
 	char *pseudo, classe, *ipAddress;

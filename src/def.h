@@ -7,12 +7,12 @@ typedef enum {bas,haut,gauche,droite,basgauche,basdroite,hautgauche,hautdroite}d
 typedef enum {sortie, normal, obstacle1, obstacle2} type_carre;
 typedef enum {base, desert, foret, glace, montagne, neige, plaine} nom_biome_t;//foret, volcan, marais, grotte, enfer, tour_magie, chateau_fort
 
-/*
+
 typedef struct{
-anim est l'indice de la texture courante
-max_anim sert à boucler sur l'animation (taille maximale de la texture)
-dir et num_anim sont les indices pour le sprite (multipliés par la taille)
-rect est l'emplacement sur l'écran, sprite le rectangle sur la texture
+//anim est l'indice de la texture courante
+//max_anim sert à boucler sur l'animation (taille maximale de la texture)
+//dir et num_anim sont les indices pour le sprite (multipliés par la taille)
+//rect est l'emplacement sur l'écran, sprite le rectangle sur la texture
 
 	//bool monstre/joueur
     unsigned char num_anim, max_anim, nb_textures, vit, niveau;
@@ -25,7 +25,7 @@ rect est l'emplacement sur l'écran, sprite le rectangle sur la texture
     dir_t dir;
     SDL_Texture *textures[NB_ANIM], *texture_courante;//sprite
 }perso_t;
-*/
+
 
 typedef struct{
 	objet_t * objet;
