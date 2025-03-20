@@ -13,6 +13,8 @@ void creer_perso(perso_t * p, classe_t classe, char * nom, int indice, int equip
 	p->x=p->y=0;
 	p->iperso=indice;
 	p->equipe=equipe;
+	p->dir=nulldir;
+	p->rect=(SDL_Rect){0, 0, jw, jh};
 
 	int i;
 	for (i=0; i<NB_COMP; i++)

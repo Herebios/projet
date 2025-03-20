@@ -14,7 +14,7 @@ struct perso_s{
 	classe_t classe;
 	octet niveau;
     char *nom;
-
+	dir_t dir;
 	//statistiques du perso, stat_t indice
 	int stats_base[4];//stats de base
 	int stats[4];//stats après objets
@@ -24,9 +24,8 @@ struct perso_s{
 	objet_t * objets[PERSO_OBJETS_MAX];//pointeurs sur les objets statiques
 
 	octet iperso, equipe;
-	//??iperso inutile
-	int x, y;
-	pos_t pos_map;//indices pour map.tuiles
+	SDL_Rect rect;//position tuile
+	pos_t pos_map;//position map, indices pour map.tuiles
 };
 
 /**

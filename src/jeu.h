@@ -12,7 +12,6 @@
 #include "SDL_def.h"
 #include "def.h"
 
-extern jeu_t jeu;
 extern tuile_t map[HAUTEUR_MAP][LARGEUR_MAP];
 extern biome_t biomes[NB_BIOMES];
 extern SDL_Window *window;

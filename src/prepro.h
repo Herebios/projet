@@ -46,4 +46,6 @@ H = CARRE_H * HAUTEUR_TUILE
 #define endl putchar('\n')
 #define flush fflush(stdout)
 
+#define DELAY 20
+
 #endif

@@ -17,33 +17,33 @@ int hors_liste(liste *l) {
 	return l->ec == l->drapeau;
 }
 
-void en_tete(liste *l) {
+void tete_liste(liste *l) {
 	l->ec = l->drapeau->suiv;
 }
 
-void en_queue(liste *l) {
+void queue_liste(liste *l) {
 	l->ec = l->drapeau->prec;
 }
 
-void suivant(liste *l) {
+void suivant_liste(liste *l) {
 	l->ec = l->ec->suiv;
 }
 
-void precedent(liste *l) {
+void precedent_liste(liste *l) {
 	l->ec = l->ec->prec;
 }
 
-void * get(liste *l) {
+void * get_liste(liste *l) {
 	return l->ec->ptr;
 }
 
-void set(liste *l, void * data, size_t size) {
+void set_liste(liste *l, void * data, size_t size) {
 	memcpy(l->ec->ptr, data, size);
 }
 /*supprimer place sur l'élément précédent
 permet d'enlever des éléments dans une boucle en faisant toujours suivant()
 */
-void supprimer(liste *l) {
+void supprimer_liste(liste *l) {
 	l->ec->prec->suiv = l->ec->suiv;
 	l->ec->suiv->prec = l->ec->prec;
 	temp = l->ec;
@@ -63,7 +63,7 @@ void detruire_liste(liste **l){
 	}
 }
 
-void ajout_droit(liste *l, void * data, size_t size) {
+void ajout_droit_liste(liste *l, void * data, size_t size) {
 	temp = malloc(sizeof(element));
 	temp->ptr = malloc(size);
 	memcpy(temp->ptr, data, size);
@@ -76,7 +76,7 @@ void ajout_droit(liste *l, void * data, size_t size) {
 	l->ec = temp;
 	temp=NULL;
 }
-void ajout_gauche(liste *l, void * data, size_t size) {
+void ajout_gauche_liste(liste *l, void * data, size_t size) {
 	temp = malloc(sizeof(element));
 	temp->ptr = malloc(size);
 	memcpy(temp->ptr, data, size);
@@ -90,11 +90,11 @@ void ajout_gauche(liste *l, void * data, size_t size) {
 	temp=NULL;
 }
 
-void ajout_debut(liste *l, void * data, size_t size){
+void ajout_debut_liste(liste *l, void * data, size_t size){
 	en_tete(l);
 	ajout_gauche(l, data, size);
 }
-void ajout_fin(liste *l, void * data, size_t size){
+void ajout_fin_liste(liste *l, void * data, size_t size){
 	en_queue(l);
 	ajout_droit(l, data, size);
 }

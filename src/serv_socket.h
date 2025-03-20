@@ -11,7 +11,7 @@
 
 void * client_thread(void *);
 void * accept_thread(void *);
-int setup_server(info_server *);
-void fermeture_server(info_server *, socket_struct *, int code);
+int setup_server();
+void fermeture_server(int code);
 
 #endif

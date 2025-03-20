@@ -6,7 +6,6 @@
 
 #include "jeu.h"
 
-jeu_t jeu;
 tuile_t map[HAUTEUR_MAP][LARGEUR_MAP];
 biome_t biomes[NB_BIOMES];
 SDL_Window *window=NULL;
@@ -32,6 +31,9 @@ void end(int code){
             if(biomes[i].textures[j])
                 SDL_DestroyTexture(biomes[i].textures[j]);
 
+	for(i=0; i<HAUTEUR_MAP; i++)
+		for(j=0; j<LARGEUR_MAP; j++)
+			detruire_tuile(map[i] + j);
     //jeu
     if (jeu.texture_tuile)
         SDL_DestroyTexture(jeu.texture_tuile);
@@ -57,6 +59,9 @@ void init_sdl(){
 void init_jeu(){
 	init_biomes();
 	init_map();
+
+	for(int i=0; i<NB_OBJETS; i++)
+		tab_objets[i].ind=i;
 
 	jeu.nb_perso=0;
 	nouv_perso("orc3");
@@ -122,12 +127,9 @@ type_carre indice de texture dans biome->textures[]
 */
     tuile->biome = biomes + id_biome;
     int lig,col;
-    for (lig=0; lig<NB_OBJETS_TUILE; lig++)
-        tuile->objets[lig].objet=NULL;
-    for (lig=0; lig<NB_PNJ_TUILE; lig++)
-        tuile->pnj[lig]=NULL;
-    for (lig=0; lig<NB_ENNEMIS_TUILE; lig++)
-        tuile->ennemis[lig]=NULL;
+	tuile->liste_joueurs = liste_creer();
+	tuile->liste_objets = liste_creer();
+	tuile->liste_mobs = liste_creer();
 
     //textures aléatoires sur toute la zone
     //!! ajouter règles de génération, dépendantes du biome?
@@ -174,6 +176,12 @@ type_carre indice de texture dans biome->textures[]
     }
 }
 
+void detruire_tuile(tuile_t *tuile){
+	detruire_liste(&t->liste_joueurs);
+	detruire_liste(&t->liste_objets);
+	detruire_liste(&t->liste_mobs);
+}
+
 /*Une texture est créée à partir du path
 Aucun traitement supplémentaire n'est nécessaire (modification par pointeur)*/
 void nouv_texture(char * path, SDL_Texture *textures[], unsigned char *nb_textures){
@@ -185,4 +193,32 @@ void nouv_texture(char * path, SDL_Texture *textures[], unsigned char *nb_textur
 
 bool inclus(SDL_Rect* a, SDL_Rect* b){
     return (a->x >= b->x) && (a->y >= b->y) && ((a->x + a->w) <= (b->x + b->w)) && ((a->y + a->h) <= (b->y + b->h));
+}
+
+//mouvement d'un perso à chaque boucle de jeu
+//!!gérer collisions avec obstacles
+void avancer(perso_t *p, dir_t dir){
+	if(dir == nulldir) return;
+
+    SDL_Rect rect_tuile={0,0,W,H};
+    SDL_Rect rect = p->rect;//séparé
+    int deltax=deplacement[p->dir].x * p->stats[speed];
+    int deltay=deplacement[p->dir].y * p->stats[speed];
+
+    /*Ne pas dépasser les bords. Tests x et y séparés pour ne pas être bloqué
+    si 2 touches sont appuyées et une des directions est un bord*/
+
+    rect.x+=deltax;
+    //test de la nouvelle position
+    if(inclus(&rect, &rect_tuile))
+        p->rect.x=rect.x;
+        //correct = application
+    else
+        rect.x=p->rect.x;
+        //sinon correction pour le test de hauteur
+
+    rect.y+=deltay;
+    if(inclus(&rect, &rect_tuile))
+        p->rect.y=rect.y;
+
 }

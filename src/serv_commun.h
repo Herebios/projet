@@ -26,6 +26,8 @@
 #define NB_CLIENTS 2
 
 extern file * serv_file;
+extern socket_struct * clients;
+extern info_server server;
 
 typedef struct {
     int socket;
@@ -41,6 +43,6 @@ typedef struct {
 } info_server;
 
 char * data_skip(char *, int);
-void broadcast(char *, info_server *, socket_struct[NB_CLIENTS], int exception);
+void broadcast(char *, int exception);
 
 #endif

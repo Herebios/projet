@@ -28,6 +28,7 @@ struct objet_s {
     char * nom;//permet de charger la texture
     rarete_t rarete;
 	prio_t stats[4];//indices stats_t
+	unsigned char ind;
 };
 
 extern objet_t tab_objets[NB_OBJETS];
