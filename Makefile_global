@@ -1,0 +1,14 @@
+build_complete: build doc
+
+build: all clean
+
+complete: all doc
+
+all:
+	$(MAKE) -C src
+
+doc: Doxyfile
+	doxygen Doxyfile
+
+clean:
+	$(MAKE) -C src

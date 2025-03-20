@@ -1,0 +1,33 @@
+CC = gcc
+SRC = src/
+
+build: all clean
+
+all:
+
+main.o: jeu.o def.h prepro.h SDL_def.h
+    $(CC) -c main.c
+
+jeu.o: jeu.c jeu.h
+    $(CC) -c jeufile.o: ../datastruct/file.c ../datastruct/file.h
+    $(CC) $^ -c
+
+menu.o: menu.c menu.h
+    $(CC) -c $^
+
+cli: cli.o
+    gcc cli.o file.o -o cli $(CFLAGS) $(INCS) $(LIBS) -lpthread
+
+objet.o: objet.c objet.h types.h
+    $(CC) -c $^
+
+
+file.o: file.c file.h
+    $(CC) $^ -c
+
+pile.o: file.c file.h
+    $(CC) $^ -c
+
+
+clean:
+    rm *.o
