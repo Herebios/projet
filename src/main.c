@@ -1,3 +1,8 @@
+/**
+ * @file main.c
+ * @author Baptiste
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
@@ -12,143 +17,13 @@
 #include "cli.c"
 #include "serv.c"
 
-t_jeu jeu;//?? pourrait tout contenir, dupliquer les pointeurs à l'extérieur
-map_t *map = &jeu.map;
-perso_t *perso;//?? fonction pour perso = jeu.perso + jeu.nb_perso
-
-biome_t biomes[NB_BIOMES];//?? inclus dans jeu ou map
-
-//t_objet *objets[NB_CAT_OBJETS];
-
-SDL_Window *window = NULL;
-SDL_Renderer *renderer = NULL;
-SDL_Surface *surface = NULL;
-
-void end(int code) {
-	unsigned char i,j;
-	//objets
-	/*for (i=0; i<NB_CAT_OBJETS; i++)
-		if(objets[i]) free(objets[i]);
-	}*/
-
-	//textures perso
-	for (i=0; i < jeu.nb_perso; i++){
-		for (j=0; j < jeu.perso[i].nb_textures; j++)
-			SDL_DestroyTexture(jeu.perso[i].textures[j]);
-	}
-
-	if (surface) SDL_FreeSurface(surface);
-
-	//textures map
-	for(i=0; i<NB_BIOMES; i++)
-		for(j=0; j<NB_TEXTURES_BIOME; j++)
-			if(biomes[i].textures[j])
-				SDL_DestroyTexture(biomes[i].textures[j]);
-
-	//jeu
-	if (jeu.texture_tuile)
-		SDL_DestroyTexture(jeu.texture_tuile);
-    if (renderer)
-		SDL_DestroyRenderer(renderer);
-    if (window)
-		SDL_DestroyWindow(window);
-
-	//!setup
-	IMG_Quit();
-	SDL_Quit();
-	if (code) exit(code);
-	//fin de programme normale si 0
+/*Renvoie un pointeur sur la tuile où est le perso p*/
+tuile_t *ptr_tuile_joueur(perso_t * p){
+	return map[p->pos_map.y] + perso->pos_map.x;
 }
-/*
-//l'enum cat_objet donne les indices des tableaux d'objets dans total
-void init_objets(){
-	for (int i=0; i<NB_CAT_OBJETS; i++) objets[i]=NULL;
-
-	t_objet *consommables=(t_objet*)malloc(sizeof(t_objet)*1),
-		*armes=(t_objet*)malloc(sizeof(t_objet)*1),
-		*armures=(t_objet*)malloc(sizeof(t_objet)*1),
-
-	objets[0]=consommables;
-	objets[1]=armes;
-	objets[2]=armures;
-
-	consommables[0]=(t_objet){0,"potion de soin"};
-	armes[0]=(t_objet){100,"epee en diamant");
-	armures[0]=(t_objet){200,"cote de mailles");
-	//manque texture à charger et rect au moment où l'objet est affecté à une tuile
+void afficher_tuile_courante(){
+    SDL_RenderCopy(renderer, jeu.texture_tuile, 0, 0);
 }
-*/
-void generer_tuile(tuile_t* tuile, nom_biome id_biome, int posMapY, int posMapX){//map
-/*suppose que les biomes sont construits de la même manière avec
-type_carre indice de texture dans biome->textures[]
-*/
-//!! il faudra adapter quand on aura tous les biomes et leurs textures
-
-	tuile->biome = biomes + id_biome;//pointeur sur le biome de la tuile dans le tableau biomes
-	int lig,col;
-	for (lig=0; lig<NB_OBJETS_TUILE; lig++)
-		tuile->objets[lig]=NULL;
-	for (lig=0; lig<NB_PNJ_TUILE; lig++)
-		tuile->pnj[lig]=NULL;
-	for (lig=0; lig<NB_ENNEMIS_TUILE; lig++)
-		tuile->ennemis[lig]=NULL;
-
-	//textures aléatoires sur toute la zone
-	//!! ajouter règles de génération, dépendantes du biome?
-	for(lig=0; lig<HAUTEUR_TUILE; lig++)
-		for(col=0; col<LARGEUR_TUILE; col++) {
-			if (rand() % 6 == 0)//1/6 obstacle1
-				tuile->id_texture[lig][col]=obstacle1;
-			else if (rand() % 6 == 0)//1/6 obstacle2
-				tuile->id_texture[lig][col]=obstacle2;
-			else
-				tuile->id_texture[lig][col]=normal;//normal
-		}
-
-	//sortie gauche
-	if (posMapX != 0) {
-		tuile->id_texture[HAUTEUR_TUILE/2 -1][0]=sortie;
-		tuile->id_texture[HAUTEUR_TUILE/2][0]=sortie;
-		if(HAUTEUR_TUILE%2)//3 carres de sortie si impair
-			tuile->id_texture[HAUTEUR_TUILE/2 +1][0]=sortie;
-	}
-	//sortie droite
-	if (posMapX != LARGEUR_MAP - 1) {
-		tuile->id_texture[HAUTEUR_TUILE/2 -1][LARGEUR_TUILE-1]=sortie;
-		tuile->id_texture[HAUTEUR_TUILE/2][LARGEUR_TUILE-1]=sortie;
-		if(HAUTEUR_TUILE%2)//3 carres de sortie si impair
-			tuile->id_texture[HAUTEUR_TUILE/2 +1][LARGEUR_TUILE-1]=sortie;
-	}
-
-	//sortie haut
-	if (posMapY != 0) {
-		tuile->id_texture[0][LARGEUR_TUILE/2 -1]=sortie;
-		tuile->id_texture[0][LARGEUR_TUILE/2]=sortie;
-		if(LARGEUR_TUILE%2)
-			tuile->id_texture[0][LARGEUR_TUILE/2 +1]=sortie;
-	}
-	//sortie bas
-	if (posMapY != HAUTEUR_MAP - 1) {
-		tuile->id_texture[HAUTEUR_TUILE-1][LARGEUR_TUILE/2 -1]=sortie;
-		tuile->id_texture[HAUTEUR_TUILE-1][LARGEUR_TUILE/2]=sortie;
-		if(LARGEUR_TUILE%2)
-			tuile->id_texture[HAUTEUR_TUILE-1][LARGEUR_TUILE/2 +1]=sortie;
-	}
-}
-
-/*void afficher_idtextures_tuile(tuile_t *t){
-	for(int lig=0,col; lig<HAUTEUR_TUILE; lig++){
-        for(col=0; col<LARGEUR_TUILE; col++)
-			printf("%d ", t->id_texture[lig][col]);
-		endl;
-	}
-}*/
-
-tuile_t* ptr_tuile_courante(){//map
-	perso = jeu.perso;//joueur
-	return map->tuiles[perso->pos_map.y] + perso->pos_map.x;
-}
-
 void charger_tuile_courante(){//jeu
 	tuile_t* tuile = jeu.tuile_courante;
 	SDL_SetRenderTarget(renderer, jeu.texture_tuile);
@@ -158,136 +33,12 @@ void charger_tuile_courante(){//jeu
 	SDL_SetRenderTarget(renderer, NULL);
 }
 
-void init_jeu(){
-	//init_objets();
-	init_biome();
-	init_map();
-
-	jeu.nb_perso=0;
-	nouv_perso("orc3");
-	//??Le joueur est créé ici, mais ce sera le serv qui donnera l'id de tel joueur
-	//dans le tableau pour que tous soient pareils
-
-	jeu.texture_tuile = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, W, H);//toute la fenêtre
-	jeu.tuile_courante = ptr_tuile_courante();
-}
-
-void init_map(){//map
-//!! Système pour placer les biomes
-	//tuiles
-	for (int l=0,c; l<HAUTEUR_MAP; l++)
-	for (c=0; c<LARGEUR_MAP; c++){
-		//adresse de la tuile, biome aléatoire
-			generer_tuile(map->tuiles[l] + c, rand() % (NB_BIOMES - 1) + 1, l, c);
-		}
-}
-
-void init_biome(){
-/*Tous les biomes doivent respecter le même format pour que les textures chargent bien
-*/
-	//init
-	int i,j;
-	for(i=0; i<NB_BIOMES; i++){
-		biomes[i].id_biome=(nom_biome)i;
-		biomes[i].nb_textures=0;
-		for (j=0; j<NB_TEXTURES_BIOME; j++)
-			biomes[i].textures[j]=NULL;
-	}
-
-	//charger textures selon les biomes
-	biome_t *biome_cour;
-	char *noms[]={"base", "desert", "foret", "glace", "montagne", "neige", "plaine"};
-	char path[100]="img/Tiles/Biomes/";
-
-	for(i=0; i<NB_BIOMES; i++){
-		//!! base, id 0
-		if(i){
-
-		biome_cour=biomes+i;
-
-		for(j=0; j<NB_TEXTURES_BIOME; j++){
-			strcat(path, noms[i]);
-			switch(j){
-				case 0:
-					strcat(path, "/sortie.png");
-					break;
-				case 1:
-					strcat(path, "/normal.png");
-					break;
-				case 2:
-					strcat(path, "/obstacle1.png");
-					break;
-				case 3:
-					strcat(path, "/obstacle2.png");
-					break;
-			}
-			nouv_surface(path);
-			path[17]='\0';//devient 'img/Tiles/Biomes/'
-			nouv_texture(biome_cour->textures, &biome_cour->nb_textures);
-		}
-		}
-	}
-}
-
-void nouv_surface(char * image) {
-/*Charge une nouvelle surface à partir du path reçu en param*/
-    if (surface) SDL_FreeSurface(surface);
-    if ((surface = IMG_Load(image)) == NULL){//SDL_LoadBMP(image)
-		printf("%s introuvable\n", image);
-		end(6);
-	}
-}
-void nouv_texture(SDL_Texture** textures, unsigned char *nb_textures){
-/*Les paramètres sont supposés corrects,
-crée une texture avec la surface (globale) courante, dans textures[nb_textures]
-termine le programme en cas d'échec, aucune vérification n'est nécessaire après l'appel
-*/
-	if ((textures[*nb_textures] = SDL_CreateTextureFromSurface(renderer, surface)) == NULL)
-		end(5);
-	(*nb_textures)++;
-}
-
-void changer_anim(perso_t *p, anim_t anim){
-	p->anim=anim;
-	//texture qui correspond à l'anim
-	p->texture_courante=p->textures[anim];
-
-	//nb d'étapes de l'anim
-	p->num_anim=1;
-	switch(anim){
-		case idle:
-			p->max_anim=4;break;
-		case course:
-		case attaque:
-			p->max_anim=8;break;
-	}
-
-	//ligne de lecture de l'anim sur la texture en fonction de la dir
-	int y;
-	switch(p->dir){
-		case basgauche:
-		case bas:
-			y=0;break;
-		case hautdroite:
-		case haut:
-			y=jh;break;
-		case hautgauche:
-		case gauche:
-			y=jh*2;break;
-		case basdroite:
-		case droite:
-			y=jh*3;break;
-	}
-	p->sprite.x=0;
-	p->sprite.y=y;
-}
-
 void nouv_perso(char *s){//jeu, perso
 //?? parametre classe
 	if (jeu.nb_perso==NB_PERS_MAX) end(7);
 	perso = jeu.perso + jeu.nb_perso;//pointeur sur nouv perso
 	//valeurs par defaut
-	t_classe classe=administrateur;
+	classe_t classe=administrateur;
 	*perso = (perso_t){
 		0,0,0,
 		VITESSE_BASE,NIVEAU_BASE,VIE_BASE,ATTAQUE_BASE,DEFENSE_BASE,MAGIE_BASE,MANA_BASE,
@@ -320,20 +71,6 @@ void nouv_perso(char *s){//jeu, perso
 
 	jeu.nb_perso++;
 }
-pos_t deplacement[] = {
-    {0,1}, // BAS
-    {0,-1}, // HAUT
-    {-1,0}, // GAUCHE
-    {1,0}, // DROITE
-    {-1,1}, // BAS_GAUCHE
-    {1,1}, // BAS_DROITE
-    {-1,-1}, // HAUT_GAUCHE
-    {1,-1}  // HAUT_DROITE
-};
-
-bool inclus(SDL_Rect* a, SDL_Rect* b){
-    return (a->x >= b->x) && (a->y >= b->y) && ((a->x + a->w) <= (b->x + b->w)) && ((a->y + a->h) <= (b->y + b->h));
-}
 
 void avancer(perso_t *p){//uniquement pour le joueur
 //!!gérer collisions avec obstacles
@@ -342,7 +79,7 @@ void avancer(perso_t *p){//uniquement pour le joueur
 //?? si sauvegarde précédente tuile dans struct jeu, il faudra ajouter un peu de code
 
 	if(!p)return;
-	SDL_Rect rectuile_t={0,0,W,H};
+	SDL_Rect rect_tuile={0,0,W,H};
 	SDL_Rect rect = p->rect;//séparé
 	int deltax=deplacement[p->dir].x * p->vit;
 	int deltay=deplacement[p->dir].y * p->vit;
@@ -375,7 +112,7 @@ void avancer(perso_t *p){//uniquement pour le joueur
 	}
 
 	rect.y+=deltay;
-	if(inclus(&rect, &rectuile_t))
+	if(inclus(&rect, &rect_tuile))
 		p->rect.y=rect.y;
 	else{
 		position_perso(p, &pos);
@@ -399,8 +136,6 @@ void avancer(perso_t *p){//uniquement pour le joueur
 		afficher_perso(p);
 	}
 }
-
-
 
 void changer_dir(perso_t *p, Uint8 mask){
 	switch(mask){
@@ -442,31 +177,18 @@ void changer_dir(perso_t *p, Uint8 mask){
 	}
 }
 
-void init_sdl(){
-	if (SDL_Init(SDL_INIT_VIDEO) || !(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) end(1);
-    window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, W, H, SDL_WINDOW_SHOWN);
-    if (!window) end(2);
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (!renderer) end(3);
-}
-
-void afficher_tuile_courante(){
-	SDL_RenderCopy(renderer, jeu.texture_tuile, 0, 0);
-}
-
-void effacer_perso(perso_t *p){
-	SDL_RenderCopy(renderer, jeu.texture_tuile, &p->rect, &p->rect);//ce qu'il y avait dessous, redessiné dessus
-}
-
-void afficher_perso(perso_t *p){
-	SDL_RenderCopy(renderer, p->texture_courante, &p->sprite, &p->rect);
-}
-
 void position_perso(perso_t *p, pos_t* pos){
 	int y=p->rect.y + (p->rect.h >> 1);//ajout de hauteur/2, ~milieu du perso
 	pos->y = y/CARRE_H;
 	int x=p->rect.x + (p->rect.w >> 1);
 	pos->x = x/CARRE_W;
+}
+void effacer_joueur(perso_t *p){
+}
+    SDL_RenderCopy(renderer, jeu.texture_tuile, &p->rect, &p->rect);//ce qu'il y avait dessous, redessiné dessus
+
+void afficher_joueur(perso_t *p){
+    SDL_RenderCopy(renderer, p->texture_courante, &p->sprite, &p->rect);
 }
 
 //taille texture : SDL_QueryTexture(textures[0], NULL, NULL, &largeur_texture, &hauteur_texture);
@@ -482,12 +204,6 @@ int main(int argc, char *argv[]) {
 	case 1: // only server
 		return main_server();
 	}
-
-
-
-
-
-
 
 
 	/*window, renderer, jeu(map(textures, tuiles), texture_tuile, perso)*/
@@ -564,3 +280,40 @@ int main(int argc, char *argv[]) {
 	end(0);
     return 0;
 }
+
+/*
+void changer_anim(perso_t *p, anim_t anim){
+	p->anim=anim;
+	//texture qui correspond à l'anim
+	p->texture_courante=p->textures[anim];
+
+	//nb d'étapes de l'anim
+	p->num_anim=1;
+	switch(anim){
+		case idle:
+			p->max_anim=4;break;
+		case course:
+		case attaque:
+			p->max_anim=8;break;
+	}
+
+	//ligne de lecture de l'anim sur la texture en fonction de la dir
+	int y;
+	switch(p->dir){
+		case basgauche:
+		case bas:
+			y=0;break;
+		case hautdroite:
+		case haut:
+			y=jh;break;
+		case hautgauche:
+		case gauche:
+			y=jh*2;break;
+		case basdroite:
+		case droite:
+			y=jh*3;break;
+	}
+	p->sprite.x=0;
+	p->sprite.y=y;
+}
+*/

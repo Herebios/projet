@@ -5,8 +5,7 @@
 typedef enum {idle,course,attaque}anim_t;
 typedef enum {bas,haut,gauche,droite,basgauche,basdroite,hautgauche,hautdroite}dir_t;
 typedef enum {sortie, normal, obstacle1, obstacle2} type_carre;
-typedef enum {base, desert, foret, glace, montagne, neige, plaine} nom_biome;//foret, volcan, marais, grotte, enfer, tour_magie, chateau_fort
-typedef enum {consommable, arme, armure} cat_objet;
+typedef enum {base, desert, foret, glace, montagne, neige, plaine} nom_biome_t;//foret, volcan, marais, grotte, enfer, tour_magie, chateau_fort
 
 /*
 typedef struct{
@@ -42,13 +41,9 @@ typedef struct{
 }pnj_t;
 
 typedef struct{
-/*enum type_carre comme indice dans textures
--->autant de types de textures dans chaque biome
-*/
-	nom_biome id_biome;
-	SDL_Texture *textures[NB_TEXTURES_BIOME];
+	nom_biome_t id_biome;
+	SDL_Texture *textures[NB_TEXTURES_BIOME];//type_carre indice
 	unsigned char nb_textures;
-//?? etat, relatif aux évènements, si chaque biome est unique sur la map, sinon dans tuile
 }biome_t;
 
 typedef struct{
@@ -64,18 +59,9 @@ typedef struct{
 	perso_t *ennemis[NB_ENNEMIS_TUILE];
 }tuile_t;
 
-//?? map est peut-être inutile comme j'ai déplacé séparé les textures dans les biomes
-typedef struct{
-	tuile_t tuiles[HAUTEUR_MAP][LARGEUR_MAP];
-//	SDL_Texture *textures[NB_TEXTURES]; unsigned char nb_textures;
-}map_t;
-
 typedef struct{
 	//?? int seed;
-	map_t map;
-	perso_t perso[NB_PERS_MAX];//tableau, joueur en 0
-	unsigned char nb_perso;
 	tuile_t *tuile_courante;
 	SDL_Texture *texture_tuile;
 	//?? texture_prec + pos_prec
-}t_jeu;
+}jeu_t;
