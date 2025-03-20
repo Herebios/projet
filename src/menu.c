@@ -1,12 +1,34 @@
+
 #include "menu.h"
 
 /*
 compilation :
-gcc menu.c -o menu -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+gcc menu.c -o menu -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer  
 
 PF : continuer à faire les boutons pour créer ou rejoindre une partie comme le main du B (main socket)
 PF : eviter les var globales
+PF : continuer d'adapter le code
 */
+
+int valider_ip(char *ip) {
+    regex_t regex;
+    int result;
+
+    // Compilation de la regex
+    if (regcomp(&regex, REGEXIP, REG_EXTENDED)) {
+        fprintf(stderr, "Erreur de compilation de la regex\n");
+        return 0;
+    }
+
+    result = regexec(&regex, ip, 0, NULL, 0);
+
+    // Libération de la mémoire de la regex
+    regfree(&regex);
+
+    // Retourne 1 si l'IP est valide, 0 sinon
+    return (result == 0);  
+}
+
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
@@ -21,17 +43,18 @@ int nb_img = 0; //nombre de textures cliquables crées
 int nb_texte = 0; //nombre de texture texte crées
 int nb_perso_ajoutes = 0; //nombre de personnages ajoutés avec la fonction ajout_personnage()
 int actuel = 0; //pour se déplacer avec les flèches dans la liste des personnages à choisir
+int nbcarIp = 0; //nombre de caractères lors de la saisie de l'ip par le joueur
 
 
 char cheminPolice[] = "../include/Go-Regular.ttf"; 
-char nomJoueur[NB_MAX_CAR_JOUEUR + 1] = " "; //nom saisi par l'utilisateur
+char nomJoueur[NB_MAX_CAR_JOUEUR] = " "; //nom saisi par l'utilisateur
 char nomJeu[] = "BAD'DOS 4EVER";
 char cheminMusique[] = "../include/musiqueMenu.ogg";
 char cheminParamTxt[] = "../include/sauvegarde.txt";
 char valVolume[4] = "100"; //sert à convertir la valeur du volume pour l'afficher
+char saisieIp[NB_MAX_CAR_IP] = " ";
 
-
-char * tab_perso[NB_MAX_PERSO]; //liste des personnages disponibles à choisiro
+char * tab_perso[NB_MAX_PERSO]; //liste des personnages disponibles à choisir
 img_t tab_img[NB_MAX_IMG]; //tableau de textures images
 texte_t tab_texte[NB_MAX_TEXTE];//tableau de textures texte
 
@@ -40,9 +63,12 @@ SDL_Color couleurBlanche = { 255, 255, 255, 255 };
 SDL_Color couleurNoire = { 0, 0, 0, 255 };
 
 void end(int nb){
-    //temporaire, existe déjà dans main.c
-    if (renderer)
+    
+    if (renderer){
         SDL_DestroyRenderer(renderer);
+        renderer = NULL;
+    }
+        
     if (window)
         SDL_DestroyWindow(window);
     for(int i = 0 ; i < nb_img ; i++){
@@ -51,17 +77,27 @@ void end(int nb){
     for(int i = 0 ; i < nb_texte ; i++){
         SDL_DestroyTexture(tab_texte[i].message);
     }
-	if (police)
+	if (police){
 		TTF_CloseFont(police);
+        police =  NULL;
+    }
+    if (musique) {
+        Mix_FreeMusic(musique);
+        musique = NULL;
+    }
+
+    Mix_CloseAudio();
+
 
 	TTF_Quit();
     IMG_Quit();
+    Mix_Quit();
     SDL_Quit();
     if(nb) exit(nb);
 }
 
 void init_sdl(){
-    /*pareil que la fonction end()*/
+    
     if (SDL_Init(SDL_INIT_VIDEO) || !(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) end(1);
     
     window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1920, 1080, SDL_WINDOW_SHOWN);
@@ -70,14 +106,51 @@ void init_sdl(){
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) end(3);
+
+    TTF_Init();
+
+    police = TTF_OpenFont(cheminPolice, 100);
+	if (!police) end(6);
+
+    SDL_Init(SDL_INIT_AUDIO);
+
+
+}
+
+void affiche_host_game(){
+    clear_ecran();              
+    //bouton retour 
+    SDL_RenderCopy(renderer, tab_img[6].texture, NULL, &tab_img[6].posBoutonFen);
+    SDL_RenderCopy(renderer, tab_img[7].texture, NULL, &tab_img[7].posBoutonFen);  
+    SDL_RenderCopy(renderer, tab_img[21].texture, NULL, &tab_img[21].posBoutonFen);  
+    SDL_RenderCopy(renderer, tab_img[22].texture, NULL, &tab_img[22].posBoutonFen);  
+
+
+    //bouton saisie ip 
+    SDL_RenderCopy(renderer, tab_img[10].texture, NULL, &tab_img[10].posBoutonFen);   
+    SDL_RenderCopy(renderer, tab_texte[15].message, NULL, &tab_texte[15].posTexte);
+    SDL_RenderCopy(renderer, tab_texte[17].message, NULL, &tab_texte[17].posTexte);
+
+    
+
+
+    if(nbcarIp > 0){
+        //texte ip
+        detruit_texte(16);
+        creer_texte(tab_texte + 16, saisieIp);
+        SDL_RenderCopy(renderer, tab_texte[16].message, NULL, &tab_texte[16].posTexte);
+    }
+    SDL_RenderPresent(renderer); 
+    
 }
 
 void affiche_menu(){
-    maj_affichage();
+    clear_ecran();
     //chargement des boutons et textes du menu principal
     for(int i = 0 ; i < 5 ; i++){
         SDL_RenderCopy(renderer, tab_img[i].texture, NULL, &tab_img[i].posBoutonFen);
-        SDL_RenderCopy(renderer, tab_texte[i].message, NULL, &tab_texte[i].posTexte);
+
+        if(i != 3) SDL_RenderCopy(renderer, tab_texte[i].message, NULL, &tab_texte[i].posTexte);
     }
     
     maj_perso_actuel();
@@ -85,11 +158,41 @@ void affiche_menu(){
     
     //si le nom du joueur n'est pas chargé, on affiche "entrez votre nom"
     
-    if(!strcmp(nomJoueur, " "))
+    if(nbCarJoueur == 0)
         SDL_RenderCopy(renderer, tab_texte[5].message, NULL, &tab_texte[5].posTexte);
-    else 
+    else{
+        detruit_texte(6);
+        creer_texte(tab_texte + 6, nomJoueur);
         SDL_RenderCopy(renderer, tab_texte[6].message, NULL, &tab_texte[6].posTexte);
+    }
     
+    SDL_RenderPresent(renderer);
+}
+
+void affiche_param(){
+    clear_ecran();
+    SDL_RenderCopy(renderer, tab_img[6].texture, NULL, &tab_img[6].posBoutonFen);
+    SDL_RenderCopy(renderer, tab_img[7].texture, NULL, &tab_img[7].posBoutonFen);
+
+    for(int i = 11 ; i < 19 ; i++){
+        SDL_RenderCopy(renderer, tab_img[i].texture, NULL, &tab_img[i].posBoutonFen);
+    } 
+    
+    for(int i = 9 ; i < 15 ; i++){
+        if(i != 14) SDL_RenderCopy(renderer, tab_texte[i].message, NULL, &tab_texte[i].posTexte);
+    } 
+        
+    snprintf(valVolume, sizeof(valVolume), "%d", volume);
+    Mix_VolumeMusic(volume);
+    detruit_texte(14);
+    creer_texte(tab_texte + 14, valVolume);
+    SDL_RenderCopy(renderer, tab_texte[14].message, NULL, &tab_texte[14].posTexte);
+
+    if(volume)
+        SDL_RenderCopy(renderer, tab_img[19].texture, NULL, &tab_img[19].posBoutonFen);    
+    else 
+        SDL_RenderCopy(renderer, tab_img[20].texture, NULL, &tab_img[20].posBoutonFen);
+
     SDL_RenderPresent(renderer);
 }
 
@@ -112,14 +215,17 @@ void maj_perso_actuel(){
 met à jour l'affichage du menu lorsqu'une flèche est cliquée pour avoir le nom du personnage sélectionné ainsi qu'une 
 image correspondantre d'affiché
 */
+    detruit_img(5);
+    detruit_texte(3);
     creer_texte(tab_texte + 3, tab_perso[actuel]);
+    creer_image(tab_img + 5, chemin_perso());
     
     SDL_RenderCopy(renderer, tab_img[5].texture, NULL, &tab_img[5].posBoutonFen);
     SDL_RenderCopy(renderer, tab_texte[3].message, NULL, &tab_texte[3].posTexte);
     
 }
 
-void maj_affichage(){
+void clear_ecran(){
 /*
 met à jour l'affichage à l'écran : affichage l'image de fond et supprime toutes les textures qui étaient affichées à l'écran
 */
@@ -132,7 +238,7 @@ void ajout_personnage(char * nom){
 /*
 ajoute un personnage dans la liste des personnages
 */
-    tab_perso[nb_perso_ajoutes] = nom;
+    tab_perso[nb_perso_ajoutes] = strdup(nom);
     nb_perso_ajoutes++;
 }
 
@@ -156,7 +262,7 @@ Appelle ensuite la fonction qui met à jour l'affichage
 */
     if (actuel > 0) actuel--;
     else actuel = nb_perso_ajoutes - 1;
-    maj_perso_actuel();
+    affiche_menu();
 }
 
 SDL_Texture * creer_texture(char * chemin){
@@ -195,11 +301,18 @@ void detruit_tout(){
 /*
 detruit tous les textes et images présentes sur l'écran
 */
-    while(nb_texte > 0){
-        detruit_texte(0);
+
+    for(int i = 0 ; i < nb_texte ; i++){
+        detruit_texte(i);
+    } 
+    for(int i = 0 ; i < nb_img ; i++){
+        detruit_img(i);
+    } 
+    for(int i = 0 ; i < nb_perso_ajoutes ; i++){
+        free(tab_perso[i]);
     }
-    while(nb_img > 0){
-        detruit_img(0);
+    if (backgroundTexture) {
+        SDL_DestroyTexture(backgroundTexture);
     }
 }
 
@@ -210,10 +323,7 @@ detruit une SDL_Texture dans la structure image passée en paramètre
     if (tab_img[indice].texture) {
         SDL_DestroyTexture(tab_img[indice].texture);
         tab_img[indice].texture = NULL;   
-
-        for(int i = indice ; i < nb_img ; i++){
-            tab_img[i] = tab_img[i + 1];
-        }    
+  
         nb_img--;
     }
 }
@@ -224,11 +334,7 @@ detruit une SDL_Texture dans la structure texte passée en paramètre
 */
     if(tab_texte[indice].message){
         SDL_DestroyTexture(tab_texte[indice].message);
-        tab_texte[indice].message = NULL;
-
-        for(int i = indice ; i < nb_texte ; i++){
-            tab_texte[i] = tab_texte[i + 1];
-        }
+        tab_texte[indice].message = NULL;        
         nb_texte--;
     }
 }
@@ -255,96 +361,10 @@ créée une texture à partir du chemin vers une image, le stocke dans le champ 
     nb_img++;
 }
 
-void afficher_texte(){
-/*
-affiche toutes les textures texte chargées
-*/
-    for(int i = 0 ; i < nb_texte ; i++){
-        SDL_RenderCopy(renderer, tab_texte[i].message, NULL, &tab_texte[i].posTexte);
-    }
-}
 
-void afficher_image(){
-/*
-affiche toutes les textures imagges chargées
-*/
-    for(int i = 0 ; i < nb_img ; i++){
-        SDL_RenderCopy(renderer, tab_img[i].texture, NULL, &tab_img[i].posBoutonFen);  
-    }
-}
-
-void sauv_param(){
-/*
-sauvegarde dans le fichier sauvegarde.txt (dans include) le volume et le personnage actuel choisi par l'utilisateur
-*/
-    FILE * fichier = fopen(cheminParamTxt, "w");
-    fprintf(fichier, "%d\n%d\n%s", actuel, volume, nomJoueur);
-    fclose(fichier);
-}
-
-void charge_param(){
-/*
-charge les paramètres sauvegardés dans le fichier sauvegarde.txt (dans include)
-*/
-    FILE * fichier = fopen(cheminParamTxt, "r");
-    if(fichier){
-        fscanf(fichier, "%d %d %s", &actuel, &volume, nomJoueur);
-        fclose(fichier);
-    }
-    else printf("Fichier %s introuvable\n", cheminParamTxt);
-    
-}
-
-void modif_volume(){
-/*
-modifie l'affichage de la valeur du volume lorsque l'on clique sur le bouton + ou -
-*/
-    snprintf(valVolume, sizeof(valVolume), "%d", volume);
-    detruit_texte(5);
-    tab_texte[5] = (texte_t) {(SDL_Rect)(SDL_Rect){X_BOUTON_PARAM + W_BOUTON_PARAM / 2 + 100, 850, 150, H_BOUTON_PARAM / 2}, NULL};                        
-    Mix_VolumeMusic(volume);
-    creer_texte(tab_texte + 5, valVolume);
-    detruit_img(10);
-    tab_img[10] = (img_t) {(SDL_Rect){W_BOUTON_PARAM / 4 + 10, 845, H_BOUTON_PARAM - 70, H_BOUTON_PARAM - 60}, NULL};
-    if(volume)
-        creer_image(tab_img + 10, "../img/Boutons/boutonVolumeOn.png");
-    
-    else 
-        creer_image(tab_img + 10, "../img/Boutons/boutonVolumeOff.png");
-}
-
-void inverse_img_vol(int volumeOn){
-    detruit_img(10);
-    tab_img[10] = (img_t) {(SDL_Rect){W_BOUTON_PARAM / 4 + 10, 845, H_BOUTON_PARAM - 70, H_BOUTON_PARAM - 60}, NULL};
-    if(volumeOn){
-        creer_image(tab_img + 10, "../img/Boutons/boutonVolumeOff.png");
-        volume = 0;
-    }
-    else{
-        creer_image(tab_img + 10, "../img/Boutons/boutonVolumeOn.png");
-        volume = 100;
-    }
-}
-
-void modif_nom(){
-    tab_texte[5] = (texte_t) {(SDL_Rect){1250, 100, 600, 250 }, NULL};
-    
-    detruit_texte(5);
-    
-    if(nbCarJoueur > 0){
-        creer_texte(tab_texte + 5, nomJoueur);
-    }
-    else{
-        creer_texte(tab_texte + 5, "Entrez votre nom");
-    }
-    nb_texte--;
-    maj_affichage();   
-}
-
-int menu(char *pseudo, unsigned char *classe, char* ipAddress){
+int menu(char **pseudo, char **classe, char ** ipAddress){
     init_sdl();
-    TTF_Init();
-    SDL_Init(SDL_INIT_AUDIO);
+    
     //lance la musique dans le menu
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
     musique = Mix_LoadMUS(cheminMusique);
@@ -355,10 +375,6 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
     }
     Mix_VolumeMusic(volume);
     Mix_PlayMusic(musique, -1);
-    
-
-    police = TTF_OpenFont(cheminPolice, 100);
-	if (!police) end(6);
 
     //image de fond
 	backgroundTexture = creer_texture("../img/imgMenu.png");
@@ -389,7 +405,7 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
     tab_img[9] = (img_t) {(SDL_Rect){X_BOUTON_PARAM, 500, W_BOUTON_PARAM, H_BOUTON_PARAM}, NULL}; //position bouton rejoindre partie
 
     //bouton créer partie
-    tab_texte[10] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 275, 100, W_BOUTON_PARAM / 4, H_BOUTON_PARAM / 2}, NULL}; //bouton saisie de l'ip
+    tab_img[10] = (img_t) {(SDL_Rect){X_BOUTON_PARAM - 100, 300, W_BOUTON_PARAM + 200, H_BOUTON_PARAM * 1.5}, NULL}; //bouton saisie de l'ip
 
     //bouton param
     tab_img[11] = (img_t) {(SDL_Rect){X_BOUTON_PARAM, 200, W_BOUTON_PARAM, H_BOUTON_PARAM}, NULL};//bouton sauv param
@@ -402,6 +418,9 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
     tab_img[18] = (img_t) {(SDL_Rect){W_BOUTON_PARAM / 4 - 15, 825, H_BOUTON_PARAM - 15, H_BOUTON_PARAM - 15}, NULL};//arriere plan volume coupé
     tab_img[19] = (img_t) {(SDL_Rect){W_BOUTON_PARAM / 4 + 10, 845, H_BOUTON_PARAM - 70, H_BOUTON_PARAM - 60}, NULL};//bouton volume on
     tab_img[20] = (img_t) {(SDL_Rect){W_BOUTON_PARAM / 4 + 10, 845, H_BOUTON_PARAM - 70, H_BOUTON_PARAM - 60}, NULL};//bouton volume off
+    tab_img[21] = (img_t) {(SDL_Rect){X_BOUTON_PARAM + 25, 700, W_BOUTON_PARAM - 25, H_BOUTON_PARAM / 1.25}, NULL};//bouton lancer serveur avec son ip
+    tab_img[22] = (img_t) {(SDL_Rect){1400, 200, 200, H_BOUTON_PARAM}, NULL};//bouton ip invalide
+
 
 
 
@@ -426,10 +445,10 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
     tab_texte[13] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 70, 850, W_BOUTON_PARAM / 2, H_BOUTON_PARAM / 2}, NULL};//texte : volume     
     tab_texte[14] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + W_BOUTON_PARAM / 2 + 100, 850, 150, H_BOUTON_PARAM / 2}, NULL};//valeur du volume
     tab_texte[15] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 275, 100, W_BOUTON_PARAM / 4, H_BOUTON_PARAM / 2}, NULL};// texte IP
+    tab_texte[16] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM - 50, 350, W_BOUTON_PARAM + 100, H_BOUTON_PARAM * 1.1}, NULL}; //texte ip saisie
+    tab_texte[17] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 50, 710, W_BOUTON_PARAM - 75, H_BOUTON_PARAM / 1.5}, NULL}; //texte lancer le serveur
 
 
-    char * textes[] = {"Jouer", "Paramètres", "Quitter", tab_perso[actuel], nomJeu, "Entrez votre nom", nomJoueur, "Créer partie", 
-    "Rejoindre partie", "Sauvegarder",  "Charger", "Volume", valVolume}; 
 
 
     
@@ -454,6 +473,10 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
     creer_image(tab_img + 18, "../img/Boutons/boutonMenuRond.png");//arriere plan bouton volume on/off
     creer_image(tab_img + 19, "../img/Boutons/boutonVolumeOn.png");
     creer_image(tab_img + 20, "../img/Boutons/boutonVolumeOff.png");
+    creer_image(tab_img + 21, "../img/Boutons/boutonMenuLargeCarre.png");
+    creer_image(tab_img + 22, "../img/Boutons/boutonMenuLargeCarre.png");
+
+
 
     
     
@@ -475,21 +498,19 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
     creer_texte(tab_texte + 13, "Volume");
     creer_texte(tab_texte + 14, valVolume);
     creer_texte(tab_texte + 15, "IP");
+    creer_texte(tab_texte + 17, "Lancer le serveur");
 
     
 
-    
 
 
     affiche_menu();
               
-
     SDL_Event event;
     int dansEstServeur = 0; //a-t-on cliqué sur le bouton créer une partie 
     int dansParam = 0;
     int dansJouer = 0;
     int sortieMenu = 0;
-    int volumeOn = 1;
     int ecriture = 0; //dans la fonction jouer
 
     while(!sortieMenu){
@@ -497,22 +518,46 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
             //saisie du nom du joueur
             if(event.type == SDL_KEYDOWN){
                 SDL_Keycode touche = event.key.keysym.sym;
+
                 if(event.key.keysym.sym == SDLK_ESCAPE){
+                    sortieMenu = 1;
+                }
+                //si on est sur le menu d'accueil
+                if(!dansEstServeur && !dansJouer && !dansParam){
+
+                    //si c'est a-z ou 1-9
+                    if (nbCarJoueur < NB_MAX_CAR_JOUEUR && ((touche >= SDLK_a && touche <= SDLK_z) || (touche >= SDLK_0 && touche <= SDLK_9) || touche >= SDLK_KP_0 && touche <= SDLK_KP_9)) {
+                        nomJoueur[nbCarJoueur++] = (char)touche;
+                        nomJoueur[nbCarJoueur] = '\0';
+                        affiche_menu();                    
+                    }
+                    //suppression d'un caractère
+                    else if(touche == SDLK_BACKSPACE){
+                        if(nbCarJoueur >= 1){
+                            nomJoueur[--nbCarJoueur] = '\0';
+                            affiche_menu();
+                        }     
+                    } 
+                    
+                }
+                
+                else if(dansEstServeur){    
+                    if(nbcarIp < NB_MAX_CAR_IP && ((touche >= SDLK_0 && touche <= SDLK_9) || touche == SDLK_SEMICOLON)){
+                        if(touche == SDLK_SEMICOLON) saisieIp[nbcarIp++] = '.';
+                        else saisieIp[nbcarIp++] = (char)touche;
+                        saisieIp[nbcarIp] = '\0';
+                        affiche_host_game();
+                    }
+                    else if(touche == SDLK_BACKSPACE){
+                        if(nbcarIp >= 1){
+                            saisieIp[--nbcarIp] = '\0';
+                            affiche_host_game();
+                        }
+                    }
+                    else if(touche == SDLK_KP_ENTER || touche == SDLK_RETURN){
                         sortieMenu = 1;
                     }
-                //si c'est a-z ou 1-9
-                if (nbCarJoueur < NB_MAX_CAR_JOUEUR && ((touche >= SDLK_a && touche <= SDLK_z) || (touche >= SDLK_0 && touche <= SDLK_9))) {
-                    nomJoueur[nbCarJoueur++] = (char)touche;
-                    nomJoueur[nbCarJoueur] = '\0';
-                    modif_nom();                    
                 }
-                //suppression d'un caractère
-                else if(touche == SDLK_BACKSPACE){
-                    if(nbCarJoueur >= 1){
-                        nomJoueur[--nbCarJoueur] = '\0';
-                        modif_nom();
-                    }                          
-                }      
             }
             
             else if(event.type == SDL_MOUSEBUTTONDOWN){
@@ -526,13 +571,13 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
                 //bouton jouer ?
                 else if(SDL_PointInRect(&point, &tab_img[0].posBoutonFen) &&!dansJouer && !dansParam){
                     dansJouer = 1;
-                    maj_affichage();
-                    SDL_RenderCopy(renderer, tab_img[6].texture, NULL, &tab_img[6].posBoutonFen);
-                    SDL_RenderCopy(renderer, tab_img[7].texture, NULL, &tab_img[7].posBoutonFen);
-                    SDL_RenderCopy(renderer, tab_img[8].texture, NULL, &tab_img[8].posBoutonFen);
-                    SDL_RenderCopy(renderer, tab_img[9].texture, NULL, &tab_img[9].posBoutonFen);
+                    //affichage des boutons du menu jouer
+                    clear_ecran();
+                    for(int i = 6 ; i < 10 ; i++){
+                        SDL_RenderCopy(renderer, tab_img[i].texture, NULL, &tab_img[i].posBoutonFen);
 
-
+                    }
+                    //bouton retour
                     SDL_RenderCopy(renderer, tab_texte[7].message, NULL, &tab_texte[7].posTexte);
                     SDL_RenderCopy(renderer, tab_texte[8].message, NULL, &tab_texte[8].posTexte);
 
@@ -542,24 +587,8 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
                 //bouton paramètre ?
                 else if(SDL_PointInRect(&point, &tab_img[1].posBoutonFen) &&!dansJouer && !dansParam){
                     dansParam = 1;
-                    maj_affichage();
-                    SDL_RenderCopy(renderer, tab_img[6].texture, NULL, &tab_img[6].posBoutonFen);
-                    SDL_RenderCopy(renderer, tab_img[7].texture, NULL, &tab_img[7].posBoutonFen);
-
-                    for(int i = 11 ; i < 19 ; i++){
-                        SDL_RenderCopy(renderer, tab_img[i].texture, NULL, &tab_img[i].posBoutonFen);
-                    } 
-
-                    for(int i = 9 ; i < 15 ; i++){
-                        SDL_RenderCopy(renderer, tab_texte[i].message, NULL, &tab_texte[i].posTexte);
-                    }       
-
-                    if(volume) 
-                        SDL_RenderCopy(renderer, tab_img[19].texture, NULL, &tab_img[19].posBoutonFen);
-                    else
-                        SDL_RenderCopy(renderer, tab_img[20].texture, NULL, &tab_img[20].posBoutonFen);
-
-                    SDL_RenderPresent(renderer);                       
+                    affiche_param();
+                                           
                 }
 
                 //flèche gauche ?
@@ -573,22 +602,31 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
                 }
                 
                 //bouton retour
-                else if(SDL_PointInRect(&point, &tab_img[6].posBoutonFen) && (dansJouer || dansParam)){
+                else if(SDL_PointInRect(&point, &tab_img[6].posBoutonFen) && (dansJouer || dansParam || dansEstServeur)){
                     affiche_menu();
                     dansJouer = 0;
                     dansParam = 0;
-
+                    dansEstServeur = 0;
                 }
 
                 //sauvegarde param
                 else if(SDL_PointInRect(&point, &tab_img[11].posBoutonFen) && dansParam){
-                    sauv_param();
+                    FILE * fichier = fopen(cheminParamTxt, "w");
+                    fprintf(fichier, "%d\n%d\n%s", actuel, volume, nomJoueur);
+                    fclose(fichier);
                 }
 
                 //charger param
                 else if(SDL_PointInRect(&point, &tab_img[12].posBoutonFen) && dansParam){
-                    charge_param();
-                    modif_volume();
+                    FILE * fichier = fopen(cheminParamTxt, "r");
+                    if(fichier){
+                        fscanf(fichier, "%d %d %s", &actuel, &volume, nomJoueur);
+                        detruit_texte(6);
+                        creer_texte(tab_texte + 6, nomJoueur);
+                        fclose(fichier);
+                    }
+                    else printf("Fichier %s introuvable\n", cheminParamTxt);
+                    affiche_param();
                     nbCarJoueur = strlen(nomJoueur);
                 }
 
@@ -596,7 +634,7 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
                 else if(SDL_PointInRect(&point, &tab_img[14].posBoutonFen) && dansParam){
                     if(volume < 100) {
                         volume += 10;
-                        modif_volume();
+                        affiche_param();
                     }
                 }
 
@@ -604,15 +642,19 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
                 else if(SDL_PointInRect(&point, &tab_img[16].posBoutonFen) && dansParam){
                     if(volume > 0) {
                         volume -= 10;
-                        modif_volume();
+                        affiche_param();
                     }
                 }
 
-                //inverse le son en fonction en cliquant l'image de son coupé ou non
-                else if(SDL_PointInRect(&point, &tab_img[19].posBoutonFen) && dansParam){
-                    inverse_img_vol(volumeOn);
-                    volumeOn = !volumeOn;
-                    modif_volume();                  
+                //inverse l'image du son coupé ou non
+                else if((SDL_PointInRect(&point, &tab_img[19].posBoutonFen) || SDL_PointInRect(&point, &tab_img[20].posBoutonFen)) && dansParam){
+                    
+                    if(volume)
+                        volume = 0;
+                    else
+                        volume = 100;
+                    
+                    affiche_param();                  
                 }
 
                 //bouton rejondre ?
@@ -622,32 +664,31 @@ int menu(char *pseudo, unsigned char *classe, char* ipAddress){
                 }
 
                 //bouton creer partie ?
-                if(SDL_PointInRect(&point, &tab_img[8].posBoutonFen) && dansJouer){
-                    
-                    maj_affichage();               
-
-                    tab_img[2] = (img_t) {(SDL_Rect){X_BOUTON_PARAM, 200, W_BOUTON_PARAM, H_BOUTON_PARAM}, NULL};
-                    tab_texte[0] = (texte_t) {(SDL_Rect){X_BOUTON_PARAM + 275, 100, W_BOUTON_PARAM / 4, H_BOUTON_PARAM / 2}, NULL};
-                    
-                    char * cheminTexte[] = {"../img/Boutons/boutonMenuRond.png", "../img/Boutons/boutonRetour.png", "../img/Boutons/boutonMenuLargeCarre.png"};
-                    char * textes[] = {"IP"};
-
-                    
+                else if(SDL_PointInRect(&point, &tab_img[8].posBoutonFen) && dansJouer){                                  
                     dansJouer = 0;
+                    dansEstServeur = 1;
+                    affiche_host_game();
                 }
-                                
-                maj_affichage();                   
+
+                //bouton lancer serveur ?
+                else if(SDL_PointInRect(&point, &tab_img[21].posBoutonFen) && dansEstServeur){                                  
+                    printf("%d\n", valider_ip(saisieIp));
+                }             
             }
         }
         SDL_Delay(10);
     }
+    strcpy(*classe, tab_perso[actuel]);
+    *pseudo = nomJoueur;
+   *ipAddress = saisieIp;
     detruit_tout();
-    SDL_DestroyTexture(backgroundTexture);
-    Mix_FreeMusic(musique);
-    Mix_CloseAudio();
 }
 
 void main(void){
-    menu();
+    char * pseudo;
+    char * ipAddress;
+    char * classe;
+    menu(&pseudo, &classe, &ipAddress);
+    printf("%s %s %s\n", pseudo, classe, ipAddress);
     end(0);
 }
