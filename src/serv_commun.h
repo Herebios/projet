@@ -23,7 +23,6 @@
 #include "../datastruct/file.h"
 
 #define BUFFERLEN 101
-#define NB_CLIENTS 2
 
 extern file * serv_file;
 extern socket_struct * clients;

@@ -29,7 +29,7 @@ int main_server(int nb_clients) {
 	pthread_create(&server.server_struct.thread, NULL, accept_thread, NULL);
 	//nouv clients thread
 
-	char buffer[32]="Il y a ";
+	char buffer[BUFFERLEN]="Il y a ";
 	while(server.nb_clients < nb_clients){
 		printf("%d", server.nb_clients);flush;
 		sprintf(buffer + 7, "%d", server.nb_on);
@@ -40,9 +40,11 @@ int main_server(int nb_clients) {
 	//à partir d'ici on peut utiliser server.nb_clients (global)
 	broadcast("start", &server, clients, -1);
 
-	//Chaque client reçoit son indice
+	srand(time(0));
+	int random_seed = rand();
+	//Chaque client reçoit son indice et la seed random
 	for (int i=0; i<nb_clients; i++) {
-		sprintf(buffer, "%d %d", i, nb_clients);
+		sprintf(buffer, "%d %d %d", i, nb_clients, random_seed);
 		send(clients[i].socket, buffer, strlen(buffer), 0);
 	}
 
@@ -58,31 +60,37 @@ int main_server(int nb_clients) {
 	quand nb_on sera à 0 et premier_client à 1, le serveur s'arrêtera
 	*/
 	char * data;
-	int ind;//ind du joueur qui envoie
+	int ind_j;//ind du joueur qui envoie
 	int action;
-	puts("deb boucle");flush;
 	int compteur=0;
+
+	init_jeu();
 	while (server.nb_on){
 		while(!fileVide(serv_file)){
 			data=defiler(serv_file);
 			sscanf(data, "%d %d", &ind, &action);
 			switch(action){
 				case JOUEUR_CHANGE_DIR:
-					sscanf(data_skip(data, 2), "%d", (int*)&joueurs[ind].dir);
+					sscanf(data_skip(data, 2), "%d", (int*)&joueurs[ind_j].dir);
 					break;
-				case ADD_OBJET:{
+				case JOUEUR_ADD_OBJET:{
 					int ind_o;
 					sscanf(data_skip(data, 2), "%d", &ind_o);
-					ajouter_objet(joueurs + ind, ind_o);
-					update_stats(joueurs + ind);
+					ajouter_objet(joueurs + ind_j, ind_o);
+					update_stats(joueurs + ind_j);
 					break;
 				}
-				case RM_OBJET:{
-					int ind_inv;
+				case JOUEUR_RM_OBJET:{
+					int ind_inv, ind_o;
 					sscanf(data_skip(data, 2), "%d", &ind_inv);
-					retirer_objet(joueurs + ind, ind_inv);
-					update_stats(joueurs + ind);
-					//!!retirer objet de map
+					ind_o = joueurs[ind_j].objets[ind_inv].ind;
+					retirer_objet(joueurs + ind_j, ind_inv);
+					update_stats(joueurs + ind_j);
+
+					//on ajoute l'objet sur la tuile
+					pos_t pos_tuile;
+					position_perso(joueurs + ind_j, &pos_tuile);
+					spawn_objet((rarete_t)rand()%4, 1, ind_o, joueurs[ind_j].pos_map, pos_tuile);
 					break;
 				}
 			}
@@ -102,9 +110,8 @@ int main_server(int nb_clients) {
 			avancer(joueurs+i);
 		}
 
-
 		//evenements
-		if(compteur >= 2000){// 1 fois / 2 sec
+		if(compteur >= 2000){
 			puts("Spawn obj\n");flush;
 			spawn_objet(commun);
 			compteur=0;

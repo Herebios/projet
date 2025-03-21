@@ -1,68 +1,10 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <stdbool.h>
-#include <string.h>
-#include <stdarg.h>
-
-#ifdef _WIN32
-    #include <winsock2.h>
-#else
-    #include <arpa/inet.h>
-    #include <netinet/in.h>
-    #include <sys/socket.h>
-#endif
-
-#include "../datastruct/file.h"
-#include "perso_cli.h"
-#include "id_actions.h"
+#include "cli_jeu.h"
 
 file * file_socket;
-
-#define PORT 2048
-#define BUFFERLEN 101
-#define flush fflush(stdout)
-#define endl putchar('\n')
-
-typedef struct {
-    int socket;
-    struct sockaddr_in addr;
-    pthread_t thread;
-    bool online;
-} socket_struct;
 
 //variables utilisées en global
 socket_struct client;
 int indice, nb_joueurs;
-
-void * ecoute_thread(void * null);
-int setup_client(char * ip);
-void fermeture_client(int code);
-
-/*nb_joueurs en global*/
-void init_joueurs_client(perso_cli_t joueurs[]){
-	char *data;
-	int ind=0;//on sait qu'on lit dans l'ordre, serv n'envoie pas l'ind
-	int equipe;
-	classe_t classe;
-    char nom[32];
-	while(ind < nb_joueurs){
-		if(fileVide(file_socket))
-			usleep(100000);
-		else{
-			data=defiler(file_socket);
-			sscanf(data, "%d %s %d", (int*)&classe, nom, &equipe);
-			creer_perso(&joueurs[ind].perso, classe, nom, ind, equipe);
-			free(data);
-			ind++;
-		}
-	}
-}
-
-void detruire_joueurs_client(perso_cli_t * joueurs){
-	for(int i=0; i<nb_joueurs; i++)
-		detruire_perso(&joueurs[i].perso);
-}
 
 /* Utilise va_arg pour envoyer facilement ce qu'on veut
 socket et ind en global*/
@@ -82,19 +24,6 @@ void sendf(char * format, ...){
 		}
 	va_end(va);
 	send(client.socket, buffer, strlen(buffer), 0);
-}
-
-//obligatoirement le joueur ; connaître id objet
-void ramasser_objet(perso_t *perso, int ind_o){
-	sendf("%d %d", ADD_OBJET, ind_o);
-	ajouter_objet(perso, ind_o);
-	update_stats(perso);
-}
-//position dans l'inventaire
-void lacher_objet(perso_t *perso, int ind_inv){
-	sendf("%d %d", RM_OBJET, ind_inv);
-	retirer_objet(perso, ind_inv);
-	update_stats(perso);
 }
 
 int main_client(char * ip, char * pseudo, classe_t classe) {
@@ -133,11 +62,12 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 		free(data);
 	}
 
+	int seed;
 	//Récupère son indice
 	while(fileVide(file_socket))
 		sleep(1);
 	data=defiler(file_socket);
-	sscanf(data, "%d %d", &indice, &nb_joueurs);
+	sscanf(data, "%d %d %d", &indice, &nb_joueurs, &seed);
 	free(data);
 	printf("Je suis le client %d/%d !\n", indice, nb_joueurs);
 
@@ -151,21 +81,24 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 	for(int i=0; i<nb_joueurs; i++){
         printf("ind %d ; classe %d ; nom %s ; equipe %d\n", i, joueurs[i].perso.classe, joueurs[i].perso.nom, joueurs[i].perso.equipe);
     }
-//	bool valide=1;
-//	while(valide && client.online){//si le thread est fermé prématurément
-		ramasser_objet(&joueurs[indice].perso, 0);
-		lacher_objet(&joueurs[indice].perso, 0);
-		ramasser_objet(&joueurs[indice].perso, 0);
-		send(client.socket, "!", 1, 0);
+	char valide=1;
+	int compteur=0;
 
-/*		while(!fileVide(file_socket)){
+	init_jeu();
+	while(valide && client.online){//si le thread est fermé prématurément
+
+		while(!fileVide(file_socket)){
 			data=defiler(file_socket);
 			printf("'%s'\n", (char*)data);flush;
 			free(data);
 		}
-		sleep(1);
-*/
-//	}
+		if(compteur > 10000)
+			valide=0;
+
+		SDL_Delay(DELAY);
+	}
+	send(client.socket, "!", 1, 0);
+
 	while(client.online){
 		puts("attente");
 		sleep(1);//attend fin ecoute_thread

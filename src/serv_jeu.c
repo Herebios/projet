@@ -7,7 +7,7 @@
 
 //objets
 //fonction intermédiaire, renvoie position exacte et indice de l'objet choisi aléatoirement
-static void spawn_objetbis(rarete_t r, int *pxmap, int *pymap, int *pxtuile, int *pytuile, int *ind_obj) {
+static void spawn_objetbis(rarete_t r, int *ind_o, pos_t *p_map, pos_t *p_tuile) {
 	int ind;
 	switch(r){
 		case commun:
@@ -22,8 +22,8 @@ static void spawn_objetbis(rarete_t r, int *pxmap, int *pymap, int *pxtuile, int
 		case legendaire:
 			ind=rand()%NB_OBJETS_L + NB_OBJETS-NB_OBJETS_L;
 	}
-	objet_t * nouv_obj=tab_objets + ind;
 	int xmap, ymap, xtuile, ytuile;
+	*ind_o = ind;
 	char valide=0;
 	tuile_t *t;
 	while(!valide){
@@ -36,26 +36,28 @@ static void spawn_objetbis(rarete_t r, int *pxmap, int *pymap, int *pxtuile, int
 			xtuile=rand()%LARGEUR_TUILE;
 			ytuile=rand()%HAUTEUR_TUILE;
 			if(tuile->id_texture[ytuile][xtuile]==normal){
-				//on copie le pointeur sur objet et la pos
-				objet_tuile_t temp = {nouv, (pos_t){xtuile, ytuile}};
-				ajout_fin_liste(tuile->liste_objets, &temp, sizeof(objet_tuile_t));
-				*pxmap = xmap; 	*pymap = ymap; 	*pxtuile = xtuile; *pytuile = ytuile;
-				*ind_obj = ind;
+				//on renvoie les valeurs
+				p_map->x = xmap; p_map->y = ymap; p_tuile->x = xtuile; p_tuile->y = ytuile;
 				valide=1;//fin while
 			}
 		}
 	}
 }
+/*Cette fonction est appelée quand un objet est ajouté sur la map.
+Soit un nouveau apparaît (mode 0), paramètres générés par fonction bis,
+soit un joueur laisse tomber un objet, paramètres connus.
+*/
+void spawn_objet(rarete_t r, int mode, int ind_o, pos_t p_map, pos_t p_tuile){
+	if(mode==0)
+		spawn_objetbis(r, &p_map, &p_tuile, &ind_o);
 
-void spawn_objet(rarete_t r){
-	int xm, ym, xt, yt, ind_obj;
-	spawn_objetbis(r, &xm, &ym, &xy, &yt, &ind_obj);
-
-	char buffer[BUFFERLEN];
-	sprintf(buffer, "%d %d %d %d %d %d", SPAWN_OBJET, ind_obj, xm, ym, xt, yt);
+	tuile_t *t=get_tuile_from_pos(p_map);
+	ajouter_objet_tuile(t, ind_o, p_tuile);
 
 	//envoi aux joueurs déjà sur la tuile
-	tuile_t *t=map[ym] + xm;
+	char buffer[BUFFERLEN];
+	sprintf(buffer, "%d %d %d %d", SPAWN_OBJET, ind_obj, p_tuile.x, p_tuile.y);
+
 	perso_t *p;
 	for(tete_liste(t->liste_joueurs); !hors_liste(t->liste_joueurs); suivant_liste(t->liste_joueurs)){
 		p=get_liste(t->liste_joueurs);
@@ -63,12 +65,12 @@ void spawn_objet(rarete_t r){
 	}
 }
 
-//joueurs
 /*Envoie au joueur les infos de la tuile*/
-void maj_tuile(perso_t * joueurs, int ind, pos_t pos_map){
+//!!compléter avec les autres infos
+void maj_tuile(int ind, pos_t pos_map){
 	char buffer[BUFFERLEN]="";
 	tuile_t *t=map[pos_map.y]+pos_map.x;
-	sprintf(buffer, "%d %d %d ", NOUV_TUILE, pos_map.x, pos_map.y);
+	sprintf(buffer, "%d %d %d %d", JOUEUR_MV_TUILE, pos_map.x, pos_map.y, taille_liste(t->liste_objets));
 
 	//envoi objets
 	objet_tuile_t * obj;
@@ -77,6 +79,7 @@ void maj_tuile(perso_t * joueurs, int ind, pos_t pos_map){
 		if(obj->objet)
 			sprintf(buffer+strlen(buffer), "%d %d %d ", obj->objet.ind, obj->pos.x, obj->pos.y);
 	}
+	send(clients[ind].socket, buffer, strlen(buffer), 0);
 }
 
 /*Reçoit les infos de chaque client*/

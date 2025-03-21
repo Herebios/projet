@@ -197,15 +197,18 @@ int main(int argc, char *argv[]) {
 	char *pseudo, classe, *ipAddress;
 	int code = menu(pseudo, &classe, ipAddress);
 	switch (code){
-	case 0: // client
-		return main_client(ip, pseudo, (classe_t) classe);
-	case 2: // server and client
-		pthread_t thread;
-		pthread_create(&thread, NULL, main_client_thread, NULL);
-	case 1: // only server
-		return main_server();
+		case 0: // client
+			code = main_client(ip, pseudo, (classe_t) classe);
+			break;
+		case 2: // server and client
+			pthread_t thread;
+			pthread_create(&thread, NULL, main_client_thread, NULL);
+		case 1: // only server
+			code = main_server();
+			break;
 	}
-
+	end(code);
+	return 0;
 
 	/*window, renderer, jeu(map(textures, tuiles), texture_tuile, perso)*/
 	init_sdl();
@@ -214,7 +217,6 @@ int main(int argc, char *argv[]) {
 	charger_tuile_courante();
 	afficher_tuile_courante();
 
-	perso_t *j=jeu.perso;//perso 0 = joueur
 	afficher_perso(j);
 
     SDL_RenderPresent(renderer);

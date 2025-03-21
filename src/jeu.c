@@ -34,9 +34,7 @@ void end(int code){
 	for(i=0; i<HAUTEUR_MAP; i++)
 		for(j=0; j<LARGEUR_MAP; j++)
 			detruire_tuile(map[i] + j);
-    //jeu
-    if (jeu.texture_tuile)
-        SDL_DestroyTexture(jeu.texture_tuile);
+
     if (renderer)
         SDL_DestroyRenderer(renderer);
     if (window)
@@ -182,6 +180,22 @@ void detruire_tuile(tuile_t *tuile){
 	detruire_liste(&t->liste_mobs);
 }
 
+void ajouter_objet_tuile(tuile_t * t, int ind_o, pos_t pos_tuile){
+	ajout_fin_liste(t->liste_objets, &(objet_tuile_t){tab_objets + ind_o, (pos_t){pos_tuile.x, pos_tuile.y}}, sizeof(objet_tuile_t));
+}
+
+//!! bug possible si 2 objets identiques sur la même tuile
+void retirer_objet_tuile(tuile_t * t, ind_o){
+	objet_tuile_t *obj;
+	for(tete_liste(t->liste_objets); !hors_liste(t->liste_objets); suivant_liste(t->liste_objets)){
+		obj=get_liste(t->liste_objets);
+		if(obj->objet.ind == ind_o){
+			supprimer(liste);
+			return;
+		}
+	}
+}
+
 /*Une texture est créée à partir du path
 Aucun traitement supplémentaire n'est nécessaire (modification par pointeur)*/
 void nouv_texture(char * path, SDL_Texture *textures[], unsigned char *nb_textures){
@@ -221,4 +235,12 @@ void avancer(perso_t *p, dir_t dir){
     if(inclus(&rect, &rect_tuile))
         p->rect.y=rect.y;
 
+}
+
+tuile_t * get_tuile_from_pos(pos_t pos){
+	return map[pos.y] + pos.x;
+}
+
+pos_t get_pos_from_coo(int x, int y){
+	return (pos_t){x, y};
 }
