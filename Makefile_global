@@ -1,14 +1,16 @@
-build_complete: build doc
+.PHONY: build_complete build complete all clean doc
+
+build_complete: doc build
 
 build: all clean
 
 complete: all doc
 
 all:
-	$(MAKE) -C src
-
-doc: Doxyfile
-	doxygen Doxyfile
+	$(MAKE) -C src -f Makefile_src all
 
 clean:
-	$(MAKE) -C src
+	$(MAKE) -C src -f Makefile_src clean
+
+doc:
+	doxygen Doxyfile
