@@ -7,10 +7,13 @@
 #ifndef _PERSO_H_
 #define _PERSO_H_
 
+#include "prepro.h"
 #include "objet.h"
 #include "competences.h"
+#include "SDL_def.h"
+#include "types.h"
 
-struct perso_s{
+typedef struct perso_s{
 	classe_t classe;
 	octet niveau;
     char *nom;
@@ -26,7 +29,7 @@ struct perso_s{
 	octet iperso, equipe;
 	SDL_Rect rect;//position tuile
 	pos_t pos_map;//position map, indices pour map.tuiles
-};
+}perso_t;
 
 /**
  * @brief Créer un perso

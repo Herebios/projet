@@ -2,6 +2,11 @@
 #define _TYPES_H_
 typedef unsigned char octet;
 
+//typedef enum {idle,course,attaque}anim_t;
+typedef enum {bas,haut,gauche,droite,basgauche,basdroite,hautgauche,hautdroite, nulldir}dir_t;
+typedef enum {sortie, normal, obstacle1, obstacle2} type_carre;
+typedef enum {base, desert, foret, glace, montagne, neige, plaine} nom_biome_t;
+	//foret, volcan, marais, grotte, enfer, tour_magie, chateau_fort
 typedef enum {administrateur, tank, guerrier, mage, archer, informaticien, ninja, druide, NB_CLASSES} classe_t;
 typedef enum {vie, force, magie, speed, NB_STATS} stat_t;
 typedef enum {zone, projectile, instant} comp_type;
@@ -14,5 +19,6 @@ typedef struct {
     int x;
     int y;
 }pos_t;
+
 
 #endif

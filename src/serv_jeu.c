@@ -25,7 +25,7 @@ static void spawn_objetbis(rarete_t r, int *ind_o, pos_t *p_map, pos_t *p_tuile)
 	int xmap, ymap, xtuile, ytuile;
 	*ind_o = ind;
 	char valide=0;
-	tuile_t *t;
+	tuile_t *tuile;
 	while(!valide){
 		//recherche d'une tuile qui a une place d'objet libre
 		xmap=rand()%LARGEUR_MAP;
@@ -49,14 +49,16 @@ soit un joueur laisse tomber un objet, paramètres connus.
 */
 void spawn_objet(rarete_t r, int mode, int ind_o, pos_t p_map, pos_t p_tuile){
 	if(mode==0)
-		spawn_objetbis(r, &p_map, &p_tuile, &ind_o);
+		spawn_objetbis(r, &ind_o, &p_map, &p_tuile);
 
 	tuile_t *t=get_tuile_from_pos(p_map);
 	ajouter_objet_tuile(t, ind_o, p_tuile);
 
 	//envoi aux joueurs déjà sur la tuile
+	if(taille_liste(t->liste_joueurs) < 1) return;
+
 	char buffer[BUFFERLEN];
-	sprintf(buffer, "%d %d %d %d", SPAWN_OBJET, ind_obj, p_tuile.x, p_tuile.y);
+	sprintf(buffer, "%d %d %d %d", SPAWN_OBJET, ind_o, p_tuile.x, p_tuile.y);
 
 	perso_t *p;
 	for(tete_liste(t->liste_joueurs); !hors_liste(t->liste_joueurs); suivant_liste(t->liste_joueurs)){
@@ -77,18 +79,18 @@ void maj_tuile(int ind, pos_t pos_map){
 	for(tete_liste(t->liste_objets); !hors_liste(t->liste_objets); suivant_liste(t->liste_objets)){
 		obj = get_liste(t->liste_objets);
 		if(obj->objet)
-			sprintf(buffer+strlen(buffer), "%d %d %d ", obj->objet.ind, obj->pos.x, obj->pos.y);
+			sprintf(buffer+strlen(buffer), "%d %d %d ", obj->objet->ind, obj->pos.x, obj->pos.y);
 	}
 	send(clients[ind].socket, buffer, strlen(buffer), 0);
 }
 
 /*Reçoit les infos de chaque client*/
-void init_joueurs_server(perso_t * joueurs){
+void init_joueurs_server(perso_t * joueurs, int nb){
     char * data;
     int equipe=1;//alterne à chaque boucle
     classe_t classe;
     char nom[32];
-    int ind, nb=NB_CLIENTS;
+    int ind;
     /*On ne sait pas dans quel ordre on va lire, on utilise l'indice
     que le client envoie.*/
     while(nb){//nb de messages attendus
@@ -103,16 +105,46 @@ void init_joueurs_server(perso_t * joueurs){
         }
     }
 }
-void detruire_joueurs_server(perso_t * joueurs){
-    for(int i=0; i<NB_CLIENTS; i++){
+void detruire_joueurs_server(perso_t * joueurs, int nb){
+    for(int i=0; i<nb; i++){
         detruire_perso(joueurs+i);
     }
 }
 /*Envoie à tous les clients les autres infos*/
-void send_joueurs_server(info_server * serv, socket_struct clients[NB_CLIENTS], perso_t joueurs[NB_CLIENTS]){
+void send_joueurs_server(perso_t * joueurs, int nb){
     char data[128];
-    for(int i=0; i<NB_CLIENTS; i++){
-        sprintf(data, "%d %s %d", joueurs[i].classe, joueurs[i].nom, joueurs[i].equipe);
-        broadcast(data, serv, clients, -1);//exception i, envoi inutile de ses infos
+    for(int i=0; i<nb; i++){
+        sprintf(data, "%s %d %d ", joueurs[i].nom, joueurs[i].classe, joueurs[i].equipe);
+        broadcast(data, i);//exception i, envoi inutile de ses infos
+		*data=0;
     }
+}
+
+/*Renvoie 1 si le perso p change de tuile
+    Dans ce cas, le server envoie maj_tuile au client
+Sinon renvoie 0
+*/
+int check_sortie_tuile(perso_t *p){
+    tuile_t *t=map[p->pos_map.y] + p->pos_map.x;
+    pos_t pos_tuile;
+    position_perso(p, &pos_tuile);
+    if(t->id_texture[pos_tuile.y][pos_tuile.x]==sortie){
+        if(pos_tuile.x==0){
+        //sortie gauche tuile
+            p->pos_map.x--;
+            p->rect.x = W - p->rect.w;//se retrouve côté droit
+        }else if(pos_tuile.x==LARGEUR_TUILE-1){
+            p->pos_map.x++;
+            p->rect.x = 0;//se retrouve côté gauche
+        }else if(pos_tuile.y==0){
+        //sortie haut tuile
+            p->pos_map.y--;
+            p->rect.y = H - p->rect.h;//se retrouve en bas
+        }else/* if (pos_tuile.y==HAUTEUR_TUILE-1)*/{
+            p->pos_map.y++;
+            p->rect.y = 0;//se retrouve en haut
+        }
+        return 1;
+    }
+    return 0;
 }

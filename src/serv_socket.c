@@ -42,21 +42,17 @@ void *client_thread(void *arg){
 void *accept_thread(void *arg){
     //nb_clients correspond aussi à l'indice du nouveau client qu'on traite, numéro nb_clients+1
     int nb_clients, addr_size=sizeof(struct sockaddr_in);
-
+	int max_clients = *(int*)arg;
     /*Boucle pour accepter de nouveaux clients, lance un thread pour chaque.
     S'arrête grâce au champ online de la socket_struct du server qui dépend
     de la boucle du programme principal qui regarde si tous les clients sont déconnectés.
     On ferme le thread si le nombre max de clients est atteint*/
 
-    while (server.server_struct.online && server.nb_clients < NB_CLIENTS){
+    while (server.server_struct.online && server.nb_clients < max_clients){
         //il n'y a pas de sleep dans la boucle car elle bloque sur accept() ou se ferme
         nb_clients=server.nb_clients;
         if ((clients[nb_clients].socket = accept(server.server_struct.socket, (struct sockaddr *)&clients[nb_clients].addr, &addr_size)) != -1){
 
-            //informations pour la boucle principale
-            server.clients_on[nb_clients]=1;
-            server.nb_on++;
-            server.premier_client=1;
             clients[nb_clients].online=1;
 
             //on envoie dans le thread
@@ -106,7 +102,7 @@ clients est NULL si code != 0
 	if (clients) free(clients);
 }
 
-int setup_server(){
+int setup_server(int nb_clients){
     #ifdef _WIN32
     WSADATA wsa;
     if (WSAStartup(MAKEWORD(2, 2), &wsa))
@@ -125,7 +121,7 @@ int setup_server(){
         return 3;
     }
 
-    if (listen(server.server_struct.socket, NB_CLIENTS) == -1) {
+    if (listen(server.server_struct.socket, nb_clients) == -1) {
         return 4;
     }
 	clients = NULL;

@@ -20,13 +20,9 @@
 #endif
 
 #include "prepro.h"
-#include "../datastruct/file.h"
+#include "file.h"
 
 #define BUFFERLEN 101
-
-extern file * serv_file;
-extern socket_struct * clients;
-extern info_server server;
 
 typedef struct {
     int socket;
@@ -37,9 +33,12 @@ typedef struct {
 
 typedef struct {
     socket_struct server_struct;
-    bool premier_client, clients_on[NB_CLIENTS];
     int nb_clients, nb_on;
 } info_server;
+
+extern file * serv_file;
+extern socket_struct * clients;
+extern info_server server;
 
 char * data_skip(char *, int);
 void broadcast(char *, int exception);

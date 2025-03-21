@@ -16,29 +16,29 @@ int main_server(int nb_clients) {
 	}
 	//le server est prêt, on va s'occuper des clients
 	puts("setup server OK\n");
-	printf("Nombre de clients : %d, pas de place libérée quand déconnexion\n", NB_CLIENTS);flush;
+	printf("Nombre de clients : %d, pas de place libérée quand déconnexion\n", nb_clients);flush;
 	clients = malloc(sizeof(socket_struct) * nb_clients);
 
 	serv_file = newFile();
 
 	server.nb_clients=0;
-	server.premier_client=0;
 	server.server_struct.online=1;
 	server.nb_on=0;
 
-	pthread_create(&server.server_struct.thread, NULL, accept_thread, NULL);
+	pthread_create(&server.server_struct.thread, NULL, accept_thread, &nb_clients);
 	//nouv clients thread
 
 	char buffer[BUFFERLEN]="Il y a ";
 	while(server.nb_clients < nb_clients){
 		printf("%d", server.nb_clients);flush;
-		sprintf(buffer + 7, "%d", server.nb_on);
+		sprintf(buffer + 7, "%d", server.nb_clients);
 		strcat(buffer, " clients !");
-		broadcast(buffer, &server, clients, -1);
+		broadcast(buffer, -1);
 		sleep(1);
 	}
+	server.nb_on=nb_clients;
 	//à partir d'ici on peut utiliser server.nb_clients (global)
-	broadcast("start", &server, clients, -1);
+	broadcast("start", -1);
 
 	srand(time(0));
 	int random_seed = rand();
@@ -49,8 +49,9 @@ int main_server(int nb_clients) {
 	}
 
 	perso_t joueurs[nb_clients];
-	init_joueurs_server(joueurs);
-	send_joueurs_server(joueurs);
+	init_joueurs_server(joueurs, nb_clients);
+	send_joueurs_server(joueurs, nb_clients);
+	puts("Joueurs :");
 	for(int i=0; i<nb_clients; i++){
 		printf("ind %d , classe %d , nom %s , equipe %d\n", i, joueurs[i].classe, joueurs[i].nom, joueurs[i].equipe);
 	}
@@ -64,26 +65,26 @@ int main_server(int nb_clients) {
 	int action;
 	int compteur=0;
 
-	init_jeu();
+//<<	init_jeu();
 	while (server.nb_on){
 		while(!fileVide(serv_file)){
 			data=defiler(serv_file);
-			sscanf(data, "%d %d", &ind, &action);
+			sscanf(data, "%d %d", &ind_j, &action);
 			switch(action){
 				case JOUEUR_CHANGE_DIR:
 					sscanf(data_skip(data, 2), "%d", (int*)&joueurs[ind_j].dir);
 					break;
-				case JOUEUR_ADD_OBJET:{
+				case ADD_OBJET:{
 					int ind_o;
 					sscanf(data_skip(data, 2), "%d", &ind_o);
 					ajouter_objet(joueurs + ind_j, ind_o);
 					update_stats(joueurs + ind_j);
 					break;
 				}
-				case JOUEUR_RM_OBJET:{
+				case RM_OBJET:{
 					int ind_inv, ind_o;
 					sscanf(data_skip(data, 2), "%d", &ind_inv);
-					ind_o = joueurs[ind_j].objets[ind_inv].ind;
+					ind_o = joueurs[ind_j].objets[ind_inv]->ind;
 					retirer_objet(joueurs + ind_j, ind_inv);
 					update_stats(joueurs + ind_j);
 
@@ -98,14 +99,14 @@ int main_server(int nb_clients) {
 		}
 
 		//gerer les deco
+		server.nb_on=server.nb_clients;
 		for (int i=0; i<server.nb_clients; i++){
-			if(server.clients_on[i] && !clients[i].online){
+			if(!clients[i].online){
 				server.nb_on--;
-				server.clients_on[i]=0;
 			}
 		}
 
-		//bouger les joueurs
+/*		//bouger les joueurs
 		for(int i=0; i<nb_clients; i++){
 			avancer(joueurs+i);
 		}
@@ -117,14 +118,14 @@ int main_server(int nb_clients) {
 			compteur=0;
 		}else
 			compteur+=DELAY;
-
+*/
 		SDL_Delay(DELAY);
 	}
 	puts("fin boucle");flush;
 
-	detruire_joueurs_server(joueurs);
+	detruire_joueurs_server(joueurs, nb_clients);
 	//libération complète
-	fermeture_server(&server, clients, 0);
+	fermeture_server(0);
 	return 0;
 }
 

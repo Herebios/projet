@@ -1,5 +1,7 @@
 #include "cli_jeu.h"
 
+SDL_Texture * texture_tuile;
+
 /*nb_joueurs en global*/
 void init_joueurs_client(perso_cli_t *joueurs){
     char *data;
@@ -7,17 +9,19 @@ void init_joueurs_client(perso_cli_t *joueurs){
     int equipe;
     classe_t classe;
     char nom[32];
-    while(ind < nb_joueurs){
+	int nb=nb_joueurs-1;
+    while(nb){
         if(fileVide(file_socket))
             usleep(100000);
         else{
             data=defiler(file_socket);
-            sscanf(data, "%d %s %d", (int*)&classe, nom, &equipe);
+            sscanf(data, "%s %d %d", nom, (int*)&classe, &equipe);
             creer_perso(&joueurs[ind].perso, classe, nom, ind, equipe);
             free(data);
-            ind++;
+            nb--;
         }
     }
+	puts("OK");flush;
 }
 
 void detruire_joueurs_client(perso_cli_t *joueurs){
@@ -55,7 +59,61 @@ void changer_tuile(perso_t *p, char * buffer){
     //on va lire nb_obj * (ind, x, y) et ajouter les objets à la liste de la tuile
     for(int i=0; i<nb_obj; i++){
         sscanf(data_skip(buffer, 4 + 3*i), "%d %d %d", &ind, &x, &y);
-        ajout_fin_liste(t->liste_objets, &(objet_tuile_t){tab_objets + ind, (pos_t){x, y}}, sizeof(objet_tuile_t));
+        ajout_fin_liste(tuile->liste_objets, &(objet_tuile_t){tab_objets + ind, (pos_t){x, y}}, sizeof(objet_tuile_t));
     }
     //??charger_tuile(tuile);afficher_tuile(tuile);
+}
+
+//direction du joueur en fonction du clavier
+void changer_dir(perso_t *p, char mask){
+    switch(mask){
+        //basdroite
+        case 10:
+            p->dir=basdroite;
+            break;
+        //hautdroite
+        case 9:
+            p->dir=hautdroite;
+            break;
+        //basgauche
+        case 6:
+            p->dir=basgauche;
+            break;
+        //hautgauche
+        case 5:
+            p->dir=hautgauche;
+            break;
+        //droite
+        case 11:
+        case 8:
+            p->dir=droite;
+            break;
+        //gauche
+        case 7:
+        case 4:
+            p->dir=gauche;
+            break;
+        //bas
+        case 14:
+        case 2:
+            p->dir=bas;
+            break;
+        //haut
+        case 13:
+        case 1:
+            p->dir=haut;
+    }
+}
+
+void afficher_tuile(tuile_t * tuile){
+	SDL_RenderCopy(renderer, texture_tuile, 0, 0);
+	return;
+}
+
+void charger_tuile(tuile_t * tuile){
+    SDL_SetRenderTarget(renderer, texture_tuile);
+    for (int l=0,c; l<HAUTEUR_TUILE; l++)
+        for (c=0; c<LARGEUR_TUILE; c++)
+            SDL_RenderCopy(renderer, tuile->biome->textures[tuile->id_texture[l][c]], 0, &(SDL_Rect){c*CARRE_W,l*CARRE_H,CARRE_W,CARRE_H});
+    SDL_SetRenderTarget(renderer, NULL);
 }

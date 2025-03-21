@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "prepro.h"
 #include "perso.h"
 
 void creer_perso(perso_t * p, classe_t classe, char * nom, int indice, int equipe){
@@ -10,12 +12,14 @@ void creer_perso(perso_t * p, classe_t classe, char * nom, int indice, int equip
 		p->nom=strdup("Gauss");
 	p->classe=classe;
 	p->niveau=1;
-	p->x=p->y=0;
 	p->iperso=indice;
 	p->equipe=equipe;
 	p->dir=nulldir;
 	p->rect=(SDL_Rect){0, 0, jw, jh};
-
+	if(equipe)
+		p->pos_map=(pos_t){LARGEUR_MAP-1, HAUTEUR_MAP-1};
+	else
+		p->pos_map=(pos_t){0, 0};
 	int i;
 	for (i=0; i<NB_COMP; i++)
 		p->competences[i]=NULL;

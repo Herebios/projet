@@ -22,6 +22,12 @@ pos_t deplacement[8] = {
     {1,-1}  // HAUT_DROITE
 };
 
+void detruire_tuile(tuile_t *t){
+	detruire_liste(&t->liste_joueurs);
+	detruire_liste(&t->liste_objets);
+	detruire_liste(&t->liste_mobs);
+}
+
 void end(int code){
     unsigned char i,j;
 
@@ -60,12 +66,6 @@ void init_jeu(){
 
 	for(int i=0; i<NB_OBJETS; i++)
 		tab_objets[i].ind=i;
-
-	jeu.nb_perso=0;
-	nouv_perso("orc3");
-
-	jeu.texture_tuile = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, W, H);//toute la fenêtre
-	jeu.tuile_courante = ptr_tuile_courante();
 }
 
 void init_biomes(){
@@ -124,11 +124,11 @@ void init_tuile(tuile_t *tuile, nom_biome_t id_biome, int ymap, int xmap){//map
 type_carre indice de texture dans biome->textures[]
 */
     tuile->biome = biomes + id_biome;
-    int lig,col;
-	tuile->liste_joueurs = liste_creer();
-	tuile->liste_objets = liste_creer();
-	tuile->liste_mobs = liste_creer();
+	tuile->liste_joueurs = creer_liste();
+	tuile->liste_objets = creer_liste();
+	tuile->liste_mobs = creer_liste();
 
+    int lig,col;
     //textures aléatoires sur toute la zone
     //!! ajouter règles de génération, dépendantes du biome?
     for(lig=0; lig<HAUTEUR_TUILE; lig++)
@@ -174,23 +174,17 @@ type_carre indice de texture dans biome->textures[]
     }
 }
 
-void detruire_tuile(tuile_t *tuile){
-	detruire_liste(&t->liste_joueurs);
-	detruire_liste(&t->liste_objets);
-	detruire_liste(&t->liste_mobs);
-}
-
 void ajouter_objet_tuile(tuile_t * t, int ind_o, pos_t pos_tuile){
 	ajout_fin_liste(t->liste_objets, &(objet_tuile_t){tab_objets + ind_o, (pos_t){pos_tuile.x, pos_tuile.y}}, sizeof(objet_tuile_t));
 }
 
 //!! bug possible si 2 objets identiques sur la même tuile
-void retirer_objet_tuile(tuile_t * t, ind_o){
+void retirer_objet_tuile(tuile_t * t, int ind_o){
 	objet_tuile_t *obj;
 	for(tete_liste(t->liste_objets); !hors_liste(t->liste_objets); suivant_liste(t->liste_objets)){
 		obj=get_liste(t->liste_objets);
-		if(obj->objet.ind == ind_o){
-			supprimer(liste);
+		if(obj->objet->ind == ind_o){
+			supprimer_liste(t->liste_objets);
 			return;
 		}
 	}
@@ -205,17 +199,17 @@ void nouv_texture(char * path, SDL_Texture *textures[], unsigned char *nb_textur
     SDL_FreeSurface(surface);
 }
 
-bool inclus(SDL_Rect* a, SDL_Rect* b){
+int inclus(SDL_Rect* a, SDL_Rect* b){
     return (a->x >= b->x) && (a->y >= b->y) && ((a->x + a->w) <= (b->x + b->w)) && ((a->y + a->h) <= (b->y + b->h));
 }
 
 //mouvement d'un perso à chaque boucle de jeu
 //!!gérer collisions avec obstacles
-void avancer(perso_t *p, dir_t dir){
-	if(dir == nulldir) return;
+void avancer(perso_t *p){
+	if(p->dir == nulldir) return;
 
     SDL_Rect rect_tuile={0,0,W,H};
-    SDL_Rect rect = p->rect;//séparé
+    SDL_Rect rect = p->rect;
     int deltax=deplacement[p->dir].x * p->stats[speed];
     int deltay=deplacement[p->dir].y * p->stats[speed];
 
@@ -243,4 +237,15 @@ tuile_t * get_tuile_from_pos(pos_t pos){
 
 pos_t get_pos_from_coo(int x, int y){
 	return (pos_t){x, y};
+}
+
+tuile_t *get_tuile_joueur(perso_t * p){
+    return map[p->pos_map.y] + p->pos_map.x;
+}
+
+//pos_tuile
+void position_perso(perso_t *p, pos_t* pos){
+	//~milieu du perso
+	pos->x = (p->rect.x + (p->rect.w >> 1)) / CARRE_W;
+	pos->y = (p->rect.y + (p->rect.h >> 1)) / CARRE_H;
 }

@@ -1,13 +1,13 @@
+#ifndef _DEF_H_
+#define _DEF_H_
+
+#include "liste.h"
+#include "prepro.h"
 #include "types.h"
-#include "perso.h"
+//#include "perso.h"
 #include "SDL_def.h"
 
-typedef enum {idle,course,attaque}anim_t;
-typedef enum {bas,haut,gauche,droite,basgauche,basdroite,hautgauche,hautdroite}dir_t;
-typedef enum {sortie, normal, obstacle1, obstacle2} type_carre;
-typedef enum {base, desert, foret, glace, montagne, neige, plaine} nom_biome_t;//foret, volcan, marais, grotte, enfer, tour_magie, chateau_fort
-
-
+/*
 typedef struct{
 //anim est l'indice de la texture courante
 //max_anim sert à boucler sur l'animation (taille maximale de la texture)
@@ -25,7 +25,7 @@ typedef struct{
     dir_t dir;
     SDL_Texture *textures[NB_ANIM], *texture_courante;//sprite
 }perso_t;
-
+*/
 
 typedef struct{
 	objet_t * objet;
@@ -49,19 +49,12 @@ typedef struct{
 typedef struct{
 //15x8 textures de 128x128 pour écran 1920x1080
 
-	biome_t *biome;//pointeur sur un des biomes du tableau chargé un mémoire
-	type_carre id_texture[HAUTEUR_TUILE][LARGEUR_TUILE];
+    biome_t *biome;//pointeur sur un des biomes du tableau chargé un mémoire
+    type_carre id_texture[HAUTEUR_TUILE][LARGEUR_TUILE];
 
-	//!! initialiser les pointeurs à NULL
-	objet_tuile_t objets[NB_OBJETS_TUILE];
-	//quand un objet est initialisé on copie le ptr et on initialise la pos
-	pnj_t *pnj[NB_PNJ_TUILE];
-	perso_t *ennemis[NB_ENNEMIS_TUILE];
+    liste * liste_joueurs;
+    liste * liste_objets;
+    liste * liste_mobs;
 }tuile_t;
 
-typedef struct{
-	//?? int seed;
-	tuile_t *tuile_courante;
-	SDL_Texture *texture_tuile;
-	//?? texture_prec + pos_prec
-}jeu_t;
+#endif

@@ -1,3 +1,6 @@
+#ifndef _LISTE_H_
+#define _LISTE_H_
+
 /**
 \file liste.h
 \brief Fonctions de manipulation de listes
@@ -35,13 +38,14 @@ void suivant_liste(liste *l);
 void precedent_liste(liste *l);
 
 void * get_liste(liste *l);
-void set_liste(liste *l, void * data, size_t size);
+void set_liste(liste *l, void * data, int size);
 
 void supprimer_liste(liste *l);
-void ajout_droit_liste(liste *l, void * data, size_t size);
-void ajout_gauche_liste(liste *l, void * data, size_t size);
-void ajout_debut_liste(liste *l, void * data, size_t size);
-void ajout_fin_liste(liste *l, void * data, size_t size);
+void ajout_droit_liste(liste *l, void * data, int size);
+void ajout_gauche_liste(liste *l, void * data, int size);
+void ajout_debut_liste(liste *l, void * data, int size);
+void ajout_fin_liste(liste *l, void * data, int size);
 
 int taille_liste(liste *l);
 
+#endif

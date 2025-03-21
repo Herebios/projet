@@ -26,6 +26,17 @@ void sendf(char * format, ...){
 	send(client.socket, buffer, strlen(buffer), 0);
 }
 
+/*Utilisé pour lire après nb espaces
+Voir switch main_serv*/
+char * data_skip(char * data, int nb){
+    char * skip=data + 1;
+    while(nb){
+        if(*skip++ == ' ')
+            nb--;
+    }
+    return skip;
+}
+
 int main_client(char * ip, char * pseudo, classe_t classe) {
 	//setup socket
 	int error_code;
@@ -44,13 +55,13 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 
 	//attente de lancement
 	char * data;
-	char end=0;
-	while(!end){
+	char endwhile=0;
+	while(!endwhile){
 		data=defiler(file_socket);
 		if(data){
 			puts(data);flush;
 			if(strcmp(data, "start")==0)
-				end=1;
+				endwhile=1;
 			free(data);
 			data=NULL;
 		}
@@ -81,12 +92,18 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 	for(int i=0; i<nb_joueurs; i++){
         printf("ind %d ; classe %d ; nom %s ; equipe %d\n", i, joueurs[i].perso.classe, joueurs[i].perso.nom, joueurs[i].perso.equipe);
     }
+	flush;
+
 	char valide=1;
 	int compteur=0;
 
+	init_sdl();
+	texture_tuile = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_TARGET, W, H);
 	init_jeu();
+	charger_tuile(get_tuile_joueur);
+	afficher_tuile(get_tuile_joueur);
+	ecran();
 	while(valide && client.online){//si le thread est fermé prématurément
-
 		while(!fileVide(file_socket)){
 			data=defiler(file_socket);
 			printf("'%s'\n", (char*)data);flush;
@@ -94,7 +111,7 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 		}
 		if(compteur > 10000)
 			valide=0;
-
+		else compteur += DELAY;
 		SDL_Delay(DELAY);
 	}
 	send(client.socket, "!", 1, 0);
@@ -105,6 +122,8 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 	}
 
     detruire_joueurs_client(joueurs);
+	SDL_DestroyTexture(texture_tuile);
+	end(0);
 	fermeture_client(0);
     return 0;
 }
@@ -113,14 +132,14 @@ int main(int argc, char *argv[]){
 	return main_client("127.0.0.1", "boi", 1);
 }
 
-void* ecoute_thread(void *arg){
+void *ecoute_thread(void *arg){
 /*
 S'arrête quand le serveur envoie '!'
 Signal par pointeur qui arrête le main
 */
 	int buffer_size;
     char buffer[BUFFERLEN];
-    bool valide=1;
+    char valide=1;
 	client.online=1;
 	while(valide){
 		buffer_size = recv(client.socket, buffer, BUFFERLEN, 0);
