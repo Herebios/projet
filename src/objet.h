@@ -18,17 +18,23 @@
 
 typedef enum {commun, rare, epique, legendaire} rarete_t;
 typedef enum {null, mult, add} priority_t;
+
+/**
+ * @brief Représente la priorité des calculs entre somme et produit
+ */
 typedef struct {
-    float valeur;
-    priority_t priority;
+    float valeur;       /**< bonus apparté par l'objet */
+    priority_t priority;/**< priorité de l'objet (calcul des addition avant les multiplications) */
 } prio_t;
 
-
+/**
+ * @brief Représente un objet
+ */
 struct objet_s {
-    char * nom;//permet de charger la texture
-    rarete_t rarete;
-	prio_t stats[4];//indices stats_t
-	unsigned char ind;
+    char * nom;         /**< nom de l'objet */
+    rarete_t rarete;    /**< raretée de l'objet */
+	prio_t stats[4];    /**< statistiques de l'objet */
+	unsigned char ind;  /**< indice de l'objet dans l'inventaire */
 };
 
 extern objet_t tab_objets[NB_OBJETS];
