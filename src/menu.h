@@ -32,17 +32,20 @@
  #define JOUER_SERVEUR 2
 
 
+
+typedef enum {
+    MENU_PRINCIPAL, DANS_JOUER, DANS_PARAM, DANS_CREER, DANS_REJOINDRE, SORTIE_MENU
+}position_menu;
  
- 
- typedef struct {
+typedef struct {
      SDL_Rect posBoutonFen; ///<Coordonnées x, y et hauteur et largeur de l'image dans la fenêtre
      SDL_Texture * texture; ///<Texture de l'image
- }img_t;
+}img_t;
  
- typedef struct {
+typedef struct {
      SDL_Rect posTexte; ///<Coordonnées x, y et hauteur et largeur du texte dans la fenêtre
      SDL_Texture * message; ///<Texture du texte
- }texte_t;
+}texte_t;
  
  
  /*
@@ -179,13 +182,10 @@ void init_sdl(void);
   */
 int menu(char **pseudo, char *classe, char** ipAddress);
 
-
-/**
- * @brief Affiche les options de création du serveur
- */
-void affiche_host_game();
-
 /**
  * @brief Permet de mettre à jour l'adresse ip saisie avec les touches du keypad et du clavier normal
  */
-int saisie_touche_ip(SDL_Keycode touche);
+void saisie_touche_ip(SDL_Keycode touche, int * nbCar, char * saisie);
+
+
+void affiche_rejoindre(void);
