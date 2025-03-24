@@ -8,8 +8,8 @@
 #include "SDL_def.h"
 
 typedef struct{
-	int stats[4];   //On utilise l'enum stat_t comme indice typedef enum {vie, force, magie, speed, NB_STATS} stat_t;
-	SDL_Rect pos_map;
+	int stats[4];   	/**< statitiques des mobs {vie, force, magie, speed, NB_STATS}*/
+	SDL_Rect pos_map;	/**< position du mob, largeur et hauteur*/
 }mob_t;
 
 

@@ -41,7 +41,7 @@ extern objet_t tab_objets[NB_OBJETS];
 
 /**
  * @brief Afficher les champs d'un objet en console
- * @param Pointeur sur objet
+ * @param objet_t pointeur sur objet
  */
 void afficher_objet(objet_t *);
 
