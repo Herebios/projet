@@ -28,7 +28,7 @@ typedef struct perso_s{
 
 	octet iperso, equipe;
 	SDL_Rect rect;//position tuile
-	pos_t pos_map;//position map, indices pour map.tuiles
+	pos_t pos_map;//position map, indices pour map[][]
 }perso_t;
 
 /**

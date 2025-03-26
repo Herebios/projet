@@ -115,8 +115,7 @@ void send_joueurs_server(perso_t * joueurs, int nb){
     char data[128];
     for(int i=0; i<nb; i++){
         sprintf(data, "%s %d %d ", joueurs[i].nom, joueurs[i].classe, joueurs[i].equipe);
-        broadcast(data, i);//exception i, envoi inutile de ses infos
-		*data=0;
+        broadcast(data, -1);
     }
 }
 

@@ -90,19 +90,30 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 
 	puts("Les joueurs sont :");
 	for(int i=0; i<nb_joueurs; i++){
-        printf("ind %d ; classe %d ; nom %s ; equipe %d\n", i, joueurs[i].perso.classe, joueurs[i].perso.nom, joueurs[i].perso.equipe);
+        printf("ind %d ; classe %d ; nom %s ; equipe %d ; position %d %d\n", joueurs[i].perso.iperso, joueurs[i].perso.classe, joueurs[i].perso.nom, joueurs[i].perso.equipe, joueurs[i].perso.pos_map.x, joueurs[i].perso.pos_map.y);
     }
 	flush;
 
 	char valide=1;
 	int compteur=0;
 
+	sleep(indice * 1);
 	init_sdl();
 	texture_tuile = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_TARGET, W, H);
 	init_jeu();
-	charger_tuile(get_tuile_joueur);
-	afficher_tuile(get_tuile_joueur);
+	for(int i=0,j; i<NB_BIOMES; i++){
+		for(j=0; j<NB_TEXTURES_BIOME; j++)
+			printf("%p ", biomes[i].textures[j]);
+		endl;
+	}
+	flush;
+	tuile_t * tuile = get_tuile_joueur(&joueurs[indice].perso);
+	charger_tuile(tuile);
+	afficher_tuile();
+
 	ecran();
+	getchar();
+	valide=0;
 	while(valide && client.online){//si le thread est fermé prématurément
 		while(!fileVide(file_socket)){
 			data=defiler(file_socket);

@@ -21,7 +21,7 @@ void changer_tuile(perso_t *, char * buffer);
 
 void changer_dir(perso_t *, char mask);
 
-void afficher_tuile(tuile_t * tuile);
+void afficher_tuile();
 void charger_tuile(tuile_t * tuile);
 
 #endif

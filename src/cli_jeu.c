@@ -9,7 +9,7 @@ void init_joueurs_client(perso_cli_t *joueurs){
     int equipe;
     classe_t classe;
     char nom[32];
-	int nb=nb_joueurs-1;
+	int nb=nb_joueurs;
     while(nb){
         if(fileVide(file_socket))
             usleep(100000);
@@ -19,6 +19,7 @@ void init_joueurs_client(perso_cli_t *joueurs){
             creer_perso(&joueurs[ind].perso, classe, nom, ind, equipe);
             free(data);
             nb--;
+			ind++;
         }
     }
 	puts("OK");flush;
@@ -105,7 +106,7 @@ void changer_dir(perso_t *p, char mask){
     }
 }
 
-void afficher_tuile(tuile_t * tuile){
+void afficher_tuile(){
 	SDL_RenderCopy(renderer, texture_tuile, 0, 0);
 	return;
 }
