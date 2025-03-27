@@ -3,44 +3,48 @@
 \mbox{\hyperlink{perso_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string.h>}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ \_PERSO\_H\_}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ \_PERSO\_H\_}}
 \DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{comment}{//portées\ d'attaque}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ pMage\ 15}}
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ pArcher\ 10\ }}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ pTank\ 1}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ pEpeiste\ 3}}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ pInformaticien\ 4\ }\textcolor{comment}{//temporaire}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ pNinja\ 5}}
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ pDruide\ 9}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ pAspergeur\ 12}}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ nbJoueursMax\ 4}}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\{}
-\DoxyCodeLine{00023\ \ \ \ \ mage\ =\ pMage,\ }
-\DoxyCodeLine{00024\ \ \ \ \ archer\ =\ pArcher,\ }
-\DoxyCodeLine{00025\ \ \ \ \ tank\ =\ pTank,\ }
-\DoxyCodeLine{00026\ \ \ \ \ epeiste\ =\ pEpeiste,\ }
-\DoxyCodeLine{00027\ \ \ \ \ informaticien\ =\ pInformaticien,\ }
-\DoxyCodeLine{00028\ \ \ \ \ ninja\ =\ pNinja,\ }
-\DoxyCodeLine{00029\ \ \ \ \ druide\ =\ pDruide,\ }
-\DoxyCodeLine{00030\ \ \ \ \ aspergeur\ =\ pAspergeur}
-\DoxyCodeLine{00031\ \}porteePerso;}
-\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}prepro.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{objet_8h}{objet.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}competences.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}SDL\_def.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structperso__s}{perso\_s}}\{}
+\DoxyCodeLine{00017\ \ \ \ \ classe\_t\ classe;}
+\DoxyCodeLine{00018\ \ \ \ \ octet\ niveau;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{char}\ *nom;}
+\DoxyCodeLine{00020\ \ \ \ \ dir\_t\ dir;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//statistiques\ du\ perso,\ stat\_t\ indice}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ stats\_base[4];\textcolor{comment}{//stats\ de\ base}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{int}\ stats[4];\textcolor{comment}{//stats\ après\ objets}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{int}\ vie\_reelle;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{structcomp__s}{comp\_t}}\ *\ competences[NB\_COMP];\textcolor{comment}{//icomp\_t\ indice}}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{structobjet__s}{objet\_t}}\ *\ objets[PERSO\_OBJETS\_MAX];\textcolor{comment}{//pointeurs\ sur\ les\ objets\ statiques}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ octet\ iperso,\ equipe;}
+\DoxyCodeLine{00030\ \ \ \ \ SDL\_Rect\ rect;\textcolor{comment}{//position\ tuile}}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{structpos__t}{pos\_t}}\ pos\_map;\textcolor{comment}{//position\ map,\ indices\ pour\ map[][]}}
+\DoxyCodeLine{00032\ \}\mbox{\hyperlink{structperso__s}{perso\_t}};}
 \DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ \mbox{\hyperlink{structt__perso_a7eb9a17d03f504ae88a5e803c6626a9b}{nom}};\ }
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structt__perso_a1b3ea0a53f7620b8240996610dce6bc8}{portee}};\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structt__perso_a22f817e4fa20169f433d4e1927bd5c9a}{pv}};\ \ \ }
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ capa;}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ dash;}
-\DoxyCodeLine{00040\ \}\mbox{\hyperlink{structt__perso}{t\_perso}};}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00047\ \mbox{\hyperlink{structt__perso}{t\_perso}}\ \mbox{\hyperlink{perso_8h_a286c19ec79dd917572f3e78c45ba2c90}{creerPerso}}(porteePerso\ persoACreer);}
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a7a78678e8b46c53b656053c3c34db6cd}{creer\_perso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ classe\_t,\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keywordtype}{int}\ ind,\ \textcolor{keywordtype}{int}\ equipe);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_ab2c4c0976f5c28885329e733a010d269}{detruire\_perso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
 \DoxyCodeLine{00048\ }
-\DoxyCodeLine{00056\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a1e171aba1c82c36478e77ae770b3adb7}{initListePersos}}(\textcolor{keywordtype}{char}\ **\ tabPersos,\ \textcolor{keywordtype}{int}\ nbJoueurs,\ \mbox{\hyperlink{structt__perso}{t\_perso}}\ *\ tabRes);}
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a7f58f6295b0ebb674adfa7e0f040278a}{afficher\_objets\_perso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_ad42e66c8b4d2342b9393e58e6064dcf0}{afficher\_stats\_perso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a1ad8a33e1b8155c700cdfbcf501be0f6}{update\_stats}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a0a990af6cda19dbc57d662a55f1d6843}{ajouter\_objet}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00080\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a24c86df8af7b612ed63bf7a4a9e72168}{retirer\_objet}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

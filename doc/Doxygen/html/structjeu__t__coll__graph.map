@@ -1,0 +1,20 @@
+<map id="jeu_t" name="jeu_t">
+<area shape="rect" id="Node000001" title=" " alt="" coords="181,357,235,383"/>
+<area shape="rect" id="Node000002" href="$structtuile__t.html" title=" " alt="" coords="177,269,239,295"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="211,309,211,357,205,357,205,309"/>
+<area shape="rect" id="Node000003" href="$structbiome__t.html" title=" " alt="" coords="5,181,80,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="69,213,115,243,177,269,175,274,112,248,66,218"/>
+<area shape="rect" id="Node000004" href="$structobjet__tuile__t.html" title=" " alt="" coords="105,181,207,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="164,219,174,244,195,267,191,271,170,247,159,221"/>
+<area shape="rect" id="Node000005" href="$structobjet__s.html" title=" " alt="" coords="105,93,175,119"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="142,133,144,157,153,180,147,182,139,158,136,133"/>
+<area shape="rect" id="Node000006" href="$structprio__t.html" title=" " alt="" coords="111,5,169,31"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="143,45,143,93,137,93,137,45"/>
+<area shape="rect" id="Node000007" href="$structpos__t.html" title=" " alt="" coords="218,93,275,119"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="226,130,170,183,167,179,223,126"/>
+<area shape="rect" id="Node000009" href="$structperso__t.html" title=" " alt="" coords="231,181,302,207"/>
+<area shape="poly" id="edge9_Node000009_Node000007" title=" " alt="" coords="255,131,266,180,261,181,250,133"/>
+<area shape="rect" id="Node000008" href="$structpnj__t.html" title=" " alt="" coords="326,181,381,207"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="339,219,308,248,274,265,240,276,239,271,272,260,305,243,335,215"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="253,220,218,270,214,267,249,217"/>
+</map>

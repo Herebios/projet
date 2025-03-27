@@ -1,0 +1,27 @@
+<map id="src/serv_commun.c" name="src/serv_commun.c">
+<area shape="rect" id="Node000001" title="fonctions communes pour le serv" alt="" coords="354,5,502,31"/>
+<area shape="rect" id="Node000002" href="$serv__commun_8h.html" title=" " alt="" coords="365,79,491,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="431,31,431,65,425,65,425,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,152,72,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="365,106,91,155,86,156,85,150,90,149,364,100"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="254,225,325,251"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="365,99,300,105,232,116,173,132,151,142,137,154,130,167,132,179,140,189,155,199,196,215,241,226,240,231,195,220,152,204,137,193,127,181,125,166,133,150,148,138,171,127,231,111,300,100,364,94"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="147,152,221,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="390,107,235,151,234,146,388,101"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="246,152,330,177"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="407,106,324,148,322,143,404,102"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="437,225,507,251"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="492,94,719,114,822,130,858,139,878,150,884,165,878,179,853,197,816,211,770,222,718,229,611,238,521,240,521,234,611,232,718,224,769,217,814,206,850,193,874,176,879,165,874,154,856,144,821,135,718,119,491,99"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="433,152,516,177"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="438,103,462,139,457,142,433,106"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="540,152,636,177"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="455,102,550,144,548,149,453,106"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="661,152,763,177"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="474,101,654,146,652,151,473,107"/>
+<area shape="rect" id="Node000011" href="$prepro_8h_source.html" title=" " alt="" coords="787,152,863,177"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="492,100,774,149,773,154,491,105"/>
+<area shape="rect" id="Node000012" href="$file_8h.html" title="Fonctions de manipulation de file." alt="" coords="354,152,409,177"/>
+<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="423,106,399,142,394,139,418,103"/>
+<area shape="poly" id="edge12_Node000012_Node000004" title=" " alt="" coords="368,179,317,219,313,215,365,175"/>
+<area shape="poly" id="edge13_Node000012_Node000007" title=" " alt="" coords="398,175,448,214,445,219,394,179"/>
+</map>

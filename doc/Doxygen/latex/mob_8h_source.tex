@@ -1,0 +1,27 @@
+\doxysection{mob.\+h}
+\hypertarget{mob_8h_source}{}\label{mob_8h_source}\index{src/mob.h@{src/mob.h}}
+\mbox{\hyperlink{mob_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}SDL\_def.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}\{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{int}\ stats[4];\ \ \ \ \ \ \ }
+\DoxyCodeLine{00012\ \ \ \ \ SDL\_Rect\ \mbox{\hyperlink{structmob__t_a24c8981a90e6cda4c13d62c2d9cc496a}{pos\_map}};\ \ \ \ }
+\DoxyCodeLine{00013\ \}\mbox{\hyperlink{structmob__t}{mob\_t}};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00021\ \mbox{\hyperlink{structpos__t}{pos\_t}}\ *\ \mbox{\hyperlink{mob_8h_acf84c2d7e6e355ece95f864812d86970}{calculMilieuMob}}(\mbox{\hyperlink{structmob__t}{mob\_t}}\ *\ mob);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00028\ \mbox{\hyperlink{structpos__t}{pos\_t}}\ *\ \mbox{\hyperlink{mob_8h_ad9b97cc878290470b8e50e92a95326c9}{calculMilieuPerso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *\ p);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{mob_8h_a6c07c3b90939e5dbdaac2b540463f276}{distance\_mob}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *p,\ \mbox{\hyperlink{structmob__t}{mob\_t}}\ *mob);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00045\ \mbox{\hyperlink{structperso__s}{perso\_t}}\ *\ \mbox{\hyperlink{mob_8h_aa23f7f81e504d0f8e27a186c65f5247e}{joueur\_plus\_proche\_mob}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ **\ listePersos,\ \mbox{\hyperlink{structmob__t}{mob\_t}}\ *mob,\ \textcolor{keywordtype}{int}\ nbJoueurs);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{mob_8h_acc761949bf2cdacf5bf468814d0cedeb}{angle\_perso\_mob}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *p,\ \mbox{\hyperlink{structmob__t}{mob\_t}}\ *mob);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{mob_8h_ac54e25ff2e7933561101b7ce515d739f}{update\_pos\_mob}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *p,\ \mbox{\hyperlink{structmob__t}{mob\_t}}\ *mob);}
+
+\end{DoxyCode}

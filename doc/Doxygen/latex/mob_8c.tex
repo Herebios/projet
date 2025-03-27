@@ -1,0 +1,169 @@
+\doxysection{src/mob.c File Reference}
+\hypertarget{mob_8c}{}\label{mob_8c}\index{src/mob.c@{src/mob.c}}
+
+
+fonction permettant le deplacement de monstres  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include \"{}perso.\+h\"{}}\newline
+{\ttfamily \#include \"{}mob.\+h\"{}}\newline
+Include dependency graph for mob.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mob_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{mob_8c_a598a3330b3c21701223ee0ca14316eca}\label{mob_8c_a598a3330b3c21701223ee0ca14316eca} 
+\#define {\bfseries PI}~3.\+141592653589793
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structpos__t}{pos\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{mob_8c_acf84c2d7e6e355ece95f864812d86970}{calcul\+Milieu\+Mob}} (\mbox{\hyperlink{structmob__t}{mob\+\_\+t}} \texorpdfstring{$\ast$}{*}mob)
+\begin{DoxyCompactList}\small\item\em calcule les coordonnées du milieu d\textquotesingle{}un monstre \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structpos__t}{pos\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{mob_8c_ad9b97cc878290470b8e50e92a95326c9}{calcul\+Milieu\+Perso}} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}p)
+\begin{DoxyCompactList}\small\item\em calcule les coordonnées du milieu d\textquotesingle{}un personnage \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{mob_8c_a6c07c3b90939e5dbdaac2b540463f276}{distance\+\_\+mob}} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}p, \mbox{\hyperlink{structmob__t}{mob\+\_\+t}} \texorpdfstring{$\ast$}{*}mob)
+\begin{DoxyCompactList}\small\item\em Calcule la distance entre le personnage et le monstre tous les deux passés en paramètres. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{mob_8c_aa23f7f81e504d0f8e27a186c65f5247e}{joueur\+\_\+plus\+\_\+proche\+\_\+mob}} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}liste\+Persos, \mbox{\hyperlink{structmob__t}{mob\+\_\+t}} \texorpdfstring{$\ast$}{*}mob, int nb\+Joueurs)
+\begin{DoxyCompactList}\small\item\em Trouve le joueur de la liste Joueurs le plus proche du monstre passé en paramètres. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{mob_8c_acc761949bf2cdacf5bf468814d0cedeb}{angle\+\_\+perso\+\_\+mob}} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}p, \mbox{\hyperlink{structmob__t}{mob\+\_\+t}} \texorpdfstring{$\ast$}{*}mob)
+\begin{DoxyCompactList}\small\item\em Retourne l\textquotesingle{}angle en radians entre le vecteur le personnage et le monstre. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mob_8c_ac54e25ff2e7933561101b7ce515d739f}{update\+\_\+pos\+\_\+mob}} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}p, \mbox{\hyperlink{structmob__t}{mob\+\_\+t}} \texorpdfstring{$\ast$}{*}mob)
+\begin{DoxyCompactList}\small\item\em Retourne l\textquotesingle{}angle en radians entre le vecteur (personnage, monstre) tous les deux passés en paramètres et le vecteur horizontal dirigé vers la droite. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+fonction permettant le deplacement de monstres 
+
+\begin{DoxyAuthor}{Author}
+Nathan 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mob_8c_acc761949bf2cdacf5bf468814d0cedeb}\label{mob_8c_acc761949bf2cdacf5bf468814d0cedeb} 
+\index{mob.c@{mob.c}!angle\_perso\_mob@{angle\_perso\_mob}}
+\index{angle\_perso\_mob@{angle\_perso\_mob}!mob.c@{mob.c}}
+\doxysubsubsection{\texorpdfstring{angle\_perso\_mob()}{angle\_perso\_mob()}}
+{\footnotesize\ttfamily double angle\+\_\+perso\+\_\+mob (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p,  }\item[{\mbox{\hyperlink{structmob__t}{mob\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{mob }\end{DoxyParamCaption})}
+
+
+
+Retourne l\textquotesingle{}angle en radians entre le vecteur le personnage et le monstre. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & pointeur sur un personnage \\
+\hline
+{\em mob} & pointeur sur un monstre \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+angle entre le personnage et le monstre 
+\end{DoxyReturn}
+\Hypertarget{mob_8c_acf84c2d7e6e355ece95f864812d86970}\label{mob_8c_acf84c2d7e6e355ece95f864812d86970} 
+\index{mob.c@{mob.c}!calculMilieuMob@{calculMilieuMob}}
+\index{calculMilieuMob@{calculMilieuMob}!mob.c@{mob.c}}
+\doxysubsubsection{\texorpdfstring{calculMilieuMob()}{calculMilieuMob()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structpos__t}{pos\+\_\+t}} \texorpdfstring{$\ast$}{*} calcul\+Milieu\+Mob (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmob__t}{mob\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{mob }\end{DoxyParamCaption})}
+
+
+
+calcule les coordonnées du milieu d\textquotesingle{}un monstre 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mob} & pointeur sur un monstre \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+retourne les coordonnées du centre du monstre 
+\end{DoxyReturn}
+\Hypertarget{mob_8c_ad9b97cc878290470b8e50e92a95326c9}\label{mob_8c_ad9b97cc878290470b8e50e92a95326c9} 
+\index{mob.c@{mob.c}!calculMilieuPerso@{calculMilieuPerso}}
+\index{calculMilieuPerso@{calculMilieuPerso}!mob.c@{mob.c}}
+\doxysubsubsection{\texorpdfstring{calculMilieuPerso()}{calculMilieuPerso()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structpos__t}{pos\+\_\+t}} \texorpdfstring{$\ast$}{*} calcul\+Milieu\+Perso (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p }\end{DoxyParamCaption})}
+
+
+
+calcule les coordonnées du milieu d\textquotesingle{}un personnage 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & pointeur sur un personnage \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+retourne les coordonnées du centre du personnage 
+\end{DoxyReturn}
+\Hypertarget{mob_8c_a6c07c3b90939e5dbdaac2b540463f276}\label{mob_8c_a6c07c3b90939e5dbdaac2b540463f276} 
+\index{mob.c@{mob.c}!distance\_mob@{distance\_mob}}
+\index{distance\_mob@{distance\_mob}!mob.c@{mob.c}}
+\doxysubsubsection{\texorpdfstring{distance\_mob()}{distance\_mob()}}
+{\footnotesize\ttfamily double distance\+\_\+mob (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p,  }\item[{\mbox{\hyperlink{structmob__t}{mob\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{mob }\end{DoxyParamCaption})}
+
+
+
+Calcule la distance entre le personnage et le monstre tous les deux passés en paramètres. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & pointeur sur un personnage \\
+\hline
+{\em mob} & pointeur sur un monstre \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Distance entre le personnage et le monstre 
+\end{DoxyReturn}
+\Hypertarget{mob_8c_aa23f7f81e504d0f8e27a186c65f5247e}\label{mob_8c_aa23f7f81e504d0f8e27a186c65f5247e} 
+\index{mob.c@{mob.c}!joueur\_plus\_proche\_mob@{joueur\_plus\_proche\_mob}}
+\index{joueur\_plus\_proche\_mob@{joueur\_plus\_proche\_mob}!mob.c@{mob.c}}
+\doxysubsubsection{\texorpdfstring{joueur\_plus\_proche\_mob()}{joueur\_plus\_proche\_mob()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*} joueur\+\_\+plus\+\_\+proche\+\_\+mob (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{liste\+Persos,  }\item[{\mbox{\hyperlink{structmob__t}{mob\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{mob,  }\item[{int}]{nb\+Joueurs }\end{DoxyParamCaption})}
+
+
+
+Trouve le joueur de la liste Joueurs le plus proche du monstre passé en paramètres. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em liste\+Persos} & liste de pointeurs sur personnage \\
+\hline
+{\em mob} & pointeur sur un monstre \\
+\hline
+{\em nb\+Joueurs} & nombre de joueurs dans la liste \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Distance entre le personnage et le monstre 
+\end{DoxyReturn}
+\Hypertarget{mob_8c_ac54e25ff2e7933561101b7ce515d739f}\label{mob_8c_ac54e25ff2e7933561101b7ce515d739f} 
+\index{mob.c@{mob.c}!update\_pos\_mob@{update\_pos\_mob}}
+\index{update\_pos\_mob@{update\_pos\_mob}!mob.c@{mob.c}}
+\doxysubsubsection{\texorpdfstring{update\_pos\_mob()}{update\_pos\_mob()}}
+{\footnotesize\ttfamily void update\+\_\+pos\+\_\+mob (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{p,  }\item[{\mbox{\hyperlink{structmob__t}{mob\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{mob }\end{DoxyParamCaption})}
+
+
+
+Retourne l\textquotesingle{}angle en radians entre le vecteur (personnage, monstre) tous les deux passés en paramètres et le vecteur horizontal dirigé vers la droite. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & pointeur sur un personnage \\
+\hline
+{\em mob} & pointeur sur un monstre \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+angle entre le personnage et le monstre 
+\end{DoxyReturn}

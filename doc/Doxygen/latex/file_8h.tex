@@ -1,0 +1,153 @@
+\doxysection{src/file.h File Reference}
+\hypertarget{file_8h}{}\label{file_8h}\index{src/file.h@{src/file.h}}
+
+
+Fonctions de manipulation de file.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for file.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{file_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{file_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structfileElem__s}{file\+Elem\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{structfile__s}{file\+\_\+s}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{file_8h_ab5975e5839451dc691313ba7cbe6d714}\label{file_8h_ab5975e5839451dc691313ba7cbe6d714} 
+typedef struct \mbox{\hyperlink{structfileElem__s}{file\+Elem\+\_\+s}} {\bfseries file\+Elem}
+\item 
+\Hypertarget{file_8h_a67f98fe72d69302581af0ba7b9438715}\label{file_8h_a67f98fe72d69302581af0ba7b9438715} 
+typedef struct \mbox{\hyperlink{structfile__s}{file\+\_\+s}} {\bfseries file}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{file_8h_a2eff3594626908a205047f62126f9203}{new\+File}} ()
+\begin{DoxyCompactList}\small\item\em Fonction pour l\textquotesingle{}initialisation d\textquotesingle{}une nouvelle File. \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{file_8h_a9ed1e33f8d1154a20794e7ea2952dddf}{file\+Vide}} (\mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*}f)
+\begin{DoxyCompactList}\small\item\em Vérifie qu\textquotesingle{}une File est vide. \end{DoxyCompactList}\item 
+\Hypertarget{file_8h_adcc525e633c2f47ff58e3049509475d6}\label{file_8h_adcc525e633c2f47ff58e3049509475d6} 
+void {\bfseries file\+Free} (\mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}f, void(\texorpdfstring{$\ast$}{*}destroy\+Function)(void \texorpdfstring{$\ast$}{*}))
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{file_8h_af895527587d3438814aac7015dbcef12}{defiler}} (\mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*}f)
+\begin{DoxyCompactList}\small\item\em Renvoie et retire la valeur positionné en tête de la File. \end{DoxyCompactList}\item 
+\Hypertarget{file_8h_a04c39d9c72a897a4b5275f6bc25d17d8}\label{file_8h_a04c39d9c72a897a4b5275f6bc25d17d8} 
+void {\bfseries enfiler} (\mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*}f, void \texorpdfstring{$\ast$}{*}val, size\+\_\+t size)
+\item 
+void \mbox{\hyperlink{file_8h_adaf9c74760b4346531b3872138e8fe9e}{file\+Ajout\+Queue}} (\mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*}f, void \texorpdfstring{$\ast$}{*}val)
+\begin{DoxyCompactList}\small\item\em Ajoute une valeur en queue de la File. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{file_8h_a76820d93366d746d8ea85b8b9d2b0477}{file\+Length}} (\mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*}f)
+\begin{DoxyCompactList}\small\item\em Calcule renvoie la longueur de la File. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Fonctions de manipulation de file. 
+
+\begin{DoxyAuthor}{Author}
+Lucas 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{file_8h_af895527587d3438814aac7015dbcef12}\label{file_8h_af895527587d3438814aac7015dbcef12} 
+\index{file.h@{file.h}!defiler@{defiler}}
+\index{defiler@{defiler}!file.h@{file.h}}
+\doxysubsubsection{\texorpdfstring{defiler()}{defiler()}}
+{\footnotesize\ttfamily void \texorpdfstring{$\ast$}{*} defiler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*}}]{f }\end{DoxyParamCaption})}
+
+
+
+Renvoie et retire la valeur positionné en tête de la File. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em f} & Un pointeur sur une File. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie le pointeur sur la valeur positionné en tête de la File. 
+\end{DoxyReturn}
+\Hypertarget{file_8h_adaf9c74760b4346531b3872138e8fe9e}\label{file_8h_adaf9c74760b4346531b3872138e8fe9e} 
+\index{file.h@{file.h}!fileAjoutQueue@{fileAjoutQueue}}
+\index{fileAjoutQueue@{fileAjoutQueue}!file.h@{file.h}}
+\doxysubsubsection{\texorpdfstring{fileAjoutQueue()}{fileAjoutQueue()}}
+{\footnotesize\ttfamily void file\+Ajout\+Queue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*}}]{f,  }\item[{void \texorpdfstring{$\ast$}{*}}]{val }\end{DoxyParamCaption})}
+
+
+
+Ajoute une valeur en queue de la File. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em f} & Un pointeur sur une File. \\
+\hline
+\mbox{\texttt{ in}}  & {\em val} & La valeur à inserer dans la File \\
+\hline
+\end{DoxyParams}
+\Hypertarget{file_8h_a76820d93366d746d8ea85b8b9d2b0477}\label{file_8h_a76820d93366d746d8ea85b8b9d2b0477} 
+\index{file.h@{file.h}!fileLength@{fileLength}}
+\index{fileLength@{fileLength}!file.h@{file.h}}
+\doxysubsubsection{\texorpdfstring{fileLength()}{fileLength()}}
+{\footnotesize\ttfamily int file\+Length (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*}}]{f }\end{DoxyParamCaption})}
+
+
+
+Calcule renvoie la longueur de la File. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em f} & Un pointeur sur une File. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un entier correspondant à la taille de la File. 
+\end{DoxyReturn}
+\Hypertarget{file_8h_a9ed1e33f8d1154a20794e7ea2952dddf}\label{file_8h_a9ed1e33f8d1154a20794e7ea2952dddf} 
+\index{file.h@{file.h}!fileVide@{fileVide}}
+\index{fileVide@{fileVide}!file.h@{file.h}}
+\doxysubsubsection{\texorpdfstring{fileVide()}{fileVide()}}
+{\footnotesize\ttfamily char file\+Vide (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*}}]{f }\end{DoxyParamCaption})}
+
+
+
+Vérifie qu\textquotesingle{}une File est vide. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em f} & Un pointeur sur une File. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie dans un char 1 si la File est vide, 0 sinon. 
+\end{DoxyReturn}
+\Hypertarget{file_8h_a2eff3594626908a205047f62126f9203}\label{file_8h_a2eff3594626908a205047f62126f9203} 
+\index{file.h@{file.h}!newFile@{newFile}}
+\index{newFile@{newFile}!file.h@{file.h}}
+\doxysubsubsection{\texorpdfstring{newFile()}{newFile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*} new\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Fonction pour l\textquotesingle{}initialisation d\textquotesingle{}une nouvelle File. 
+
+\begin{DoxyReturn}{Returns}
+Un pointeur sur une File 
+\end{DoxyReturn}

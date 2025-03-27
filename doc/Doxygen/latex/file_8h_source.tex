@@ -1,0 +1,30 @@
+\doxysection{file.\+h}
+\hypertarget{file_8h_source}{}\label{file_8h_source}\index{src/file.h@{src/file.h}}
+\mbox{\hyperlink{file_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_FILE\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_FILE\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfileElem__s}{fileElem\_s}}\{\textcolor{keywordtype}{void}\ *\ val;\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfileElem__s}{fileElem\_s}}\ *next;\}\ \mbox{\hyperlink{structfileElem__s}{fileElem}};\ \textcolor{comment}{//\ structure\ pour\ un\ élément\ d'une\ file.}}
+\DoxyCodeLine{00013\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfile__s}{file\_s}}\{\mbox{\hyperlink{structfileElem__s}{fileElem}}\ *head,\ *queue;\}\ \mbox{\hyperlink{structfile__s}{file}};\ \textcolor{comment}{//\ structure\ pour\ une\ file.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00020\ \mbox{\hyperlink{structfile__s}{file}}\ *\mbox{\hyperlink{file_8h_a2eff3594626908a205047f62126f9203}{newFile}}();}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{file_8h_a9ed1e33f8d1154a20794e7ea2952dddf}{fileVide}}(\mbox{\hyperlink{structfile__s}{file}}\ *f);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ fileFree(\mbox{\hyperlink{structfile__s}{file}}\ **f,\ \textcolor{keywordtype}{void}\ (*destroyFunction)(\textcolor{keywordtype}{void}*));}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{file_8h_af895527587d3438814aac7015dbcef12}{defiler}}(\mbox{\hyperlink{structfile__s}{file}}\ *f);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{void}\ enfiler(\mbox{\hyperlink{structfile__s}{file}}\ *f,\ \textcolor{keywordtype}{void}*\ val,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{file_8h_adaf9c74760b4346531b3872138e8fe9e}{fileAjoutQueue}}(\mbox{\hyperlink{structfile__s}{file}}\ *f,\ \textcolor{keywordtype}{void}*\ val);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{file_8h_a76820d93366d746d8ea85b8b9d2b0477}{fileLength}}(\mbox{\hyperlink{structfile__s}{file}}\ *f);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

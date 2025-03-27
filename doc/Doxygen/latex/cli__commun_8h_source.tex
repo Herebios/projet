@@ -1,0 +1,52 @@
+\doxysection{cli\+\_\+commun.\+h}
+\hypertarget{cli__commun_8h_source}{}\label{cli__commun_8h_source}\index{src/cli\_commun.h@{src/cli\_commun.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_CLI\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_CLI\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <pthread.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdarg.h>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ \#include\ <winsock2.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ \ \ \#include\ <arpa/inet.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ \#include\ <netinet/in.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \ \ \ \#include\ <sys/socket.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}def.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{file_8h}{file.h}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}prepro.h"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ PORT\ 2048}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ BUFFERLEN\ 101}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{int}\ socket;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{struct\ }sockaddr\_in\ addr;}
+\DoxyCodeLine{00029\ \ \ \ \ pthread\_t\ thread;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{char}\ online;}
+\DoxyCodeLine{00031\ \}\ \mbox{\hyperlink{structsocket__struct}{socket\_struct}};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structfile__s}{file}}\ *\ file\_socket;}
+\DoxyCodeLine{00034\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structsocket__struct}{socket\_struct}}\ client;}
+\DoxyCodeLine{00035\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ indice,\ nb\_joueurs;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}\ *\ ecoute\_thread(\textcolor{keywordtype}{void}\ *\ null);}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{int}\ setup\_client(\textcolor{keywordtype}{char}\ *\ ip);}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ fermeture\_client(\textcolor{keywordtype}{int}\ code);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ sendf(\textcolor{keywordtype}{char}\ *,\ ...);}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{char}\ *\ data\_skip(\textcolor{keywordtype}{char}\ *,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{int}\ main\_client(\textcolor{keywordtype}{char}\ *\ ip,\ \textcolor{keywordtype}{char}\ *\ nom,\ classe\_t);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

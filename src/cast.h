@@ -1,22 +1,17 @@
-#include "../include/vector/vector.h"
-#include "../src/perso.h" // maybe useless
+#ifndef __CAST__
+#define __CAST__
 
-typedef enum {zone, projectile, instant} castType; // in perso.h
-typedef enum {onTouch, onEnd} state;
+#include "def.h"
+#include "types.h"
+#include "perso.h"
 
-typedef struct cast_s cast;
-typedef struct cast_s{
-	tile* tile;
-	castType type;
-	vector *v;
-	 caster;
-	unsigned int velocity; // zone : ticks; instant : speedofthecast; projectil : speed
-	unsigned int size;
-	long damage;
-	point pos;
-};
+typedef struct {
+	unsigned short int id;
+} cast_t;
 
+int comparer(cast_t *e1, cast_t *e2);
+int comparer_cb(void *e1, void *e2);
 
+void trouver_supprimer_cb(liste * l, unsigned short int id);
 
-cast *newCast(perso_t *p, comp_t *c);
-void castUpdate(liste *castListe);
+#endif

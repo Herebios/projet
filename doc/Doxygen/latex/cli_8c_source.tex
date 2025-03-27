@@ -1,0 +1,235 @@
+\doxysection{cli.\+c}
+\hypertarget{cli_8c_source}{}\label{cli_8c_source}\index{src/cli.c@{src/cli.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}cli\_jeu.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \mbox{\hyperlink{structfile__s}{file}}\ *\ file\_socket;}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//variables\ utilisées\ en\ global}}
+\DoxyCodeLine{00006\ \mbox{\hyperlink{structsocket__struct}{socket\_struct}}\ client;}
+\DoxyCodeLine{00007\ \textcolor{keywordtype}{int}\ indice,\ nb\_joueurs;}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{/*\ Utilise\ va\_arg\ pour\ envoyer\ facilement\ ce\ qu'on\ veut}}
+\DoxyCodeLine{00010\ \textcolor{comment}{socket\ et\ ind\ en\ global*/}}
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{void}\ sendf(\textcolor{keywordtype}{char}\ *\ format,\ ...)\{}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[BUFFERLEN],\ *pformat=format;}
+\DoxyCodeLine{00013\ \ \ \ \ sprintf(buffer,\ \textcolor{stringliteral}{"{}\%d\ "{}},\ indice);}
+\DoxyCodeLine{00014\ \ \ \ \ va\_list\ va;}
+\DoxyCodeLine{00015\ \ \ \ \ va\_start(va,\ format);}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordflow}{while}(*pformat)}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(*pformat++)\{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'d'}:}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sprintf(buffer+strlen(buffer),\ \textcolor{stringliteral}{"{}\%d\ "{}},\ va\_arg(va,\ \textcolor{keywordtype}{int}));}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'s'}:}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sprintf(buffer+strlen(buffer),\ \textcolor{stringliteral}{"{}\%s\ "{}},\ va\_arg(va,\ \textcolor{keywordtype}{char}*));}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ va\_end(va);}
+\DoxyCodeLine{00026\ \ \ \ \ send(client.socket,\ buffer,\ strlen(buffer),\ 0);}
+\DoxyCodeLine{00027\ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{/*Utilisé\ pour\ lire\ après\ nb\ espaces}}
+\DoxyCodeLine{00030\ \textcolor{comment}{Voir\ switch\ main\_serv*/}}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{char}\ *\ data\_skip(\textcolor{keywordtype}{char}\ *\ data,\ \textcolor{keywordtype}{int}\ nb)\{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ skip=data\ +\ 1;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{while}(nb)\{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(*skip++\ ==\ \textcolor{charliteral}{'\ '})}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ nb-\/-\/;}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{return}\ skip;}
+\DoxyCodeLine{00038\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{int}\ main\_client(\textcolor{keywordtype}{char}\ *\ ip,\ \textcolor{keywordtype}{char}\ *\ pseudo,\ classe\_t\ classe)\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//setup\ socket}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{int}\ error\_code;}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{if}((error\_code=setup\_client(ip))\ >\ 0)\{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ fermeture\_client(error\_code);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ error\_code;}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ puts(\textcolor{stringliteral}{"{}setup\ client\ OK\(\backslash\)n"{}});flush;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ file\_socket\ =\ newFile();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{int}\ buffer\_size;}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[BUFFERLEN];}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ pthread\_create(\&client.thread,\ NULL,\ ecoute\_thread,\ NULL);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//attente\ de\ lancement}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ data;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{char}\ endwhile=0;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{while}(!endwhile)\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ data=defiler(file\_socket);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(data)\{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ puts(data);flush;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(strcmp(data,\ \textcolor{stringliteral}{"{}start"{}})==0)}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ endwhile=1;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ free(data);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ data=NULL;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ putchar(\textcolor{charliteral}{'\(\backslash\)n'});}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ sleep(1);}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{if}(data)\{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ puts(data);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ free(data);}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{int}\ seed;}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//Récupère\ son\ indice}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{while}(fileVide(file\_socket))}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ sleep(1);}
+\DoxyCodeLine{00080\ \ \ \ \ data=defiler(file\_socket);}
+\DoxyCodeLine{00081\ \ \ \ \ sscanf(data,\ \textcolor{stringliteral}{"{}\%d\ \%d\ \%d"{}},\ \&indice,\ \&nb\_joueurs,\ \&seed);}
+\DoxyCodeLine{00082\ \ \ \ \ free(data);}
+\DoxyCodeLine{00083\ \ \ \ \ printf(\textcolor{stringliteral}{"{}Je\ suis\ le\ client\ \%d/\%d\ !\(\backslash\)n"{}},\ indice,\ nb\_joueurs);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//serv\ init\ le\ perso}}
+\DoxyCodeLine{00086\ \ \ \ \ sendf(\textcolor{stringliteral}{"{}ds"{}},\ classe,\ pseudo);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \mbox{\hyperlink{structperso__cli__t}{perso\_cli\_t}}\ joueurs[nb\_joueurs];}
+\DoxyCodeLine{00089\ \ \ \ \ init\_joueurs\_client(joueurs);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ puts(\textcolor{stringliteral}{"{}Les\ joueurs\ sont\ :"{}});}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<nb\_joueurs;\ i++)\{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ind\ \%d\ ;\ classe\ \%d\ ;\ nom\ \%s\ ;\ equipe\ \%d\ ;\ position\ \%d\ \%d\(\backslash\)n"{}},\ joueurs[i].perso.iperso,\ joueurs[i].perso.classe,\ joueurs[i].perso.nom,\ joueurs[i].perso.equipe,\ joueurs[i].perso.pos\_map.x,\ joueurs[i].perso.pos\_map.y);}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ flush;}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{char}\ valide=1;}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{int}\ compteur=0;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ sleep(indice\ *\ 1);}
+\DoxyCodeLine{00101\ \ \ \ \ init\_sdl();}
+\DoxyCodeLine{00102\ \ \ \ \ texture\_tuile\ =\ SDL\_CreateTexture(renderer,\ SDL\_PIXELFORMAT\_RGB888,\ SDL\_TEXTUREACCESS\_TARGET,\ W,\ H);}
+\DoxyCodeLine{00103\ \ \ \ \ init\_jeu();}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0,j;\ i<NB\_BIOMES;\ i++)\{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(j=0;\ j<NB\_TEXTURES\_BIOME;\ j++)}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%p\ "{}},\ biomes[i].textures[j]);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ endl;}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \ \ flush;}
+\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *\ tuile\ =\ get\_tuile\_joueur(\&joueurs[indice].perso);}
+\DoxyCodeLine{00111\ \ \ \ \ charger\_tuile(tuile);}
+\DoxyCodeLine{00112\ \ \ \ \ afficher\_tuile();}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ ecran();}
+\DoxyCodeLine{00115\ \ \ \ \ getchar();}
+\DoxyCodeLine{00116\ \ \ \ \ valide=0;}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{while}(valide\ \&\&\ client.online)\{\textcolor{comment}{//si\ le\ thread\ est\ fermé\ prématurément}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(!fileVide(file\_socket))\{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ data=defiler(file\_socket);}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}'\%s'\(\backslash\)n"{}},\ (\textcolor{keywordtype}{char}*)data);flush;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ free(data);}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(compteur\ >\ 10000)}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ valide=0;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ compteur\ +=\ DELAY;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ SDL\_Delay(DELAY);}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \ \ send(client.socket,\ \textcolor{stringliteral}{"{}!"{}},\ 1,\ 0);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{while}(client.online)\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ puts(\textcolor{stringliteral}{"{}attente"{}});}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ sleep(1);\textcolor{comment}{//attend\ fin\ ecoute\_thread}}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ detruire\_joueurs\_client(joueurs);}
+\DoxyCodeLine{00136\ \ \ \ \ SDL\_DestroyTexture(texture\_tuile);}
+\DoxyCodeLine{00137\ \ \ \ \ end(0);}
+\DoxyCodeLine{00138\ \ \ \ \ fermeture\_client(0);}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00140\ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ *argv[])\{}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordflow}{return}\ main\_client(\textcolor{stringliteral}{"{}127.0.0.1"{}},\ \textcolor{stringliteral}{"{}boi"{}},\ 1);}
+\DoxyCodeLine{00144\ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keywordtype}{void}\ *ecoute\_thread(\textcolor{keywordtype}{void}\ *arg)\{}
+\DoxyCodeLine{00147\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00148\ \textcolor{comment}{S'arrête\ quand\ le\ serveur\ envoie\ '!'}}
+\DoxyCodeLine{00149\ \textcolor{comment}{Signal\ par\ pointeur\ qui\ arrête\ le\ main}}
+\DoxyCodeLine{00150\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{int}\ buffer\_size;}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[BUFFERLEN];}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{char}\ valide=1;}
+\DoxyCodeLine{00154\ \ \ \ \ client.online=1;}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{while}(valide)\{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ buffer\_size\ =\ recv(client.socket,\ buffer,\ BUFFERLEN,\ 0);}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(buffer\_size\ >\ 0)\{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ buffer[buffer\_size]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Recu\ :\ '\%s'\(\backslash\)n"{}},\ buffer);flush;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(*buffer)\{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'!'}:}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ valide=0;}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//copie\ du\ message\ dans\ la\ file}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ enfiler(file\_socket,\ buffer,\ buffer\_size+1);}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ valide=0;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ puts(\textcolor{stringliteral}{"{}Le\ serveur\ est\ mort,\ je\ crois."{}});}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \ \ puts(\textcolor{stringliteral}{"{}fin\ ecoute\ thread\(\backslash\)n"{}});flush;}
+\DoxyCodeLine{00174\ \ \ \ \ client.online=0;}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00176\ \}}
+\DoxyCodeLine{00177\ \textcolor{keywordtype}{void}\ fermeture\_client(\textcolor{keywordtype}{int}\ error\_code)\{}
+\DoxyCodeLine{00178\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00179\ \textcolor{comment}{Libération\ correspondant\ au\ code\ renvoyé\ par\ le\ setup\ en\ cas\ d'échec,}}
+\DoxyCodeLine{00180\ \textcolor{comment}{tout\ à\ la\ fin\ du\ programme,\ avec\ le\ code\ 0.}}
+\DoxyCodeLine{00181\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00182\ \ \ \ \ printf(\textcolor{stringliteral}{"{}fermeture\(\backslash\)n"{}});}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{if}(file\_socket)fileFree(\&file\_socket,\ free);}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordflow}{switch}(error\_code)\{}
+\DoxyCodeLine{00185\ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00186\ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_WIN32}}
+\DoxyCodeLine{00188\ \ \ \ \ closesocket}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{00190\ \ \ \ \ close}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00192\ \ \ \ \ (client.socket);}
+\DoxyCodeLine{00193\ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_WIN32}}
+\DoxyCodeLine{00195\ \ \ \ \ WSACleanup();}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00197\ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00199\ \ \ \ \ \}}
+\DoxyCodeLine{00200\ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{keywordtype}{int}\ setup\_client(\textcolor{keywordtype}{char}\ *\ ip)\{}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordtype}{int}\ error\_code;}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_WIN32}}
+\DoxyCodeLine{00205\ \ \ \ \ WSADATA\ wsa;}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordflow}{if}\ (WSAStartup(MAKEWORD(2,\ 2),\ \&wsa))}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \textcolor{comment}{/*\ Si\ input\ de\ la\ forme\ ip:port}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ \ \ \ char\ ip[16];}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ \ \ \ char\ port[6];}}
+\DoxyCodeLine{00213\ \textcolor{comment}{\ \ \ \ char\ *p=strchr(argv[1],\ ':');}}
+\DoxyCodeLine{00214\ \textcolor{comment}{\ \ \ \ *p++='\(\backslash\)0';}}
+\DoxyCodeLine{00215\ \textcolor{comment}{\ \ \ \ strcpy(ip,argv[1]);}}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ \ \ \ strcpy(port,p);}}
+\DoxyCodeLine{00217\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordflow}{if}\ ((client.socket\ =\ socket(AF\_INET,\ SOCK\_STREAM,\ 0))\ ==\ -\/1)}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2;}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ client.addr.sin\_family\ =\ AF\_INET;}
+\DoxyCodeLine{00222\ \ \ \ \ client.addr.sin\_port\ =\ htons(PORT);\textcolor{comment}{//atoi(port)}}
+\DoxyCodeLine{00223\ \ \ \ \ client.addr.sin\_addr.s\_addr\ =\ inet\_addr(ip);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordflow}{if}(connect(client.socket,\ (\textcolor{keyword}{struct}\ sockaddr\ *)\&client.addr,\ \textcolor{keyword}{sizeof}(client.addr))\ ==\ -\/1)}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 3;}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00229\ \}}
+
+\end{DoxyCode}

@@ -48,4 +48,7 @@ void ajout_fin_liste(liste *l, void * data, int size);
 
 int taille_liste(liste *l);
 
+void * trouver_liste(liste *l, void* objet, int (*comparer)(void*, void*));
+void * trouver_supprimer_liste(liste *l, void* objet, int (*comparer)(void*, void*));
+
 #endif
