@@ -1,6 +1,5 @@
 
 #include "menu.h"
-
 /*
 compilation :
 gcc menu.c -o menu -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer  
@@ -40,6 +39,7 @@ char saisieIp[NB_MAX_CAR_IP] = "@";
 char * tab_perso[NB_MAX_PERSO]; //liste des personnages disponibles à choisir
 img_t tab_img[NB_IMG]; //tableau de textures images
 texte_t tab_texte[NB_TEXTE];//tableau de textures texte
+
 
 void end(int nb){
     
@@ -145,6 +145,8 @@ void saisie_touche_ip(SDL_Keycode touche, int * nbCar, char * saisie){
                 case SDLK_KP_8 : c = '8'; break;
                 case SDLK_KP_9 : c = '9'; break;            
                 case SDLK_BACKSPACE : if(*nbCar >= 1) saisie[--(*nbCar)] = ' '; return;
+                case SDLK_KP_ENTER :
+                case SDLK_RETURN : return;
                 default : break;
             }
 
@@ -160,6 +162,8 @@ void affiche_rejoindre(){
     dessine_img(6);
     dessine_img(7);
     dessine_img(10);
+    SDL_SetTextureColorMod(tab_img[24].texture, 180, 120, 80); // survol clavier
+
     dessine_img(24);
 
     dessine_texte(15);
@@ -179,8 +183,13 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
         case DANS_REJOINDRE : affiche_rejoindre(); SDL_RenderPresent(renderer) ; break;
         case DANS_JOUER : clear_ecran();
                         for(int i = 6 ; i < 10 ; i++){
+                            if (i == tabBouton[bouton_choisi])
+                                SDL_SetTextureColorMod(tab_img[i].texture, 180, 120, 80); // survol clavier
+                            else
+                                SDL_SetTextureColorMod(tab_img[i].texture, 255, 255, 255);
                             dessine_img(i);
                         }
+                        
                         
                         dessine_texte(7);
                         dessine_texte(8);
@@ -191,6 +200,17 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
                     //bouton retour 
                     dessine_img(6);
                     dessine_img(7);
+                    
+
+                    if(tabBouton[bouton_choisi] == 21)
+                        SDL_SetTextureColorMod(tab_img[21].texture, 180, 120, 80); // survol clavier
+                    else
+                        SDL_SetTextureColorMod(tab_img[21].texture, 255, 255, 255);
+
+                    if(tabBouton[bouton_choisi] == 23)
+                        SDL_SetTextureColorMod(tab_img[23].texture, 180, 120, 80); // survol clavier
+                    else
+                        SDL_SetTextureColorMod(tab_img[23].texture, 255, 255, 255);
 
                     dessine_img(21);
                     dessine_img(23); 
@@ -208,6 +228,7 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
                     SDL_RenderPresent(renderer);    
                     *pos = DANS_REJOINDRE;
                     break;
+        case SORTIE_MENU : break;
     }
 }
 
@@ -343,6 +364,7 @@ renvoie le chemin du fichier correspondant au perso actuel choisi
         default:
             end(12);
     }
+    return "null";
 }
 
 void detruit_tout(){
@@ -417,30 +439,6 @@ créée une texture à partir du chemin vers une image, le stocke dans le champ 
     if(!image->texture) end(5);
 }
 
-void gerer_nav_accueil(SDL_Keycode touche, int *selection, int * tab_bouton){
-    if (touche == SDLK_DOWN) {
-        *selection = (*selection + 1) % 3;
-    }
-    else if (touche == SDLK_UP) {
-        *selection = (*selection - 1 + 3) % 3;
-    }
-    else if(touche == SDLK_LEFT) {
-        precedent(tab_bouton);
-    }
-    else if(touche == SDLK_RIGHT) {
-        suivant(tab_bouton);
-    }
-}
-
-void gerer_nav_clavier(SDL_Keycode touche, int *selection, int total) {
-    if (touche == SDLK_DOWN) {
-        *selection = (*selection + 1) % total;
-    }
-    else if (touche == SDLK_UP) {
-        *selection = (*selection - 1 + total) % total;
-    }
-}
-
 void simu_event(SDL_Point p){
     SDL_Event clic;
     clic.type = SDL_MOUSEBUTTONDOWN;
@@ -461,9 +459,12 @@ int menu(char *classe){
     Uint32 frame;
     int tabBoutonsMenu[] = {0, 1, 2, 3, 4};
     int tabBoutonsParam[] = {11, 12, 15, 17};
+    int tabBoutonsJouer[] = {8, 9};
+    int tabBoutonsCreer[] = {23, 21};
 
-
-
+    //tab de chaque elm pouvant être sélectionné selon l'etat actuel du menu. tabBoutonsCreer y est 2 fois car il ya 
+    //l'etat BAD_IP où on affiche la même chose que REJOINDRE mais avec un message d'erreur
+    int * tabBoutons[] = {tabBoutonsMenu, tabBoutonsParam, tabBoutonsJouer, tabBoutonsCreer, tabBoutonsCreer}; 
     
     init_sdl();
     
@@ -474,7 +475,7 @@ int menu(char *classe){
 
     if(!musique){
         printf("Impossible d'ouvrir la musique %s\n", cheminMusique);
-        //end(100);
+        end(100);
     }
     
     Mix_VolumeMusic(volume);
@@ -597,8 +598,6 @@ int menu(char *classe){
     creer_image(tab_img + 24, "../img/Boutons/boutonMenuLargeCarre.png");
     
     
-
-
     
     //creation des textes 
     creer_texte(tab_texte, "Jouer");
@@ -625,7 +624,6 @@ int menu(char *classe){
     
     creer_texte(tab_texte + 22, " Rejoindre");
 
-
     affiche_menu(tabBoutonsMenu, bouton_select);
 
     while(pos_actuelle != SORTIE_MENU){
@@ -633,11 +631,10 @@ int menu(char *classe){
             //saisie du nom du joueur
             if(event.type == SDL_KEYDOWN){
                 SDL_Keycode touche = event.key.keysym.sym;
-                SDL_Event clic;
-                SDL_Point p = {
-                            tab_img[tabBoutonsMenu[bouton_select]].posBoutonFen.x + 1,
-                            tab_img[tabBoutonsMenu[bouton_select]].posBoutonFen.y + 1};
+                SDL_Point p = {tab_img[tabBoutons[pos_actuelle][bouton_select]].posBoutonFen.x + 1,
+                               tab_img[tabBoutons[pos_actuelle][bouton_select]].posBoutonFen.y + 1};
 
+                //sortie forcée par echap
                 if(touche == SDLK_ESCAPE){
                     if(pos_actuelle != MENU_PRINCIPAL){
                         pos_actuelle = MENU_PRINCIPAL;
@@ -646,17 +643,26 @@ int menu(char *classe){
                     else{
                         retour = -1;
                         pos_actuelle = SORTIE_MENU;
-                    }               }
-                //si on est sur le menu d'accueil
+                    }
+                }
+
+                //gestion du deplacement avec flèche dans le menu d'accueil
                 else if(pos_actuelle == MENU_PRINCIPAL){
                     modifications = 1;
-                    gerer_nav_accueil(touche, &bouton_select, tabBoutonsMenu);
-
-                    if (touche == SDLK_RETURN) {
-                        simu_event(p);
+                    if (touche == SDLK_DOWN) {
+                        bouton_select = (bouton_select + 1) % 3;
                     }
-                    
+                    else if (touche == SDLK_UP) {
+                        bouton_select = (bouton_select - 1 + 3) % 3;
+                    }
+                    else if(touche == SDLK_LEFT) {
+                        precedent(tabBoutonsMenu);
+                    }
+                    else if(touche == SDLK_RIGHT) {
+                        suivant(tabBoutonsMenu);
+                    }
 
+                    //modifications nom du joueur saisi
                     //si c'est a-z ou 1-9
                     if (nbCarJoueur < NB_MAX_CAR_JOUEUR && ((touche >= SDLK_a && touche <= SDLK_z) || (touche >= SDLK_0 && touche <= SDLK_9))) {
                         nomJoueur[nbCarJoueur++] = (char)touche;
@@ -670,10 +676,40 @@ int menu(char *classe){
                     }              
                 }
                 
+                //gestion du deplacement avec flèche dans les paramètres
+                else if(pos_actuelle == DANS_PARAM){
+                    modifications = 1;
+                    if (touche == SDLK_DOWN)
+                        bouton_select = (bouton_select + 1) % 4;
+                    
+                    else if(touche == SDLK_UP)
+                        bouton_select = (bouton_select - 1 + 4) % 4;
+                }
+
+                //gestion du deplacement avec flèche dans jouer
+                else if(pos_actuelle == DANS_JOUER){
+                    modifications = 1;
+                    if(touche == SDLK_DOWN || touche == SDLK_UP)
+                        bouton_select = (bouton_select + 1) % 2; 
+                }
+
+                //gestion du deplacement avec flèche dans créer partie
+                else if(pos_actuelle == DANS_CREER){
+                    modifications = 1;
+                    if(touche == SDLK_DOWN || touche == SDLK_UP)
+                        bouton_select = (bouton_select + 1) % 2;
+                }
+                
+                //gestion du deplacement avec flèche dans rejoindre partie
                 else if(pos_actuelle == DANS_REJOINDRE){
                     saisie_touche_ip(touche, &nbCarIp, saisieIp);
-                    modifications = 1;     
+                    modifications = 1;
                 }
+
+                //simulation d'un clic 
+                if ((touche == SDLK_KP_ENTER || touche == SDLK_RETURN) && modifications)
+                    simu_event(p);
+                
             }
 
             else if(event.type == SDL_QUIT){
@@ -692,6 +728,7 @@ int menu(char *classe){
 
                 //bouton jouer ?
                 else if(SDL_PointInRect(&point, &tab_img[0].posBoutonFen) && pos_actuelle == MENU_PRINCIPAL){
+                    bouton_select = 0;
                     if(nbCarJoueur != 0){
                         pos_actuelle = DANS_JOUER;
                         modifications = 1;                     
@@ -703,6 +740,7 @@ int menu(char *classe){
 
                 //bouton paramètre ?
                 else if(SDL_PointInRect(&point, &tab_img[1].posBoutonFen) && pos_actuelle == MENU_PRINCIPAL){
+                    bouton_select = 0;
                     pos_actuelle = DANS_PARAM;
                     modifications = 1;                                           
                 }
@@ -802,12 +840,14 @@ int menu(char *classe){
 
                 //bouton rejondre ?
                 else if(SDL_PointInRect(&point, &tab_img[9].posBoutonFen) && pos_actuelle == DANS_JOUER){
+                    bouton_select = 0;
                     pos_actuelle = DANS_REJOINDRE;
                     modifications = 1;
                 }
 
                 //bouton creer partie ?
-                else if(SDL_PointInRect(&point, &tab_img[8].posBoutonFen) && pos_actuelle == DANS_JOUER){                                  
+                else if(SDL_PointInRect(&point, &tab_img[8].posBoutonFen) && pos_actuelle == DANS_JOUER){     
+                    bouton_select = 0;                             
                     pos_actuelle = DANS_CREER;
                     modifications = 1;
                 }
@@ -841,7 +881,7 @@ int menu(char *classe){
         
         if(modifications){
             modifications = 0;
-            aff_menu(&pos_actuelle, tabBoutonsMenu, bouton_select);
+            aff_menu(&pos_actuelle, tabBoutons[pos_actuelle], bouton_select);
         }
         frame = SDL_GetTicks() - start;
         if (frame < 16) SDL_Delay(16 - frame);
@@ -853,10 +893,11 @@ int menu(char *classe){
     return retour;
 }
 
-void main(void){
+int main(void){
     char classe[50];
     
     printf("\nRetrour menu : %d | ", menu(classe)); 
     printf("Pseudo : %s | Classe : %s | Ip : %s\n", nomJoueur, classe, saisieIp);
     end(0);
+    return 0;
 }

@@ -36,8 +36,9 @@
 
 
 typedef enum {
-    MENU_PRINCIPAL, DANS_JOUER, DANS_PARAM, DANS_CREER, DANS_REJOINDRE, SORTIE_MENU, BAD_IP
+    MENU_PRINCIPAL, DANS_PARAM, DANS_JOUER, DANS_CREER, DANS_REJOINDRE, BAD_IP, SORTIE_MENU 
 }position_menu;
+
  
 typedef struct {
      SDL_Rect posBoutonFen; ///<Coordonnées x, y et hauteur et largeur de l'image dans la fenêtre
