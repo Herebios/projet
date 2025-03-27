@@ -3,7 +3,7 @@
 SDL_Texture * texture_tuile;
 
 /*nb_joueurs en global*/
-void init_joueurs_client(perso_cli_t *joueurs){
+void init_joueurs_client(perso_t *joueurs){
     char *data;
     int ind=0;//on sait qu'on lit dans l'ordre, serv n'envoie pas l'ind
     int equipe;
@@ -11,23 +11,59 @@ void init_joueurs_client(perso_cli_t *joueurs){
     char nom[32];
 	int nb=nb_joueurs;
     while(nb){
-        if(fileVide(file_socket))
-            usleep(100000);
-        else{
+        if(!fileVide(file_socket)){
             data=defiler(file_socket);
             sscanf(data, "%s %d %d", nom, (int*)&classe, &equipe);
-            creer_perso(&joueurs[ind].perso, classe, nom, ind, equipe);
+            creer_perso(joueurs + ind, classe, nom, ind, equipe);
             free(data);
             nb--;
 			ind++;
         }
+		else usleep(100000);
     }
 	puts("OK");flush;
 }
 
-void detruire_joueurs_client(perso_cli_t *joueurs){
-    for(int i=0; i<nb_joueurs; i++)
-        detruire_perso(&joueurs[i].perso);
+void charger_sdl_joueurs(perso_t joueurs[], SDL_Texture * textures_joueurs[][4]){
+	memset(textures_joueurs, 0, 32 * nb_joueurs);
+	char * fichier[]={"Face.png", "Dos.png", "Gauche.png", "Droite.png"};
+	char path[128]="../img/Characters/";
+	int len1=strlen(path);
+	for (int i=0; i<nb_joueurs; i++){
+		switch(joueurs[i].classe){
+			case archer:
+				strcat(path, "archer/");
+				break;
+			case mage:
+				strcat(path, "mage/");
+				break;
+			case ninja:
+				strcat(path, "ninja/");
+				break;
+			default:
+			case vampire:
+				strcat(path, "vampire/");
+				break;
+		}
+
+		int len2=strlen(path);
+		unsigned char nb_textures=0;
+		for(int j=0; j<4; j++){
+			strcat(path, fichier[j]);
+			nouv_texture(path, textures_joueurs[i], &nb_textures);
+			path[len2]=0;
+		}
+		path[len1]=0;
+	}
+}
+
+void detruire_joueurs_client(perso_t *joueurs, SDL_Texture * textures_joueurs[][4]){
+    for(int i=0; i<nb_joueurs; i++){
+        detruire_perso(joueurs + i);
+		for(int j=0; j<4; j++)
+			if(textures_joueurs[i][j])
+				SDL_DestroyTexture(textures_joueurs[i][j]);
+	}
 }
 
 //obligatoirement le joueur ; connaître id objet

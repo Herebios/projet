@@ -35,6 +35,7 @@ void ajouter_objet_tuile(tuile_t * t, int ind_o, pos_t pos_tuile);
 void retirer_objet_tuile(tuile_t * t, int ind_o);
 
 void nouv_texture(char*, SDL_Texture *textures[], unsigned char*);
+SDL_Texture * get_nouv_texture(char*);
 
 //a dans b
 int inclus(SDL_Rect* a, SDL_Rect* b);
