@@ -75,8 +75,7 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 
 	int seed;
 	//Récupère son indice
-	while(fileVide(file_socket))
-		sleep(1);
+	sleep(1);
 	data=defiler(file_socket);
 	sscanf(data, "%d %d %d", &indice, &nb_joueurs, &seed);
 	free(data);
@@ -85,33 +84,112 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 	//serv init le perso
 	sendf("ds", classe, pseudo);
 
-	perso_cli_t joueurs[nb_joueurs];
+	perso_t joueurs[nb_joueurs];
+	SDL_Texture * textures_joueurs[nb_joueurs][4];
+	sdl_struct sdl_objets[PERSO_OBJETS_MAX];
+
+	init_sdl();
 	init_joueurs_client(joueurs);
+	charger_sdl_joueurs(joueurs, textures_joueurs);
 
 	puts("Les joueurs sont :");
 	for(int i=0; i<nb_joueurs; i++){
-        printf("ind %d ; classe %d ; nom %s ; equipe %d\n", i, joueurs[i].perso.classe, joueurs[i].perso.nom, joueurs[i].perso.equipe);
+        printf("ind %d ; classe %d ; nom %s ; equipe %d ; position %d %d\n", joueurs[i].iperso, joueurs[i].classe, joueurs[i].nom, joueurs[i].equipe, joueurs[i].pos_map.x, joueurs[i].pos_map.y);
     }
 	flush;
-
+	perso_t * j = joueurs + indice;//pointeur sur le joueur, plus rapide
 	char valide=1;
 	int compteur=0;
 
-	init_sdl();
+	sleep(indice * 1);
 	texture_tuile = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_TARGET, W, H);
 	init_jeu();
-	charger_tuile(get_tuile_joueur);
-	afficher_tuile(get_tuile_joueur);
+	tuile_t * tuile_courante = get_tuile_joueur(joueurs + indice);
+	charger_tuile(tuile_courante);
+	afficher_tuile();
+
+    SDL_RenderCopy(renderer, textures_joueurs[indice][0], NULL, &j->rect);
 	ecran();
+
+	SDL_Event event;
+    const Uint8* clavier;
 	while(valide && client.online){//si le thread est fermé prématurément
+
+		while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT || event.key.keysym.sym==SDLK_m){
+                valide=0;
+				break;
+            }
+        }
+
+		clavier=SDL_GetKeyboardState(NULL);
+        Uint8 mask=clavier[SDL_SCANCODE_RIGHT] << 3 | clavier[SDL_SCANCODE_LEFT] << 2 | clavier[SDL_SCANCODE_DOWN] << 1 | clavier[SDL_SCANCODE_UP];
+		if(mask){
+			dir_t dir=j->dir;
+			changer_dir(j, mask);
+			if(j->dir != dir)
+				sendf("dd", JOUEUR_CHANGE_DIR, j->dir);
+			avancer(j);
+			//serv simule aussi de son côté
+		}else{
+			sendf("dd", JOUEUR_CHANGE_DIR, nulldir);
+		}
+
 		while(!fileVide(file_socket)){
 			data=defiler(file_socket);
-			printf("'%s'\n", (char*)data);flush;
+			printf("action '%s'\n", (char*)data);flush;
+			int action;
+			sscanf(data, "%d", &action);
+			switch(action){
+				case SPAWN_OBJET:{
+					int ind_o;
+					pos_t pos_tuile;
+					sscanf(data_skip(data, 1), "%d %d %d", &ind_o, &pos_tuile.x, &pos_tuile.y);
+					ajouter_objet_tuile(tuile_courante, ind_o, pos_tuile);
+					//!! ajout dans sdl_objet
+					break;
+				}
+				case JOUEUR_MV_TUILE:{
+					int nb_o, nb_j;
+					sscanf(data_skip(data, 1), "%d %d %d", &j->pos_map.x, &j->pos_map.y, &nb_o);
+					tuile_courante = get_tuile_joueur(j);
+					int skip=4;
+					int ind;
+					pos_t pos;
+					for(int i=0; i<nb_o; i++){
+						sscanf(data_skip(data, skip + 3*i), "%d %d %d", &ind, &pos.x, &pos.y);
+					    ajouter_objet_tuile(tuile_courante, ind, pos);
+					}
+					skip=4+3*nb_o;
+					sscanf(data_skip(data, skip++), "%d", &nb_j);
+					for(int i=0; i<nb_j; i++){
+						sscanf(data_skip(data, skip), "%d %d %d", &ind, &pos.x, &pos.y);
+						joueurs[ind].rect.x = pos.x;
+						joueurs[ind].rect.y = pos.y;
+						ajout_fin_liste(tuile_courante->liste_joueurs, joueurs + ind, sizeof(perso_t*));
+						//!!param ?
+						skip+=3;
+					}
+				    charger_tuile(tuile_courante);
+				}
+			}
 			free(data);
 		}
 		if(compteur > 10000)
 			valide=0;
 		else compteur += DELAY;
+
+	//affichage
+		//fond
+		afficher_tuile();
+		//joueurs
+		for(tete_liste(tuile_courante->liste_joueurs); !hors_liste(tuile_courante->liste_joueurs); suivant_liste(tuile_courante->liste_joueurs)){
+			perso_t * joueur_cour = get_liste(tuile_courante->liste_joueurs);
+			SDL_RenderCopy(renderer, textures_joueurs[joueur_cour->iperso][joueur_cour->dir % 4], NULL, &joueur_cour->rect);
+		}
+		//objets
+
+		ecran();
 		SDL_Delay(DELAY);
 	}
 	send(client.socket, "!", 1, 0);
@@ -121,7 +199,7 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 		sleep(1);//attend fin ecoute_thread
 	}
 
-    detruire_joueurs_client(joueurs);
+    detruire_joueurs_client(joueurs, textures_joueurs);
 	SDL_DestroyTexture(texture_tuile);
 	end(0);
 	fermeture_client(0);
@@ -129,7 +207,7 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 }
 
 int main(int argc, char *argv[]){
-	return main_client("127.0.0.1", "boi", 1);
+	return main_client("127.0.0.1", "boi", vampire);
 }
 
 void *ecoute_thread(void *arg){
@@ -150,9 +228,18 @@ Signal par pointeur qui arrête le main
                 case '!':
 					valide=0;
 					break;
-                default:
-					//copie du message dans la file
-					enfiler(file_socket, buffer, buffer_size+1);
+                default:{
+					//on sépare les messages et on les met dans la file
+					char * debut, * fin;
+					debut=fin=buffer;
+					while(*fin)
+						if(*fin == ';'){
+							*fin=0;
+							enfiler(file_socket, debut, fin-debut);
+							fin++;
+							debut=fin;
+						}else fin++;
+				}
             }
         }else{
 			valide=0;

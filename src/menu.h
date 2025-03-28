@@ -4,6 +4,7 @@
  */
 
 
+
  #include <stdio.h>
  #include <stdlib.h>
  #include <string.h>
@@ -12,6 +13,7 @@
  #include <SDL2/SDL_ttf.h>
  #include <SDL2/SDL_mixer.h>
  #include <regex.h>
+
  
  
  #define IMG_X 400
@@ -21,8 +23,8 @@
  #define W_BOUTON_PARAM 700
  #define H_BOUTON_PARAM 200
  #define H_FLECHE 920
- #define NB_MAX_IMG 25
- #define NB_MAX_TEXTE 30
+ #define NB_IMG 25 //nombre d'images générés par le menu !!! a changer si le nb d'images change
+ #define NB_TEXTE 23 //nombre de textes générés par le menu !!! a changer si le nb de texte change
  #define NB_MAX_PERSO 10
  #define NB_MAX_CAR_JOUEUR 20
  #define NB_MAX_CAR_IP 16
@@ -34,7 +36,7 @@
 
 
 typedef enum {
-    MENU_PRINCIPAL, DANS_JOUER, DANS_PARAM, DANS_CREER, DANS_REJOINDRE, SORTIE_MENU
+    MENU_PRINCIPAL, DANS_JOUER, DANS_PARAM, DANS_CREER, DANS_REJOINDRE, SORTIE_MENU, BAD_IP
 }position_menu;
  
 typedef struct {
@@ -45,6 +47,7 @@ typedef struct {
 typedef struct {
      SDL_Rect posTexte; ///<Coordonnées x, y et hauteur et largeur du texte dans la fenêtre
      SDL_Texture * message; ///<Texture du texte
+     char contenu[NB_MAX_CAR_JOUEUR + 1];
 }texte_t;
  
  
@@ -75,25 +78,18 @@ typedef struct {
 
 int valider_ip(char *ip);
 
+void maj_texte(texte_t *texte, char *nouveau);
+
 void end(int nb);
 void init_sdl(void);
  
+void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi);
+
+
  /**
   * @brief Créée le menu de base avec toutes les textures nécessaires
   */
  void creer_menu(void);
- 
- /**
-  * @brief Met à jour une texture de texte en détruisant la précédente et en recréant une nouvelle avec un texte différent
-  * @param indice L'indice de la texture du tableau de texte que l'on veut détruire
-  * @param nouvtxt La nouvelle chaîne de caractères qui remplacera celle d'avant
-  */
- void maj_texte(int indice, char * nouvTxt);
- 
-  /**
-   * @brief Met à jour l'affichage du menu lorsqu'une flèche est cliquée pour avoir le nom du personnage sélectionné ainsi qu'une image correspondantre d'affiché
-   */
- void maj_perso_actuel(void);
  
  /**
     @brief met à jour l'affichage à l'écran : affichage l'image de fond et supprime toutes les textures qui étaient affichées à l'écran
@@ -110,12 +106,12 @@ void init_sdl(void);
  /**
   * @brief Passe au personnage suivant en changeant l'indice courange du tableau de personnages. Fonctionne circulairement 
   */
- void suivant(void);
+ void suivant(int * tab_bouton);
  
  /**
   * @brief Passe au personnage précédent en changeant l'indice courange du tableau de personnages. Fonctionne circulairement 
   */
- void precedent(void);
+ void precedent(int * tab_bouton);
  
  /**
   * @brief Créée une SDL_Texture à partir du chemin vers une image
@@ -180,7 +176,7 @@ void init_sdl(void);
   * @brief Fonction qui appelle toutes les précédentes pour créer le menu fonctionnel. Boucle principale de gestion d'événements SDL pour gérer les interractions avec l'utilisateur
   * @return Renvoie -1 si on quitte le menu avec echap ; 0 si on joue au jeu ; 1 si on est juste serveur ; 2 si on est serveur et joueur en même temps
   */
-int menu(char **pseudo, char *classe, char** ipAddress);
+int menu(char *classe);
 
 /**
  * @brief Permet de mettre à jour l'adresse ip saisie avec les touches du keypad et du clavier normal
@@ -189,3 +185,8 @@ void saisie_touche_ip(SDL_Keycode touche, int * nbCar, char * saisie);
 
 
 void affiche_rejoindre(void);
+
+void affiche_menu(int tabBouton[], int bouton_choisi);
+
+void affiche_param();
+

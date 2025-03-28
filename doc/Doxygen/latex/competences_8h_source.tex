@@ -1,0 +1,21 @@
+\doxysection{competences.\+h}
+\hypertarget{competences_8h_source}{}\label{competences_8h_source}\index{src/competences.h@{src/competences.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_COMPETENCES\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_COMPETENCES\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcomp__s}{comp\_s}}\{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordtype}{char}\ *nom,\ *description;}
+\DoxyCodeLine{00007\ \ \ \ \ comp\_type\ type;}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{float}\ valeur;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{int}\ distance;\textcolor{comment}{//pour\ un\ déplacement\ /\ la\ portée\ d'un\ skill}}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ cd;\textcolor{comment}{//rechargement\ en\ ms}}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ ttl;\textcolor{comment}{//maintient\ compétence\ en\ ms}}
+\DoxyCodeLine{00012\ \ \ \ \ int\ (*fonction)(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \mbox{\hyperlink{structcomp__s}{comp\_t}}*);}
+\DoxyCodeLine{00013\ \};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

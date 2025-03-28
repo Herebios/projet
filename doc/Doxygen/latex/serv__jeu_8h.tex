@@ -1,0 +1,50 @@
+\doxysection{src/serv\+\_\+jeu.h File Reference}
+\hypertarget{serv__jeu_8h}{}\label{serv__jeu_8h}\index{src/serv\_jeu.h@{src/serv\_jeu.h}}
+{\ttfamily \#include \"{}serv\+\_\+commun.\+h\"{}}\newline
+{\ttfamily \#include \"{}jeu.\+h\"{}}\newline
+{\ttfamily \#include \"{}types.\+h\"{}}\newline
+{\ttfamily \#include \"{}def.\+h\"{}}\newline
+{\ttfamily \#include \"{}objet.\+h\"{}}\newline
+{\ttfamily \#include \"{}perso.\+h\"{}}\newline
+{\ttfamily \#include \"{}id\+\_\+actions.\+h\"{}}\newline
+Include dependency graph for serv\+\_\+jeu.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serv__jeu_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{serv__jeu_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{serv__jeu_8h_af2b965fb1da189624fe4559bd9bb9a70}\label{serv__jeu_8h_af2b965fb1da189624fe4559bd9bb9a70} 
+void {\bfseries spawn\+\_\+objet} (rarete\+\_\+t, int mode, int ind\+\_\+o, \mbox{\hyperlink{structpos__t}{pos\+\_\+t}} p\+\_\+map, \mbox{\hyperlink{structpos__t}{pos\+\_\+t}} p\+\_\+tuile)
+\item 
+\Hypertarget{serv__jeu_8h_a57abcedc3baa39dfcaa7c1ace62443b2}\label{serv__jeu_8h_a57abcedc3baa39dfcaa7c1ace62443b2} 
+void {\bfseries maj\+\_\+tuile} (int ind, \mbox{\hyperlink{structpos__t}{pos\+\_\+t}} pos\+\_\+map)
+\begin{DoxyCompactList}\small\item\em !compléter avec les autres infos \end{DoxyCompactList}\item 
+\Hypertarget{serv__jeu_8h_abe02e401e1cd1ddbf89b405a478f5f80}\label{serv__jeu_8h_abe02e401e1cd1ddbf89b405a478f5f80} 
+void {\bfseries init\+\_\+joueurs\+\_\+server} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}, int)
+\item 
+\Hypertarget{serv__jeu_8h_a4fcdd33dd9ffe75bfadaa8eda1ac9110}\label{serv__jeu_8h_a4fcdd33dd9ffe75bfadaa8eda1ac9110} 
+void {\bfseries detruire\+\_\+joueurs\+\_\+server} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}, int)
+\item 
+\Hypertarget{serv__jeu_8h_a7039d28807e71e1ce488d7ad7db16a40}\label{serv__jeu_8h_a7039d28807e71e1ce488d7ad7db16a40} 
+void {\bfseries send\+\_\+joueurs\+\_\+server} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}, int)
+\item 
+\Hypertarget{serv__jeu_8h_a441e5b0ba750734281ace1b8dd847023}\label{serv__jeu_8h_a441e5b0ba750734281ace1b8dd847023} 
+int {\bfseries check\+\_\+sortie\+\_\+tuile} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}p)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Baptiste 
+\end{DoxyAuthor}

@@ -1,0 +1,44 @@
+\doxysection{src/serv\+\_\+jeu.c File Reference}
+\hypertarget{serv__jeu_8c}{}\label{serv__jeu_8c}\index{src/serv\_jeu.c@{src/serv\_jeu.c}}
+
+
+fonctions de contrôle du jeu  
+
+
+{\ttfamily \#include \"{}serv\+\_\+jeu.\+h\"{}}\newline
+Include dependency graph for serv\+\_\+jeu.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serv__jeu_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{serv__jeu_8c_a7635286ab1ba3991a33f9ce1f167ea2f}\label{serv__jeu_8c_a7635286ab1ba3991a33f9ce1f167ea2f} 
+void {\bfseries spawn\+\_\+objet} (rarete\+\_\+t r, int mode, int ind\+\_\+o, \mbox{\hyperlink{structpos__t}{pos\+\_\+t}} p\+\_\+map, \mbox{\hyperlink{structpos__t}{pos\+\_\+t}} p\+\_\+tuile)
+\item 
+\Hypertarget{serv__jeu_8c_a57abcedc3baa39dfcaa7c1ace62443b2}\label{serv__jeu_8c_a57abcedc3baa39dfcaa7c1ace62443b2} 
+void {\bfseries maj\+\_\+tuile} (int ind, \mbox{\hyperlink{structpos__t}{pos\+\_\+t}} pos\+\_\+map)
+\begin{DoxyCompactList}\small\item\em !compléter avec les autres infos \end{DoxyCompactList}\item 
+\Hypertarget{serv__jeu_8c_ab709c94cee231040f9cbf4823f4b2939}\label{serv__jeu_8c_ab709c94cee231040f9cbf4823f4b2939} 
+void {\bfseries init\+\_\+joueurs\+\_\+server} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}joueurs, int nb)
+\item 
+\Hypertarget{serv__jeu_8c_a2ba483beb4f7e5a86af8b3382936159e}\label{serv__jeu_8c_a2ba483beb4f7e5a86af8b3382936159e} 
+void {\bfseries detruire\+\_\+joueurs\+\_\+server} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}joueurs, int nb)
+\item 
+\Hypertarget{serv__jeu_8c_a262a559cb8e96d0b2eed776c9ecbc47a}\label{serv__jeu_8c_a262a559cb8e96d0b2eed776c9ecbc47a} 
+void {\bfseries send\+\_\+joueurs\+\_\+server} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}joueurs, int nb)
+\item 
+\Hypertarget{serv__jeu_8c_a441e5b0ba750734281ace1b8dd847023}\label{serv__jeu_8c_a441e5b0ba750734281ace1b8dd847023} 
+int {\bfseries check\+\_\+sortie\+\_\+tuile} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}p)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+fonctions de contrôle du jeu 
+
+\begin{DoxyAuthor}{Author}
+Baptiste 
+\end{DoxyAuthor}

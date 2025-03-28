@@ -35,17 +35,18 @@ void ajouter_objet_tuile(tuile_t * t, int ind_o, pos_t pos_tuile);
 void retirer_objet_tuile(tuile_t * t, int ind_o);
 
 void nouv_texture(char*, SDL_Texture *textures[], unsigned char*);
+SDL_Texture * get_nouv_texture(char*);
 
 //a dans b
 int inclus(SDL_Rect* a, SDL_Rect* b);
 
 void avancer(perso_t *);
 
-//pos_tuile
-void position_perso(perso_t *p, pos_t* pos);
-
 tuile_t * get_tuile_from_pos(pos_t pos);
 pos_t get_pos_from_coo(int x, int y);
 tuile_t *get_tuile_joueur(perso_t * p);
+
+//pos_tuile
+void position_perso(perso_t *p, pos_t* pos);
 
 #endif

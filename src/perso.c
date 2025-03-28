@@ -16,6 +16,7 @@ void creer_perso(perso_t * p, classe_t classe, char * nom, int indice, int equip
 	p->equipe=equipe;
 	p->dir=nulldir;
 	p->rect=(SDL_Rect){0, 0, jw, jh};
+	p->vie_reelle=p->stats_base[vie];
 	if(equipe)
 		p->pos_map=(pos_t){LARGEUR_MAP-1, HAUTEUR_MAP-1};
 	else
@@ -48,6 +49,9 @@ void creer_perso(perso_t * p, classe_t classe, char * nom, int indice, int equip
 			break;
 		case druide:
 			memcpy(p->stats_base, (int[4]){85,25,40,14}, sizeof(int[4]));
+			break;
+		case vampire:
+			memcpy(p->stats_base, (int[4]){90,30,20,20}, sizeof(int[4]));
 			break;
 	}
 	update_stats(p);

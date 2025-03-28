@@ -1,0 +1,26 @@
+\doxysection{serv\+\_\+jeu.\+h}
+\hypertarget{serv__jeu_8h_source}{}\label{serv__jeu_8h_source}\index{src/serv\_jeu.h@{src/serv\_jeu.h}}
+\mbox{\hyperlink{serv__jeu_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{serv__commun_8h}{serv\_commun.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{jeu_8h}{jeu.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}def.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{objet_8h}{objet.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{perso_8h}{perso.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}id\_actions.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//objets}}
+\DoxyCodeLine{00014\ \textcolor{keywordtype}{void}\ spawn\_objet(rarete\_t,\ \textcolor{keywordtype}{int}\ mode,\ \textcolor{keywordtype}{int}\ ind\_o,\ \mbox{\hyperlink{structpos__t}{pos\_t}}\ p\_map,\ \mbox{\hyperlink{structpos__t}{pos\_t}}\ p\_tuile);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{//joueurs}}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{serv__jeu_8h_a57abcedc3baa39dfcaa7c1ace62443b2}{maj\_tuile}}(\textcolor{keywordtype}{int}\ ind,\ \mbox{\hyperlink{structpos__t}{pos\_t}}\ pos\_map);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keywordtype}{void}\ init\_joueurs\_server(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{void}\ detruire\_joueurs\_server(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ send\_joueurs\_server(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{int}\ check\_sortie\_tuile(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *p);}
+
+\end{DoxyCode}

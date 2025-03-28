@@ -1,0 +1,10 @@
+<map id="tuile_t" name="tuile_t">
+<area shape="rect" id="Node000001" title=" " alt="" coords="51,244,114,269"/>
+<area shape="rect" id="Node000002" href="$structbiome__t.html" title=" " alt="" coords="5,112,80,137"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="43,151,43,185,52,219,70,242,66,245,47,221,38,185,37,151"/>
+<area shape="rect" id="Node000003" href="$structliste.html" title="structure liste" alt="" coords="104,112,155,137"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="123,151,89,245,84,243,118,149"/>
+<area shape="rect" id="Node000004" href="$structelement__s.html" title=" " alt="" coords="84,7,175,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="132,47,132,112,127,112,127,47"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="189,9,198,13,201,20,193,30,175,33,174,27,190,25,196,20,194,17,187,14"/>
+</map>

@@ -1,0 +1,118 @@
+\doxysection{src/liste.h File Reference}
+\hypertarget{liste_8h}{}\label{liste_8h}\index{src/liste.h@{src/liste.h}}
+
+
+Fonctions de manipulation de listes.  
+
+
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{liste_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structelement__s}{element\+\_\+s}}
+\item 
+struct \mbox{\hyperlink{structliste}{liste}}
+\begin{DoxyCompactList}\small\item\em structure liste \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{liste_8h_a486fa73d5a1f89309fb67efc9c69e93a}\label{liste_8h_a486fa73d5a1f89309fb67efc9c69e93a} 
+typedef struct \mbox{\hyperlink{structelement__s}{element\+\_\+s}} {\bfseries element}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{liste_8h_a2cf3188e753acb9fb98ba56143394514}{creer\+\_\+liste}} ()
+\begin{DoxyCompactList}\small\item\em créer une liste \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{liste_8h_a2dda2abbdd84f8523649617859172029}{detruire\+\_\+liste}} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}l)
+\begin{DoxyCompactList}\small\item\em détruire une liste et tous ses éléments \end{DoxyCompactList}\item 
+\Hypertarget{liste_8h_a685bdfc2c05f937b34a0f5f794fecdc0}\label{liste_8h_a685bdfc2c05f937b34a0f5f794fecdc0} 
+int {\bfseries liste\+\_\+vide} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l)
+\item 
+\Hypertarget{liste_8h_abe48968057db85eeb45e169bf3cf2208}\label{liste_8h_abe48968057db85eeb45e169bf3cf2208} 
+int {\bfseries hors\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l)
+\item 
+\Hypertarget{liste_8h_acdee3a6257f310e2c8199aab790e490e}\label{liste_8h_acdee3a6257f310e2c8199aab790e490e} 
+void {\bfseries tete\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l)
+\item 
+\Hypertarget{liste_8h_a945b10d87a59de6bb734b63032ab4d30}\label{liste_8h_a945b10d87a59de6bb734b63032ab4d30} 
+void {\bfseries queue\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l)
+\item 
+\Hypertarget{liste_8h_a6f6aaa5406098cf07d4b7d984f752ac9}\label{liste_8h_a6f6aaa5406098cf07d4b7d984f752ac9} 
+void {\bfseries suivant\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l)
+\item 
+\Hypertarget{liste_8h_a4812c076491ef57fe2242f8bb300d3f9}\label{liste_8h_a4812c076491ef57fe2242f8bb300d3f9} 
+void {\bfseries precedent\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l)
+\item 
+\Hypertarget{liste_8h_ad8f3b04b1814b336f497a46b48b1ba34}\label{liste_8h_ad8f3b04b1814b336f497a46b48b1ba34} 
+void \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l)
+\item 
+\Hypertarget{liste_8h_af177bc0305b3981e45c3116253f68731}\label{liste_8h_af177bc0305b3981e45c3116253f68731} 
+void {\bfseries set\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l, void \texorpdfstring{$\ast$}{*}data, int size)
+\item 
+\Hypertarget{liste_8h_a07b37dc93792d78b1e4af07b70143602}\label{liste_8h_a07b37dc93792d78b1e4af07b70143602} 
+void {\bfseries supprimer\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l)
+\item 
+\Hypertarget{liste_8h_afebbe66cbb35f54ca8b451a29a0a9e45}\label{liste_8h_afebbe66cbb35f54ca8b451a29a0a9e45} 
+void {\bfseries ajout\+\_\+droit\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l, void \texorpdfstring{$\ast$}{*}data, int size)
+\item 
+\Hypertarget{liste_8h_a6854e4c4f0f2bdd7d386170df685a0c3}\label{liste_8h_a6854e4c4f0f2bdd7d386170df685a0c3} 
+void {\bfseries ajout\+\_\+gauche\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l, void \texorpdfstring{$\ast$}{*}data, int size)
+\item 
+\Hypertarget{liste_8h_aefc6fc30f8ccd273c487fb18c929e105}\label{liste_8h_aefc6fc30f8ccd273c487fb18c929e105} 
+void {\bfseries ajout\+\_\+debut\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l, void \texorpdfstring{$\ast$}{*}data, int size)
+\item 
+\Hypertarget{liste_8h_a29974a35d613be21603b8991e62f41cb}\label{liste_8h_a29974a35d613be21603b8991e62f41cb} 
+void {\bfseries ajout\+\_\+fin\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l, void \texorpdfstring{$\ast$}{*}data, int size)
+\item 
+\Hypertarget{liste_8h_a142847a35b51a829a92cabf02644abde}\label{liste_8h_a142847a35b51a829a92cabf02644abde} 
+int {\bfseries taille\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l)
+\item 
+\Hypertarget{liste_8h_adaa86f1d7d8f6a006c2b4f446da65685}\label{liste_8h_adaa86f1d7d8f6a006c2b4f446da65685} 
+void \texorpdfstring{$\ast$}{*} {\bfseries trouver\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l, void \texorpdfstring{$\ast$}{*}objet, int(\texorpdfstring{$\ast$}{*}comparer)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}))
+\item 
+\Hypertarget{liste_8h_ad486cad796f154178f5b647c98658f4b}\label{liste_8h_ad486cad796f154178f5b647c98658f4b} 
+void {\bfseries trouver\+\_\+supprimer\+\_\+liste} (\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}l, void \texorpdfstring{$\ast$}{*}objet, int(\texorpdfstring{$\ast$}{*}comparer)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Fonctions de manipulation de listes. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{liste_8h_a2cf3188e753acb9fb98ba56143394514}\label{liste_8h_a2cf3188e753acb9fb98ba56143394514} 
+\index{liste.h@{liste.h}!creer\_liste@{creer\_liste}}
+\index{creer\_liste@{creer\_liste}!liste.h@{liste.h}}
+\doxysubsubsection{\texorpdfstring{creer\_liste()}{creer\_liste()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*} creer\+\_\+liste (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+créer une liste 
+
+\begin{DoxyReturn}{Returns}
+pointeur sur nouvelle liste 
+\end{DoxyReturn}
+\Hypertarget{liste_8h_a2dda2abbdd84f8523649617859172029}\label{liste_8h_a2dda2abbdd84f8523649617859172029} 
+\index{liste.h@{liste.h}!detruire\_liste@{detruire\_liste}}
+\index{detruire\_liste@{detruire\_liste}!liste.h@{liste.h}}
+\doxysubsubsection{\texorpdfstring{detruire\_liste()}{detruire\_liste()}}
+{\footnotesize\ttfamily void detruire\+\_\+liste (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structliste}{liste}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{l }\end{DoxyParamCaption})}
+
+
+
+détruire une liste et tous ses éléments 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pointeur} & sur pointeur sur la liste \\
+\hline
+\end{DoxyParams}

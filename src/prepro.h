@@ -20,9 +20,6 @@ H = CARRE_H * HAUTEUR_TUILE
 #define MAGIE_BASE 0
 #define MANA_BASE 0
 
-#define NB_BIOMES 7//correspond à l'enum nom_biome
-#define NB_TEXTURES_BIOME 4//correspond à l'enum type_carre
-
 #define NB_CAT_OBJETS 3
 
 #define HAUTEUR_TUILE 12

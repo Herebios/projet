@@ -1,0 +1,15 @@
+<map id="perso_cli_t" name="perso_cli_t">
+<area shape="rect" id="Node000001" title=" " alt="" coords="170,269,262,295"/>
+<area shape="rect" id="Node000002" href="$structperso__s.html" title=" " alt="" coords="128,181,200,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,218,194,244,210,268,206,271,190,247,174,220"/>
+<area shape="rect" id="Node000003" href="$structcomp__s.html" title=" " alt="" coords="5,93,77,119"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="50,131,66,155,96,174,129,185,127,190,94,179,62,159,46,133"/>
+<area shape="rect" id="Node000004" href="$structobjet__s.html" title="Représente un objet." alt="" coords="123,93,192,119"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="162,132,166,181,160,181,157,133"/>
+<area shape="rect" id="Node000005" href="$structprio__t.html" title="Représente la priorité des calculs entre somme et produit." alt="" coords="128,5,187,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="160,45,160,93,155,93,155,45"/>
+<area shape="rect" id="Node000006" href="$structpos__t.html" title=" " alt="" coords="217,93,274,119"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="234,132,214,159,184,183,181,179,210,155,230,129"/>
+<area shape="rect" id="Node000007" href="$structsdl__struct.html" title=" " alt="" coords="224,181,309,207"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="255,220,225,270,221,267,251,217"/>
+</map>

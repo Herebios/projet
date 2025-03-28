@@ -1,0 +1,33 @@
+\doxysection{cli\+\_\+jeu.\+h}
+\hypertarget{cli__jeu_8h_source}{}\label{cli__jeu_8h_source}\index{src/cli\_jeu.h@{src/cli\_jeu.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_CLI\_JEU\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_CLI\_JEU\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}cli\_commun.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{jeu_8h}{jeu.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}perso\_cli.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}id\_actions.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ ecran()\ SDL\_RenderPresent(renderer)}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{extern}\ SDL\_Texture\ *\ texture\_tuile;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keywordtype}{void}\ init\_joueurs\_client(\mbox{\hyperlink{structperso__cli__t}{perso\_cli\_t}}\ *);}
+\DoxyCodeLine{00014\ \textcolor{keywordtype}{void}\ detruire\_joueurs\_client(\mbox{\hyperlink{structperso__cli__t}{perso\_cli\_t}}\ *);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keywordtype}{void}\ ramasser\_objet(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{int}\ ind\_o);}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}\ lacher\_objet(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{int}\ ind\_inv);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//lit\ les\ infos\ du\ serv\ dans\ le\ buffer}}
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{void}\ changer\_tuile(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{char}\ *\ buffer);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{void}\ changer\_dir(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{char}\ mask);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{void}\ afficher\_tuile();}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{void}\ charger\_tuile(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *\ tuile);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

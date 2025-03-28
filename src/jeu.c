@@ -81,7 +81,7 @@ void init_biomes(){
 	//charger textures
 	biome_t *biome;
 	char *noms[]={"base", "desert", "foret", "glace", "montagne", "neige", "plaine"};
-	char path[100]="img/Tiles/Biomes/";
+	char path[100]="../img/Tiles/Biomes/";
 	for(i=0; i<NB_BIOMES; i++){
 	    //!! base, id 0
 	    if(i){
@@ -105,7 +105,7 @@ void init_biomes(){
 	                break;
 	        }
 			nouv_texture(path, biome->textures, &biome->nb_textures);
-			path[17]='\0';//"img/Tiles/Biomes/"
+			path[20]='\0';//"../img/Tiles/Biomes/"
 	    }
 	    }
 	}
@@ -175,6 +175,7 @@ type_carre indice de texture dans biome->textures[]
 }
 
 void ajouter_objet_tuile(tuile_t * t, int ind_o, pos_t pos_tuile){
+	//!!verifier
 	ajout_fin_liste(t->liste_objets, &(objet_tuile_t){tab_objets + ind_o, (pos_t){pos_tuile.x, pos_tuile.y}}, sizeof(objet_tuile_t));
 }
 
@@ -195,10 +196,16 @@ Aucun traitement supplémentaire n'est nécessaire (modification par pointeur)*/
 void nouv_texture(char * path, SDL_Texture *textures[], unsigned char *nb_textures){
     SDL_Surface *surface = IMG_Load(path);
     if(textures[*nb_textures] = SDL_CreateTextureFromSurface(renderer, surface))
-        *nb_textures++;
+        (*nb_textures)++;
     SDL_FreeSurface(surface);
 }
 
+SDL_Texture * get_nouv_texture(char * path){
+    SDL_Surface *surface = IMG_Load(path);
+    SDL_Texture * tex = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+	return tex;
+}
 int inclus(SDL_Rect* a, SDL_Rect* b){
     return (a->x >= b->x) && (a->y >= b->y) && ((a->x + a->w) <= (b->x + b->w)) && ((a->y + a->h) <= (b->y + b->h));
 }

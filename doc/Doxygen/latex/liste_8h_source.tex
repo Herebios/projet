@@ -1,0 +1,45 @@
+\doxysection{liste.\+h}
+\hypertarget{liste_8h_source}{}\label{liste_8h_source}\index{src/liste.h@{src/liste.h}}
+\mbox{\hyperlink{liste_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_LISTE\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_LISTE\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structelement__s}{element\_s}}\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{void}\ *\ ptr;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structelement__s}{element\_s}}\ *prec;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structelement__s}{element\_s}}\ *suiv;}
+\DoxyCodeLine{00012\ \}\ \mbox{\hyperlink{structelement__s}{element}};}
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{structelement__s}{element}}\ *drapeau;}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{structelement__s}{element}}\ *ec;}
+\DoxyCodeLine{00019\ \}\ \mbox{\hyperlink{structliste}{liste}};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00025\ \mbox{\hyperlink{structliste}{liste}}\ *\ \mbox{\hyperlink{liste_8h_a2cf3188e753acb9fb98ba56143394514}{creer\_liste}}();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{liste_8h_a2dda2abbdd84f8523649617859172029}{detruire\_liste}}(\mbox{\hyperlink{structliste}{liste}}\ **l);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{int}\ liste\_vide(\mbox{\hyperlink{structliste}{liste}}\ *l);}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{int}\ hors\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l);}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ tete\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l);}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ queue\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l);}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}\ suivant\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l);}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ precedent\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{void}\ *\ get\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l);}
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ set\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l,\ \textcolor{keywordtype}{void}\ *\ data,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ supprimer\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l);}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{void}\ ajout\_droit\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l,\ \textcolor{keywordtype}{void}\ *\ data,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{void}\ ajout\_gauche\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l,\ \textcolor{keywordtype}{void}\ *\ data,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{void}\ ajout\_debut\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l,\ \textcolor{keywordtype}{void}\ *\ data,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ ajout\_fin\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l,\ \textcolor{keywordtype}{void}\ *\ data,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{int}\ taille\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{void}\ *\ trouver\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l,\ \textcolor{keywordtype}{void}*\ objet,\ \textcolor{keywordtype}{int}\ (*comparer)(\textcolor{keywordtype}{void}*,\ \textcolor{keywordtype}{void}*));}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ trouver\_supprimer\_liste(\mbox{\hyperlink{structliste}{liste}}\ *l,\ \textcolor{keywordtype}{void}*\ objet,\ \textcolor{keywordtype}{int}\ (*comparer)(\textcolor{keywordtype}{void}*,\ \textcolor{keywordtype}{void}*));}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

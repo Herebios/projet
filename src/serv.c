@@ -32,19 +32,19 @@ int main_server(int nb_clients) {
 	while(server.nb_clients < nb_clients){
 		printf("%d", server.nb_clients);flush;
 		sprintf(buffer + 7, "%d", server.nb_clients);
-		strcat(buffer, " clients !");
+		strcat(buffer, " clients !;");
 		broadcast(buffer, -1);
 		sleep(1);
 	}
 	server.nb_on=nb_clients;
 	//à partir d'ici on peut utiliser server.nb_clients (global)
-	broadcast("start", -1);
-
+	broadcast("start;", -1);
+	sleep(1);
 	srand(time(0));
 	int random_seed = rand();
 	//Chaque client reçoit son indice et la seed random
 	for (int i=0; i<nb_clients; i++) {
-		sprintf(buffer, "%d %d %d", i, nb_clients, random_seed);
+		sprintf(buffer, "%d %d %d;", i, nb_clients, random_seed);
 		send(clients[i].socket, buffer, strlen(buffer), 0);
 	}
 
@@ -106,9 +106,10 @@ int main_server(int nb_clients) {
 			}
 		}
 
-/*		//bouger les joueurs
+		//bouger les joueurs
 		for(int i=0; i<nb_clients; i++){
-			avancer(joueurs+i);
+			if(joueurs[i].dir != nulldir)
+				avancer(joueurs+i);
 		}
 
 		//evenements
@@ -118,12 +119,13 @@ int main_server(int nb_clients) {
 			compteur=0;
 		}else
 			compteur+=DELAY;
-*/
+
 		SDL_Delay(DELAY);
 	}
 	puts("fin boucle");flush;
 
 	detruire_joueurs_server(joueurs, nb_clients);
+	end(0);
 	//libération complète
 	fermeture_server(0);
 	return 0;

@@ -20,7 +20,7 @@
 #include "file.h"
 #include "prepro.h"
 
-#define PORT 2048
+#define PORT 2050
 #define BUFFERLEN 101
 
 typedef struct {

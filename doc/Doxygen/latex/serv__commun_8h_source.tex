@@ -1,0 +1,49 @@
+\doxysection{serv\+\_\+commun.\+h}
+\hypertarget{serv__commun_8h_source}{}\label{serv__commun_8h_source}\index{src/serv\_commun.h@{src/serv\_commun.h}}
+\mbox{\hyperlink{serv__commun_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ \_SERV\_COMMUN\_H\_}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ \_SERV\_COMMUN\_H\_}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <pthread.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \ \ \ \#include\ <winsock2.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\ \ \ \ \#include\ <netinet/in.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ \#include\ <sys/socket.h>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}prepro.h"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{file_8h}{file.h}}"{}}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ BUFFERLEN\ 101}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ socket;}
+\DoxyCodeLine{00029\ \ \ \ \ pthread\_t\ thread;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ online;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{struct\ }sockaddr\_in\ addr;}
+\DoxyCodeLine{00032\ \}\ \mbox{\hyperlink{structsocket__struct}{socket\_struct}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{structsocket__struct}{socket\_struct}}\ server\_struct;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{int}\ nb\_clients,\ nb\_on;}
+\DoxyCodeLine{00037\ \}\ \mbox{\hyperlink{structinfo__server}{info\_server}};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structfile__s}{file}}\ *\ serv\_file;}
+\DoxyCodeLine{00040\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structsocket__struct}{socket\_struct}}\ *\ clients;}
+\DoxyCodeLine{00041\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structinfo__server}{info\_server}}\ server;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{char}\ *\ data\_skip(\textcolor{keywordtype}{char}\ *,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{void}\ broadcast(\textcolor{keywordtype}{char}\ *,\ \textcolor{keywordtype}{int}\ exception);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

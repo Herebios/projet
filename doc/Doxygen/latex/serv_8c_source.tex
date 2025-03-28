@@ -1,0 +1,137 @@
+\doxysection{serv.\+c}
+\hypertarget{serv_8c_source}{}\label{serv_8c_source}\index{src/serv.c@{src/serv.c}}
+\mbox{\hyperlink{serv_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{serv__socket_8h}{serv\_socket.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{serv__jeu_8h}{serv\_jeu.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keywordtype}{int}\ main\_server(\textcolor{keywordtype}{int}\ nb\_clients)\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{comment}{//setup\ socket}}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{int}\ error\_code;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordflow}{if}\ ((error\_code\ =\ setup\_server())\ >\ 0)\{}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{comment}{//sortie\ avec\ libération\ adaptée}}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ fermeture\_server(error\_code);}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ error\_code;}
+\DoxyCodeLine{00016\ \ \ \ \ \}}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{//le\ server\ est\ prêt,\ on\ va\ s'occuper\ des\ clients}}
+\DoxyCodeLine{00018\ \ \ \ \ puts(\textcolor{stringliteral}{"{}setup\ server\ OK\(\backslash\)n"{}});}
+\DoxyCodeLine{00019\ \ \ \ \ printf(\textcolor{stringliteral}{"{}Nombre\ de\ clients\ :\ \%d,\ pas\ de\ place\ libérée\ quand\ déconnexion\(\backslash\)n"{}},\ nb\_clients);flush;}
+\DoxyCodeLine{00020\ \ \ \ \ clients\ =\ malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structsocket__struct}{socket\_struct}})\ *\ nb\_clients);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ serv\_file\ =\ newFile();}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ server.nb\_clients=0;}
+\DoxyCodeLine{00025\ \ \ \ \ server.server\_struct.online=1;}
+\DoxyCodeLine{00026\ \ \ \ \ server.nb\_on=0;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ pthread\_create(\&server.server\_struct.thread,\ NULL,\ accept\_thread,\ \&nb\_clients);}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//nouv\ clients\ thread}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[BUFFERLEN]=\textcolor{stringliteral}{"{}Il\ y\ a\ "{}};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{while}(server.nb\_clients\ <\ nb\_clients)\{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%d"{}},\ server.nb\_clients);flush;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ sprintf(buffer\ +\ 7,\ \textcolor{stringliteral}{"{}\%d"{}},\ server.nb\_clients);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ strcat(buffer,\ \textcolor{stringliteral}{"{}\ clients\ !"{}});}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ broadcast(buffer,\ -\/1);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ sleep(1);}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ server.nb\_on=nb\_clients;}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//à\ partir\ d'ici\ on\ peut\ utiliser\ server.nb\_clients\ (global)}}
+\DoxyCodeLine{00041\ \ \ \ \ broadcast(\textcolor{stringliteral}{"{}start"{}},\ -\/1);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ srand(time(0));}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{int}\ random\_seed\ =\ rand();}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//Chaque\ client\ reçoit\ son\ indice\ et\ la\ seed\ random}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i<nb\_clients;\ i++)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ sprintf(buffer,\ \textcolor{stringliteral}{"{}\%d\ \%d\ \%d"{}},\ i,\ nb\_clients,\ random\_seed);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ send(clients[i].socket,\ buffer,\ strlen(buffer),\ 0);}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{structperso__s}{perso\_t}}\ joueurs[nb\_clients];}
+\DoxyCodeLine{00052\ \ \ \ \ init\_joueurs\_server(joueurs,\ nb\_clients);}
+\DoxyCodeLine{00053\ \ \ \ \ send\_joueurs\_server(joueurs,\ nb\_clients);}
+\DoxyCodeLine{00054\ \ \ \ \ puts(\textcolor{stringliteral}{"{}Joueurs\ :"{}});}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<nb\_clients;\ i++)\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ind\ \%d\ ,\ classe\ \%d\ ,\ nom\ \%s\ ,\ equipe\ \%d\(\backslash\)n"{}},\ i,\ joueurs[i].classe,\ joueurs[i].nom,\ joueurs[i].equipe);}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ flush;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{comment}{/*on[i]\ correspond\ à\ clients[i].online,\ pour\ mémoriser\ lequels\ sont\ off\ et\ ne\ les\ compter\ qu'une\ fois}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ \ on\ décrémente\ nb\_on,\ qui\ est\ incrémenté\ quand\ le\ thread\ accepte\ un\ nouveau\ client}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ \ quand\ nb\_on\ sera\ à\ 0\ et\ premier\_client\ à\ 1,\ le\ serveur\ s'arrêtera}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ data;}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{int}\ ind\_j;\textcolor{comment}{//ind\ du\ joueur\ qui\ envoie}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ action;}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ compteur=0;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{//<<\ \ \ \ init\_jeu();}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{while}\ (server.nb\_on)\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(!fileVide(serv\_file))\{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ data=defiler(serv\_file);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ sscanf(data,\ \textcolor{stringliteral}{"{}\%d\ \%d"{}},\ \&ind\_j,\ \&action);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(action)\{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ JOUEUR\_CHANGE\_DIR:}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sscanf(data\_skip(data,\ 2),\ \textcolor{stringliteral}{"{}\%d"{}},\ (\textcolor{keywordtype}{int}*)\&joueurs[ind\_j].dir);}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ADD\_OBJET:\{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ind\_o;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sscanf(data\_skip(data,\ 2),\ \textcolor{stringliteral}{"{}\%d"{}},\ \&ind\_o);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ajouter\_objet(joueurs\ +\ ind\_j,\ ind\_o);}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ update\_stats(joueurs\ +\ ind\_j);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ RM\_OBJET:\{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ind\_inv,\ ind\_o;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sscanf(data\_skip(data,\ 2),\ \textcolor{stringliteral}{"{}\%d"{}},\ \&ind\_inv);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ind\_o\ =\ joueurs[ind\_j].objets[ind\_inv]-\/>\mbox{\hyperlink{structobjet__s_abfced063c0798964e2feb1892aef0500}{ind}};}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ retirer\_objet(joueurs\ +\ ind\_j,\ ind\_inv);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ update\_stats(joueurs\ +\ ind\_j);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//on\ ajoute\ l'objet\ sur\ la\ tuile}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structpos__t}{pos\_t}}\ pos\_tuile;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ position\_perso(joueurs\ +\ ind\_j,\ \&pos\_tuile);}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ spawn\_objet((rarete\_t)rand()\%4,\ 1,\ ind\_o,\ joueurs[ind\_j].pos\_map,\ pos\_tuile);}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ free(data);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//gerer\ les\ deco}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ server.nb\_on=server.nb\_clients;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i<server.nb\_clients;\ i++)\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!clients[i].online)\{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ server.nb\_on-\/-\/;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{comment}{/*\ \ \ \ \ \ //bouger\ les\ joueurs}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ \ \ \ \ \ for(int\ i=0;\ i<nb\_clients;\ i++)\{}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ avancer(joueurs+i);}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00113\ \textcolor{comment}{}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ \ \ \ \ \ \ \ //evenements}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ \ \ \ \ \ if(compteur\ >=\ 2000)\{}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ puts("{}Spawn\ obj\(\backslash\)n"{});flush;}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ spawn\_objet(commun);}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ compteur=0;}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}else}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ compteur+=DELAY;}}
+\DoxyCodeLine{00121\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ SDL\_Delay(DELAY);}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ puts(\textcolor{stringliteral}{"{}fin\ boucle"{}});flush;}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ detruire\_joueurs\_server(joueurs,\ nb\_clients);}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{comment}{//libération\ complète}}
+\DoxyCodeLine{00128\ \ \ \ \ fermeture\_server(0);}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00130\ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ *argv[])\{}
+\DoxyCodeLine{00133\ \ \ \ \ main\_server(2);}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00135\ \}}
+
+\end{DoxyCode}
