@@ -9,15 +9,19 @@
 \DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
 \DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{perso_8h}{perso.h}}"{}}}
 \DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
-\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ id;}
-\DoxyCodeLine{00010\ \}\ \mbox{\hyperlink{structcast__t}{cast\_t}};}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keywordtype}{int}\ comparer(\mbox{\hyperlink{structcast__zone__s}{cast\_zone\_t}}\ *e1,\ \mbox{\hyperlink{structcast__zone__s}{cast\_zone\_t}}\ *e2);}
-\DoxyCodeLine{00013\ \textcolor{keywordtype}{int}\ comparer\_cb(\textcolor{keywordtype}{void}\ *e1,\ \textcolor{keywordtype}{void}\ *e2);}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{keywordtype}{void}\ removeCast(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *tuile,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ only\ server\ side\ static\ unsigned\ short\ int\ last\_id\ =\ 0;}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ id;}
+\DoxyCodeLine{00012\ \}\ \mbox{\hyperlink{structcast__t}{cast\_t}};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keywordtype}{int}\ comparer(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ *e1,\ \mbox{\hyperlink{structcast__t}{cast\_t}}\ *e2);}
+\DoxyCodeLine{00015\ \textcolor{keywordtype}{int}\ comparer\_cb(\textcolor{keywordtype}{void}\ *e1,\ \textcolor{keywordtype}{void}\ *e2);}
 \DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}*\ getCast\ (\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *tuile,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00018\ \textcolor{keywordtype}{void}*\ removeCast\ (\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *tuile,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
 
 \end{DoxyCode}

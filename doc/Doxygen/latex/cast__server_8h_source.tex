@@ -12,18 +12,21 @@
 \DoxyCodeLine{00008\ }
 \DoxyCodeLine{00009\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcast__zone__s}{cast\_zone\_s}}\ \mbox{\hyperlink{structcast__zone__s}{cast\_zone\_t}};}
 \DoxyCodeLine{00010\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcast__zone__s}{cast\_zone\_s}}\{}
-\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ id;}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{structcast__t}{cast\_t}}\ cast;}
 \DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{structcomp__s}{comp\_t}}*\ comp;}
 \DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{structpos__t}{pos\_t}}\ pos;}
 \DoxyCodeLine{00014\ \ \ \ \ time\_t\ fin;\ \textcolor{comment}{//\ use\ difftime}}
 \DoxyCodeLine{00015\ \};}
 \DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keywordtype}{int}\ comparer(\mbox{\hyperlink{structcast__zone__s}{cast\_zone\_t}}\ *e1,\ \mbox{\hyperlink{structcast__zone__s}{cast\_zone\_t}}\ *e2);}
-\DoxyCodeLine{00018\ \textcolor{keywordtype}{int}\ comparer\_cb(\textcolor{keywordtype}{void}\ *e1,\ \textcolor{keywordtype}{void}\ *e2);}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \mbox{\hyperlink{structcast__zone__s}{cast\_zone\_t}}\ *\ newCastZone(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *tuile,\ \mbox{\hyperlink{structcomp__s}{comp\_t}}\ *comp,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \ \mbox{\hyperlink{structpos__t}{pos\_t}}\ pos,\ time\_t\ fin);}
-\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ updateCastZone(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *tuile,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ last\_id\ =\ 0;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \mbox{\hyperlink{structcast__zone__s}{cast\_zone\_t}}\ *\ newCastZone(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *tuile,\ \mbox{\hyperlink{structcomp__s}{comp\_t}}\ *comp,\ \ \mbox{\hyperlink{structpos__t}{pos\_t}}\ pos,\ time\_t\ fin);}
+\DoxyCodeLine{00020\ \mbox{\hyperlink{structcast__zone__s}{cast\_zone\_t}}\ *getCastZone(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *tuile,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00021\ \mbox{\hyperlink{structcast__zone__s}{cast\_zone\_t}}\ *removeCastZone(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *tuile,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
 \DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

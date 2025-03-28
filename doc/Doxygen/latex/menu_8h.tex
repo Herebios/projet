@@ -31,9 +31,9 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structimg__t}{img\+\_\+t}}
-\item 
+\begin{DoxyCompactList}\small\item\em Permet de stocker la position et la texture d\textquotesingle{}un élément image du menu. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structtexte__t}{texte\+\_\+t}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Permet de stocker la position, la texture et le texte d\textquotesingle{}un élément texte du menu. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -59,10 +59,10 @@ struct \mbox{\hyperlink{structtexte__t}{texte\+\_\+t}}
 \#define {\bfseries H\+\_\+\+FLECHE}~920
 \item 
 \Hypertarget{menu_8h_a34838ea6fe49f3fc31b87f2bc01c8997}\label{menu_8h_a34838ea6fe49f3fc31b87f2bc01c8997} 
-\#define {\bfseries NB\+\_\+\+IMG}~25
+\#define {\bfseries NB\+\_\+\+IMG}~24
 \item 
 \Hypertarget{menu_8h_a9d9e68e0e8243c9d60de9ccd793b4143}\label{menu_8h_a9d9e68e0e8243c9d60de9ccd793b4143} 
-\#define {\bfseries NB\+\_\+\+TEXTE}~23
+\#define {\bfseries NB\+\_\+\+TEXTE}~24
 \item 
 \Hypertarget{menu_8h_a2b709c4e04ba6c34e606336f6ccc66f0}\label{menu_8h_a2b709c4e04ba6c34e606336f6ccc66f0} 
 \#define {\bfseries NB\+\_\+\+MAX\+\_\+\+PERSO}~10
@@ -72,9 +72,6 @@ struct \mbox{\hyperlink{structtexte__t}{texte\+\_\+t}}
 \item 
 \Hypertarget{menu_8h_a57a4df152539bc6113bde73906911dea}\label{menu_8h_a57a4df152539bc6113bde73906911dea} 
 \#define {\bfseries NB\+\_\+\+MAX\+\_\+\+CAR\+\_\+\+IP}~16
-\item 
-\Hypertarget{menu_8h_a0e7319ad0d7f2a6ce982f8c5fb80105b}\label{menu_8h_a0e7319ad0d7f2a6ce982f8c5fb80105b} 
-\#define {\bfseries REGEXIP}~\"{}\texorpdfstring{$^\wedge$}{\string^}((25\mbox{[}0-\/5\mbox{]}\texorpdfstring{$\vert$}{|}2\mbox{[}0-\/4\mbox{]}\mbox{[}0-\/9\mbox{]}\texorpdfstring{$\vert$}{|}1\mbox{[}0-\/9\mbox{]}\{2\}\texorpdfstring{$\vert$}{|}\mbox{[}1-\/9\mbox{]}?\mbox{[}0-\/9\mbox{]})\textbackslash{}\textbackslash{}.)\{3\}(25\mbox{[}0-\/5\mbox{]}\texorpdfstring{$\vert$}{|}2\mbox{[}0-\/4\mbox{]}\mbox{[}0-\/9\mbox{]}\texorpdfstring{$\vert$}{|}1\mbox{[}0-\/9\mbox{]}\{2\}\texorpdfstring{$\vert$}{|}\mbox{[}1-\/9\mbox{]}?\mbox{[}0-\/9\mbox{]})\$\"{}
 \item 
 \Hypertarget{menu_8h_acba9b61d16ca34a2472ea4ee88650fb6}\label{menu_8h_acba9b61d16ca34a2472ea4ee88650fb6} 
 \#define {\bfseries JOUER}~0
@@ -88,25 +85,20 @@ struct \mbox{\hyperlink{structtexte__t}{texte\+\_\+t}}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884}\label{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884} 
-enum {\bfseries position\+\_\+menu} \{ \newline
-{\bfseries MENU\+\_\+\+PRINCIPAL}
-, {\bfseries DANS\+\_\+\+JOUER}
-, {\bfseries DANS\+\_\+\+PARAM}
-, {\bfseries DANS\+\_\+\+CREER}
+enum \mbox{\hyperlink{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884}{position\+\_\+menu}} \{ \newline
+\mbox{\hyperlink{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884ad84154820fb7cc5480aa99b8e888ef2e}{MENU\+\_\+\+PRINCIPAL}}
+, \mbox{\hyperlink{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884a88698741172e257076635288d2f0ec24}{DANS\+\_\+\+PARAM}}
+, \mbox{\hyperlink{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884ac7ed3876128db273870b43cb36d92da3}{DANS\+\_\+\+JOUER}}
+, \mbox{\hyperlink{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884adfe6379b03614e58bf9b12ebe003de31}{DANS\+\_\+\+CREER}}
 , \newline
-{\bfseries DANS\+\_\+\+REJOINDRE}
-, {\bfseries SORTIE\+\_\+\+MENU}
-, {\bfseries BAD\+\_\+\+IP}
+\mbox{\hyperlink{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884a1218c0e71408de75a05144ebe201f56a}{DANS\+\_\+\+REJOINDRE}}
+, \mbox{\hyperlink{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884ad485cf6825df25b48fa2236a04f955e2}{BAD\+\_\+\+IP}}
+, \mbox{\hyperlink{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884ae6f65253a2e082e935efcf4ba514e3e0}{BAD\+\_\+\+NAME}}
+, \mbox{\hyperlink{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884af90d74c1d646dc38cc3b744ad93e0d5a}{SORTIE\+\_\+\+MENU}}
  \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Correspondant à la position du joueur dans le menu. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
-\item 
-int \mbox{\hyperlink{menu_8h_a66a254cacf81e15e5f89f7d6d6f7f806}{valider\+\_\+ip}} (char \texorpdfstring{$\ast$}{*}ip)
-\begin{DoxyCompactList}\small\item\em Renvoie un entier 1 ou 0 pour savoir si l\textquotesingle{}adresse ip rentrée en paramètre est valide. \end{DoxyCompactList}\item 
-\Hypertarget{menu_8h_a1d2269d34d087febc733b76517911ce6}\label{menu_8h_a1d2269d34d087febc733b76517911ce6} 
-void {\bfseries maj\+\_\+texte} (\mbox{\hyperlink{structtexte__t}{texte\+\_\+t}} \texorpdfstring{$\ast$}{*}texte, char \texorpdfstring{$\ast$}{*}nouveau)
 \item 
 \Hypertarget{menu_8h_aa768df09c3d5000e06f80aea1a77a0fd}\label{menu_8h_aa768df09c3d5000e06f80aea1a77a0fd} 
 void {\bfseries end} (int nb)
@@ -114,14 +106,23 @@ void {\bfseries end} (int nb)
 \Hypertarget{menu_8h_a3bb9dc5c0b024fc0f7558e16113024be}\label{menu_8h_a3bb9dc5c0b024fc0f7558e16113024be} 
 void {\bfseries init\+\_\+sdl} (void)
 \item 
-\Hypertarget{menu_8h_ae87895a2e22bf885f35e829f163c4990}\label{menu_8h_ae87895a2e22bf885f35e829f163c4990} 
-void {\bfseries aff\+\_\+menu} (position\+\_\+menu \texorpdfstring{$\ast$}{*}pos, int tab\+Bouton\mbox{[}$\,$\mbox{]}, int bouton\+\_\+choisi)
-\item 
-\Hypertarget{menu_8h_ad1281ccb6999d21b6336ed1fbd0835af}\label{menu_8h_ad1281ccb6999d21b6336ed1fbd0835af} 
-void {\bfseries creer\+\_\+menu} (void)
-\begin{DoxyCompactList}\small\item\em Créée le menu de base avec toutes les textures nécessaires. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{menu_8h_aa173bbcb3a4b8d8995a371fda25dc143}{clear\+\_\+ecran}} (void)
-\begin{DoxyCompactList}\small\item\em met à jour l\textquotesingle{}affichage à l\textquotesingle{}écran \+: affichage l\textquotesingle{}image de fond et supprime toutes les textures qui étaient affichées à l\textquotesingle{}écran \end{DoxyCompactList}\item 
+\Hypertarget{menu_8h_af692e62d6ce5595ec7d47f8503001433}\label{menu_8h_af692e62d6ce5595ec7d47f8503001433} 
+void {\bfseries dessine\+\_\+img} (int i)
+\begin{DoxyCompactList}\small\item\em Utile pour la lisibilité du code, remplace une ligne de SDL\+\_\+\+Render\+Copy pour les images. \end{DoxyCompactList}\item 
+\Hypertarget{menu_8h_ac0f7ba31ece566d40b4263961b564fc0}\label{menu_8h_ac0f7ba31ece566d40b4263961b564fc0} 
+void {\bfseries dessine\+\_\+texte} (int i)
+\begin{DoxyCompactList}\small\item\em Utile pour la lisibilité du code, remplace une ligne de SDL\+\_\+\+Render\+Copy pour les textes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{menu_8h_a41e5754cb0fc110125d3e438321a0aea}{saisie\+\_\+touche\+\_\+ip}} (SDL\+\_\+\+Keycode touche, int \texorpdfstring{$\ast$}{*}nb\+Car, char \texorpdfstring{$\ast$}{*}saisie)
+\begin{DoxyCompactList}\small\item\em Permet de mettre à jour l\textquotesingle{}adresse ip saisie avec les touches du keypad et du clavier normal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{menu_8h_ae87895a2e22bf885f35e829f163c4990}{aff\+\_\+menu}} (\mbox{\hyperlink{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884}{position\+\_\+menu}} \texorpdfstring{$\ast$}{*}pos, int tab\+Bouton\mbox{[}$\,$\mbox{]}, int bouton\+\_\+choisi)
+\begin{DoxyCompactList}\small\item\em Affiche le menu correspondant à l\textquotesingle{}endroit où l\textquotesingle{}on se trouve. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{menu_8h_a1b9b82576d4745e7750d378fc20d911e}{affiche\+\_\+menu\+\_\+accueil}} (int tab\+Bouton\mbox{[}$\,$\mbox{]}, int bouton\+\_\+choisi)
+\begin{DoxyCompactList}\small\item\em Affiche la page d\textquotesingle{}accueil du menu en mettant le bouton sélectionné en couleur. \end{DoxyCompactList}\item 
+\Hypertarget{menu_8h_aeab1dfc8b04f931a367fa00f951400e7}\label{menu_8h_aeab1dfc8b04f931a367fa00f951400e7} 
+void {\bfseries affiche\+\_\+rejoindre} (void)
+\begin{DoxyCompactList}\small\item\em Affiche la partie rejoindre du menu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{menu_8h_ab5c748e606ffc005472b35c553849d0a}{clear\+\_\+ecran}} ()
+\begin{DoxyCompactList}\small\item\em Enlève toutes les textures présentes sur l\textquotesingle{}écran et met l\textquotesingle{}arrière plan du menu en fond. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{menu_8h_aaf2394006b36a7baaca2201c6f631528}{ajout\+\_\+personnage}} (char \texorpdfstring{$\ast$}{*}nom)
 \begin{DoxyCompactList}\small\item\em Ajoute un personnage dans la liste des personnages à sélectionner. \end{DoxyCompactList}\item 
 \Hypertarget{menu_8h_a7004d7e69afd724ee21458b70afd65e7}\label{menu_8h_a7004d7e69afd724ee21458b70afd65e7} 
@@ -132,50 +133,114 @@ void {\bfseries precedent} (int \texorpdfstring{$\ast$}{*}tab\+\_\+bouton)
 \begin{DoxyCompactList}\small\item\em Passe au personnage précédent en changeant l\textquotesingle{}indice courange du tableau de personnages. Fonctionne circulairement. \end{DoxyCompactList}\item 
 SDL\+\_\+\+Texture \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{menu_8h_a35e6ff38b92bfd325d974c5506c2cefe}{creer\+\_\+texture}} (char \texorpdfstring{$\ast$}{*}chemin)
 \begin{DoxyCompactList}\small\item\em Créée une SDL\+\_\+\+Texture à partir du chemin vers une image. \end{DoxyCompactList}\item 
-char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{menu_8h_a1fe46bf877a906effed85270fa2e2853}{chemin\+\_\+perso}} (void)
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{menu_8h_a483a1f83a3122f47480f78c46d7eb18f}{chemin\+\_\+perso}} ()
 \begin{DoxyCompactList}\small\item\em Renvoie le chemin du fichier en fonctiondu personnage choisi par l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{menu_8h_aea1061279af7e5de139efe3e964a4d35}{detruit\+\_\+img}} (int indice)
 \begin{DoxyCompactList}\small\item\em Détruit une texture correspondant à une image. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{menu_8h_a74ec3bc2d01071a33fd8c5154c71702b}{detruit\+\_\+texte}} (int indice)
-\begin{DoxyCompactList}\small\item\em Détruit une texture correspondant à du texte. \end{DoxyCompactList}\item 
-\Hypertarget{menu_8h_acd3d86d68506472175d3af5d5d6f828c}\label{menu_8h_acd3d86d68506472175d3af5d5d6f828c} 
-void {\bfseries detruit\+\_\+tout} (void)
-\begin{DoxyCompactList}\small\item\em Détruit tous les textes et les images présentes dans le menu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{menu_8h_a1d2269d34d087febc733b76517911ce6}{maj\+\_\+texte}} (\mbox{\hyperlink{structtexte__t}{texte\+\_\+t}} \texorpdfstring{$\ast$}{*}texte, char \texorpdfstring{$\ast$}{*}nouveau)
+\begin{DoxyCompactList}\small\item\em Met à jour le \doxylink{structtexte__t}{texte\+\_\+t} en paramètre pour que sa nouvelle chaîne de caractère soit le deuxième paramètre. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{menu_8h_aebccab41e7572002d2ea636171873ec3}{creer\+\_\+texte}} (\mbox{\hyperlink{structtexte__t}{texte\+\_\+t}} \texorpdfstring{$\ast$}{*}texte, char \texorpdfstring{$\ast$}{*}txt)
-\begin{DoxyCompactList}\small\item\em Créée une SDL\+\_\+\+Texture de type texte avec le texte passé en paramètre et la stocke dans le tableau de \doxylink{structtexte__t}{texte\+\_\+t}. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{menu_8h_a2f89f3b6074d5262ee22f84352d0bd7e}{creer\+\_\+image}} (\mbox{\hyperlink{structimg__t}{img\+\_\+t}} \texorpdfstring{$\ast$}{*}image, char \texorpdfstring{$\ast$}{*}nomfich)
+\begin{DoxyCompactList}\small\item\em Créée une SDL\+\_\+\+Texture de type texte en blanc avec le texte passé en paramètre et la stocke dans le tableau de \doxylink{structtexte__t}{texte\+\_\+t}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{menu_8h_a42e58d32308c947a7d50536bcd924478}{creer\+\_\+texte\+\_\+rouge}} (\mbox{\hyperlink{structtexte__t}{texte\+\_\+t}} \texorpdfstring{$\ast$}{*}texte, char \texorpdfstring{$\ast$}{*}txt)
+\begin{DoxyCompactList}\small\item\em Créée une SDL\+\_\+\+Texture de type texte en rouge avec le texte passé en paramètre et la stocke dans le tableau de \doxylink{structtexte__t}{texte\+\_\+t}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{menu_8h_af52005fab18bc3d9aff649451884c0c3}{creer\+\_\+image}} (\mbox{\hyperlink{structimg__t}{img\+\_\+t}} \texorpdfstring{$\ast$}{*}image, char \texorpdfstring{$\ast$}{*}nom\+Fich)
 \begin{DoxyCompactList}\small\item\em Créée une SDL\+\_\+\+Texture avec le chemin vers l\textquotesingle{}image passé en paramètre et la stocke dans le tableau de \doxylink{structimg__t}{img\+\_\+t}. \end{DoxyCompactList}\item 
-\Hypertarget{menu_8h_ae19f9a136d27a74cfd6dcf9c1f8e56bc}\label{menu_8h_ae19f9a136d27a74cfd6dcf9c1f8e56bc} 
-void {\bfseries afficher\+\_\+texte} (void)
-\begin{DoxyCompactList}\small\item\em Affiche toutes les textures texte chargées dans le tableau de \doxylink{structtexte__t}{texte\+\_\+t}. \end{DoxyCompactList}\item 
-\Hypertarget{menu_8h_a7c1e37876e5dd86bb72d9dd52eca4aca}\label{menu_8h_a7c1e37876e5dd86bb72d9dd52eca4aca} 
-void {\bfseries afficher\+\_\+image} (void)
-\begin{DoxyCompactList}\small\item\em Affiche toutes les textures images chargées dans le tableau de \doxylink{structimg__t}{img\+\_\+t}. \end{DoxyCompactList}\item 
-\Hypertarget{menu_8h_aed94b144795318ca3812adf681cd9171}\label{menu_8h_aed94b144795318ca3812adf681cd9171} 
-void {\bfseries modif\+\_\+nom} (void)
-\begin{DoxyCompactList}\small\item\em Met à jour l\textquotesingle{}affichage du nom du joueur à chaque caractère saisi par l\textquotesingle{}utilisateur en détruisant et recréant la texture de texte. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{menu_8h_a14e2d7dec788ac1d5858a8ca8ef06452}{menu}} (char \texorpdfstring{$\ast$}{*}classe)
-\begin{DoxyCompactList}\small\item\em Fonction qui appelle toutes les précédentes pour créer le menu fonctionnel. Boucle principale de gestion d\textquotesingle{}événements SDL pour gérer les interractions avec l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
-\Hypertarget{menu_8h_a41e5754cb0fc110125d3e438321a0aea}\label{menu_8h_a41e5754cb0fc110125d3e438321a0aea} 
-void {\bfseries saisie\+\_\+touche\+\_\+ip} (SDL\+\_\+\+Keycode touche, int \texorpdfstring{$\ast$}{*}nb\+Car, char \texorpdfstring{$\ast$}{*}saisie)
-\begin{DoxyCompactList}\small\item\em Permet de mettre à jour l\textquotesingle{}adresse ip saisie avec les touches du keypad et du clavier normal. \end{DoxyCompactList}\item 
-\Hypertarget{menu_8h_aeab1dfc8b04f931a367fa00f951400e7}\label{menu_8h_aeab1dfc8b04f931a367fa00f951400e7} 
-void {\bfseries affiche\+\_\+rejoindre} (void)
-\item 
-\Hypertarget{menu_8h_ad6eb1dc858d1fdb422713ef2ed47083e}\label{menu_8h_ad6eb1dc858d1fdb422713ef2ed47083e} 
-void {\bfseries affiche\+\_\+menu} (int tab\+Bouton\mbox{[}$\,$\mbox{]}, int bouton\+\_\+choisi)
-\item 
-\Hypertarget{menu_8h_ad9f71744468a4d3039d735664288dbe7}\label{menu_8h_ad9f71744468a4d3039d735664288dbe7} 
-void {\bfseries affiche\+\_\+param} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Fonction qui appelle toutes les précédentes pour créer le menu fonctionnel. Boucle principale de gestion d\textquotesingle{}événements SDL pour gérer les interractions avec l\textquotesingle{}utilisateur. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Création du menu principal du jeu. 
 
+\begin{DoxyAuthor}{Author}
+Ilann 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884}\label{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884} 
+\index{menu.h@{menu.h}!position\_menu@{position\_menu}}
+\index{position\_menu@{position\_menu}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{position\_menu}{position\_menu}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884}{position\+\_\+menu}}}
+
+
+
+Correspondant à la position du joueur dans le menu. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MENU\_PRINCIPAL@{MENU\_PRINCIPAL}!menu.h@{menu.h}}\index{menu.h@{menu.h}!MENU\_PRINCIPAL@{MENU\_PRINCIPAL}}}\Hypertarget{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884ad84154820fb7cc5480aa99b8e888ef2e}\label{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884ad84154820fb7cc5480aa99b8e888ef2e} 
+MENU\+\_\+\+PRINCIPAL&le joueur se trouve dans la page d\textquotesingle{}accueil du menu \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DANS\_PARAM@{DANS\_PARAM}!menu.h@{menu.h}}\index{menu.h@{menu.h}!DANS\_PARAM@{DANS\_PARAM}}}\Hypertarget{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884a88698741172e257076635288d2f0ec24}\label{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884a88698741172e257076635288d2f0ec24} 
+DANS\+\_\+\+PARAM&le joueur se trouve dans les paramètres du menu \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DANS\_JOUER@{DANS\_JOUER}!menu.h@{menu.h}}\index{menu.h@{menu.h}!DANS\_JOUER@{DANS\_JOUER}}}\Hypertarget{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884ac7ed3876128db273870b43cb36d92da3}\label{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884ac7ed3876128db273870b43cb36d92da3} 
+DANS\+\_\+\+JOUER&le joueur se trouve dans l\textquotesingle{}option jouer \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DANS\_CREER@{DANS\_CREER}!menu.h@{menu.h}}\index{menu.h@{menu.h}!DANS\_CREER@{DANS\_CREER}}}\Hypertarget{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884adfe6379b03614e58bf9b12ebe003de31}\label{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884adfe6379b03614e58bf9b12ebe003de31} 
+DANS\+\_\+\+CREER&le joueur se trouve dans l\textquotesingle{}option créer \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DANS\_REJOINDRE@{DANS\_REJOINDRE}!menu.h@{menu.h}}\index{menu.h@{menu.h}!DANS\_REJOINDRE@{DANS\_REJOINDRE}}}\Hypertarget{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884a1218c0e71408de75a05144ebe201f56a}\label{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884a1218c0e71408de75a05144ebe201f56a} 
+DANS\+\_\+\+REJOINDRE&le joueur se trouve dans l\textquotesingle{}option rejoindre \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BAD\_IP@{BAD\_IP}!menu.h@{menu.h}}\index{menu.h@{menu.h}!BAD\_IP@{BAD\_IP}}}\Hypertarget{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884ad485cf6825df25b48fa2236a04f955e2}\label{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884ad485cf6825df25b48fa2236a04f955e2} 
+BAD\+\_\+\+IP&le joueur a tenté de valider une adresse ip invalide \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BAD\_NAME@{BAD\_NAME}!menu.h@{menu.h}}\index{menu.h@{menu.h}!BAD\_NAME@{BAD\_NAME}}}\Hypertarget{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884ae6f65253a2e082e935efcf4ba514e3e0}\label{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884ae6f65253a2e082e935efcf4ba514e3e0} 
+BAD\+\_\+\+NAME&le joueur veut jouer sans avoir saisi de nom \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SORTIE\_MENU@{SORTIE\_MENU}!menu.h@{menu.h}}\index{menu.h@{menu.h}!SORTIE\_MENU@{SORTIE\_MENU}}}\Hypertarget{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884af90d74c1d646dc38cc3b744ad93e0d5a}\label{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884af90d74c1d646dc38cc3b744ad93e0d5a} 
+SORTIE\+\_\+\+MENU&le joueur quitte le menu \\
+\hline
+
+\end{DoxyEnumFields}
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{menu_8h_ae87895a2e22bf885f35e829f163c4990}\label{menu_8h_ae87895a2e22bf885f35e829f163c4990} 
+\index{menu.h@{menu.h}!aff\_menu@{aff\_menu}}
+\index{aff\_menu@{aff\_menu}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{aff\_menu()}{aff\_menu()}}
+{\footnotesize\ttfamily void aff\+\_\+menu (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{menu_8h_aad2aa8e62ae5a2e61dfc7bc6b9bb4884}{position\+\_\+menu}} \texorpdfstring{$\ast$}{*}}]{pos,  }\item[{int}]{tab\+Bouton\mbox{[}$\,$\mbox{]},  }\item[{int}]{bouton\+\_\+choisi }\end{DoxyParamCaption})}
+
+
+
+Affiche le menu correspondant à l\textquotesingle{}endroit où l\textquotesingle{}on se trouve. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & L\textquotesingle{}endroit où l\textquotesingle{}on se trouve dans le menu \\
+\hline
+{\em tab\+Bouton} & Un tableau d\textquotesingle{}entier contenant les indices correspondant aux boutons de la page du menu sélectionné \\
+\hline
+{\em bouton\+\_\+choisi} & Un entier. En faisant tab\+Bouton\mbox{[}bouton\+\_\+choisi\mbox{]}, on obtient l\textquotesingle{}indice du bouton qui est actuellement sélectionné \\
+\hline
+\end{DoxyParams}
+\Hypertarget{menu_8h_a1b9b82576d4745e7750d378fc20d911e}\label{menu_8h_a1b9b82576d4745e7750d378fc20d911e} 
+\index{menu.h@{menu.h}!affiche\_menu\_accueil@{affiche\_menu\_accueil}}
+\index{affiche\_menu\_accueil@{affiche\_menu\_accueil}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{affiche\_menu\_accueil()}{affiche\_menu\_accueil()}}
+{\footnotesize\ttfamily void affiche\+\_\+menu\+\_\+accueil (\begin{DoxyParamCaption}\item[{int}]{tab\+Bouton\mbox{[}$\,$\mbox{]},  }\item[{int}]{bouton\+\_\+choisi }\end{DoxyParamCaption})}
+
+
+
+Affiche la page d\textquotesingle{}accueil du menu en mettant le bouton sélectionné en couleur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tab\+Bouton} & Un tableau d\textquotesingle{}entier contenant les indices correspondant aux boutons de la page d\textquotesingle{}accueil du menu \\
+\hline
+{\em bouton\+\_\+choisi} & Un entier. En faisant tab\+Bouton\mbox{[}bouton\+\_\+choisi\mbox{]}, on obtient l\textquotesingle{}indice du bouton qui est actuellement sélectionné \\
+\hline
+\end{DoxyParams}
 \Hypertarget{menu_8h_aaf2394006b36a7baaca2201c6f631528}\label{menu_8h_aaf2394006b36a7baaca2201c6f631528} 
 \index{menu.h@{menu.h}!ajout\_personnage@{ajout\_personnage}}
 \index{ajout\_personnage@{ajout\_personnage}!menu.h@{menu.h}}
@@ -191,11 +256,11 @@ Ajoute un personnage dans la liste des personnages à sélectionner.
 {\em nom} & Le nom du personnage qu\textquotesingle{}on veut ajouter \\
 \hline
 \end{DoxyParams}
-\Hypertarget{menu_8h_a1fe46bf877a906effed85270fa2e2853}\label{menu_8h_a1fe46bf877a906effed85270fa2e2853} 
+\Hypertarget{menu_8h_a483a1f83a3122f47480f78c46d7eb18f}\label{menu_8h_a483a1f83a3122f47480f78c46d7eb18f} 
 \index{menu.h@{menu.h}!chemin\_perso@{chemin\_perso}}
 \index{chemin\_perso@{chemin\_perso}!menu.h@{menu.h}}
 \doxysubsubsection{\texorpdfstring{chemin\_perso()}{chemin\_perso()}}
-{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} chemin\+\_\+perso (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} chemin\+\_\+perso (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -204,21 +269,21 @@ Renvoie le chemin du fichier en fonctiondu personnage choisi par l\textquotesing
 \begin{DoxyReturn}{Returns}
 Renvoie une chaîne de caractères correspondant au chemin vers le bon fichier 
 \end{DoxyReturn}
-\Hypertarget{menu_8h_aa173bbcb3a4b8d8995a371fda25dc143}\label{menu_8h_aa173bbcb3a4b8d8995a371fda25dc143} 
+\Hypertarget{menu_8h_ab5c748e606ffc005472b35c553849d0a}\label{menu_8h_ab5c748e606ffc005472b35c553849d0a} 
 \index{menu.h@{menu.h}!clear\_ecran@{clear\_ecran}}
 \index{clear\_ecran@{clear\_ecran}!menu.h@{menu.h}}
 \doxysubsubsection{\texorpdfstring{clear\_ecran()}{clear\_ecran()}}
-{\footnotesize\ttfamily void clear\+\_\+ecran (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void clear\+\_\+ecran (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-met à jour l\textquotesingle{}affichage à l\textquotesingle{}écran \+: affichage l\textquotesingle{}image de fond et supprime toutes les textures qui étaient affichées à l\textquotesingle{}écran 
+Enlève toutes les textures présentes sur l\textquotesingle{}écran et met l\textquotesingle{}arrière plan du menu en fond. 
 
-\Hypertarget{menu_8h_a2f89f3b6074d5262ee22f84352d0bd7e}\label{menu_8h_a2f89f3b6074d5262ee22f84352d0bd7e} 
+\Hypertarget{menu_8h_af52005fab18bc3d9aff649451884c0c3}\label{menu_8h_af52005fab18bc3d9aff649451884c0c3} 
 \index{menu.h@{menu.h}!creer\_image@{creer\_image}}
 \index{creer\_image@{creer\_image}!menu.h@{menu.h}}
 \doxysubsubsection{\texorpdfstring{creer\_image()}{creer\_image()}}
-{\footnotesize\ttfamily void creer\+\_\+image (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structimg__t}{img\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{image,  }\item[{char \texorpdfstring{$\ast$}{*}}]{nomfich }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void creer\+\_\+image (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structimg__t}{img\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{image,  }\item[{char \texorpdfstring{$\ast$}{*}}]{nom\+Fich }\end{DoxyParamCaption})}
 
 
 
@@ -239,7 +304,24 @@ Créée une SDL\+\_\+\+Texture avec le chemin vers l\textquotesingle{}image pass
 
 
 
-Créée une SDL\+\_\+\+Texture de type texte avec le texte passé en paramètre et la stocke dans le tableau de \doxylink{structtexte__t}{texte\+\_\+t}. 
+Créée une SDL\+\_\+\+Texture de type texte en blanc avec le texte passé en paramètre et la stocke dans le tableau de \doxylink{structtexte__t}{texte\+\_\+t}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em texte} & Le tableau de \doxylink{structtexte__t}{texte\+\_\+t} où sont stockées toutes les textures de type texte \\
+\hline
+{\em txt} & Le texte que l\textquotesingle{}on veut créer \\
+\hline
+\end{DoxyParams}
+\Hypertarget{menu_8h_a42e58d32308c947a7d50536bcd924478}\label{menu_8h_a42e58d32308c947a7d50536bcd924478} 
+\index{menu.h@{menu.h}!creer\_texte\_rouge@{creer\_texte\_rouge}}
+\index{creer\_texte\_rouge@{creer\_texte\_rouge}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{creer\_texte\_rouge()}{creer\_texte\_rouge()}}
+{\footnotesize\ttfamily void creer\+\_\+texte\+\_\+rouge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtexte__t}{texte\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{texte,  }\item[{char \texorpdfstring{$\ast$}{*}}]{txt }\end{DoxyParamCaption})}
+
+
+
+Créée une SDL\+\_\+\+Texture de type texte en rouge avec le texte passé en paramètre et la stocke dans le tableau de \doxylink{structtexte__t}{texte\+\_\+t}. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -281,19 +363,21 @@ Détruit une texture correspondant à une image.
 {\em indice} & L\textquotesingle{}indice de la texture du tableau d\textquotesingle{}images que l\textquotesingle{}on veut détruire \\
 \hline
 \end{DoxyParams}
-\Hypertarget{menu_8h_a74ec3bc2d01071a33fd8c5154c71702b}\label{menu_8h_a74ec3bc2d01071a33fd8c5154c71702b} 
-\index{menu.h@{menu.h}!detruit\_texte@{detruit\_texte}}
-\index{detruit\_texte@{detruit\_texte}!menu.h@{menu.h}}
-\doxysubsubsection{\texorpdfstring{detruit\_texte()}{detruit\_texte()}}
-{\footnotesize\ttfamily void detruit\+\_\+texte (\begin{DoxyParamCaption}\item[{int}]{indice }\end{DoxyParamCaption})}
+\Hypertarget{menu_8h_a1d2269d34d087febc733b76517911ce6}\label{menu_8h_a1d2269d34d087febc733b76517911ce6} 
+\index{menu.h@{menu.h}!maj\_texte@{maj\_texte}}
+\index{maj\_texte@{maj\_texte}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{maj\_texte()}{maj\_texte()}}
+{\footnotesize\ttfamily void maj\+\_\+texte (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtexte__t}{texte\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{texte,  }\item[{char \texorpdfstring{$\ast$}{*}}]{nouveau }\end{DoxyParamCaption})}
 
 
 
-Détruit une texture correspondant à du texte. 
+Met à jour le \doxylink{structtexte__t}{texte\+\_\+t} en paramètre pour que sa nouvelle chaîne de caractère soit le deuxième paramètre. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em indice} & L\textquotesingle{}indice de la texture du tableau de textes que l\textquotesingle{}on veut détruire \\
+{\em texte} & Un pointeur sur \doxylink{structtexte__t}{texte\+\_\+t} qui va être modifié si le nouveau texte est différent de l\textquotesingle{}actuel \\
+\hline
+{\em nouveau} & Une chaîne de caractère qui sera affichée à la place de l\textquotesingle{}ancienne \\
 \hline
 \end{DoxyParams}
 \Hypertarget{menu_8h_a14e2d7dec788ac1d5858a8ca8ef06452}\label{menu_8h_a14e2d7dec788ac1d5858a8ca8ef06452} 
@@ -306,19 +390,30 @@ Détruit une texture correspondant à du texte.
 
 Fonction qui appelle toutes les précédentes pour créer le menu fonctionnel. Boucle principale de gestion d\textquotesingle{}événements SDL pour gérer les interractions avec l\textquotesingle{}utilisateur. 
 
+
+\begin{DoxyParams}{Parameters}
+{\em classe} & Sert à renvoyer la classe choisie par le joueur \\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Renvoie -\/1 si on quitte le menu avec echap ; 0 si on joue au jeu ; 1 si on est juste serveur ; 2 si on est serveur et joueur en même temps 
 \end{DoxyReturn}
-\Hypertarget{menu_8h_a66a254cacf81e15e5f89f7d6d6f7f806}\label{menu_8h_a66a254cacf81e15e5f89f7d6d6f7f806} 
-\index{menu.h@{menu.h}!valider\_ip@{valider\_ip}}
-\index{valider\_ip@{valider\_ip}!menu.h@{menu.h}}
-\doxysubsubsection{\texorpdfstring{valider\_ip()}{valider\_ip()}}
-{\footnotesize\ttfamily int valider\+\_\+ip (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{ip }\end{DoxyParamCaption})}
+\Hypertarget{menu_8h_a41e5754cb0fc110125d3e438321a0aea}\label{menu_8h_a41e5754cb0fc110125d3e438321a0aea} 
+\index{menu.h@{menu.h}!saisie\_touche\_ip@{saisie\_touche\_ip}}
+\index{saisie\_touche\_ip@{saisie\_touche\_ip}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{saisie\_touche\_ip()}{saisie\_touche\_ip()}}
+{\footnotesize\ttfamily void saisie\+\_\+touche\+\_\+ip (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Keycode}]{touche,  }\item[{int \texorpdfstring{$\ast$}{*}}]{nb\+Car,  }\item[{char \texorpdfstring{$\ast$}{*}}]{saisie }\end{DoxyParamCaption})}
 
 
 
-Renvoie un entier 1 ou 0 pour savoir si l\textquotesingle{}adresse ip rentrée en paramètre est valide. 
+Permet de mettre à jour l\textquotesingle{}adresse ip saisie avec les touches du keypad et du clavier normal. 
 
-\begin{DoxyReturn}{Returns}
-Un entier 
-\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em touche} & La dernière touche pressée \\
+\hline
+{\em nb\+Car} & Le nombre de caractères que contient l\textquotesingle{}ip \\
+\hline
+{\em saisie} & L\textquotesingle{}ip qui va être modifiée \\
+\hline
+\end{DoxyParams}

@@ -104,25 +104,6 @@ void dessine_texte(int i) {
         SDL_RenderCopy(renderer, tab_texte[i].message, NULL, &tab_texte[i].posTexte);
 }
 
-int valider_ip(char *ip) {
-    regex_t regex;
-    int result;
-
-    // Compilation de la regex
-    if (regcomp(&regex, REGEXIP, REG_EXTENDED)) {
-        fprintf(stderr, "Erreur de compilation de la regex\n");
-        return 0;
-    }
-
-    result = regexec(&regex, ip, 0, NULL, 0);
-
-    // Libération de la mémoire de la regex
-    regfree(&regex);
-
-    // Retourne 1 si l'IP est valide, 0 sinon
-    return (result == 0);  
-}
-
 void saisie_touche_ip(SDL_Keycode touche, int * nbCar, char * saisie){
     if(*nbCar < NB_MAX_CAR_IP){
         char c = '\0';
@@ -147,7 +128,7 @@ void saisie_touche_ip(SDL_Keycode touche, int * nbCar, char * saisie){
                 case SDLK_BACKSPACE : if(*nbCar >= 1) saisie[--(*nbCar)] = ' '; return;
                 case SDLK_KP_ENTER :
                 case SDLK_RETURN : return;
-                default : break;
+                default : return;
             }
 
         }
@@ -162,9 +143,9 @@ void affiche_rejoindre(){
     dessine_img(6);
     dessine_img(7);
     dessine_img(10);
-    SDL_SetTextureColorMod(tab_img[24].texture, 180, 120, 80); // survol clavier
+    SDL_SetTextureColorMod(tab_img[23].texture, 180, 120, 80); // survol clavier
 
-    dessine_img(24);
+    dessine_img(23);
 
     dessine_texte(15);
     dessine_texte(22);
@@ -178,9 +159,44 @@ void affiche_rejoindre(){
 
 void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
     switch(*pos){
-        case MENU_PRINCIPAL: affiche_menu(tabBouton, bouton_choisi); break;
-        case DANS_PARAM : affiche_param(tabBouton, bouton_choisi) ; break;
-        case DANS_REJOINDRE : affiche_rejoindre(); SDL_RenderPresent(renderer) ; break;
+        case MENU_PRINCIPAL: affiche_menu_accueil(tabBouton, bouton_choisi);
+                            SDL_RenderPresent(renderer);
+                            break;
+
+        case DANS_PARAM : 
+                            clear_ecran();
+                            dessine_img(6);
+                            dessine_img(7);
+
+                            for(int i = 11 ; i < 19 ; i++){
+                                if (i == tabBouton[bouton_choisi])
+                                    SDL_SetTextureColorMod(tab_img[i].texture, 180, 120, 80); // survol clavier
+                                else
+                                    SDL_SetTextureColorMod(tab_img[i].texture, 255, 255, 255);
+                                dessine_img(i);
+                            } 
+                            
+                            for(int i = 9 ; i < 15 ; i++){
+                                if(i != 14) dessine_texte(i);
+                            } 
+                                
+                            snprintf(valVolume, sizeof(valVolume), "%d", volume);
+                            Mix_VolumeMusic(volume);
+                            maj_texte(tab_texte + 14, valVolume);
+                            
+                            dessine_texte(14);
+
+                            if(volume)
+                                dessine_img(19);    
+                            else 
+                                dessine_img(20);
+
+                            SDL_RenderPresent(renderer);
+                            break;
+
+        case DANS_REJOINDRE : affiche_rejoindre(); SDL_RenderPresent(renderer); 
+                            break;
+
         case DANS_JOUER : clear_ecran();
                         for(int i = 6 ; i < 10 ; i++){
                             if (i == tabBouton[bouton_choisi])
@@ -196,6 +212,7 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
 
                         SDL_RenderPresent(renderer);
                         break;
+
         case DANS_CREER : clear_ecran();              
                     //bouton retour 
                     dessine_img(6);
@@ -213,14 +230,14 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
                         SDL_SetTextureColorMod(tab_img[23].texture, 255, 255, 255);
 
                     dessine_img(21);
-                    dessine_img(23); 
+                    dessine_img(22); 
 
                     dessine_texte(17);
                     dessine_texte(20);
                     SDL_RenderPresent(renderer); 
                     break;
+
         case BAD_IP : affiche_rejoindre();
-                    dessine_img(22);
 
                     dessine_texte(18);
                     dessine_texte(19);
@@ -228,17 +245,25 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
                     SDL_RenderPresent(renderer);    
                     *pos = DANS_REJOINDRE;
                     break;
+
+                        
+        case BAD_NAME : affiche_menu_accueil(tabBouton, bouton_choisi);
+                        dessine_texte(23);
+                        *pos = MENU_PRINCIPAL;
+                        SDL_RenderPresent(renderer);
+                        break;
+
         case SORTIE_MENU : break;
     }
 }
 
-void affiche_menu(int tabBouton[], int bouton_choisi){
+void affiche_menu_accueil(int tabBouton[], int bouton_choisi){
     clear_ecran();
-    
     //chargement des boutons et textes du menu principal
     for(int i = 0 ; i < 5 ; i++){
         if (i == tabBouton[bouton_choisi])
             SDL_SetTextureColorMod(tab_img[i].texture, 180, 120, 80); // survol clavier
+        
         else
             SDL_SetTextureColorMod(tab_img[i].texture, 255, 255, 255);
         dessine_img(i);
@@ -263,38 +288,6 @@ void affiche_menu(int tabBouton[], int bouton_choisi){
         maj_texte(&tab_texte[6], nomJoueur);
         dessine_texte(6);
     }    
-    SDL_RenderPresent(renderer);
-}
-
-void affiche_param(int tabBouton[], int bouton_choisi){
-    clear_ecran();
-    dessine_img(6);
-    dessine_img(7);
-
-    for(int i = 11 ; i < 19 ; i++){
-        if (i == tabBouton[bouton_choisi])
-            SDL_SetTextureColorMod(tab_img[i].texture, 180, 120, 80); // survol clavier
-        else
-            SDL_SetTextureColorMod(tab_img[i].texture, 255, 255, 255);
-        dessine_img(i);
-    } 
-    
-    for(int i = 9 ; i < 15 ; i++){
-        if(i != 14) dessine_texte(i);
-    } 
-        
-    snprintf(valVolume, sizeof(valVolume), "%d", volume);
-    Mix_VolumeMusic(volume);
-    maj_texte(tab_texte + 14, valVolume);
-    
-    dessine_texte(14);
-
-    if(volume)
-        dessine_img(19);    
-    else 
-        dessine_img(20);
-
-    SDL_RenderPresent(renderer);
 }
 
 void clear_ecran(){
@@ -323,7 +316,8 @@ Appelle ensuite la fonction qui met à jour l'affichage
     
     if(actuel < nb_perso_ajoutes - 1) actuel++;
     else actuel = 0; 
-    affiche_menu(tab_bouton, bouton_select);
+    position_menu pos = MENU_PRINCIPAL;
+    aff_menu(&pos, tab_bouton, bouton_select);
 }
 
 void precedent(int * tab_bouton){
@@ -334,7 +328,8 @@ Appelle ensuite la fonction qui met à jour l'affichage
 */
     if (actuel > 0) actuel--;
     else actuel = nb_perso_ajoutes - 1;
-    affiche_menu(tab_bouton, bouton_select);
+    position_menu pos = MENU_PRINCIPAL;
+    aff_menu(&pos, tab_bouton, bouton_select);
 }
 
 SDL_Texture * creer_texture(char * chemin){
@@ -367,24 +362,6 @@ renvoie le chemin du fichier correspondant au perso actuel choisi
     return "null";
 }
 
-void detruit_tout(){
-/*
-detruit tous les textes et images présentes sur l'écran
-*/
-    for(int i = 0 ; i < NB_TEXTE ; i++){
-        detruit_texte(i);
-    } 
-    for(int i = 0 ; i < NB_IMG ; i++){
-        detruit_img(i);
-    } 
-    for(int i = 0 ; i < nb_perso_ajoutes ; i++){
-        free(tab_perso[i]);
-    }
-    if (backgroundTexture) {
-        SDL_DestroyTexture(backgroundTexture);
-    }
-}
-
 void detruit_img(int indice){
 /*
 detruit une SDL_Texture dans la structure image passée en paramètre
@@ -392,16 +369,6 @@ detruit une SDL_Texture dans la structure image passée en paramètre
     if (tab_img[indice].texture) {
         SDL_DestroyTexture(tab_img[indice].texture);
         tab_img[indice].texture = NULL;   
-    }
-}
-
-void detruit_texte(int indice){
-/*
-detruit une SDL_Texture dans la structure texte passée en paramètre
-*/
-    if(tab_texte[indice].message){
-        SDL_DestroyTexture(tab_texte[indice].message);
-        tab_texte[indice].message = NULL;        
     }
 }
 
@@ -431,21 +398,30 @@ stocke dans la structure texte_t dans le champ message
     strcpy(texte->contenu, txt); 
 }
 
+void creer_texte_rouge(texte_t * texte, char * txt){
+    /*
+    créée une texture de type texte avec la string passée en paramètre et la
+    stocke dans la structure texte_t dans le champ message
+    */
+    
+        //texte existe déjà ?
+        if(texte->message && !strcmp(texte->contenu, txt)) return;
+    
+        surface = TTF_RenderUTF8_Blended(police, txt, (SDL_Color){255, 0, 0, 255 });
+        if(!surface) end(11);
+    
+        texte->message = SDL_CreateTextureFromSurface(renderer, surface);
+        SDL_FreeSurface(surface); 
+    
+        strcpy(texte->contenu, txt); 
+    }
+
 void creer_image(img_t * image, char * nomFich){
 /*
 créée une texture à partir du chemin vers une image, le stocke dans le champ texture de la structure img_t
 */
     image->texture = creer_texture(nomFich);
     if(!image->texture) end(5);
-}
-
-void simu_event(SDL_Point p){
-    SDL_Event clic;
-    clic.type = SDL_MOUSEBUTTONDOWN;
-    clic.button.x = p.x;
-    clic.button.y = p.y;
-    clic.button.button = SDL_BUTTON_LEFT;
-    SDL_PushEvent(&clic);
 }
 
 int menu(char *classe){
@@ -460,11 +436,13 @@ int menu(char *classe){
     int tabBoutonsMenu[] = {0, 1, 2, 3, 4};
     int tabBoutonsParam[] = {11, 12, 15, 17};
     int tabBoutonsJouer[] = {8, 9};
-    int tabBoutonsCreer[] = {23, 21};
+    int tabBoutonsCreer[] = {22, 21};
+    int tabBoutonsRejoi[] = {23};
+
 
     //tab de chaque elm pouvant être sélectionné selon l'etat actuel du menu. tabBoutonsCreer y est 2 fois car il ya 
     //l'etat BAD_IP où on affiche la même chose que REJOINDRE mais avec un message d'erreur
-    int * tabBoutons[] = {tabBoutonsMenu, tabBoutonsParam, tabBoutonsJouer, tabBoutonsCreer, tabBoutonsCreer}; 
+    int * tabBoutons[] = {tabBoutonsMenu, tabBoutonsParam, tabBoutonsJouer, tabBoutonsCreer, tabBoutonsRejoi, tabBoutonsCreer, tabBoutonsMenu}; 
     
     init_sdl();
     
@@ -529,9 +507,8 @@ int menu(char *classe){
 
     // menu serveur
     tab_img[21] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.2, WINDOW_WIDTH * 0.35, WINDOW_HEIGHT * 0.2}, NULL}; // bouton joueur + serveur
-    tab_img[22] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.77, WINDOW_HEIGHT * 0.18, WINDOW_WIDTH * 0.18, WINDOW_HEIGHT * 0.27}, NULL}; // ip invalide
-    tab_img[23] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.7, WINDOW_WIDTH * 0.35, WINDOW_HEIGHT * 0.2}, NULL}; // bouton serveur uniquement
-    tab_img[24] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.6, WINDOW_WIDTH * 0.36, WINDOW_HEIGHT * 0.18}, NULL}; // bouton rejoindre (après saisie IP)
+    tab_img[22] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.7, WINDOW_WIDTH * 0.35, WINDOW_HEIGHT * 0.2}, NULL}; // bouton serveur uniquement
+    tab_img[23] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.75, WINDOW_WIDTH * 0.36, WINDOW_HEIGHT * 0.18}, NULL}; // bouton rejoindre (après saisie IP)
 
 
 
@@ -562,11 +539,15 @@ int menu(char *classe){
     tab_texte[15] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.45, WINDOW_HEIGHT * 0.09, WINDOW_WIDTH * 0.1, WINDOW_HEIGHT * 0.1}, NULL}; // IP
     tab_texte[16] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.25, WINDOW_WIDTH * 0.4, WINDOW_HEIGHT * 0.1}, NULL}; // IP saisie (host)
     tab_texte[17] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.34, WINDOW_HEIGHT * 0.245, WINDOW_WIDTH * 0.27, WINDOW_HEIGHT * 0.1}, NULL}; // Être serveur
-    tab_texte[18] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.78, WINDOW_HEIGHT * 0.20, WINDOW_WIDTH * 0.16, WINDOW_HEIGHT * 0.06}, NULL}; // IP saisie (invalide)
-    tab_texte[19] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.78, WINDOW_HEIGHT * 0.39, WINDOW_WIDTH * 0.16, WINDOW_HEIGHT * 0.06}, NULL}; // invalide
+    tab_texte[18] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.55, WINDOW_WIDTH * 0.16, WINDOW_HEIGHT * 0.06}, NULL}; // IP saisie (invalide)
+    tab_texte[19] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.48, WINDOW_HEIGHT * 0.55, WINDOW_WIDTH * 0.16, WINDOW_HEIGHT * 0.06}, NULL}; // invalide
     tab_texte[20] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.325, WINDOW_HEIGHT * 0.745, WINDOW_WIDTH * 0.28, WINDOW_HEIGHT * 0.1}, NULL}; // Être joueur
     tab_texte[21] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.285, WINDOW_HEIGHT * 0.342, WINDOW_WIDTH * 0.375, WINDOW_HEIGHT * 0.1}, NULL}; // IP saisie (rejoindre)
-    tab_texte[22] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.33, WINDOW_HEIGHT * 0.63, WINDOW_WIDTH * 0.28, WINDOW_HEIGHT * 0.1}, NULL}; // Rejoindre
+    tab_texte[22] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.33, WINDOW_HEIGHT * 0.79, WINDOW_WIDTH * 0.28, WINDOW_HEIGHT * 0.1}, NULL}; // Rejoindre
+
+    //pas de nom saisi
+    tab_texte[23] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.7, WINDOW_HEIGHT * 0.3, WINDOW_WIDTH * 0.23, WINDOW_HEIGHT * 0.1}, NULL}; // nom invalide
+
 
 
     
@@ -593,9 +574,10 @@ int menu(char *classe){
     creer_image(tab_img + 19, "../img/Boutons/boutonVolumeOn.png");
     creer_image(tab_img + 20, "../img/Boutons/boutonVolumeOff.png");    
     creer_image(tab_img + 21, "../img/Boutons/boutonMenuLargeCarre.png");
+    //creer_image(tab_img + 22, "../img/Boutons/boutonMenuLargeCarre.png");
     creer_image(tab_img + 22, "../img/Boutons/boutonMenuLargeCarre.png");
     creer_image(tab_img + 23, "../img/Boutons/boutonMenuLargeCarre.png");
-    creer_image(tab_img + 24, "../img/Boutons/boutonMenuLargeCarre.png");
+
     
     
     
@@ -618,13 +600,15 @@ int menu(char *classe){
     creer_texte(tab_texte + 15, "IP");
 
     creer_texte(tab_texte + 17, "Etre serveur");
-    creer_texte(tab_texte + 18, "Ip saisie");
-    creer_texte(tab_texte + 19, " invalide");
-    creer_texte(tab_texte + 20, " Etre joueur");
+    creer_texte_rouge(tab_texte + 18, "Ip saisie");
+    creer_texte_rouge(tab_texte + 19, "invalide");
+    creer_texte(tab_texte + 20, "Etre joueur");
     
-    creer_texte(tab_texte + 22, " Rejoindre");
+    creer_texte(tab_texte + 22, "Rejoindre");
 
-    affiche_menu(tabBoutonsMenu, bouton_select);
+    creer_texte_rouge(tab_texte + 23, "Nom invalide");
+
+    aff_menu(&pos_actuelle, tabBoutonsMenu, bouton_select);
 
     while(pos_actuelle != SORTIE_MENU){
         while(SDL_PollEvent(&event)){
@@ -707,9 +691,14 @@ int menu(char *classe){
                 }
 
                 //simulation d'un clic 
-                if ((touche == SDLK_KP_ENTER || touche == SDLK_RETURN) && modifications)
-                    simu_event(p);
-                
+                if ((touche == SDLK_KP_ENTER || touche == SDLK_RETURN) && modifications){
+                    SDL_Event clic;
+                    clic.type = SDL_MOUSEBUTTONDOWN;
+                    clic.button.x = p.x;
+                    clic.button.y = p.y;
+                    clic.button.button = SDL_BUTTON_LEFT;
+                    SDL_PushEvent(&clic);
+                }                
             }
 
             else if(event.type == SDL_QUIT){
@@ -729,12 +718,13 @@ int menu(char *classe){
                 //bouton jouer ?
                 else if(SDL_PointInRect(&point, &tab_img[0].posBoutonFen) && pos_actuelle == MENU_PRINCIPAL){
                     bouton_select = 0;
+                    modifications = 1;                     
+
                     if(nbCarJoueur != 0){
                         pos_actuelle = DANS_JOUER;
-                        modifications = 1;                     
                     }
                     else{
-                        printf("Saisissez un nom pour pouvoir jouer\n");
+                        pos_actuelle = BAD_NAME;
                     }
                 }
 
@@ -786,7 +776,7 @@ int menu(char *classe){
                         
                         if (!strcmp(joueur, "#")){
                             
-                            nomJoueur[0] = ' ';
+                            nomJoueur[0] = '#';
                             nbCarJoueur = 0;
                         } 
 
@@ -797,7 +787,7 @@ int menu(char *classe){
                             
 
                         if (strcmp(saisieIp, "@") == 0) {
-                            saisieIp[0] = ' ';
+                            saisieIp[0] = '@';
                             nbCarIp = 0;
                         } 
 
@@ -810,7 +800,10 @@ int menu(char *classe){
                         modifications = 1;
 
                     }
-                    else printf("Fichier %s introuvable\n", cheminParamTxt);
+                    else{
+                        printf("\nFichier %s introuvable. Veuillez sauvegarder vos paramètres avant de les charger.\n", cheminParamTxt);
+                        end(111);
+                    }
                 }
 
                 //volume +
@@ -865,8 +858,24 @@ int menu(char *classe){
                 } 
                 
                 //bouton rejoindre partie (après saisie de l'ip)
-                else if(SDL_PointInRect(&point, &tab_img[24].posBoutonFen) && pos_actuelle == DANS_REJOINDRE){
-                    if(valider_ip(saisieIp)){
+                else if(SDL_PointInRect(&point, &tab_img[23].posBoutonFen) && pos_actuelle == DANS_REJOINDRE){
+
+                    //application d'une regex sur l'ip saisie 
+                    regex_t regex;
+                    int resultRegex = 0;
+
+                    // Compilation de la regex
+                    if (regcomp(&regex, "^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$", REG_EXTENDED)) {
+                        fprintf(stderr, "Erreur de compilation de la regex\n");
+                        return 0;
+                    }
+
+                    resultRegex = regexec(&regex, saisieIp, 0, NULL, 0);
+
+                    // Libération de la mémoire de la regex
+                    regfree(&regex);
+                    
+                    if(!resultRegex){
                         retour = JOUER;
                         pos_actuelle = SORTIE_MENU;
                     }
@@ -888,7 +897,23 @@ int menu(char *classe){
     }
     
     strcpy(classe, tab_perso[actuel]);  
-    detruit_tout();
+
+    //libération des textures, images et textes
+    for(int i = 0 ; i < NB_TEXTE ; i++){
+        if(tab_texte[i].message){
+            SDL_DestroyTexture(tab_texte[i].message);
+            tab_texte[i].message = NULL;        
+        }
+    } 
+    for(int i = 0 ; i < NB_IMG ; i++){
+        detruit_img(i);
+    } 
+    for(int i = 0 ; i < nb_perso_ajoutes ; i++){
+        free(tab_perso[i]);
+    }
+    if (backgroundTexture) {
+        SDL_DestroyTexture(backgroundTexture);
+    }
     
     return retour;
 }
@@ -897,7 +922,7 @@ int main(void){
     char classe[50];
     
     printf("\nRetrour menu : %d | ", menu(classe)); 
-    printf("Pseudo : %s | Classe : %s | Ip : %s\n", nomJoueur, classe, saisieIp);
+    printf("Pseudo : %s | Classe : %s | Ip : %s|\n", nomJoueur, classe, saisieIp);
     end(0);
     return 0;
 }

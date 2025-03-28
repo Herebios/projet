@@ -132,8 +132,10 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structimg__t.html">img_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de stocker la position et la texture d'un élément image du menu.  <a href="structimg__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtexte__t.html">texte_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de stocker la position, la texture et le texte d'un élément texte du menu.  <a href="structtexte__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -160,10 +162,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>H_FLECHE</b>&#160;&#160;&#160;920</td></tr>
 <tr class="separator:a0625ac65f8c532a90ac0bedd7425db12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34838ea6fe49f3fc31b87f2bc01c8997"><td class="memItemLeft" align="right" valign="top"><a id="a34838ea6fe49f3fc31b87f2bc01c8997" name="a34838ea6fe49f3fc31b87f2bc01c8997"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NB_IMG</b>&#160;&#160;&#160;25</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NB_IMG</b>&#160;&#160;&#160;24</td></tr>
 <tr class="separator:a34838ea6fe49f3fc31b87f2bc01c8997"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d9e68e0e8243c9d60de9ccd793b4143"><td class="memItemLeft" align="right" valign="top"><a id="a9d9e68e0e8243c9d60de9ccd793b4143" name="a9d9e68e0e8243c9d60de9ccd793b4143"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NB_TEXTE</b>&#160;&#160;&#160;23</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NB_TEXTE</b>&#160;&#160;&#160;24</td></tr>
 <tr class="separator:a9d9e68e0e8243c9d60de9ccd793b4143"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b709c4e04ba6c34e606336f6ccc66f0"><td class="memItemLeft" align="right" valign="top"><a id="a2b709c4e04ba6c34e606336f6ccc66f0" name="a2b709c4e04ba6c34e606336f6ccc66f0"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>NB_MAX_PERSO</b>&#160;&#160;&#160;10</td></tr>
@@ -174,9 +176,6 @@ Macros</h2></td></tr>
 <tr class="memitem:a57a4df152539bc6113bde73906911dea"><td class="memItemLeft" align="right" valign="top"><a id="a57a4df152539bc6113bde73906911dea" name="a57a4df152539bc6113bde73906911dea"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>NB_MAX_CAR_IP</b>&#160;&#160;&#160;16</td></tr>
 <tr class="separator:a57a4df152539bc6113bde73906911dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e7319ad0d7f2a6ce982f8c5fb80105b"><td class="memItemLeft" align="right" valign="top"><a id="a0e7319ad0d7f2a6ce982f8c5fb80105b" name="a0e7319ad0d7f2a6ce982f8c5fb80105b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>REGEXIP</b>&#160;&#160;&#160;&quot;^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$&quot;</td></tr>
-<tr class="separator:a0e7319ad0d7f2a6ce982f8c5fb80105b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acba9b61d16ca34a2472ea4ee88650fb6"><td class="memItemLeft" align="right" valign="top"><a id="acba9b61d16ca34a2472ea4ee88650fb6" name="acba9b61d16ca34a2472ea4ee88650fb6"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>JOUER</b>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:acba9b61d16ca34a2472ea4ee88650fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,43 +188,53 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:aad2aa8e62ae5a2e61dfc7bc6b9bb4884"><td class="memItemLeft" align="right" valign="top"><a id="aad2aa8e62ae5a2e61dfc7bc6b9bb4884" name="aad2aa8e62ae5a2e61dfc7bc6b9bb4884"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>position_menu</b> { <br />
-&#160;&#160;<b>MENU_PRINCIPAL</b>
-, <b>DANS_JOUER</b>
-, <b>DANS_PARAM</b>
-, <b>DANS_CREER</b>
+<tr class="memitem:aad2aa8e62ae5a2e61dfc7bc6b9bb4884"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884">position_menu</a> { <br />
+&#160;&#160;<a class="el" href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884ad84154820fb7cc5480aa99b8e888ef2e">MENU_PRINCIPAL</a>
+, <a class="el" href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884a88698741172e257076635288d2f0ec24">DANS_PARAM</a>
+, <a class="el" href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884ac7ed3876128db273870b43cb36d92da3">DANS_JOUER</a>
+, <a class="el" href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884adfe6379b03614e58bf9b12ebe003de31">DANS_CREER</a>
 , <br />
-&#160;&#160;<b>DANS_REJOINDRE</b>
-, <b>SORTIE_MENU</b>
-, <b>BAD_IP</b>
+&#160;&#160;<a class="el" href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884a1218c0e71408de75a05144ebe201f56a">DANS_REJOINDRE</a>
+, <a class="el" href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884ad485cf6825df25b48fa2236a04f955e2">BAD_IP</a>
+, <a class="el" href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884ae6f65253a2e082e935efcf4ba514e3e0">BAD_NAME</a>
+, <a class="el" href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884af90d74c1d646dc38cc3b744ad93e0d5a">SORTIE_MENU</a>
 <br />
  }</td></tr>
+<tr class="memdesc:aad2aa8e62ae5a2e61dfc7bc6b9bb4884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correspondant à la position du joueur dans le menu.  <a href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884">More...</a><br /></td></tr>
 <tr class="separator:aad2aa8e62ae5a2e61dfc7bc6b9bb4884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a66a254cacf81e15e5f89f7d6d6f7f806"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a66a254cacf81e15e5f89f7d6d6f7f806">valider_ip</a> (char *ip)</td></tr>
-<tr class="memdesc:a66a254cacf81e15e5f89f7d6d6f7f806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie un entier 1 ou 0 pour savoir si l'adresse ip rentrée en paramètre est valide.  <br /></td></tr>
-<tr class="separator:a66a254cacf81e15e5f89f7d6d6f7f806"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d2269d34d087febc733b76517911ce6"><td class="memItemLeft" align="right" valign="top"><a id="a1d2269d34d087febc733b76517911ce6" name="a1d2269d34d087febc733b76517911ce6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>maj_texte</b> (<a class="el" href="structtexte__t.html">texte_t</a> *texte, char *nouveau)</td></tr>
-<tr class="separator:a1d2269d34d087febc733b76517911ce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa768df09c3d5000e06f80aea1a77a0fd"><td class="memItemLeft" align="right" valign="top"><a id="aa768df09c3d5000e06f80aea1a77a0fd" name="aa768df09c3d5000e06f80aea1a77a0fd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> (int nb)</td></tr>
 <tr class="separator:aa768df09c3d5000e06f80aea1a77a0fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bb9dc5c0b024fc0f7558e16113024be"><td class="memItemLeft" align="right" valign="top"><a id="a3bb9dc5c0b024fc0f7558e16113024be" name="a3bb9dc5c0b024fc0f7558e16113024be"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>init_sdl</b> (void)</td></tr>
 <tr class="separator:a3bb9dc5c0b024fc0f7558e16113024be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae87895a2e22bf885f35e829f163c4990"><td class="memItemLeft" align="right" valign="top"><a id="ae87895a2e22bf885f35e829f163c4990" name="ae87895a2e22bf885f35e829f163c4990"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>aff_menu</b> (position_menu *pos, int tabBouton[], int bouton_choisi)</td></tr>
+<tr class="memitem:af692e62d6ce5595ec7d47f8503001433"><td class="memItemLeft" align="right" valign="top"><a id="af692e62d6ce5595ec7d47f8503001433" name="af692e62d6ce5595ec7d47f8503001433"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>dessine_img</b> (int i)</td></tr>
+<tr class="memdesc:af692e62d6ce5595ec7d47f8503001433"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utile pour la lisibilité du code, remplace une ligne de SDL_RenderCopy pour les images. <br /></td></tr>
+<tr class="separator:af692e62d6ce5595ec7d47f8503001433"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0f7ba31ece566d40b4263961b564fc0"><td class="memItemLeft" align="right" valign="top"><a id="ac0f7ba31ece566d40b4263961b564fc0" name="ac0f7ba31ece566d40b4263961b564fc0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>dessine_texte</b> (int i)</td></tr>
+<tr class="memdesc:ac0f7ba31ece566d40b4263961b564fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utile pour la lisibilité du code, remplace une ligne de SDL_RenderCopy pour les textes. <br /></td></tr>
+<tr class="separator:ac0f7ba31ece566d40b4263961b564fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41e5754cb0fc110125d3e438321a0aea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a41e5754cb0fc110125d3e438321a0aea">saisie_touche_ip</a> (SDL_Keycode touche, int *nbCar, char *saisie)</td></tr>
+<tr class="memdesc:a41e5754cb0fc110125d3e438321a0aea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de mettre à jour l'adresse ip saisie avec les touches du keypad et du clavier normal.  <br /></td></tr>
+<tr class="separator:a41e5754cb0fc110125d3e438321a0aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae87895a2e22bf885f35e829f163c4990"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#ae87895a2e22bf885f35e829f163c4990">aff_menu</a> (<a class="el" href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884">position_menu</a> *pos, int tabBouton[], int bouton_choisi)</td></tr>
+<tr class="memdesc:ae87895a2e22bf885f35e829f163c4990"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche le menu correspondant à l'endroit où l'on se trouve.  <br /></td></tr>
 <tr class="separator:ae87895a2e22bf885f35e829f163c4990"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1281ccb6999d21b6336ed1fbd0835af"><td class="memItemLeft" align="right" valign="top"><a id="ad1281ccb6999d21b6336ed1fbd0835af" name="ad1281ccb6999d21b6336ed1fbd0835af"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>creer_menu</b> (void)</td></tr>
-<tr class="memdesc:ad1281ccb6999d21b6336ed1fbd0835af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créée le menu de base avec toutes les textures nécessaires. <br /></td></tr>
-<tr class="separator:ad1281ccb6999d21b6336ed1fbd0835af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa173bbcb3a4b8d8995a371fda25dc143"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#aa173bbcb3a4b8d8995a371fda25dc143">clear_ecran</a> (void)</td></tr>
-<tr class="memdesc:aa173bbcb3a4b8d8995a371fda25dc143"><td class="mdescLeft">&#160;</td><td class="mdescRight">met à jour l'affichage à l'écran : affichage l'image de fond et supprime toutes les textures qui étaient affichées à l'écran  <br /></td></tr>
-<tr class="separator:aa173bbcb3a4b8d8995a371fda25dc143"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b9b82576d4745e7750d378fc20d911e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a1b9b82576d4745e7750d378fc20d911e">affiche_menu_accueil</a> (int tabBouton[], int bouton_choisi)</td></tr>
+<tr class="memdesc:a1b9b82576d4745e7750d378fc20d911e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche la page d'accueil du menu en mettant le bouton sélectionné en couleur.  <br /></td></tr>
+<tr class="separator:a1b9b82576d4745e7750d378fc20d911e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeab1dfc8b04f931a367fa00f951400e7"><td class="memItemLeft" align="right" valign="top"><a id="aeab1dfc8b04f931a367fa00f951400e7" name="aeab1dfc8b04f931a367fa00f951400e7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_rejoindre</b> (void)</td></tr>
+<tr class="memdesc:aeab1dfc8b04f931a367fa00f951400e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche la partie rejoindre du menu. <br /></td></tr>
+<tr class="separator:aeab1dfc8b04f931a367fa00f951400e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5c748e606ffc005472b35c553849d0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#ab5c748e606ffc005472b35c553849d0a">clear_ecran</a> ()</td></tr>
+<tr class="memdesc:ab5c748e606ffc005472b35c553849d0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enlève toutes les textures présentes sur l'écran et met l'arrière plan du menu en fond.  <br /></td></tr>
+<tr class="separator:ab5c748e606ffc005472b35c553849d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf2394006b36a7baaca2201c6f631528"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#aaf2394006b36a7baaca2201c6f631528">ajout_personnage</a> (char *nom)</td></tr>
 <tr class="memdesc:aaf2394006b36a7baaca2201c6f631528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un personnage dans la liste des personnages à sélectionner.  <br /></td></tr>
 <tr class="separator:aaf2394006b36a7baaca2201c6f631528"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,57 +249,148 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>precedent</b> (int *t
 <tr class="memitem:a35e6ff38b92bfd325d974c5506c2cefe"><td class="memItemLeft" align="right" valign="top">SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a35e6ff38b92bfd325d974c5506c2cefe">creer_texture</a> (char *chemin)</td></tr>
 <tr class="memdesc:a35e6ff38b92bfd325d974c5506c2cefe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créée une SDL_Texture à partir du chemin vers une image.  <br /></td></tr>
 <tr class="separator:a35e6ff38b92bfd325d974c5506c2cefe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fe46bf877a906effed85270fa2e2853"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a1fe46bf877a906effed85270fa2e2853">chemin_perso</a> (void)</td></tr>
-<tr class="memdesc:a1fe46bf877a906effed85270fa2e2853"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie le chemin du fichier en fonctiondu personnage choisi par l'utilisateur.  <br /></td></tr>
-<tr class="separator:a1fe46bf877a906effed85270fa2e2853"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a483a1f83a3122f47480f78c46d7eb18f"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a483a1f83a3122f47480f78c46d7eb18f">chemin_perso</a> ()</td></tr>
+<tr class="memdesc:a483a1f83a3122f47480f78c46d7eb18f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie le chemin du fichier en fonctiondu personnage choisi par l'utilisateur.  <br /></td></tr>
+<tr class="separator:a483a1f83a3122f47480f78c46d7eb18f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea1061279af7e5de139efe3e964a4d35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#aea1061279af7e5de139efe3e964a4d35">detruit_img</a> (int indice)</td></tr>
 <tr class="memdesc:aea1061279af7e5de139efe3e964a4d35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détruit une texture correspondant à une image.  <br /></td></tr>
 <tr class="separator:aea1061279af7e5de139efe3e964a4d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74ec3bc2d01071a33fd8c5154c71702b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a74ec3bc2d01071a33fd8c5154c71702b">detruit_texte</a> (int indice)</td></tr>
-<tr class="memdesc:a74ec3bc2d01071a33fd8c5154c71702b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détruit une texture correspondant à du texte.  <br /></td></tr>
-<tr class="separator:a74ec3bc2d01071a33fd8c5154c71702b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd3d86d68506472175d3af5d5d6f828c"><td class="memItemLeft" align="right" valign="top"><a id="acd3d86d68506472175d3af5d5d6f828c" name="acd3d86d68506472175d3af5d5d6f828c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>detruit_tout</b> (void)</td></tr>
-<tr class="memdesc:acd3d86d68506472175d3af5d5d6f828c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détruit tous les textes et les images présentes dans le menu. <br /></td></tr>
-<tr class="separator:acd3d86d68506472175d3af5d5d6f828c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d2269d34d087febc733b76517911ce6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a1d2269d34d087febc733b76517911ce6">maj_texte</a> (<a class="el" href="structtexte__t.html">texte_t</a> *texte, char *nouveau)</td></tr>
+<tr class="memdesc:a1d2269d34d087febc733b76517911ce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour le <a class="el" href="structtexte__t.html" title="Permet de stocker la position, la texture et le texte d&#39;un élément texte du menu.">texte_t</a> en paramètre pour que sa nouvelle chaîne de caractère soit le deuxième paramètre.  <br /></td></tr>
+<tr class="separator:a1d2269d34d087febc733b76517911ce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebccab41e7572002d2ea636171873ec3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#aebccab41e7572002d2ea636171873ec3">creer_texte</a> (<a class="el" href="structtexte__t.html">texte_t</a> *texte, char *txt)</td></tr>
-<tr class="memdesc:aebccab41e7572002d2ea636171873ec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créée une SDL_Texture de type texte avec le texte passé en paramètre et la stocke dans le tableau de <a class="el" href="structtexte__t.html">texte_t</a>.  <br /></td></tr>
+<tr class="memdesc:aebccab41e7572002d2ea636171873ec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créée une SDL_Texture de type texte en blanc avec le texte passé en paramètre et la stocke dans le tableau de <a class="el" href="structtexte__t.html" title="Permet de stocker la position, la texture et le texte d&#39;un élément texte du menu.">texte_t</a>.  <br /></td></tr>
 <tr class="separator:aebccab41e7572002d2ea636171873ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f89f3b6074d5262ee22f84352d0bd7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a2f89f3b6074d5262ee22f84352d0bd7e">creer_image</a> (<a class="el" href="structimg__t.html">img_t</a> *image, char *nomfich)</td></tr>
-<tr class="memdesc:a2f89f3b6074d5262ee22f84352d0bd7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créée une SDL_Texture avec le chemin vers l'image passé en paramètre et la stocke dans le tableau de <a class="el" href="structimg__t.html">img_t</a>.  <br /></td></tr>
-<tr class="separator:a2f89f3b6074d5262ee22f84352d0bd7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae19f9a136d27a74cfd6dcf9c1f8e56bc"><td class="memItemLeft" align="right" valign="top"><a id="ae19f9a136d27a74cfd6dcf9c1f8e56bc" name="ae19f9a136d27a74cfd6dcf9c1f8e56bc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>afficher_texte</b> (void)</td></tr>
-<tr class="memdesc:ae19f9a136d27a74cfd6dcf9c1f8e56bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche toutes les textures texte chargées dans le tableau de <a class="el" href="structtexte__t.html">texte_t</a>. <br /></td></tr>
-<tr class="separator:ae19f9a136d27a74cfd6dcf9c1f8e56bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c1e37876e5dd86bb72d9dd52eca4aca"><td class="memItemLeft" align="right" valign="top"><a id="a7c1e37876e5dd86bb72d9dd52eca4aca" name="a7c1e37876e5dd86bb72d9dd52eca4aca"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>afficher_image</b> (void)</td></tr>
-<tr class="memdesc:a7c1e37876e5dd86bb72d9dd52eca4aca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche toutes les textures images chargées dans le tableau de <a class="el" href="structimg__t.html">img_t</a>. <br /></td></tr>
-<tr class="separator:a7c1e37876e5dd86bb72d9dd52eca4aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed94b144795318ca3812adf681cd9171"><td class="memItemLeft" align="right" valign="top"><a id="aed94b144795318ca3812adf681cd9171" name="aed94b144795318ca3812adf681cd9171"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>modif_nom</b> (void)</td></tr>
-<tr class="memdesc:aed94b144795318ca3812adf681cd9171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour l'affichage du nom du joueur à chaque caractère saisi par l'utilisateur en détruisant et recréant la texture de texte. <br /></td></tr>
-<tr class="separator:aed94b144795318ca3812adf681cd9171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42e58d32308c947a7d50536bcd924478"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a42e58d32308c947a7d50536bcd924478">creer_texte_rouge</a> (<a class="el" href="structtexte__t.html">texte_t</a> *texte, char *txt)</td></tr>
+<tr class="memdesc:a42e58d32308c947a7d50536bcd924478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créée une SDL_Texture de type texte en rouge avec le texte passé en paramètre et la stocke dans le tableau de <a class="el" href="structtexte__t.html" title="Permet de stocker la position, la texture et le texte d&#39;un élément texte du menu.">texte_t</a>.  <br /></td></tr>
+<tr class="separator:a42e58d32308c947a7d50536bcd924478"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af52005fab18bc3d9aff649451884c0c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#af52005fab18bc3d9aff649451884c0c3">creer_image</a> (<a class="el" href="structimg__t.html">img_t</a> *image, char *nomFich)</td></tr>
+<tr class="memdesc:af52005fab18bc3d9aff649451884c0c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créée une SDL_Texture avec le chemin vers l'image passé en paramètre et la stocke dans le tableau de <a class="el" href="structimg__t.html" title="Permet de stocker la position et la texture d&#39;un élément image du menu.">img_t</a>.  <br /></td></tr>
+<tr class="separator:af52005fab18bc3d9aff649451884c0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14e2d7dec788ac1d5858a8ca8ef06452"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a14e2d7dec788ac1d5858a8ca8ef06452">menu</a> (char *classe)</td></tr>
 <tr class="memdesc:a14e2d7dec788ac1d5858a8ca8ef06452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui appelle toutes les précédentes pour créer le menu fonctionnel. Boucle principale de gestion d'événements SDL pour gérer les interractions avec l'utilisateur.  <br /></td></tr>
 <tr class="separator:a14e2d7dec788ac1d5858a8ca8ef06452"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41e5754cb0fc110125d3e438321a0aea"><td class="memItemLeft" align="right" valign="top"><a id="a41e5754cb0fc110125d3e438321a0aea" name="a41e5754cb0fc110125d3e438321a0aea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>saisie_touche_ip</b> (SDL_Keycode touche, int *nbCar, char *saisie)</td></tr>
-<tr class="memdesc:a41e5754cb0fc110125d3e438321a0aea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de mettre à jour l'adresse ip saisie avec les touches du keypad et du clavier normal. <br /></td></tr>
-<tr class="separator:a41e5754cb0fc110125d3e438321a0aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeab1dfc8b04f931a367fa00f951400e7"><td class="memItemLeft" align="right" valign="top"><a id="aeab1dfc8b04f931a367fa00f951400e7" name="aeab1dfc8b04f931a367fa00f951400e7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_rejoindre</b> (void)</td></tr>
-<tr class="separator:aeab1dfc8b04f931a367fa00f951400e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6eb1dc858d1fdb422713ef2ed47083e"><td class="memItemLeft" align="right" valign="top"><a id="ad6eb1dc858d1fdb422713ef2ed47083e" name="ad6eb1dc858d1fdb422713ef2ed47083e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_menu</b> (int tabBouton[], int bouton_choisi)</td></tr>
-<tr class="separator:ad6eb1dc858d1fdb422713ef2ed47083e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9f71744468a4d3039d735664288dbe7"><td class="memItemLeft" align="right" valign="top"><a id="ad9f71744468a4d3039d735664288dbe7" name="ad9f71744468a4d3039d735664288dbe7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_param</b> ()</td></tr>
-<tr class="separator:ad9f71744468a4d3039d735664288dbe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Création du menu principal du jeu. </p>
-</div><h2 class="groupheader">Function Documentation</h2>
+<dl class="section author"><dt>Author</dt><dd>Ilann </dd></dl>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="aad2aa8e62ae5a2e61dfc7bc6b9bb4884" name="aad2aa8e62ae5a2e61dfc7bc6b9bb4884"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad2aa8e62ae5a2e61dfc7bc6b9bb4884">&#9670;&#160;</a></span>position_menu</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884">position_menu</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Correspondant à la position du joueur dans le menu. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aad2aa8e62ae5a2e61dfc7bc6b9bb4884ad84154820fb7cc5480aa99b8e888ef2e" name="aad2aa8e62ae5a2e61dfc7bc6b9bb4884ad84154820fb7cc5480aa99b8e888ef2e"></a>MENU_PRINCIPAL&#160;</td><td class="fielddoc"><p>le joueur se trouve dans la page d'accueil du menu </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aad2aa8e62ae5a2e61dfc7bc6b9bb4884a88698741172e257076635288d2f0ec24" name="aad2aa8e62ae5a2e61dfc7bc6b9bb4884a88698741172e257076635288d2f0ec24"></a>DANS_PARAM&#160;</td><td class="fielddoc"><p>le joueur se trouve dans les paramètres du menu </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aad2aa8e62ae5a2e61dfc7bc6b9bb4884ac7ed3876128db273870b43cb36d92da3" name="aad2aa8e62ae5a2e61dfc7bc6b9bb4884ac7ed3876128db273870b43cb36d92da3"></a>DANS_JOUER&#160;</td><td class="fielddoc"><p>le joueur se trouve dans l'option jouer </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aad2aa8e62ae5a2e61dfc7bc6b9bb4884adfe6379b03614e58bf9b12ebe003de31" name="aad2aa8e62ae5a2e61dfc7bc6b9bb4884adfe6379b03614e58bf9b12ebe003de31"></a>DANS_CREER&#160;</td><td class="fielddoc"><p>le joueur se trouve dans l'option créer </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aad2aa8e62ae5a2e61dfc7bc6b9bb4884a1218c0e71408de75a05144ebe201f56a" name="aad2aa8e62ae5a2e61dfc7bc6b9bb4884a1218c0e71408de75a05144ebe201f56a"></a>DANS_REJOINDRE&#160;</td><td class="fielddoc"><p>le joueur se trouve dans l'option rejoindre </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aad2aa8e62ae5a2e61dfc7bc6b9bb4884ad485cf6825df25b48fa2236a04f955e2" name="aad2aa8e62ae5a2e61dfc7bc6b9bb4884ad485cf6825df25b48fa2236a04f955e2"></a>BAD_IP&#160;</td><td class="fielddoc"><p>le joueur a tenté de valider une adresse ip invalide </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aad2aa8e62ae5a2e61dfc7bc6b9bb4884ae6f65253a2e082e935efcf4ba514e3e0" name="aad2aa8e62ae5a2e61dfc7bc6b9bb4884ae6f65253a2e082e935efcf4ba514e3e0"></a>BAD_NAME&#160;</td><td class="fielddoc"><p>le joueur veut jouer sans avoir saisi de nom </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aad2aa8e62ae5a2e61dfc7bc6b9bb4884af90d74c1d646dc38cc3b744ad93e0d5a" name="aad2aa8e62ae5a2e61dfc7bc6b9bb4884af90d74c1d646dc38cc3b744ad93e0d5a"></a>SORTIE_MENU&#160;</td><td class="fielddoc"><p>le joueur quitte le menu </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ae87895a2e22bf885f35e829f163c4990" name="ae87895a2e22bf885f35e829f163c4990"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae87895a2e22bf885f35e829f163c4990">&#9670;&#160;</a></span>aff_menu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void aff_menu </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="menu_8h.html#aad2aa8e62ae5a2e61dfc7bc6b9bb4884">position_menu</a> *&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tabBouton</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>bouton_choisi</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affiche le menu correspondant à l'endroit où l'on se trouve. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>L'endroit où l'on se trouve dans le menu </td></tr>
+    <tr><td class="paramname">tabBouton</td><td>Un tableau d'entier contenant les indices correspondant aux boutons de la page du menu sélectionné </td></tr>
+    <tr><td class="paramname">bouton_choisi</td><td>Un entier. En faisant tabBouton[bouton_choisi], on obtient l'indice du bouton qui est actuellement sélectionné </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1b9b82576d4745e7750d378fc20d911e" name="a1b9b82576d4745e7750d378fc20d911e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b9b82576d4745e7750d378fc20d911e">&#9670;&#160;</a></span>affiche_menu_accueil()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affiche_menu_accueil </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tabBouton</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>bouton_choisi</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affiche la page d'accueil du menu en mettant le bouton sélectionné en couleur. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tabBouton</td><td>Un tableau d'entier contenant les indices correspondant aux boutons de la page d'accueil du menu </td></tr>
+    <tr><td class="paramname">bouton_choisi</td><td>Un entier. En faisant tabBouton[bouton_choisi], on obtient l'indice du bouton qui est actuellement sélectionné </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="aaf2394006b36a7baaca2201c6f631528" name="aaf2394006b36a7baaca2201c6f631528"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaf2394006b36a7baaca2201c6f631528">&#9670;&#160;</a></span>ajout_personnage()</h2>
 
@@ -317,8 +417,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_param</b> ()<
 
 </div>
 </div>
-<a id="a1fe46bf877a906effed85270fa2e2853" name="a1fe46bf877a906effed85270fa2e2853"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fe46bf877a906effed85270fa2e2853">&#9670;&#160;</a></span>chemin_perso()</h2>
+<a id="a483a1f83a3122f47480f78c46d7eb18f" name="a483a1f83a3122f47480f78c46d7eb18f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a483a1f83a3122f47480f78c46d7eb18f">&#9670;&#160;</a></span>chemin_perso()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -326,7 +426,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_param</b> ()<
         <tr>
           <td class="memname">char * chemin_perso </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -338,8 +437,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_param</b> ()<
 
 </div>
 </div>
-<a id="aa173bbcb3a4b8d8995a371fda25dc143" name="aa173bbcb3a4b8d8995a371fda25dc143"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa173bbcb3a4b8d8995a371fda25dc143">&#9670;&#160;</a></span>clear_ecran()</h2>
+<a id="ab5c748e606ffc005472b35c553849d0a" name="ab5c748e606ffc005472b35c553849d0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5c748e606ffc005472b35c553849d0a">&#9670;&#160;</a></span>clear_ecran()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -347,19 +446,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_param</b> ()<
         <tr>
           <td class="memname">void clear_ecran </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>met à jour l'affichage à l'écran : affichage l'image de fond et supprime toutes les textures qui étaient affichées à l'écran </p>
+<p>Enlève toutes les textures présentes sur l'écran et met l'arrière plan du menu en fond. </p>
 
 </div>
 </div>
-<a id="a2f89f3b6074d5262ee22f84352d0bd7e" name="a2f89f3b6074d5262ee22f84352d0bd7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f89f3b6074d5262ee22f84352d0bd7e">&#9670;&#160;</a></span>creer_image()</h2>
+<a id="af52005fab18bc3d9aff649451884c0c3" name="af52005fab18bc3d9aff649451884c0c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af52005fab18bc3d9aff649451884c0c3">&#9670;&#160;</a></span>creer_image()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -374,7 +472,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_param</b> ()<
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>nomfich</em>&#160;</td>
+          <td class="paramname"><em>nomFich</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -384,10 +482,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_param</b> ()<
       </table>
 </div><div class="memdoc">
 
-<p>Créée une SDL_Texture avec le chemin vers l'image passé en paramètre et la stocke dans le tableau de <a class="el" href="structimg__t.html">img_t</a>. </p>
+<p>Créée une SDL_Texture avec le chemin vers l'image passé en paramètre et la stocke dans le tableau de <a class="el" href="structimg__t.html" title="Permet de stocker la position et la texture d&#39;un élément image du menu.">img_t</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">image</td><td>Le tableau de <a class="el" href="structtexte__t.html">texte_t</a> où sont stockées toutes les textures de type texte </td></tr>
+    <tr><td class="paramname">image</td><td>Le tableau de <a class="el" href="structtexte__t.html" title="Permet de stocker la position, la texture et le texte d&#39;un élément texte du menu.">texte_t</a> où sont stockées toutes les textures de type texte </td></tr>
     <tr><td class="paramname">nomfich</td><td>Le chemin vers l'image que l'on veut créer </td></tr>
   </table>
   </dd>
@@ -421,10 +519,47 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_param</b> ()<
       </table>
 </div><div class="memdoc">
 
-<p>Créée une SDL_Texture de type texte avec le texte passé en paramètre et la stocke dans le tableau de <a class="el" href="structtexte__t.html">texte_t</a>. </p>
+<p>Créée une SDL_Texture de type texte en blanc avec le texte passé en paramètre et la stocke dans le tableau de <a class="el" href="structtexte__t.html" title="Permet de stocker la position, la texture et le texte d&#39;un élément texte du menu.">texte_t</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">texte</td><td>Le tableau de <a class="el" href="structtexte__t.html">texte_t</a> où sont stockées toutes les textures de type texte </td></tr>
+    <tr><td class="paramname">texte</td><td>Le tableau de <a class="el" href="structtexte__t.html" title="Permet de stocker la position, la texture et le texte d&#39;un élément texte du menu.">texte_t</a> où sont stockées toutes les textures de type texte </td></tr>
+    <tr><td class="paramname">txt</td><td>Le texte que l'on veut créer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a42e58d32308c947a7d50536bcd924478" name="a42e58d32308c947a7d50536bcd924478"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42e58d32308c947a7d50536bcd924478">&#9670;&#160;</a></span>creer_texte_rouge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void creer_texte_rouge </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtexte__t.html">texte_t</a> *&#160;</td>
+          <td class="paramname"><em>texte</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>txt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Créée une SDL_Texture de type texte en rouge avec le texte passé en paramètre et la stocke dans le tableau de <a class="el" href="structtexte__t.html" title="Permet de stocker la position, la texture et le texte d&#39;un élément texte du menu.">texte_t</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texte</td><td>Le tableau de <a class="el" href="structtexte__t.html" title="Permet de stocker la position, la texture et le texte d&#39;un élément texte du menu.">texte_t</a> où sont stockées toutes les textures de type texte </td></tr>
     <tr><td class="paramname">txt</td><td>Le texte que l'on veut créer </td></tr>
   </table>
   </dd>
@@ -485,26 +620,37 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_param</b> ()<
 
 </div>
 </div>
-<a id="a74ec3bc2d01071a33fd8c5154c71702b" name="a74ec3bc2d01071a33fd8c5154c71702b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74ec3bc2d01071a33fd8c5154c71702b">&#9670;&#160;</a></span>detruit_texte()</h2>
+<a id="a1d2269d34d087febc733b76517911ce6" name="a1d2269d34d087febc733b76517911ce6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d2269d34d087febc733b76517911ce6">&#9670;&#160;</a></span>maj_texte()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void detruit_texte </td>
+          <td class="memname">void maj_texte </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>indice</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structtexte__t.html">texte_t</a> *&#160;</td>
+          <td class="paramname"><em>texte</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>nouveau</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Détruit une texture correspondant à du texte. </p>
+<p>Met à jour le <a class="el" href="structtexte__t.html" title="Permet de stocker la position, la texture et le texte d&#39;un élément texte du menu.">texte_t</a> en paramètre pour que sa nouvelle chaîne de caractère soit le deuxième paramètre. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">indice</td><td>L'indice de la texture du tableau de textes que l'on veut détruire </td></tr>
+    <tr><td class="paramname">texte</td><td>Un pointeur sur <a class="el" href="structtexte__t.html" title="Permet de stocker la position, la texture et le texte d&#39;un élément texte du menu.">texte_t</a> qui va être modifié si le nouveau texte est différent de l'actuel </td></tr>
+    <tr><td class="paramname">nouveau</td><td>Une chaîne de caractère qui sera affichée à la place de l'ancienne </td></tr>
   </table>
   </dd>
 </dl>
@@ -528,28 +674,57 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>affiche_param</b> ()<
 </div><div class="memdoc">
 
 <p>Fonction qui appelle toutes les précédentes pour créer le menu fonctionnel. Boucle principale de gestion d'événements SDL pour gérer les interractions avec l'utilisateur. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">classe</td><td>Sert à renvoyer la classe choisie par le joueur </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>Renvoie -1 si on quitte le menu avec echap ; 0 si on joue au jeu ; 1 si on est juste serveur ; 2 si on est serveur et joueur en même temps </dd></dl>
 
 </div>
 </div>
-<a id="a66a254cacf81e15e5f89f7d6d6f7f806" name="a66a254cacf81e15e5f89f7d6d6f7f806"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66a254cacf81e15e5f89f7d6d6f7f806">&#9670;&#160;</a></span>valider_ip()</h2>
+<a id="a41e5754cb0fc110125d3e438321a0aea" name="a41e5754cb0fc110125d3e438321a0aea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41e5754cb0fc110125d3e438321a0aea">&#9670;&#160;</a></span>saisie_touche_ip()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int valider_ip </td>
+          <td class="memname">void saisie_touche_ip </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>ip</em></td><td>)</td>
+          <td class="paramtype">SDL_Keycode&#160;</td>
+          <td class="paramname"><em>touche</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>nbCar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>saisie</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Renvoie un entier 1 ou 0 pour savoir si l'adresse ip rentrée en paramètre est valide. </p>
-<dl class="section return"><dt>Returns</dt><dd>Un entier </dd></dl>
+<p>Permet de mettre à jour l'adresse ip saisie avec les touches du keypad et du clavier normal. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">touche</td><td>La dernière touche pressée </td></tr>
+    <tr><td class="paramname">nbCar</td><td>Le nombre de caractères que contient l'ip </td></tr>
+    <tr><td class="paramname">saisie</td><td>L'ip qui va être modifiée </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

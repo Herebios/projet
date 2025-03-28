@@ -3,8 +3,10 @@ var indexSectionsWithContent =
   0: "abcdefijlmnoprstuv",
   1: "bcefilmopst",
   2: "fjlmops",
-  3: "acdfijmnprsuv",
-  4: "imnprstv"
+  3: "acdfijmnprsu",
+  4: "cimnprstv",
+  5: "p",
+  6: "bdms"
 };
 
 var indexSectionNames =
@@ -13,7 +15,9 @@ var indexSectionNames =
   1: "classes",
   2: "files",
   3: "functions",
-  4: "variables"
+  4: "variables",
+  5: "enums",
+  6: "enumvalues"
 };
 
 var indexSectionLabels =
@@ -22,6 +26,8 @@ var indexSectionLabels =
   1: "Classes",
   2: "Files",
   3: "Functions",
-  4: "Variables"
+  4: "Variables",
+  5: "Enumerations",
+  6: "Enumerator"
 };
 

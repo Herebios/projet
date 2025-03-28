@@ -172,16 +172,27 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init_jeu</b> (void)</
 <tr class="separator:a39f07d6ddf2971c2bb06c57e34c712ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bc667978c3923daf59f71d047b6c127"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jeu_8h.html#a4bc667978c3923daf59f71d047b6c127">init_tuile</a> (<a class="el" href="structtuile__t.html">tuile_t</a> *, nom_biome_t, int, int)</td></tr>
 <tr class="separator:a4bc667978c3923daf59f71d047b6c127"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a566f82de4dc2cae01d20bd0c9de30053"><td class="memItemLeft" align="right" valign="top"><a id="a566f82de4dc2cae01d20bd0c9de30053" name="a566f82de4dc2cae01d20bd0c9de30053"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ajouter_objet_tuile</b> (<a class="el" href="structtuile__t.html">tuile_t</a> *t, int ind_o, <a class="el" href="structpos__t.html">pos_t</a> pos_tuile)</td></tr>
+<tr class="memitem:a02f0e8b6fae65f306a6172d73db37400"><td class="memItemLeft" align="right" valign="top"><a id="a02f0e8b6fae65f306a6172d73db37400" name="a02f0e8b6fae65f306a6172d73db37400"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>detruire_tuile</b> (<a class="el" href="structtuile__t.html">tuile_t</a> *, int mode)</td></tr>
+<tr class="separator:a02f0e8b6fae65f306a6172d73db37400"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a566f82de4dc2cae01d20bd0c9de30053"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jeu_8h.html#a566f82de4dc2cae01d20bd0c9de30053">ajouter_objet_tuile</a> (<a class="el" href="structtuile__t.html">tuile_t</a> *t, int ind_o, <a class="el" href="structpos__t.html">pos_t</a> pos_tuile)</td></tr>
 <tr class="separator:a566f82de4dc2cae01d20bd0c9de30053"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea7f7d4d47b861dbb95f9bd63e12d234"><td class="memItemLeft" align="right" valign="top"><a id="aea7f7d4d47b861dbb95f9bd63e12d234" name="aea7f7d4d47b861dbb95f9bd63e12d234"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>retirer_objet_tuile</b> (<a class="el" href="structtuile__t.html">tuile_t</a> *t, int ind_o)</td></tr>
 <tr class="memdesc:aea7f7d4d47b861dbb95f9bd63e12d234"><td class="mdescLeft">&#160;</td><td class="mdescRight">! bug possible si 2 objets identiques sur la même tuile <br /></td></tr>
 <tr class="separator:aea7f7d4d47b861dbb95f9bd63e12d234"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2703fd1ee03c7cd6ab3dc5e012d5a171"><td class="memItemLeft" align="right" valign="top"><a id="a2703fd1ee03c7cd6ab3dc5e012d5a171" name="a2703fd1ee03c7cd6ab3dc5e012d5a171"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ajouter_joueur_tuile</b> (<a class="el" href="structtuile__t.html">tuile_t</a> *t, int ind_j)</td></tr>
+<tr class="separator:a2703fd1ee03c7cd6ab3dc5e012d5a171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a409e64a29fbb0048c6fae66beff52ce3"><td class="memItemLeft" align="right" valign="top"><a id="a409e64a29fbb0048c6fae66beff52ce3" name="a409e64a29fbb0048c6fae66beff52ce3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>retirer_joueur_tuile</b> (<a class="el" href="structtuile__t.html">tuile_t</a> *t, int ind_j)</td></tr>
+<tr class="separator:a409e64a29fbb0048c6fae66beff52ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98b069c5bea0fcc0e9aefc99bc851c46"><td class="memItemLeft" align="right" valign="top"><a id="a98b069c5bea0fcc0e9aefc99bc851c46" name="a98b069c5bea0fcc0e9aefc99bc851c46"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>nouv_texture</b> (char *, SDL_Texture *textures[], unsigned char *)</td></tr>
 <tr class="separator:a98b069c5bea0fcc0e9aefc99bc851c46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a308d633cf5120e548e746b2c88a7bd43"><td class="memItemLeft" align="right" valign="top"><a id="a308d633cf5120e548e746b2c88a7bd43" name="a308d633cf5120e548e746b2c88a7bd43"></a>
+SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><b>get_nouv_texture</b> (char *)</td></tr>
+<tr class="separator:a308d633cf5120e548e746b2c88a7bd43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b574f145c07338aa690c97940223413"><td class="memItemLeft" align="right" valign="top"><a id="a7b574f145c07338aa690c97940223413" name="a7b574f145c07338aa690c97940223413"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>inclus</b> (SDL_Rect *a, SDL_Rect *b)</td></tr>
 <tr class="separator:a7b574f145c07338aa690c97940223413"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -224,6 +235,41 @@ SDL_Renderer *&#160;</td><td class="memItemRight" valign="bottom"><b>renderer</b
 <div class="textblock"><p>fonctions pour le jeu communes serv/cli </p>
 <dl class="section author"><dt>Author</dt><dd>Baptiste </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a566f82de4dc2cae01d20bd0c9de30053" name="a566f82de4dc2cae01d20bd0c9de30053"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a566f82de4dc2cae01d20bd0c9de30053">&#9670;&#160;</a></span>ajouter_objet_tuile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ajouter_objet_tuile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtuile__t.html">tuile_t</a> *&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ind_o</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpos__t.html">pos_t</a>&#160;</td>
+          <td class="paramname"><em>pos_tuile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>!verifier</p>
+
+</div>
+</div>
 <a id="a8bf0b65ac066bc3f4fc9721527903d6b" name="a8bf0b65ac066bc3f4fc9721527903d6b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8bf0b65ac066bc3f4fc9721527903d6b">&#9670;&#160;</a></span>init_biomes()</h2>
 

@@ -44,14 +44,25 @@ void \mbox{\hyperlink{jeu_8h_a39f07d6ddf2971c2bb06c57e34c712ae}{init\+\_\+map}} 
 \item 
 void \mbox{\hyperlink{jeu_8h_a4bc667978c3923daf59f71d047b6c127}{init\+\_\+tuile}} (\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*}, nom\+\_\+biome\+\_\+t, int, int)
 \item 
-\Hypertarget{jeu_8h_a566f82de4dc2cae01d20bd0c9de30053}\label{jeu_8h_a566f82de4dc2cae01d20bd0c9de30053} 
-void {\bfseries ajouter\+\_\+objet\+\_\+tuile} (\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*}t, int ind\+\_\+o, \mbox{\hyperlink{structpos__t}{pos\+\_\+t}} pos\+\_\+tuile)
+\Hypertarget{jeu_8h_a02f0e8b6fae65f306a6172d73db37400}\label{jeu_8h_a02f0e8b6fae65f306a6172d73db37400} 
+void {\bfseries detruire\+\_\+tuile} (\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*}, int mode)
+\item 
+void \mbox{\hyperlink{jeu_8h_a566f82de4dc2cae01d20bd0c9de30053}{ajouter\+\_\+objet\+\_\+tuile}} (\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*}t, int ind\+\_\+o, \mbox{\hyperlink{structpos__t}{pos\+\_\+t}} pos\+\_\+tuile)
 \item 
 \Hypertarget{jeu_8h_aea7f7d4d47b861dbb95f9bd63e12d234}\label{jeu_8h_aea7f7d4d47b861dbb95f9bd63e12d234} 
 void {\bfseries retirer\+\_\+objet\+\_\+tuile} (\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*}t, int ind\+\_\+o)
 \begin{DoxyCompactList}\small\item\em ! bug possible si 2 objets identiques sur la même tuile \end{DoxyCompactList}\item 
+\Hypertarget{jeu_8h_a2703fd1ee03c7cd6ab3dc5e012d5a171}\label{jeu_8h_a2703fd1ee03c7cd6ab3dc5e012d5a171} 
+void {\bfseries ajouter\+\_\+joueur\+\_\+tuile} (\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*}t, int ind\+\_\+j)
+\item 
+\Hypertarget{jeu_8h_a409e64a29fbb0048c6fae66beff52ce3}\label{jeu_8h_a409e64a29fbb0048c6fae66beff52ce3} 
+void {\bfseries retirer\+\_\+joueur\+\_\+tuile} (\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*}t, int ind\+\_\+j)
+\item 
 \Hypertarget{jeu_8h_a98b069c5bea0fcc0e9aefc99bc851c46}\label{jeu_8h_a98b069c5bea0fcc0e9aefc99bc851c46} 
 void {\bfseries nouv\+\_\+texture} (char \texorpdfstring{$\ast$}{*}, SDL\+\_\+\+Texture \texorpdfstring{$\ast$}{*}textures\mbox{[}$\,$\mbox{]}, unsigned char \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{jeu_8h_a308d633cf5120e548e746b2c88a7bd43}\label{jeu_8h_a308d633cf5120e548e746b2c88a7bd43} 
+SDL\+\_\+\+Texture \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+nouv\+\_\+texture} (char \texorpdfstring{$\ast$}{*})
 \item 
 \Hypertarget{jeu_8h_a7b574f145c07338aa690c97940223413}\label{jeu_8h_a7b574f145c07338aa690c97940223413} 
 int {\bfseries inclus} (SDL\+\_\+\+Rect \texorpdfstring{$\ast$}{*}a, SDL\+\_\+\+Rect \texorpdfstring{$\ast$}{*}b)
@@ -100,7 +111,13 @@ Baptiste
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{jeu_8h_a8bf0b65ac066bc3f4fc9721527903d6b}\label{jeu_8h_a8bf0b65ac066bc3f4fc9721527903d6b} 
+\Hypertarget{jeu_8h_a566f82de4dc2cae01d20bd0c9de30053}\label{jeu_8h_a566f82de4dc2cae01d20bd0c9de30053} 
+\index{jeu.h@{jeu.h}!ajouter\_objet\_tuile@{ajouter\_objet\_tuile}}
+\index{ajouter\_objet\_tuile@{ajouter\_objet\_tuile}!jeu.h@{jeu.h}}
+\doxysubsubsection{\texorpdfstring{ajouter\_objet\_tuile()}{ajouter\_objet\_tuile()}}
+{\footnotesize\ttfamily void ajouter\+\_\+objet\+\_\+tuile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{t,  }\item[{int}]{ind\+\_\+o,  }\item[{\mbox{\hyperlink{structpos__t}{pos\+\_\+t}}}]{pos\+\_\+tuile }\end{DoxyParamCaption})}
+
+!verifier\Hypertarget{jeu_8h_a8bf0b65ac066bc3f4fc9721527903d6b}\label{jeu_8h_a8bf0b65ac066bc3f4fc9721527903d6b} 
 \index{jeu.h@{jeu.h}!init\_biomes@{init\_biomes}}
 \index{init\_biomes@{init\_biomes}!jeu.h@{jeu.h}}
 \doxysubsubsection{\texorpdfstring{init\_biomes()}{init\_biomes()}}
