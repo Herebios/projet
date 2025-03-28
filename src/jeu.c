@@ -22,10 +22,16 @@ pos_t deplacement[8] = {
     {1,-1}  // HAUT_DROITE
 };
 
-void detruire_tuile(tuile_t *t){
-	detruire_liste(&t->liste_joueurs);
-	detruire_liste(&t->liste_objets);
-	detruire_liste(&t->liste_mobs);
+void detruire_tuile(tuile_t *t, int mode){
+	if(mode==0){
+		detruire_liste(&t->liste_joueurs);
+		detruire_liste(&t->liste_objets);
+		detruire_liste(&t->liste_mobs);
+	}else{
+		vider_liste(t->liste_joueurs);
+		vider_liste(t->liste_objets);
+		vider_liste(t->liste_mobs);
+	}
 }
 
 void end(int code){
@@ -39,7 +45,7 @@ void end(int code){
 
 	for(i=0; i<HAUTEUR_MAP; i++)
 		for(j=0; j<LARGEUR_MAP; j++)
-			detruire_tuile(map[i] + j);
+			detruire_tuile(map[i] + j, 0);
 
     if (renderer)
         SDL_DestroyRenderer(renderer);
@@ -186,6 +192,21 @@ void retirer_objet_tuile(tuile_t * t, int ind_o){
 		obj=get_liste(t->liste_objets);
 		if(obj->objet->ind == ind_o){
 			supprimer_liste(t->liste_objets);
+			return;
+		}
+	}
+}
+
+void ajouter_joueur_tuile(tuile_t * t, int ind){
+	ajout_gauche_liste(t->liste_joueurs, &ind, sizeof(int));
+}
+
+void retirer_joueur_tuile(tuile_t * t, int ind_j){
+	int *ind_lu;
+	for(tete_liste(t->liste_joueurs); !hors_liste(t->liste_joueurs); suivant_liste(t->liste_joueurs)){
+		ind_lu = get_liste(t->liste_joueurs);
+		if(*ind_lu == ind_j){
+			supprimer_liste(t->liste_joueurs);
 			return;
 		}
 	}

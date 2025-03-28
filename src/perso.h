@@ -26,7 +26,7 @@ typedef struct perso_s{
 	comp_t * competences[NB_COMP];//icomp_t indice
 	objet_t * objets[PERSO_OBJETS_MAX];//pointeurs sur les objets statiques
 
-	octet iperso, equipe;
+	unsigned char iperso, equipe;
 	SDL_Rect rect;//position tuile
 	pos_t pos_map;//position map, indices pour map[][]
 }perso_t;
@@ -70,13 +70,13 @@ void update_stats(perso_t *);
  * @param Pointeur sur perso
  * @param Indice de l'objet dans tab_objets
  */
-void ajouter_objet(perso_t *, int);
+void ajouter_objet_joueur(perso_t *, int);
 
 /**
  * @brief Retire un objet de l'inventaire du joueur
  * @param Pointeur sur perso
  * @param Indice de l'objet dans l'inventaire
  */
-void retirer_objet(perso_t *, int);
+void retirer_objet_joueur(perso_t *, int);
 
 #endif

@@ -53,6 +53,12 @@ void supprimer_liste(liste *l) {
 	temp=NULL;
 }
 
+void vider_liste(liste *l){
+    if(!l)return;
+    for(tete_liste(l);!hors_liste(l);suivant_liste(l))
+        supprimer_liste(l);
+}
+
 void detruire_liste(liste **l){
 	if(*l){
 		for(tete_liste(*l);!hors_liste(*l);suivant_liste(*l))
