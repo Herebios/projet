@@ -104,3 +104,25 @@ int taille_liste(liste *l){
 	for(tete_liste(l);!hors_liste(l);suivant_liste(l)) t++;
 	return t;
 }
+
+void parcour_liste(liste * l, void* objet, int (*comparer)(void*, void*)){
+	tete_liste(l);
+	while (!hors_liste(l) && comparer(objet, get_liste(l)) != 0){
+		suivant_liste(l);
+	}
+}
+
+void * trouver_liste(liste *l, void* objet, int (*comparer)(void*, void*)){
+	parcour_liste(l, objet, comparer);
+	return (!hors_liste(l)) ? get_liste(l) : NULL;
+}
+
+void * trouver_supprimer_liste(liste *l, void* objet, int (*comparer)(void*, void*)){
+	parcour_liste(l, objet, comparer);
+	void * ret = get_liste(l);
+	supprimer_liste(l);
+	return ret;
+}
+
+
+

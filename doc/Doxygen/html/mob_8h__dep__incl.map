@@ -1,0 +1,5 @@
+<map id="src/mob.h" name="src/mob.h">
+<area shape="rect" id="Node000001" title="Déclaration des monstres, est inclus dans mob.c." alt="" coords="5,5,92,31"/>
+<area shape="rect" id="Node000002" href="$mob_8c.html" title="fonction permettant le deplacement de monstres" alt="" coords="6,79,91,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="51,44,51,79,46,79,46,44"/>
+</map>

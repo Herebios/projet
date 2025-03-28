@@ -1,0 +1,18 @@
+<map id="src/serv_commun.h" name="src/serv_commun.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="159,5,309,31"/>
+<area shape="rect" id="Node000002" href="$serv__commun_8c.html" title="fonctions communes pour le serv" alt="" coords="5,79,153,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,39,106,81,104,76,196,34"/>
+<area shape="rect" id="Node000003" href="$serv__jeu_8h.html" title=" " alt="" coords="178,79,290,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="237,44,237,79,231,79,231,44"/>
+<area shape="rect" id="Node000007" href="$serv__socket_8h.html" title=" " alt="" coords="315,79,449,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="271,34,359,76,357,81,269,39"/>
+<area shape="rect" id="Node000004" href="$serv_8c.html" title="code principal du serveur" alt="" coords="261,152,343,177"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="256,112,293,150,289,154,253,116"/>
+<area shape="rect" id="Node000006" href="$serv__jeu_8c.html" title="fonctions de contrôle du jeu" alt="" coords="125,152,236,177"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="219,117,191,153,187,150,215,113"/>
+<area shape="rect" id="Node000005" href="$main_8c.html" title=" " alt="" coords="257,225,347,251"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="305,191,305,225,299,225,299,191"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="361,115,317,154,313,150,357,111"/>
+<area shape="rect" id="Node000008" href="$serv__socket_8c.html" title="fonctions socket pour le serv" alt="" coords="367,152,501,177"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="401,114,428,150,423,153,396,117"/>
+</map>

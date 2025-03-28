@@ -1,0 +1,34 @@
+<map id="src/objet.h" name="src/objet.h">
+<area shape="rect" id="Node000001" title="Déclaration des objets, est inclus dans perso.h." alt="" coords="89,5,179,31"/>
+<area shape="rect" id="Node000002" href="$jeu_8h.html" title="fonctions pour le jeu communes serv/cli" alt="" coords="95,152,173,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,45,137,152,131,152,131,45"/>
+<area shape="rect" id="Node000006" href="$serv__jeu_8h.html" title=" " alt="" coords="78,225,190,251"/>
+<area shape="poly" id="edge18_Node000001_Node000006" title=" " alt="" coords="119,44,103,71,88,104,81,141,82,159,86,176,102,203,122,223,118,227,98,206,81,178,76,160,76,140,83,103,98,68,115,41"/>
+<area shape="rect" id="Node000009" href="$perso_8h.html" title="Permet la créations de personnages des joueurs." alt="" coords="214,79,307,104"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="168,35,241,76,239,81,165,40"/>
+<area shape="rect" id="Node000003" href="$cli__jeu_8h_source.html" title=" " alt="" coords="234,225,333,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="171,181,260,223,258,228,169,186"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="137,191,137,225,131,225,131,191"/>
+<area shape="rect" id="Node000004" href="$cli_8c_source.html" title=" " alt="" coords="248,299,319,324"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="286,264,286,299,281,299,281,264"/>
+<area shape="rect" id="Node000005" href="$main_8c.html" title=" " alt="" coords="188,372,277,397"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="269,337,243,373,239,370,265,334"/>
+<area shape="rect" id="Node000007" href="$serv_8c.html" title="code principal du serveur" alt="" coords="141,299,223,324"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="152,261,176,297,172,300,147,264"/>
+<area shape="rect" id="Node000008" href="$serv__jeu_8c.html" title="fonctions de contrôle du jeu" alt="" coords="5,299,116,324"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="114,262,74,300,71,297,110,258"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="201,334,227,370,222,373,196,337"/>
+<area shape="poly" id="edge13_Node000009_Node000002" title=" " alt="" coords="230,113,156,154,153,149,227,108"/>
+<area shape="poly" id="edge17_Node000009_Node000006" title=" " alt="" coords="243,116,146,227,142,223,239,113"/>
+<area shape="rect" id="Node000010" href="$cast_8h_source.html" title=" " alt="" coords="496,152,580,177"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="319,105,496,150,495,155,318,110"/>
+<area shape="rect" id="Node000013" href="$mob_8c.html" title="fonction permettant le deplacement de monstres" alt="" coords="386,152,471,177"/>
+<area shape="poly" id="edge14_Node000009_Node000013" title=" " alt="" coords="301,107,402,149,400,154,299,112"/>
+<area shape="rect" id="Node000014" href="$perso__cli_8h_source.html" title=" " alt="" coords="247,152,362,177"/>
+<area shape="poly" id="edge15_Node000009_Node000014" title=" " alt="" coords="277,114,300,150,295,153,273,117"/>
+<area shape="rect" id="Node000011" href="$cast__client_8h_source.html" title=" " alt="" coords="416,225,543,251"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="522,190,491,227,487,224,518,186"/>
+<area shape="rect" id="Node000012" href="$cast__server_8h_source.html" title=" " alt="" coords="567,225,698,251"/>
+<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="566,183,619,223,616,227,563,188"/>
+<area shape="poly" id="edge16_Node000014_Node000003" title=" " alt="" coords="300,192,289,226,284,224,295,190"/>
+</map>

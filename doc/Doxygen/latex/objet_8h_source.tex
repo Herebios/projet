@@ -1,0 +1,39 @@
+\doxysection{objet.\+h}
+\hypertarget{objet_8h_source}{}\label{objet_8h_source}\index{src/objet.h@{src/objet.h}}
+\mbox{\hyperlink{objet_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ \_OBJET\_H\_}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ \_OBJET\_H\_}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ NB\_OBJETS\ 36}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ NB\_OBJETS\_C\ 14}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ NB\_OBJETS\_R\ 8}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ NB\_OBJETS\_E\ 6}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ NB\_OBJETS\_L\ 8}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ PERSO\_OBJETS\_MAX\ 5}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{commun,\ rare,\ epique,\ legendaire\}\ rarete\_t;}
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{null,\ mult,\ add\}\ priority\_t;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structprio__t_a1ab45943f0cbebd8a8271c7724d14102}{valeur}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ priority\_t\ \mbox{\hyperlink{structprio__t_ab0638192d7bde17c777aef9ec230baa0}{priority}};}
+\DoxyCodeLine{00028\ \}\ \mbox{\hyperlink{structprio__t}{prio\_t}};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structobjet__s}{objet\_s}}\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ \mbox{\hyperlink{structobjet__s_a4875972307817006066767b07a69d1a7}{nom}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ rarete\_t\ \mbox{\hyperlink{structobjet__s_a223126d9cb4f94dfb123c638312ad4bc}{rarete}};\ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{structprio__t}{prio\_t}}\ \mbox{\hyperlink{structobjet__s_a66715db9ff95c0d91e99f8683ed0e833}{stats}}[4];\ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structobjet__s_abfced063c0798964e2feb1892aef0500}{ind}};\ \ }
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structobjet__s}{objet\_t}}\ tab\_objets[NB\_OBJETS];}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{objet_8h_ae466a010a3cb3bab31d108e87222a274}{afficher\_objet}}(\mbox{\hyperlink{structobjet__s}{objet\_t}}\ *);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

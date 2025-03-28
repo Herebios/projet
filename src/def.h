@@ -55,6 +55,7 @@ typedef struct{
     liste * liste_joueurs;
     liste * liste_objets;
     liste * liste_mobs;
+	liste * liste_casts;
 }tuile_t;
 
 #endif

@@ -1,0 +1,7 @@
+<map id="cast_zone_s" name="cast_zone_s">
+<area shape="rect" id="Node000001" title=" " alt="" coords="35,93,136,119"/>
+<area shape="rect" id="Node000002" href="$structcomp__s.html" title=" " alt="" coords="5,5,77,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="51,43,62,68,78,91,73,94,58,71,46,45"/>
+<area shape="rect" id="Node000003" href="$structpos__t.html" title=" " alt="" coords="102,5,159,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="120,44,94,94,89,92,116,42"/>
+</map>

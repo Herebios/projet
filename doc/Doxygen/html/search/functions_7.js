@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['sauv_5fparam_0',['sauv_param',['../menu_8h.html#a8215921ddd87e664f87a75e9e5845659',1,'menu.c']]],
-  ['suivant_1',['suivant',['../menu_8h.html#a5cd9c9ae9a2d39e81678f35d50540d36',1,'menu.c']]]
+  ['newfile_0',['newFile',['../file_8h.html#a2eff3594626908a205047f62126f9203',1,'file.c']]],
+  ['nouv_5fperso_1',['nouv_perso',['../main_8c.html#a99a0e624f5372775603dc48245398b05',1,'main.c']]]
 ];

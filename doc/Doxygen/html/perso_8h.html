@@ -75,8 +75,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#define-members">Macros</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">perso.h File Reference</div></div>
 </div><!--header-->
@@ -84,21 +83,72 @@ $(function() {
 
 <p>Permet la créations de personnages des joueurs.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;string.h&gt;</code><br />
-<code>#include &lt;stdlib.h&gt;</code><br />
+<div class="textblock"><code>#include &quot;prepro.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="objet_8h_source.html">objet.h</a>&quot;</code><br />
+<code>#include &quot;competences.h&quot;</code><br />
+<code>#include &quot;SDL_def.h&quot;</code><br />
+<code>#include &quot;types.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for perso.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="perso_8h__incl.png" border="0" usemap="#asrc_2perso_8h" alt=""/></div>
 <map name="asrc_2perso_8h" id="asrc_2perso_8h">
-<area shape="rect" title="Permet la créations de personnages des joueurs." alt="" coords="85,5,179,31"/>
-<area shape="rect" title=" " alt="" coords="5,79,72,104"/>
-<area shape="poly" title=" " alt="" coords="119,33,66,72,63,68,115,29"/>
-<area shape="rect" title=" " alt="" coords="97,79,167,104"/>
-<area shape="poly" title=" " alt="" coords="135,31,135,65,129,65,129,31"/>
-<area shape="rect" title=" " alt="" coords="191,79,262,104"/>
-<area shape="poly" title=" " alt="" coords="149,29,202,68,199,72,146,33"/>
+<area shape="rect" title="Permet la créations de personnages des joueurs." alt="" coords="163,5,257,31"/>
+<area shape="rect" href="prepro_8h_source.html" title=" " alt="" coords="5,79,81,104"/>
+<area shape="poly" title=" " alt="" coords="184,33,84,76,82,71,182,28"/>
+<area shape="rect" href="objet_8h.html" title="Déclaration des objets, est inclus dans perso.h." alt="" coords="106,79,173,104"/>
+<area shape="poly" title=" " alt="" coords="200,33,162,71,158,67,196,29"/>
+<area shape="rect" href="types_8h_source.html" title=" " alt="" coords="175,152,245,177"/>
+<area shape="poly" title=" " alt="" coords="213,31,213,138,207,138,207,31"/>
+<area shape="rect" href="competences_8h_source.html" title=" " alt="" coords="248,79,369,104"/>
+<area shape="poly" title=" " alt="" coords="227,29,283,68,280,73,224,33"/>
+<area shape="rect" href="SDL__def_8h_source.html" title=" " alt="" coords="393,79,480,104"/>
+<area shape="poly" title=" " alt="" coords="247,28,388,72,386,77,246,33"/>
+<area shape="poly" title=" " alt="" coords="153,102,191,140,187,144,149,106"/>
+<area shape="poly" title=" " alt="" coords="294,106,239,146,236,142,291,102"/>
+<area shape="rect" href="SDL__include_8h_source.html" title=" " alt="" coords="380,152,493,177"/>
+<area shape="poly" title=" " alt="" coords="439,104,439,138,434,138,434,104"/>
+<area shape="rect" title=" " alt="" coords="245,225,341,251"/>
+<area shape="poly" title=" " alt="" coords="415,180,330,221,327,217,412,175"/>
+<area shape="rect" title=" " alt="" coords="365,225,509,251"/>
+<area shape="poly" title=" " alt="" coords="439,178,439,212,434,212,434,178"/>
+<area shape="rect" title=" " alt="" coords="533,225,650,251"/>
+<area shape="poly" title=" " alt="" coords="463,175,555,217,553,222,460,180"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="perso_8h__dep__incl.png" border="0" usemap="#asrc_2perso_8hdep" alt=""/></div>
+<map name="asrc_2perso_8hdep" id="asrc_2perso_8hdep">
+<area shape="rect" title="Permet la créations de personnages des joueurs." alt="" coords="326,5,419,31"/>
+<area shape="rect" href="cast_8h_source.html" title=" " alt="" coords="175,79,259,104"/>
+<area shape="poly" title=" " alt="" coords="336,39,243,81,241,76,334,34"/>
+<area shape="rect" href="jeu_8h.html" title="fonctions pour le jeu communes serv/cli" alt="" coords="334,79,411,104"/>
+<area shape="poly" title=" " alt="" coords="375,44,375,79,370,79,370,44"/>
+<area shape="rect" href="serv__jeu_8h.html" title=" " alt="" coords="313,152,425,177"/>
+<area shape="poly" title=" " alt="" coords="351,42,336,59,325,79,323,99,330,118,357,150,353,154,326,121,318,100,319,78,331,56,346,38"/>
+<area shape="rect" href="mob_8c.html" title="fonction permettant le deplacement de monstres" alt="" coords="435,79,521,104"/>
+<area shape="poly" title=" " alt="" coords="403,36,462,76,459,81,400,41"/>
+<area shape="rect" href="perso__cli_8h_source.html" title=" " alt="" coords="545,79,659,104"/>
+<area shape="poly" title=" " alt="" coords="424,32,566,76,564,81,422,37"/>
+<area shape="rect" href="cast__client_8h_source.html" title=" " alt="" coords="5,152,132,177"/>
+<area shape="poly" title=" " alt="" coords="182,112,94,154,92,149,180,107"/>
+<area shape="rect" href="cast__server_8h_source.html" title=" " alt="" coords="157,152,287,177"/>
+<area shape="poly" title=" " alt="" coords="221,118,224,152,218,152,216,118"/>
+<area shape="rect" href="cli__jeu_8h_source.html" title=" " alt="" coords="551,152,650,177"/>
+<area shape="poly" title=" " alt="" coords="423,106,565,149,563,154,422,111"/>
+<area shape="poly" title=" " alt="" coords="374,118,372,152,367,152,369,118"/>
+<area shape="rect" href="cli_8c_source.html" title=" " alt="" coords="565,225,636,251"/>
+<area shape="poly" title=" " alt="" coords="603,191,603,225,598,225,598,191"/>
+<area shape="rect" href="main_8c.html" title=" " alt="" coords="437,299,527,324"/>
+<area shape="poly" title=" " alt="" coords="571,260,503,301,500,296,568,255"/>
+<area shape="rect" href="serv_8c.html" title="code principal du serveur" alt="" coords="323,225,406,251"/>
+<area shape="poly" title=" " alt="" coords="370,191,368,225,363,225,365,191"/>
+<area shape="rect" href="serv__jeu_8c.html" title="fonctions de contrôle du jeu" alt="" coords="431,225,541,251"/>
+<area shape="poly" title=" " alt="" coords="401,182,468,223,465,227,398,187"/>
+<area shape="poly" title=" " alt="" coords="397,255,464,296,461,301,394,260"/>
+<area shape="poly" title=" " alt="" coords="604,118,604,152,598,152,599,118"/>
 </map>
 </div>
 </div>
@@ -106,117 +156,112 @@ Include dependency graph for perso.h:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structt__perso.html">t_perso</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structperso__s.html">perso_s</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a57f760212d36fafc1e0241e54d5b7d6a"><td class="memItemLeft" align="right" valign="top"><a id="a57f760212d36fafc1e0241e54d5b7d6a" name="a57f760212d36fafc1e0241e54d5b7d6a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>pMage</b>&#160;&#160;&#160;15</td></tr>
-<tr class="separator:a57f760212d36fafc1e0241e54d5b7d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa00631572adc171720d474bfa8d50768"><td class="memItemLeft" align="right" valign="top"><a id="aa00631572adc171720d474bfa8d50768" name="aa00631572adc171720d474bfa8d50768"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>pArcher</b>&#160;&#160;&#160;10</td></tr>
-<tr class="separator:aa00631572adc171720d474bfa8d50768"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36e5cce74f77aad9fa1c78cb2ba56455"><td class="memItemLeft" align="right" valign="top"><a id="a36e5cce74f77aad9fa1c78cb2ba56455" name="a36e5cce74f77aad9fa1c78cb2ba56455"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>pTank</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a36e5cce74f77aad9fa1c78cb2ba56455"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53e164281060e00058a1d7966cc6f439"><td class="memItemLeft" align="right" valign="top"><a id="a53e164281060e00058a1d7966cc6f439" name="a53e164281060e00058a1d7966cc6f439"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>pEpeiste</b>&#160;&#160;&#160;3</td></tr>
-<tr class="separator:a53e164281060e00058a1d7966cc6f439"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70b984041162698f2e9b92efb3573131"><td class="memItemLeft" align="right" valign="top"><a id="a70b984041162698f2e9b92efb3573131" name="a70b984041162698f2e9b92efb3573131"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>pInformaticien</b>&#160;&#160;&#160;4</td></tr>
-<tr class="separator:a70b984041162698f2e9b92efb3573131"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad586ca2717526c21532f34ca513dcc04"><td class="memItemLeft" align="right" valign="top"><a id="ad586ca2717526c21532f34ca513dcc04" name="ad586ca2717526c21532f34ca513dcc04"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>pNinja</b>&#160;&#160;&#160;5</td></tr>
-<tr class="separator:ad586ca2717526c21532f34ca513dcc04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a892359e0cda1db43b93b68e0768f2bf6"><td class="memItemLeft" align="right" valign="top"><a id="a892359e0cda1db43b93b68e0768f2bf6" name="a892359e0cda1db43b93b68e0768f2bf6"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>pDruide</b>&#160;&#160;&#160;9</td></tr>
-<tr class="separator:a892359e0cda1db43b93b68e0768f2bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46105f65b3a72687a85408067d509de3"><td class="memItemLeft" align="right" valign="top"><a id="a46105f65b3a72687a85408067d509de3" name="a46105f65b3a72687a85408067d509de3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>pAspergeur</b>&#160;&#160;&#160;12</td></tr>
-<tr class="separator:a46105f65b3a72687a85408067d509de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6313a11acb2bea8418b21770fad507c"><td class="memItemLeft" align="right" valign="top"><a id="ab6313a11acb2bea8418b21770fad507c" name="ab6313a11acb2bea8418b21770fad507c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>nbJoueursMax</b>&#160;&#160;&#160;4</td></tr>
-<tr class="separator:ab6313a11acb2bea8418b21770fad507c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a8eb73086b0557d1e835ea79d7b82b221"><td class="memItemLeft" align="right" valign="top"><a id="a8eb73086b0557d1e835ea79d7b82b221" name="a8eb73086b0557d1e835ea79d7b82b221"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>porteePerso</b> { <br />
-&#160;&#160;<b>mage</b> = pMage
-, <b>archer</b> = pArcher
-, <b>tank</b> = pTank
-, <b>epeiste</b> = pEpeiste
-, <br />
-&#160;&#160;<b>informaticien</b> = pInformaticien
-, <b>ninja</b> = pNinja
-, <b>druide</b> = pDruide
-, <b>aspergeur</b> = pAspergeur
-<br />
- }</td></tr>
-<tr class="separator:a8eb73086b0557d1e835ea79d7b82b221"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a550089442e996a6b42d393992dbc5436"><td class="memItemLeft" align="right" valign="top"><a id="a550089442e996a6b42d393992dbc5436" name="a550089442e996a6b42d393992dbc5436"></a>
+typedef struct <a class="el" href="structperso__s.html">perso_s</a>&#160;</td><td class="memItemRight" valign="bottom"><b>perso_t</b></td></tr>
+<tr class="separator:a550089442e996a6b42d393992dbc5436"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a286c19ec79dd917572f3e78c45ba2c90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structt__perso.html">t_perso</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="perso_8h.html#a286c19ec79dd917572f3e78c45ba2c90">creerPerso</a> (porteePerso persoACreer)</td></tr>
-<tr class="memdesc:a286c19ec79dd917572f3e78c45ba2c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créer une structure en fonction du nom passé en paramètre.  <br /></td></tr>
-<tr class="separator:a286c19ec79dd917572f3e78c45ba2c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e171aba1c82c36478e77ae770b3adb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="perso_8h.html#a1e171aba1c82c36478e77ae770b3adb7">initListePersos</a> (char **tabPersos, int nbJoueurs, <a class="el" href="structt__perso.html">t_perso</a> *tabRes)</td></tr>
-<tr class="memdesc:a1e171aba1c82c36478e77ae770b3adb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créer la liste des personnages qui seront jouées.  <br /></td></tr>
-<tr class="separator:a1e171aba1c82c36478e77ae770b3adb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a78678e8b46c53b656053c3c34db6cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="perso_8h.html#a7a78678e8b46c53b656053c3c34db6cd">creer_perso</a> (<a class="el" href="structperso__s.html">perso_t</a> *, classe_t, char *, int ind, int equipe)</td></tr>
+<tr class="memdesc:a7a78678e8b46c53b656053c3c34db6cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Créer un perso.  <br /></td></tr>
+<tr class="separator:a7a78678e8b46c53b656053c3c34db6cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2c4c0976f5c28885329e733a010d269"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="perso_8h.html#ab2c4c0976f5c28885329e733a010d269">detruire_perso</a> (<a class="el" href="structperso__s.html">perso_t</a> *)</td></tr>
+<tr class="memdesc:ab2c4c0976f5c28885329e733a010d269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détruire un perso.  <br /></td></tr>
+<tr class="separator:ab2c4c0976f5c28885329e733a010d269"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f58f6295b0ebb674adfa7e0f040278a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="perso_8h.html#a7f58f6295b0ebb674adfa7e0f040278a">afficher_objets_perso</a> (<a class="el" href="structperso__s.html">perso_t</a> *)</td></tr>
+<tr class="memdesc:a7f58f6295b0ebb674adfa7e0f040278a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche les objets d'un joueur en console.  <br /></td></tr>
+<tr class="separator:a7f58f6295b0ebb674adfa7e0f040278a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad42e66c8b4d2342b9393e58e6064dcf0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="perso_8h.html#ad42e66c8b4d2342b9393e58e6064dcf0">afficher_stats_perso</a> (<a class="el" href="structperso__s.html">perso_t</a> *)</td></tr>
+<tr class="memdesc:ad42e66c8b4d2342b9393e58e6064dcf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affiche les stats d'un perso en console.  <br /></td></tr>
+<tr class="separator:ad42e66c8b4d2342b9393e58e6064dcf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ad8a33e1b8155c700cdfbcf501be0f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="perso_8h.html#a1ad8a33e1b8155c700cdfbcf501be0f6">update_stats</a> (<a class="el" href="structperso__s.html">perso_t</a> *)</td></tr>
+<tr class="memdesc:a1ad8a33e1b8155c700cdfbcf501be0f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalcule les stats d'un personnage en prenant en compte ses objets.  <br /></td></tr>
+<tr class="separator:a1ad8a33e1b8155c700cdfbcf501be0f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a990af6cda19dbc57d662a55f1d6843"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="perso_8h.html#a0a990af6cda19dbc57d662a55f1d6843">ajouter_objet</a> (<a class="el" href="structperso__s.html">perso_t</a> *, int)</td></tr>
+<tr class="memdesc:a0a990af6cda19dbc57d662a55f1d6843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un objet à l'inventaire d'un joueur.  <br /></td></tr>
+<tr class="separator:a0a990af6cda19dbc57d662a55f1d6843"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c86df8af7b612ed63bf7a4a9e72168"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="perso_8h.html#a24c86df8af7b612ed63bf7a4a9e72168">retirer_objet</a> (<a class="el" href="structperso__s.html">perso_t</a> *, int)</td></tr>
+<tr class="memdesc:a24c86df8af7b612ed63bf7a4a9e72168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire un objet de l'inventaire du joueur.  <br /></td></tr>
+<tr class="separator:a24c86df8af7b612ed63bf7a4a9e72168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Permet la créations de personnages des joueurs. </p>
+<dl class="section author"><dt>Author</dt><dd>Baptiste </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a286c19ec79dd917572f3e78c45ba2c90" name="a286c19ec79dd917572f3e78c45ba2c90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a286c19ec79dd917572f3e78c45ba2c90">&#9670;&#160;</a></span>creerPerso()</h2>
+<a id="a7f58f6295b0ebb674adfa7e0f040278a" name="a7f58f6295b0ebb674adfa7e0f040278a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f58f6295b0ebb674adfa7e0f040278a">&#9670;&#160;</a></span>afficher_objets_perso()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structt__perso.html">t_perso</a> creerPerso </td>
+          <td class="memname">void afficher_objets_perso </td>
           <td>(</td>
-          <td class="paramtype">porteePerso&#160;</td>
-          <td class="paramname"><em>persoACreer</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structperso__s.html">perso_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Créer une structure en fonction du nom passé en paramètre. </p>
+<p>Affiche les objets d'un joueur en console. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">persoACreer</td><td>nom du personnage à creer </td></tr>
+    <tr><td class="paramname">Pointeur</td><td>sur perso </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Renvoie une structure <a class="el" href="structt__perso.html">t_perso</a> en fonction du nom passé en paramètre </dd></dl>
 
 </div>
 </div>
-<a id="a1e171aba1c82c36478e77ae770b3adb7" name="a1e171aba1c82c36478e77ae770b3adb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e171aba1c82c36478e77ae770b3adb7">&#9670;&#160;</a></span>initListePersos()</h2>
+<a id="ad42e66c8b4d2342b9393e58e6064dcf0" name="ad42e66c8b4d2342b9393e58e6064dcf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad42e66c8b4d2342b9393e58e6064dcf0">&#9670;&#160;</a></span>afficher_stats_perso()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void initListePersos </td>
+          <td class="memname">void afficher_stats_perso </td>
           <td>(</td>
-          <td class="paramtype">char **&#160;</td>
-          <td class="paramname"><em>tabPersos</em>, </td>
+          <td class="paramtype"><a class="el" href="structperso__s.html">perso_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affiche les stats d'un perso en console. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Pointeur</td><td>sur le perso </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0a990af6cda19dbc57d662a55f1d6843" name="a0a990af6cda19dbc57d662a55f1d6843"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a990af6cda19dbc57d662a55f1d6843">&#9670;&#160;</a></span>ajouter_objet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ajouter_objet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structperso__s.html">perso_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nbJoueurs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structt__perso.html">t_perso</a> *&#160;</td>
-          <td class="paramname"><em>tabRes</em>&#160;</td>
+          <td class="paramname"><em>ind_obj</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -226,16 +271,160 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Créer la liste des personnages qui seront jouées. </p>
+<p>Ajoute un objet à l'inventaire d'un joueur. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tabPersos</td><td>La liste des personnages en entrée (char*) qui seront à créer </td></tr>
-    <tr><td class="paramname">nbJoueurs</td><td>Le nombre de joueurs présents dans la partie. </td></tr>
-    <tr><td class="paramname">tabRes</td><td>Le tableau de structure <a class="el" href="structt__perso.html">t_perso</a> </td></tr>
+    <tr><td class="paramname">Pointeur</td><td>sur perso </td></tr>
+    <tr><td class="paramname">Indice</td><td>de l'objet dans tab_objets </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Renvoie un pointeur sur une liste de personnages de type <a class="el" href="structt__perso.html">t_perso</a>. </dd></dl>
+
+</div>
+</div>
+<a id="a7a78678e8b46c53b656053c3c34db6cd" name="a7a78678e8b46c53b656053c3c34db6cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a78678e8b46c53b656053c3c34db6cd">&#9670;&#160;</a></span>creer_perso()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void creer_perso </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structperso__s.html">perso_t</a> *&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">classe_t&#160;</td>
+          <td class="paramname"><em>classe</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>nom</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ind</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>equipe</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Créer un perso. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sortie</td><td>: Pointeur sur le perso </td></tr>
+    <tr><td class="paramname">classe</td><td>du perso </td></tr>
+    <tr><td class="paramname">pseudo</td><td>joueur </td></tr>
+    <tr><td class="paramname">indice</td><td>client </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab2c4c0976f5c28885329e733a010d269" name="ab2c4c0976f5c28885329e733a010d269"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2c4c0976f5c28885329e733a010d269">&#9670;&#160;</a></span>detruire_perso()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void detruire_perso </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structperso__s.html">perso_t</a> *&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Détruire un perso. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Pointeur</td><td>sur le perso </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a24c86df8af7b612ed63bf7a4a9e72168" name="a24c86df8af7b612ed63bf7a4a9e72168"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24c86df8af7b612ed63bf7a4a9e72168">&#9670;&#160;</a></span>retirer_objet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void retirer_objet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structperso__s.html">perso_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ind_inv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire un objet de l'inventaire du joueur. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Pointeur</td><td>sur perso </td></tr>
+    <tr><td class="paramname">Indice</td><td>de l'objet dans l'inventaire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1ad8a33e1b8155c700cdfbcf501be0f6" name="a1ad8a33e1b8155c700cdfbcf501be0f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ad8a33e1b8155c700cdfbcf501be0f6">&#9670;&#160;</a></span>update_stats()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void update_stats </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structperso__s.html">perso_t</a> *&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recalcule les stats d'un personnage en prenant en compte ses objets. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Pointeur</td><td>sur perso </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

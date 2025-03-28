@@ -1,0 +1,30 @@
+\doxysection{types.\+h}
+\hypertarget{types_8h_source}{}\label{types_8h_source}\index{src/types.h@{src/types.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_TYPES\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_TYPES\_H\_}}
+\DoxyCodeLine{00003\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ octet;}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//typedef\ enum\ \{idle,course,attaque\}anim\_t;}}
+\DoxyCodeLine{00006\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{bas,haut,gauche,droite,basgauche,basdroite,hautgauche,hautdroite,\ nulldir\}dir\_t;}
+\DoxyCodeLine{00007\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{sortie,\ normal,\ obstacle1,\ obstacle2,\ NB\_TEXTURES\_BIOME\}\ type\_carre;}
+\DoxyCodeLine{00008\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{base,\ desert,\ foret,\ glace,\ montagne,\ neige,\ plaine,\ NB\_BIOMES\}\ nom\_biome\_t;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{comment}{//foret,\ volcan,\ marais,\ grotte,\ enfer,\ tour\_magie,\ chateau\_fort}}
+\DoxyCodeLine{00010\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{administrateur,\ tank,\ guerrier,\ mage,\ archer,\ informaticien,\ ninja,\ druide,\ NB\_CLASSES\}\ classe\_t;}
+\DoxyCodeLine{00011\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{vie,\ force,\ magie,\ speed,\ NB\_STATS\}\ stat\_t;}
+\DoxyCodeLine{00012\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{zone,\ projectile,\ instant\}\ comp\_type;}
+\DoxyCodeLine{00013\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{atk1,\ atk2,\ skill,\ mouv,\ NB\_COMP\}\ icomp\_t;}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcomp__s}{comp\_s}}\ \mbox{\hyperlink{structcomp__s}{comp\_t}};}
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structobjet__s}{objet\_s}}\ \mbox{\hyperlink{structobjet__s}{objet\_t}};}
+\DoxyCodeLine{00017\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structperso__s}{perso\_s}}\ \mbox{\hyperlink{structperso__s}{perso\_t}};}
+\DoxyCodeLine{00018\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{int}\ x;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ y;}
+\DoxyCodeLine{00021\ \}\mbox{\hyperlink{structpos__t}{pos\_t}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

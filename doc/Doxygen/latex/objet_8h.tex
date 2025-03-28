@@ -1,0 +1,104 @@
+\doxysection{src/objet.h File Reference}
+\hypertarget{objet_8h}{}\label{objet_8h}\index{src/objet.h@{src/objet.h}}
+
+
+Déclaration des objets, est inclus dans \doxylink{perso_8h}{perso.\+h}.  
+
+
+{\ttfamily \#include \"{}types.\+h\"{}}\newline
+Include dependency graph for objet.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{objet_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{objet_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structprio__t}{prio\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Représente la priorité des calculs entre somme et produit. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structobjet__s}{objet\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em Représente un objet. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{objet_8h_ac92745e4a42d107fbc6ed7e36f5481dd}\label{objet_8h_ac92745e4a42d107fbc6ed7e36f5481dd} 
+\#define {\bfseries NB\+\_\+\+OBJETS}~36
+\item 
+\Hypertarget{objet_8h_a9d6e991f9d7d8eb3b9a2a64604625516}\label{objet_8h_a9d6e991f9d7d8eb3b9a2a64604625516} 
+\#define {\bfseries NB\+\_\+\+OBJETS\+\_\+C}~14
+\item 
+\Hypertarget{objet_8h_a19ba39f7c9954d792e463e2bf7e4484b}\label{objet_8h_a19ba39f7c9954d792e463e2bf7e4484b} 
+\#define {\bfseries NB\+\_\+\+OBJETS\+\_\+R}~8
+\item 
+\Hypertarget{objet_8h_a8dcae01870e010129483011dd156096a}\label{objet_8h_a8dcae01870e010129483011dd156096a} 
+\#define {\bfseries NB\+\_\+\+OBJETS\+\_\+E}~6
+\item 
+\Hypertarget{objet_8h_a2a3aa077ced9416e576ccada82a9b3fe}\label{objet_8h_a2a3aa077ced9416e576ccada82a9b3fe} 
+\#define {\bfseries NB\+\_\+\+OBJETS\+\_\+L}~8
+\item 
+\Hypertarget{objet_8h_a333e09bd7db281e03dcf97f8d774a12e}\label{objet_8h_a333e09bd7db281e03dcf97f8d774a12e} 
+\#define {\bfseries PERSO\+\_\+\+OBJETS\+\_\+\+MAX}~5
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{objet_8h_a7d32f3bd0987462d8470225b719b2846}\label{objet_8h_a7d32f3bd0987462d8470225b719b2846} 
+enum {\bfseries rarete\+\_\+t} \{ {\bfseries commun}
+, {\bfseries rare}
+, {\bfseries epique}
+, {\bfseries legendaire}
+ \}
+\item 
+\Hypertarget{objet_8h_acb95f02bc8aa11a54c8b4595158a3356}\label{objet_8h_acb95f02bc8aa11a54c8b4595158a3356} 
+enum {\bfseries priority\+\_\+t} \{ {\bfseries null}
+, {\bfseries mult}
+, {\bfseries add}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{objet_8h_ae466a010a3cb3bab31d108e87222a274}{afficher\+\_\+objet}} (\mbox{\hyperlink{structobjet__s}{objet\+\_\+t}} \texorpdfstring{$\ast$}{*})
+\begin{DoxyCompactList}\small\item\em Afficher les champs d\textquotesingle{}un objet en console. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{objet_8h_a65620ee9a05e9d737f69fd70bb339ce4}\label{objet_8h_a65620ee9a05e9d737f69fd70bb339ce4} 
+\mbox{\hyperlink{structobjet__s}{objet\+\_\+t}} {\bfseries tab\+\_\+objets} \mbox{[}NB\+\_\+\+OBJETS\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Déclaration des objets, est inclus dans \doxylink{perso_8h}{perso.\+h}. 
+
+\begin{DoxyAuthor}{Author}
+Nathan 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{objet_8h_ae466a010a3cb3bab31d108e87222a274}\label{objet_8h_ae466a010a3cb3bab31d108e87222a274} 
+\index{objet.h@{objet.h}!afficher\_objet@{afficher\_objet}}
+\index{afficher\_objet@{afficher\_objet}!objet.h@{objet.h}}
+\doxysubsubsection{\texorpdfstring{afficher\_objet()}{afficher\_objet()}}
+{\footnotesize\ttfamily void afficher\+\_\+objet (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structobjet__s}{objet\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{obj }\end{DoxyParamCaption})}
+
+
+
+Afficher les champs d\textquotesingle{}un objet en console. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em objet\+\_\+t} & pointeur sur objet\\
+\hline
+\end{DoxyParams}
+Afficher les champs d\textquotesingle{}un objet en console. 

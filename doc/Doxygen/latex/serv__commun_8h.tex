@@ -1,0 +1,66 @@
+\doxysection{src/serv\+\_\+commun.h File Reference}
+\hypertarget{serv__commun_8h}{}\label{serv__commun_8h}\index{src/serv\_commun.h@{src/serv\_commun.h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$netinet/in.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include \"{}prepro.\+h\"{}}\newline
+{\ttfamily \#include \"{}file.\+h\"{}}\newline
+Include dependency graph for serv\+\_\+commun.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serv__commun_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{serv__commun_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structsocket__struct}{socket\+\_\+struct}}
+\item 
+struct \mbox{\hyperlink{structinfo__server}{info\+\_\+server}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{serv__commun_8h_a25d1e5b6a61259cae52d6da138e9e090}\label{serv__commun_8h_a25d1e5b6a61259cae52d6da138e9e090} 
+\#define {\bfseries BUFFERLEN}~101
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{serv__commun_8h_aff66cbf27e65144fba97c75431335b57}\label{serv__commun_8h_aff66cbf27e65144fba97c75431335b57} 
+char \texorpdfstring{$\ast$}{*} {\bfseries data\+\_\+skip} (char \texorpdfstring{$\ast$}{*}, int)
+\item 
+\Hypertarget{serv__commun_8h_ae115aaa45376664b9f26217e862e34d4}\label{serv__commun_8h_ae115aaa45376664b9f26217e862e34d4} 
+void {\bfseries broadcast} (char \texorpdfstring{$\ast$}{*}, int exception)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{serv__commun_8h_a0782a3aba0e5ca37dbccde75585ceda2}\label{serv__commun_8h_a0782a3aba0e5ca37dbccde75585ceda2} 
+\mbox{\hyperlink{structfile__s}{file}} \texorpdfstring{$\ast$}{*} {\bfseries serv\+\_\+file}
+\item 
+\Hypertarget{serv__commun_8h_a258437426a96c2ed7d096e3747afe48e}\label{serv__commun_8h_a258437426a96c2ed7d096e3747afe48e} 
+\mbox{\hyperlink{structsocket__struct}{socket\+\_\+struct}} \texorpdfstring{$\ast$}{*} {\bfseries clients}
+\item 
+\Hypertarget{serv__commun_8h_a557c161baa2b604d30fea2afc96456e3}\label{serv__commun_8h_a557c161baa2b604d30fea2afc96456e3} 
+\mbox{\hyperlink{structinfo__server}{info\+\_\+server}} {\bfseries server}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Baptiste 
+\end{DoxyAuthor}

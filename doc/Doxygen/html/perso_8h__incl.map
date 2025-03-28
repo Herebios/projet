@@ -1,9 +1,23 @@
 <map id="src/perso.h" name="src/perso.h">
-<area shape="rect" id="Node000001" title="Permet la créations de personnages des joueurs." alt="" coords="85,5,179,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,72,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,33,66,72,63,68,115,29"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="97,79,167,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="135,31,135,65,129,65,129,31"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="191,79,262,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="149,29,202,68,199,72,146,33"/>
+<area shape="rect" id="Node000001" title="Permet la créations de personnages des joueurs." alt="" coords="163,5,257,31"/>
+<area shape="rect" id="Node000002" href="$prepro_8h_source.html" title=" " alt="" coords="5,79,81,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,33,84,76,82,71,182,28"/>
+<area shape="rect" id="Node000003" href="$objet_8h.html" title="Déclaration des objets, est inclus dans perso.h." alt="" coords="106,79,173,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,33,162,71,158,67,196,29"/>
+<area shape="rect" id="Node000004" href="$types_8h_source.html" title=" " alt="" coords="175,152,245,177"/>
+<area shape="poly" id="edge11_Node000001_Node000004" title=" " alt="" coords="213,31,213,138,207,138,207,31"/>
+<area shape="rect" id="Node000005" href="$competences_8h_source.html" title=" " alt="" coords="248,79,369,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="227,29,283,68,280,73,224,33"/>
+<area shape="rect" id="Node000006" href="$SDL__def_8h_source.html" title=" " alt="" coords="393,79,480,104"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="247,28,388,72,386,77,246,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="153,102,191,140,187,144,149,106"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="294,106,239,146,236,142,291,102"/>
+<area shape="rect" id="Node000007" href="$SDL__include_8h_source.html" title=" " alt="" coords="380,152,493,177"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="439,104,439,138,434,138,434,104"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="245,225,341,251"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="415,180,330,221,327,217,412,175"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="365,225,509,251"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="439,178,439,212,434,212,434,178"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="533,225,650,251"/>
+<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="463,175,555,217,553,222,460,180"/>
 </map>

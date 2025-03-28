@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['initlistepersos_0',['initListePersos',['../perso_8h.html#a1e171aba1c82c36478e77ae770b3adb7',1,'perso.c']]],
-  ['inverse_5fimg_5fvol_1',['inverse_img_vol',['../menu_8h.html#af56714e23f84404bb5503c9b6eda4a9f',1,'menu.c']]]
+  ['init_5fbiomes_0',['init_biomes',['../jeu_8h.html#a8bf0b65ac066bc3f4fc9721527903d6b',1,'jeu.c']]],
+  ['init_5fmap_1',['init_map',['../jeu_8h.html#a39f07d6ddf2971c2bb06c57e34c712ae',1,'jeu.c']]],
+  ['init_5ftuile_2',['init_tuile',['../jeu_8h.html#a4bc667978c3923daf59f71d047b6c127',1,'jeu.c']]]
 ];

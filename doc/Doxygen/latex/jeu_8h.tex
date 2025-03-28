@@ -1,0 +1,121 @@
+\doxysection{src/jeu.h File Reference}
+\hypertarget{jeu_8h}{}\label{jeu_8h}\index{src/jeu.h@{src/jeu.h}}
+
+
+fonctions pour le jeu communes serv/cli  
+
+
+{\ttfamily \#include \"{}types.\+h\"{}}\newline
+{\ttfamily \#include \"{}objet.\+h\"{}}\newline
+{\ttfamily \#include \"{}prepro.\+h\"{}}\newline
+{\ttfamily \#include \"{}liste.\+h\"{}}\newline
+{\ttfamily \#include \"{}SDL\+\_\+def.\+h\"{}}\newline
+{\ttfamily \#include \"{}def.\+h\"{}}\newline
+{\ttfamily \#include \"{}perso.\+h\"{}}\newline
+Include dependency graph for jeu.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{jeu_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{jeu_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{jeu_8h_a57f36c1c03fbd381ce5270728a844b2c}\label{jeu_8h_a57f36c1c03fbd381ce5270728a844b2c} 
+void {\bfseries end} (int)
+\item 
+\Hypertarget{jeu_8h_a3bb9dc5c0b024fc0f7558e16113024be}\label{jeu_8h_a3bb9dc5c0b024fc0f7558e16113024be} 
+void {\bfseries init\+\_\+sdl} (void)
+\item 
+\Hypertarget{jeu_8h_a13050d0e95c75e0eb037e1f06139d2e9}\label{jeu_8h_a13050d0e95c75e0eb037e1f06139d2e9} 
+void {\bfseries init\+\_\+jeu} (void)
+\item 
+void \mbox{\hyperlink{jeu_8h_a8bf0b65ac066bc3f4fc9721527903d6b}{init\+\_\+biomes}} (void)
+\item 
+void \mbox{\hyperlink{jeu_8h_a39f07d6ddf2971c2bb06c57e34c712ae}{init\+\_\+map}} (void)
+\item 
+void \mbox{\hyperlink{jeu_8h_a4bc667978c3923daf59f71d047b6c127}{init\+\_\+tuile}} (\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*}, nom\+\_\+biome\+\_\+t, int, int)
+\item 
+\Hypertarget{jeu_8h_a566f82de4dc2cae01d20bd0c9de30053}\label{jeu_8h_a566f82de4dc2cae01d20bd0c9de30053} 
+void {\bfseries ajouter\+\_\+objet\+\_\+tuile} (\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*}t, int ind\+\_\+o, \mbox{\hyperlink{structpos__t}{pos\+\_\+t}} pos\+\_\+tuile)
+\item 
+\Hypertarget{jeu_8h_aea7f7d4d47b861dbb95f9bd63e12d234}\label{jeu_8h_aea7f7d4d47b861dbb95f9bd63e12d234} 
+void {\bfseries retirer\+\_\+objet\+\_\+tuile} (\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*}t, int ind\+\_\+o)
+\begin{DoxyCompactList}\small\item\em ! bug possible si 2 objets identiques sur la même tuile \end{DoxyCompactList}\item 
+\Hypertarget{jeu_8h_a98b069c5bea0fcc0e9aefc99bc851c46}\label{jeu_8h_a98b069c5bea0fcc0e9aefc99bc851c46} 
+void {\bfseries nouv\+\_\+texture} (char \texorpdfstring{$\ast$}{*}, SDL\+\_\+\+Texture \texorpdfstring{$\ast$}{*}textures\mbox{[}$\,$\mbox{]}, unsigned char \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{jeu_8h_a7b574f145c07338aa690c97940223413}\label{jeu_8h_a7b574f145c07338aa690c97940223413} 
+int {\bfseries inclus} (SDL\+\_\+\+Rect \texorpdfstring{$\ast$}{*}a, SDL\+\_\+\+Rect \texorpdfstring{$\ast$}{*}b)
+\item 
+\Hypertarget{jeu_8h_a24dff0add127c4fc4b5a818d483e1403}\label{jeu_8h_a24dff0add127c4fc4b5a818d483e1403} 
+void {\bfseries avancer} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*})
+\begin{DoxyCompactList}\small\item\em !gérer collisions avec obstacles \end{DoxyCompactList}\item 
+\Hypertarget{jeu_8h_ad53537d965a64f81923e2654dbdb7d24}\label{jeu_8h_ad53537d965a64f81923e2654dbdb7d24} 
+\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+tuile\+\_\+from\+\_\+pos} (\mbox{\hyperlink{structpos__t}{pos\+\_\+t}} pos)
+\item 
+\Hypertarget{jeu_8h_aaa182e03e781f22560299bfcadbc4126}\label{jeu_8h_aaa182e03e781f22560299bfcadbc4126} 
+\mbox{\hyperlink{structpos__t}{pos\+\_\+t}} {\bfseries get\+\_\+pos\+\_\+from\+\_\+coo} (int x, int y)
+\item 
+\Hypertarget{jeu_8h_adb85322d302a92fb645414252b327b47}\label{jeu_8h_adb85322d302a92fb645414252b327b47} 
+\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*} {\bfseries get\+\_\+tuile\+\_\+joueur} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}p)
+\item 
+\Hypertarget{jeu_8h_a1e8a67b2bc4ad0361e2d18cd0f49113b}\label{jeu_8h_a1e8a67b2bc4ad0361e2d18cd0f49113b} 
+void {\bfseries position\+\_\+perso} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}p, \mbox{\hyperlink{structpos__t}{pos\+\_\+t}} \texorpdfstring{$\ast$}{*}pos)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{jeu_8h_a00cf74c8676143676b022605385c12db}\label{jeu_8h_a00cf74c8676143676b022605385c12db} 
+\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} {\bfseries map} \mbox{[}HAUTEUR\+\_\+\+MAP\mbox{]}\mbox{[}LARGEUR\+\_\+\+MAP\mbox{]}
+\item 
+\Hypertarget{jeu_8h_a436c5a69d7ad0870abe1e8025877a983}\label{jeu_8h_a436c5a69d7ad0870abe1e8025877a983} 
+\mbox{\hyperlink{structbiome__t}{biome\+\_\+t}} {\bfseries biomes} \mbox{[}NB\+\_\+\+BIOMES\mbox{]}
+\item 
+\Hypertarget{jeu_8h_aaa8e409e04dcf575ef63fd5fb3db06f9}\label{jeu_8h_aaa8e409e04dcf575ef63fd5fb3db06f9} 
+SDL\+\_\+\+Window \texorpdfstring{$\ast$}{*} {\bfseries window}
+\item 
+\Hypertarget{jeu_8h_a966da7a60c4ea3ba301e26ccc5efe452}\label{jeu_8h_a966da7a60c4ea3ba301e26ccc5efe452} 
+SDL\+\_\+\+Renderer \texorpdfstring{$\ast$}{*} {\bfseries renderer}
+\item 
+\Hypertarget{jeu_8h_a792117b7856b854270951056b8b1e131}\label{jeu_8h_a792117b7856b854270951056b8b1e131} 
+\mbox{\hyperlink{structpos__t}{pos\+\_\+t}} {\bfseries deplacement} \mbox{[}8\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+fonctions pour le jeu communes serv/cli 
+
+\begin{DoxyAuthor}{Author}
+Baptiste 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{jeu_8h_a8bf0b65ac066bc3f4fc9721527903d6b}\label{jeu_8h_a8bf0b65ac066bc3f4fc9721527903d6b} 
+\index{jeu.h@{jeu.h}!init\_biomes@{init\_biomes}}
+\index{init\_biomes@{init\_biomes}!jeu.h@{jeu.h}}
+\doxysubsubsection{\texorpdfstring{init\_biomes()}{init\_biomes()}}
+{\footnotesize\ttfamily void init\+\_\+biomes (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+! base, id 0\Hypertarget{jeu_8h_a39f07d6ddf2971c2bb06c57e34c712ae}\label{jeu_8h_a39f07d6ddf2971c2bb06c57e34c712ae} 
+\index{jeu.h@{jeu.h}!init\_map@{init\_map}}
+\index{init\_map@{init\_map}!jeu.h@{jeu.h}}
+\doxysubsubsection{\texorpdfstring{init\_map()}{init\_map()}}
+{\footnotesize\ttfamily void init\+\_\+map (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+! Système pour placer les biomes\Hypertarget{jeu_8h_a4bc667978c3923daf59f71d047b6c127}\label{jeu_8h_a4bc667978c3923daf59f71d047b6c127} 
+\index{jeu.h@{jeu.h}!init\_tuile@{init\_tuile}}
+\index{init\_tuile@{init\_tuile}!jeu.h@{jeu.h}}
+\doxysubsubsection{\texorpdfstring{init\_tuile()}{init\_tuile()}}
+{\footnotesize\ttfamily void init\+\_\+tuile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtuile__t}{tuile\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{tuile,  }\item[{nom\+\_\+biome\+\_\+t}]{id\+\_\+biome,  }\item[{int}]{ymap,  }\item[{int}]{xmap }\end{DoxyParamCaption})}
+
+! ajouter règles de génération, dépendantes du biome?

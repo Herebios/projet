@@ -3,15 +3,15 @@
 
 #include "cli_commun.h"
 #include "jeu.h"
-#include "perso_cli.h"
 #include "id_actions.h"
 
 #define ecran() SDL_RenderPresent(renderer)
 
 extern SDL_Texture * texture_tuile;
 
-void init_joueurs_client(perso_cli_t *);
-void detruire_joueurs_client(perso_cli_t *);
+void init_joueurs_client(perso_t *);
+void charger_sdl_joueurs(perso_t *, SDL_Texture * textures_joueurs[][4]);
+void detruire_joueurs_client(perso_t *, SDL_Texture * textures_joueurs[][4]);
 
 void ramasser_objet(perso_t *, int ind_o);
 void lacher_objet(perso_t *, int ind_inv);

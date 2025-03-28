@@ -58,11 +58,10 @@ void spawn_objet(rarete_t r, int mode, int ind_o, pos_t p_map, pos_t p_tuile){
 	if(taille_liste(t->liste_joueurs) < 1) return;
 
 	char buffer[BUFFERLEN];
-	sprintf(buffer, "%d %d %d %d", SPAWN_OBJET, ind_o, p_tuile.x, p_tuile.y);
+	sprintf(buffer, "%d %d %d %d;", SPAWN_OBJET, ind_o, p_tuile.x, p_tuile.y);
 
-	perso_t *p;
 	for(tete_liste(t->liste_joueurs); !hors_liste(t->liste_joueurs); suivant_liste(t->liste_joueurs)){
-		p=get_liste(t->liste_joueurs);
+		perso_t *p=get_liste(t->liste_joueurs);
 		send(clients[p->iperso].socket, buffer, strlen(buffer), 0);
 	}
 }
@@ -70,17 +69,26 @@ void spawn_objet(rarete_t r, int mode, int ind_o, pos_t p_map, pos_t p_tuile){
 /*Envoie au joueur les infos de la tuile*/
 //!!compléter avec les autres infos
 void maj_tuile(int ind, pos_t pos_map){
-	char buffer[BUFFERLEN]="";
+	char buffer[256]="";
 	tuile_t *t=map[pos_map.y]+pos_map.x;
-	sprintf(buffer, "%d %d %d %d", JOUEUR_MV_TUILE, pos_map.x, pos_map.y, taille_liste(t->liste_objets));
+	sprintf(buffer, "%d %d %d ", JOUEUR_MV_TUILE, pos_map.x, pos_map.y);
 
 	//envoi objets
+	sprintf(buffer + strlen(buffer), "%d ", taille_liste(t->liste_objets));
 	objet_tuile_t * obj;
 	for(tete_liste(t->liste_objets); !hors_liste(t->liste_objets); suivant_liste(t->liste_objets)){
 		obj = get_liste(t->liste_objets);
-		if(obj->objet)
-			sprintf(buffer+strlen(buffer), "%d %d %d ", obj->objet->ind, obj->pos.x, obj->pos.y);
+		sprintf(buffer+strlen(buffer), "%d %d %d ", obj->objet->ind, obj->pos.x, obj->pos.y);
 	}
+
+	//envoi joueurs
+	sprintf(buffer + strlen(buffer), "%d ", taille_liste(t->liste_joueurs));
+	perso_t * p;
+	for(tete_liste(t->liste_joueurs); !hors_liste(t->liste_joueurs); suivant_liste(t->liste_joueurs)){
+		p = get_liste(t->liste_joueurs);
+		sprintf(buffer+strlen(buffer), "%d %d %d ", p->iperso, p->rect.x, p->rect.y);
+	}
+	strcat(buffer, ";");
 	send(clients[ind].socket, buffer, strlen(buffer), 0);
 }
 
@@ -114,7 +122,7 @@ void detruire_joueurs_server(perso_t * joueurs, int nb){
 void send_joueurs_server(perso_t * joueurs, int nb){
     char data[128];
     for(int i=0; i<nb; i++){
-        sprintf(data, "%s %d %d ", joueurs[i].nom, joueurs[i].classe, joueurs[i].equipe);
+        sprintf(data, "%s %d %d;", joueurs[i].nom, joueurs[i].classe, joueurs[i].equipe);
         broadcast(data, -1);
     }
 }
