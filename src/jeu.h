@@ -29,10 +29,14 @@ void init_jeu(void);
 void init_biomes(void);
 void init_map(void);
 void init_tuile(tuile_t*, nom_biome_t, int, int);
+void detruire_tuile(tuile_t*, int mode);
 
 void ajouter_objet_tuile(tuile_t * t, int ind_o, pos_t pos_tuile);
 //!! bug possible si 2 objets identiques sur la même tuile
 void retirer_objet_tuile(tuile_t * t, int ind_o);
+
+void ajouter_joueur_tuile(tuile_t * t, int ind_j);
+void retirer_joueur_tuile(tuile_t * t, int ind_j);
 
 void nouv_texture(char*, SDL_Texture *textures[], unsigned char*);
 SDL_Texture * get_nouv_texture(char*);

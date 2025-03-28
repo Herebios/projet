@@ -84,32 +84,28 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 	//serv init le perso
 	sendf("ds", classe, pseudo);
 
+	init_sdl();
+	init_jeu();
+
 	perso_t joueurs[nb_joueurs];
 	SDL_Texture * textures_joueurs[nb_joueurs][4];
-	sdl_struct sdl_objets[PERSO_OBJETS_MAX];
+	SDL_Texture * textures_objets[NB_OBJETS];
 
-	init_sdl();
 	init_joueurs_client(joueurs);
 	charger_sdl_joueurs(joueurs, textures_joueurs);
+	charger_sdl_objets(textures_objets);
 
 	puts("Les joueurs sont :");
 	for(int i=0; i<nb_joueurs; i++){
-        printf("ind %d ; classe %d ; nom %s ; equipe %d ; position %d %d\n", joueurs[i].iperso, joueurs[i].classe, joueurs[i].nom, joueurs[i].equipe, joueurs[i].pos_map.x, joueurs[i].pos_map.y);
+        printf("ind %d ; classe %d ; nom %s ; equipe %d\n", joueurs[i].iperso, joueurs[i].classe, joueurs[i].nom, joueurs[i].equipe);
     }
 	flush;
 	perso_t * j = joueurs + indice;//pointeur sur le joueur, plus rapide
 	char valide=1;
 	int compteur=0;
 
-	sleep(indice * 1);
 	texture_tuile = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_TARGET, W, H);
-	init_jeu();
-	tuile_t * tuile_courante = get_tuile_joueur(joueurs + indice);
-	charger_tuile(tuile_courante);
-	afficher_tuile();
-
-    SDL_RenderCopy(renderer, textures_joueurs[indice][0], NULL, &j->rect);
-	ecran();
+	tuile_t * tuile_courante = NULL;;
 
 	SDL_Event event;
     const Uint8* clavier;
@@ -129,9 +125,11 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 			changer_dir(j, mask);
 			if(j->dir != dir)
 				sendf("dd", JOUEUR_CHANGE_DIR, j->dir);
+
 			avancer(j);
 			//serv simule aussi de son côté
-		}else{
+		}else if(j->dir != nulldir){
+			j->dir=nulldir;
 			sendf("dd", JOUEUR_CHANGE_DIR, nulldir);
 		}
 
@@ -150,8 +148,11 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 					break;
 				}
 				case JOUEUR_MV_TUILE:{
+					detruire_tuile(get_tuile_joueur(j), 1);
+
 					int nb_o, nb_j;
 					sscanf(data_skip(data, 1), "%d %d %d", &j->pos_map.x, &j->pos_map.y, &nb_o);
+					printf("Nouvelle tuile : %d %d\n", j->pos_map.x, j->pos_map.y);
 					tuile_courante = get_tuile_joueur(j);
 					int skip=4;
 					int ind;
@@ -164,19 +165,29 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 					sscanf(data_skip(data, skip++), "%d", &nb_j);
 					for(int i=0; i<nb_j; i++){
 						sscanf(data_skip(data, skip), "%d %d %d", &ind, &pos.x, &pos.y);
+						printf("Joueur sur la tuile : %d (%s)\n", ind, ind==indice ? "moi" : "pas moi");
 						joueurs[ind].rect.x = pos.x;
 						joueurs[ind].rect.y = pos.y;
-						ajout_fin_liste(tuile_courante->liste_joueurs, joueurs + ind, sizeof(perso_t*));
-						//!!param ?
+						ajouter_joueur_tuile(tuile_courante, ind);
 						skip+=3;
 					}
+					puts("Ca a marché");
 				    charger_tuile(tuile_courante);
+				}
+				case ADD_JOUEUR_TUILE:{
+					int ind;
+					sscanf(data_skip(data, 1), "%d", &ind);
+					ajouter_joueur_tuile(tuile_courante, ind);
+				}
+				case RM_JOUEUR_TUILE:{
+					int ind;
+					sscanf(data_skip(data, 1), "%d", &ind);
+					retirer_joueur_tuile(tuile_courante, ind);
 				}
 			}
 			free(data);
 		}
-		if(compteur > 10000)
-			valide=0;
+		if (compteur > 10000) valide=0;
 		else compteur += DELAY;
 
 	//affichage
@@ -184,10 +195,14 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 		afficher_tuile();
 		//joueurs
 		for(tete_liste(tuile_courante->liste_joueurs); !hors_liste(tuile_courante->liste_joueurs); suivant_liste(tuile_courante->liste_joueurs)){
-			perso_t * joueur_cour = get_liste(tuile_courante->liste_joueurs);
-			SDL_RenderCopy(renderer, textures_joueurs[joueur_cour->iperso][joueur_cour->dir % 4], NULL, &joueur_cour->rect);
+			int ind = *(int*)get_liste(tuile_courante->liste_joueurs);
+			SDL_RenderCopy(renderer, textures_joueurs[ind][joueurs[ind].dir % 4], NULL, &joueurs[ind].rect);
 		}
 		//objets
+		for(tete_liste(tuile_courante->liste_objets); !hors_liste(tuile_courante->liste_objets); suivant_liste(tuile_courante->liste_objets)){
+			objet_tuile_t * obj = get_liste(tuile_courante->liste_objets);
+			SDL_RenderCopy(renderer, textures_objets[obj->objet->ind], NULL, &(SDL_Rect){obj->pos.x * CARRE_W, obj->pos.y * CARRE_H, CARRE_W, CARRE_H});
+		}
 
 		ecran();
 		SDL_Delay(DELAY);
@@ -199,6 +214,7 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 		sleep(1);//attend fin ecoute_thread
 	}
 
+	detruire_objets_client(textures_objets);
     detruire_joueurs_client(joueurs, textures_joueurs);
 	SDL_DestroyTexture(texture_tuile);
 	end(0);

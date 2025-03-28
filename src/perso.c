@@ -116,14 +116,14 @@ void update_stats(perso_t * p) {
     }
 }
 
-void ajouter_objet(perso_t * perso, int ind_obj) {
+void ajouter_objet_joueur(perso_t * perso, int ind_obj) {
     int i=0;
     //trouver la première place libre
     while(perso->objets[i] && i<PERSO_OBJETS_MAX) i++;
     if(i==PERSO_OBJETS_MAX)return;//pas de place
     perso->objets[i] = tab_objets+ind_obj;
 }
-void retirer_objet(perso_t * perso, int ind_inv) {
+void retirer_objet_joueur(perso_t * perso, int ind_inv) {
     perso->objets[ind_inv] = NULL;
 }
 /*

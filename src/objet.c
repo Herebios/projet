@@ -19,17 +19,17 @@ objet_t tab_objets[NB_OBJETS]={
 {"Gants du combattant", commun, {{0, null}, {1.15, mult}, {0, null}, {0, null}}},
 {"Gants en acier", 		commun, {{0, null}, {1.1, mult}, {0, null}, {0, null}}},
 {"Casque du gardien", 	commun, {{0, null}, {0, null}, {12, add}, {0, null}}},
-{"Gants renforcés", 	commun, {{0, null}, {0, null}, {8, add}, {0, null}}},
+{"Gants renforces", 	commun, {{0, null}, {0, null}, {8, add}, {0, null}}},
 {"Bottes du vent", 		commun, {{0, null}, {0, null}, {0, null}, {5, add}}},
 {"Charme du destin", 	commun, {{0, null}, {0, null}, {5, add}, {0, null}}},
 {"Anneau du hasard", 	commun, {{0, null}, {0, null}, {4, add}, {0, null}}},
 
 {"Talisman des arcanes", rare, {{1.4, mult}, {0, null}, {0, null}, {-2, add}}},
 {"Anneau de sagesse", 	rare, {{1.2, mult}, {0, null}, {10, add}, {0, null}}},
-{"Épée des tempêtes",	rare, {{0, null}, {1.2, mult}, {0, null}, {-2, add}}},
+{"Epee des tempetes",	rare, {{0, null}, {1.2, mult}, {0, null}, {-2, add}}},
 {"Plastron du roc", 	rare, {{0, null}, {0, null}, {20, add}, {-3, add}}},
 {"Bottes en acier", 	rare, {{0, null}, {0, null}, {15, add}, {-2, add}}},
-{"Anneau de vélocité", 	rare, {{0, null}, {0, null}, {0, null}, {7, add}}},
+{"Anneau de velocite", 	rare, {{0, null}, {0, null}, {0, null}, {7, add}}},
 {"Bracelet d'agilité", 	rare, {{0, null}, {0, null}, {0, null}, {8, add}}},
 {"Sacoche du vagabond", rare, {{0, null}, {0, null}, {8, add}, {0, null}}},
 
@@ -37,16 +37,16 @@ objet_t tab_objets[NB_OBJETS]={
 {"Ceinture du colosse", epique, {{0, null}, {1.3, mult}, {0, null}, {-3, add}}},
 {"Cape du sprinteur", 	epique, {{0, null}, {0, null}, {0, null}, {12, add}}},
 {"Lance des cieux", 	epique, {{1.2, mult}, {1.3, mult}, {0, null}, {-5, add}}},
-{"Épée du roi déchu", 	epique, {{1.1, mult}, {1.2, mult}, {0, null}, {-4, add}}},
-{"Médaillon porte-bonheur", epique, {{0, null}, {0, null}, {12, add}, {0, null}}},
+{"Epee du roi dechu", 	epique, {{1.1, mult}, {1.2, mult}, {0, null}, {-4, add}}},
+{"Medaillon porte-bonheur", epique, {{0, null}, {0, null}, {12, add}, {0, null}}},
 
 {"Marteau du titan", 	legendaire, {{0, null}, {1.5, mult}, {0, null}, {-5, add}}},
 {"Orbe divine", 		legendaire, {{10,add},{0.9,mult},{2,mult},{0,null}}},
 {"Bouclier du dragon", 	legendaire, {{0, null}, {0, null}, {30, add}, {-5, add}}},
-{"Bottes célestes", 	legendaire, {{0, null}, {0, null}, {0, null}, {10, add}}},
+{"Bottes celestes", 	legendaire, {{0, null}, {0, null}, {0, null}, {10, add}}},
 {"Talisman de la fortune", legendaire, {{0, null}, {0, null}, {15, add}, {0, null}}},
 {"Orbe mystique", 		legendaire, {{1.5, mult}, {0.8, mult}, {20, add}, {0, null}}},
-{"Bâton du sorcier-roi", legendaire, {{1.6, mult}, {0.9, mult}, {10, add}, {-3, add}}},
+{"Baton du sorcier-roi", legendaire, {{1.6, mult}, {0.9, mult}, {10, add}, {-3, add}}},
 {"Cuirasse du paladin", legendaire, {{0, null}, {1.1, mult}, {25, add}, {-3, add}}}
 };
 

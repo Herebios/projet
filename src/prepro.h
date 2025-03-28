@@ -28,8 +28,8 @@ H = CARRE_H * HAUTEUR_TUILE
 #define NB_PNJ_TUILE 1
 #define NB_ENNEMIS_TUILE 1
 
-#define HAUTEUR_MAP 5
-#define LARGEUR_MAP 10
+#define HAUTEUR_MAP 2
+#define LARGEUR_MAP 2
 
 //différencier perso et biome dans nouv_texture
 #define TEXTURE_BIOME 0

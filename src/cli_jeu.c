@@ -21,7 +21,12 @@ void init_joueurs_client(perso_t *joueurs){
         }
 		else usleep(100000);
     }
-	puts("OK");flush;
+}
+
+void charger_sdl_objets(SDL_Texture * textures_objets[NB_OBJETS]){
+	for(int i=0; i<NB_OBJETS; i++){
+		textures_objets[i] = get_nouv_texture(tab_objets[i].nom);
+	}
 }
 
 void charger_sdl_joueurs(perso_t joueurs[], SDL_Texture * textures_joueurs[][4]){
@@ -57,6 +62,12 @@ void charger_sdl_joueurs(perso_t joueurs[], SDL_Texture * textures_joueurs[][4])
 	}
 }
 
+void detruire_objets_client(SDL_Texture * textures_objets[NB_OBJETS]){
+	for(int i=0; i<NB_OBJETS; i++)
+		if(textures_objets[i])
+			SDL_DestroyTexture(textures_objets[i]);
+}
+
 void detruire_joueurs_client(perso_t *joueurs, SDL_Texture * textures_joueurs[][4]){
     for(int i=0; i<nb_joueurs; i++){
         detruire_perso(joueurs + i);
@@ -68,14 +79,14 @@ void detruire_joueurs_client(perso_t *joueurs, SDL_Texture * textures_joueurs[][
 
 //obligatoirement le joueur ; connaître id objet
 void ramasser_objet(perso_t *perso, int ind_o){
-    sendf("%d %d", ADD_OBJET, ind_o);
-    ajouter_objet(perso, ind_o);
+    sendf("%d %d", ADD_OBJET_JOUEUR, ind_o);
+    ajouter_objet_joueur(perso, ind_o);
     update_stats(perso);
 }
 //position dans l'inventaire
 void lacher_objet(perso_t *perso, int ind_inv){
-    sendf("%d %d", RM_OBJET, ind_inv);
-    retirer_objet(perso, ind_inv);
+    sendf("%d %d", RM_OBJET_JOUEUR, ind_inv);
+    retirer_objet_joueur(perso, ind_inv);
     update_stats(perso);
 }
 

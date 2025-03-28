@@ -7,7 +7,7 @@
 
 #include "serv_commun.h"
 
-#define PORT 2048
+#define PORT 2050
 
 void * client_thread(void *);
 void * accept_thread(void *);

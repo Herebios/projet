@@ -24,6 +24,8 @@ typedef struct {
 */
 liste * creer_liste();
 
+void vider_liste(liste *l);
+
 /**
 \brief détruire une liste et tous ses éléments
 \param pointeur sur pointeur sur la liste

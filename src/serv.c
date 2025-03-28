@@ -39,7 +39,7 @@ int main_server(int nb_clients) {
 	server.nb_on=nb_clients;
 	//à partir d'ici on peut utiliser server.nb_clients (global)
 	broadcast("start;", -1);
-	sleep(1);
+
 	srand(time(0));
 	int random_seed = rand();
 	//Chaque client reçoit son indice et la seed random
@@ -47,6 +47,8 @@ int main_server(int nb_clients) {
 		sprintf(buffer, "%d %d %d;", i, nb_clients, random_seed);
 		send(clients[i].socket, buffer, strlen(buffer), 0);
 	}
+
+	init_jeu();
 
 	perso_t joueurs[nb_clients];
 	init_joueurs_server(joueurs, nb_clients);
@@ -56,6 +58,16 @@ int main_server(int nb_clients) {
 		printf("ind %d , classe %d , nom %s , equipe %d\n", i, joueurs[i].classe, joueurs[i].nom, joueurs[i].equipe);
 	}
 	flush;
+	//init les tuiles avec les joueurs
+	for(int i=0; i<nb_clients; i++){
+		tuile_t * t=get_tuile_joueur(joueurs + i);
+		ajouter_joueur_tuile(t, i);
+	}
+	flush;
+
+	for(int i=0; i<nb_clients; i++){
+		maj_tuile(joueurs, i);
+	}
 	/*on[i] correspond à clients[i].online, pour mémoriser lequels sont off et ne les compter qu'une fois
 	on décrémente nb_on, qui est incrémenté quand le thread accepte un nouveau client
 	quand nb_on sera à 0 et premier_client à 1, le serveur s'arrêtera
@@ -65,7 +77,6 @@ int main_server(int nb_clients) {
 	int action;
 	int compteur=0;
 
-//<<	init_jeu();
 	while (server.nb_on){
 		while(!fileVide(serv_file)){
 			data=defiler(serv_file);
@@ -74,18 +85,18 @@ int main_server(int nb_clients) {
 				case JOUEUR_CHANGE_DIR:
 					sscanf(data_skip(data, 2), "%d", (int*)&joueurs[ind_j].dir);
 					break;
-				case ADD_OBJET:{
+				case ADD_OBJET_JOUEUR:{
 					int ind_o;
 					sscanf(data_skip(data, 2), "%d", &ind_o);
-					ajouter_objet(joueurs + ind_j, ind_o);
+					ajouter_objet_joueur(joueurs + ind_j, ind_o);
 					update_stats(joueurs + ind_j);
 					break;
 				}
-				case RM_OBJET:{
+				case RM_OBJET_JOUEUR:{
 					int ind_inv, ind_o;
 					sscanf(data_skip(data, 2), "%d", &ind_inv);
 					ind_o = joueurs[ind_j].objets[ind_inv]->ind;
-					retirer_objet(joueurs + ind_j, ind_inv);
+					retirer_objet_joueur(joueurs + ind_j, ind_inv);
 					update_stats(joueurs + ind_j);
 
 					//on ajoute l'objet sur la tuile
@@ -100,7 +111,7 @@ int main_server(int nb_clients) {
 
 		//gerer les deco
 		server.nb_on=server.nb_clients;
-		for (int i=0; i<server.nb_clients; i++){
+		for (int i=0; i<nb_clients; i++){
 			if(!clients[i].online){
 				server.nb_on--;
 			}
@@ -108,14 +119,23 @@ int main_server(int nb_clients) {
 
 		//bouger les joueurs
 		for(int i=0; i<nb_clients; i++){
-			if(joueurs[i].dir != nulldir)
+			if(joueurs[i].dir != nulldir){
 				avancer(joueurs+i);
+				check_sortie_tuile(joueurs, i);//fait l'envoi
+			}
 		}
 
 		//evenements
-		if(compteur >= 2000){
+		if(compteur % 1000 == 0){
+			for(int i=0; i<nb_clients; i++){
+				printf("J %d : tuile %d %d | position %d %d\n", i, joueurs[i].pos_map.x, joueurs[i].pos_map.y, joueurs[i].rect.x, joueurs[i].rect.y);
+			}
+		}
+		if(compteur >= 5000){
 			puts("Spawn obj\n");flush;
-			spawn_objet(commun);
+			//paramètres temporaires
+			int ind; pos_t pos1, pos2;
+			spawn_objet((rarete_t)rand()%4, 0, ind, pos1, pos2);
 			compteur=0;
 		}else
 			compteur+=DELAY;

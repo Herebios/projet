@@ -68,12 +68,17 @@ void spawn_objet(rarete_t r, int mode, int ind_o, pos_t p_map, pos_t p_tuile){
 
 /*Envoie au joueur les infos de la tuile*/
 //!!compléter avec les autres infos
-void maj_tuile(int ind, pos_t pos_map){
-	char buffer[256]="";
-	tuile_t *t=map[pos_map.y]+pos_map.x;
-	sprintf(buffer, "%d %d %d ", JOUEUR_MV_TUILE, pos_map.x, pos_map.y);
+void maj_tuile(perso_t *joueurs, int ind_j){
+	char buffer[256], buffer2[16];
+	tuile_t *t = get_tuile_joueur(joueurs+ind_j);
 
-	//envoi objets
+//On dit aux joueurs présents sur la tuile qu'un nouveau est arrivé, le send : *1
+	sprintf(buffer2, "%d %d;", ADD_JOUEUR_TUILE, ind_j);
+
+//On envoie au joueur les informations de la tuile
+	sprintf(buffer, "%d %d %d ", JOUEUR_MV_TUILE, joueurs[ind_j].pos_map.x, joueurs[ind_j].pos_map.y);
+
+	//info des objets
 	sprintf(buffer + strlen(buffer), "%d ", taille_liste(t->liste_objets));
 	objet_tuile_t * obj;
 	for(tete_liste(t->liste_objets); !hors_liste(t->liste_objets); suivant_liste(t->liste_objets)){
@@ -81,15 +86,18 @@ void maj_tuile(int ind, pos_t pos_map){
 		sprintf(buffer+strlen(buffer), "%d %d %d ", obj->objet->ind, obj->pos.x, obj->pos.y);
 	}
 
-	//envoi joueurs
+	//info des joueurs
 	sprintf(buffer + strlen(buffer), "%d ", taille_liste(t->liste_joueurs));
-	perso_t * p;
+	int ind_lu;
 	for(tete_liste(t->liste_joueurs); !hors_liste(t->liste_joueurs); suivant_liste(t->liste_joueurs)){
-		p = get_liste(t->liste_joueurs);
-		sprintf(buffer+strlen(buffer), "%d %d %d ", p->iperso, p->rect.x, p->rect.y);
+		ind_lu = *(int*)get_liste(t->liste_joueurs);
+		sprintf(buffer+strlen(buffer), "%d %d %d ", joueurs[ind_lu].iperso, joueurs[ind_lu].rect.x, joueurs[ind_lu].rect.y);
+
+		if(ind_lu != ind_j)
+			send(clients[ind_lu].socket, buffer2, strlen(buffer2), 0); // *1
 	}
 	strcat(buffer, ";");
-	send(clients[ind].socket, buffer, strlen(buffer), 0);
+	send(clients[ind_j].socket, buffer, strlen(buffer), 0);
 }
 
 /*Reçoit les infos de chaque client*/
@@ -131,26 +139,43 @@ void send_joueurs_server(perso_t * joueurs, int nb){
     Dans ce cas, le server envoie maj_tuile au client
 Sinon renvoie 0
 */
-int check_sortie_tuile(perso_t *p){
-    tuile_t *t=map[p->pos_map.y] + p->pos_map.x;
+int check_sortie_tuile(perso_t *joueurs, int ind_j){
+	perso_t * p=joueurs+ind_j;
+	tuile_t *t = get_tuile_joueur(p);
     pos_t pos_tuile;
     position_perso(p, &pos_tuile);
     if(t->id_texture[pos_tuile.y][pos_tuile.x]==sortie){
+
+		retirer_joueur_tuile(t, ind_j);
+
+		//on envoie aux joueurs de la tuile que le joueur part
+		char buffer[16];
+		sprintf(buffer, "%d %d;", RM_JOUEUR_TUILE, ind_j);
+
+		int ind_lu;
+	    for(tete_liste(t->liste_joueurs); !hors_liste(t->liste_joueurs); suivant_liste(t->liste_joueurs)){
+			ind_lu = *(int*)get_liste(t->liste_joueurs);
+			if(ind_lu != ind_j)
+				send(clients[ind_lu].socket, buffer, strlen(buffer), 0);
+		}
+
         if(pos_tuile.x==0){
         //sortie gauche tuile
             p->pos_map.x--;
-            p->rect.x = W - p->rect.w;//se retrouve côté droit
+            p->rect.x = W - 2*p->rect.w;//se retrouve côté droit
         }else if(pos_tuile.x==LARGEUR_TUILE-1){
             p->pos_map.x++;
-            p->rect.x = 0;//se retrouve côté gauche
+            p->rect.x = 0 + p->rect.w;//se retrouve côté gauche
         }else if(pos_tuile.y==0){
         //sortie haut tuile
             p->pos_map.y--;
-            p->rect.y = H - p->rect.h;//se retrouve en bas
+            p->rect.y = H - 2*p->rect.h;//se retrouve en bas
         }else/* if (pos_tuile.y==HAUTEUR_TUILE-1)*/{
             p->pos_map.y++;
-            p->rect.y = 0;//se retrouve en haut
+            p->rect.y = 0 + p->rect.h;//se retrouve en haut
         }
+		ajouter_joueur_tuile(get_tuile_joueur(p), ind_j);
+		maj_tuile(joueurs, ind_j);
         return 1;
     }
     return 0;
