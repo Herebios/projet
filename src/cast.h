@@ -5,13 +5,17 @@
 #include "types.h"
 #include "perso.h"
 
+// only server side static unsigned short int last_id = 0;
+
 typedef struct {
 	unsigned short int id;
 } cast_t;
 
-int comparer(cast_t *e1, cast_t *e2);
+int comparer(unsigned short int *e1, cast_t *e2);
 int comparer_cb(void *e1, void *e2);
 
-void trouver_supprimer_cb(liste * l, unsigned short int id);
+void* getCast (tuile_t *tuile, unsigned short int id);
+void* removeCast (tuile_t *tuile, unsigned short int id);
 
 #endif
+

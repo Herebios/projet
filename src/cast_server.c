@@ -1,37 +1,37 @@
 #include "cast_server.h"
 
-int comparer(cast_zone_t *e1, cast_zone_t *e2){
-    if (e1->id == e2->id){
-        return 0;
-    }
-    return (e1->id > e2->id) ? 1 : 0;
-}
-
-int comparer_cb(void *e1, void *e2){
-    return comparer(e1, e2);
-}
-
-cast_zone_t * newCastZone(tuile_t *tuile, comp_t *comp, unsigned short int id, pos_t pos, time_t fin){
+cast_zone_t * newCastZone(tuile_t *tuile, comp_t *comp, pos_t pos, time_t fin){
     static unsigned short int last_id = 0;
-    cast_zone_t *c = (cast_zone_t*) malloc(sizeof(cast_zone_t));
-    c->id = last_id;
-    c->comp = comp;
-    c->pos = pos;
-    c->fin = fin;
-    ajouter_fin_liste(tuile->liste_casts, c, sizeof (cast_zone_t *));
+    cast_zone_t *cast = (cast_zone_t*) malloc(sizeof(cast_zone_t));
+    cast->cast.id = last_id;
+    cast->comp = comp;
+    cast->pos = pos;
+    cast->fin = fin;
+    ajout_fin_liste(tuile->liste_casts, cast, sizeof (cast_zone_t *));
     //Broadcast // 300
     last_id++;
-    return c;
+    return cast;
 }
 
-void updateCastZone(tuile_t *tuile, unsigned short int id){
-    cast_t *cast = (cast_t*) trouver_liste(tuile->liste_casts);
-    if (difftime(cast->fin, time(NULL)) > 0){
-        // BC 302
-        // tuile delete cast
-        free(cast);
-    }
-    //detect collision
-    // move
-    //send collision and new pos
+//accesseur
+// use get as callBack
+cast_zone_t *getCastZone(tuile_t *tuile, unsigned short int id){
+    return getCast(tuile, id);
 }
+//accesseur
+// use remove as callBack
+cast_zone_t *removeCastZone(tuile_t *tuile, unsigned short int id){
+    return removeCast(tuile, id);
+}
+
+//char as bool
+char 
+
+void updateCastZone(tuile_t *tuile, unsigned short int id){
+    cast_zone_t *cast = getCastZone(tuile, id);
+    tete_liste(tuile->liste_casts);
+    while (!hors_liste(tuile->liste_casts)){
+        if ()
+    }
+}
+
