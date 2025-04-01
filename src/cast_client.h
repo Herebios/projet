@@ -2,7 +2,8 @@
 #define __CAST_CLIENT__
 
 #include "cast.h"
-
+// -lrt ou -lc
+//seconds : 1.0e-9 ; ms : 1.0e-6
 typedef enum {onTouch, onEnd} state;
 
 typedef struct cast_zone_s cast_zone_t;

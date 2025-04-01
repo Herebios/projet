@@ -1,14 +1,16 @@
 #ifndef __CAST__
 #define __CAST__
 
+#include <time.h>
+
 #include "def.h"
 #include "types.h"
 #include "perso.h"
-
-// only server side static unsigned short int last_id = 0;
+#include "math.h"
 
 typedef struct {
 	unsigned short int id;
+	struct timespec lastUpdate;
 } cast_t;
 
 int comparer(unsigned short int *e1, cast_t *e2);
