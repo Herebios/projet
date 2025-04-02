@@ -119,7 +119,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
         }
 
 		clavier=SDL_GetKeyboardState(NULL);
-        Uint8 mask=clavier[SDL_SCANCODE_RIGHT] << 3 | clavier[SDL_SCANCODE_LEFT] << 2 | clavier[SDL_SCANCODE_DOWN] << 1 | clavier[SDL_SCANCODE_UP];
+        Uint8 mask=clavier[SDL_SCANCODE_D] << 3 | clavier[SDL_SCANCODE_Q] << 2 | clavier[SDL_SCANCODE_S] << 1 | clavier[SDL_SCANCODE_Z];
 		if(mask){
 			dir_t dir=j->dir;
 			changer_dir(j, mask);

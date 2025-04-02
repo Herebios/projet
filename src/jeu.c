@@ -244,19 +244,39 @@ void avancer(perso_t *p){
     /*Ne pas dépasser les bords. Tests x et y séparés pour ne pas être bloqué
     si 2 touches sont appuyées et une des directions est un bord*/
 
+	pos_t tilePos;
+	position_perso(p, &tilePos);
+	tuile_t tile = map[p->pos_map.x][p->pos_map.y];
+
+	char isSquareFree = 1;
+    for (int i = -1; i <= 1; i++){
+        SDL_Rect closeRect = {(tilePos.x + i) * HAUTEUR_TUILE, (tilePos.y + deplacement[p->dir].y) * LARGEUR_TUILE, CARRE_W, CARRE_H};
+        type_carre tc = tile.id_texture[tilePos.x + i][tilePos.y + deplacement[p->dir].y];
+        if (inclus(&rect, &closeRect) && (tc == obstacle1 || tc == obstacle2)){
+            isSquareFree = 0;
+        }
+    }
     rect.x+=deltax;
     //test de la nouvelle position
-    if(inclus(&rect, &rect_tuile))
+	if(inclus(&rect, &rect_tuile) && isSquareFree)
         p->rect.x=rect.x;
         //correct = application
     else
         rect.x=p->rect.x;
         //sinon correction pour le test de hauteur
 
-    rect.y+=deltay;
-    if(inclus(&rect, &rect_tuile))
-        p->rect.y=rect.y;
 
+    isSquareFree = 1;
+    for (int i = -1; i <= 1; i++){
+        SDL_Rect closeRect = {(tilePos.x + deplacement[p->dir].x) * HAUTEUR_TUILE, (tilePos.y + i) * LARGEUR_TUILE, CARRE_W, CARRE_H};
+        type_carre tc = tile.id_texture[tilePos.x + deplacement[p->dir].x][tilePos.y + i];
+        if (inclus(&rect, &closeRect) && (tc == obstacle1 || tc == obstacle2)){
+            isSquareFree = 0;
+        }
+    }
+    rect.y+=deltay;
+    if(inclus(&rect, &rect_tuile) && isSquareFree)
+        p->rect.y=rect.y;
 }
 
 tuile_t * get_tuile_from_pos(pos_t pos){

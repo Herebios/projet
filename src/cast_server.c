@@ -1,6 +1,6 @@
 #include "cast_server.h"
 
-cast_zone_t * newCastZone(tuile_t *tuile, comp_t *comp, pos_t pos, time_t fin){
+cast_zone_t * newCastZone(tuile_t *tuile, comp_t *comp, pos_t pos, struct timespec fin){
     static unsigned short int last_id = 0;
     cast_zone_t *cast = (cast_zone_t*) malloc(sizeof(cast_zone_t));
     cast->cast.id = last_id;
@@ -8,7 +8,14 @@ cast_zone_t * newCastZone(tuile_t *tuile, comp_t *comp, pos_t pos, time_t fin){
     cast->pos = pos;
     cast->fin = fin;
     ajout_fin_liste(tuile->liste_casts, cast, sizeof (cast_zone_t *));
-    //Broadcast // 300
+
+    char paquet[512];
+    sprintf(paquet, "%d",)
+
+
+    sprintf(paquet, ";\0");
+    broadcast(paquet, -1);
+
     last_id++;
     return cast;
 }
