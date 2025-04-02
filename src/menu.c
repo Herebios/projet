@@ -143,12 +143,12 @@ void saisie_touche_ip(SDL_Keycode touche, int * nbCar, char * saisie){
 void affiche_rejoindre(){
     clear_ecran();
     //bouton retour 
-    dessine_img(6);
-    dessine_img(7);
-    dessine_img(10);
+    dessine_image(6);
+    dessine_image(7);
+    dessine_image(10);
     SDL_SetTextureColorMod(tab_img[23].texture, 180, 120, 80); // survol clavier
 
-    dessine_img(23);
+    dessine_image(23);
 
     dessine_texte(15);
     dessine_texte(22);
@@ -168,15 +168,15 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
 
         case DANS_PARAM : 
                             clear_ecran();
-                            dessine_img(6);
-                            dessine_img(7);
+                            dessine_image(6);
+                            dessine_image(7);
 
                             for(int i = 11 ; i < 19 ; i++){
                                 if (i == tabBouton[bouton_choisi])
                                     SDL_SetTextureColorMod(tab_img[i].texture, 180, 120, 80); // survol clavier
                                 else
                                     SDL_SetTextureColorMod(tab_img[i].texture, 255, 255, 255);
-                                dessine_img(i);
+                                dessine_image(i);
                             } 
                             
                             for(int i = 9 ; i < 15 ; i++){
@@ -190,9 +190,9 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
                             dessine_texte(14);
 
                             if(volume)
-                                dessine_img(19);    
+                                dessine_image(19);    
                             else 
-                                dessine_img(20);
+                                dessine_image(20);
 
                             SDL_RenderPresent(renderer);
                             break;
@@ -206,7 +206,7 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
                                 SDL_SetTextureColorMod(tab_img[i].texture, 180, 120, 80); // survol clavier
                             else
                                 SDL_SetTextureColorMod(tab_img[i].texture, 255, 255, 255);
-                            dessine_img(i);
+                            dessine_image(i);
                         }
                         
                         
@@ -218,8 +218,8 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
 
         case DANS_CREER : clear_ecran();              
                     //bouton retour 
-                    dessine_img(6);
-                    dessine_img(7);
+                    dessine_image(6);
+                    dessine_image(7);
                     
 
                     if(tabBouton[bouton_choisi] == 21)
@@ -232,8 +232,8 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
                     else
                         SDL_SetTextureColorMod(tab_img[23].texture, 255, 255, 255);
 
-                    dessine_img(21);
-                    dessine_img(22); 
+                    dessine_image(21);
+                    dessine_image(22); 
 
                     dessine_texte(17);
                     dessine_texte(20);
@@ -269,17 +269,17 @@ void affiche_menu_accueil(int tabBouton[], int bouton_choisi){
         
         else
             SDL_SetTextureColorMod(tab_img[i].texture, 255, 255, 255);
-        dessine_img(i);
+        dessine_image(i);
         if(i != 3) dessine_texte(i);
     }
     
 
     maj_texte(&tab_texte[3], tab_perso[actuel]);
 
-    detruit_img(5);
+    detruit_image(5);
     creer_image(tab_img + 5, chemin_perso());
 
-    dessine_img(5);
+    dessine_image(5);
     dessine_texte(3);
 
     
@@ -910,7 +910,7 @@ int menu(char *classe){
         }
     } 
     for(int i = 0 ; i < NB_IMG ; i++){
-        detruit_img(i);
+        detruit_image(i);
     } 
     for(int i = 0 ; i < nb_perso_ajoutes ; i++){
         free(tab_perso[i]);
@@ -924,7 +924,7 @@ int menu(char *classe){
 
 
 
-
+/*
 
 int main(void){
     char classe[50];
@@ -934,15 +934,19 @@ int main(void){
     
     end(0);
     return 0;
-}
+}*/
     
 
-/*pour tester l'affichage de l'inventaire
+//pour tester l'affichage de l'inventaire
 int main(void){
     init_sdl();
 
     perso_t perso;
     creer_perso(&perso, tank, "nom", 0, 0);
+
+    ajouter_objet_joueur(&perso, 0);
+    ajouter_objet_joueur(&perso, 3);
+
 
     ajouter_objet_joueur(&perso, 1);
     ajouter_objet_joueur(&perso, 3);
@@ -951,4 +955,3 @@ int main(void){
     SDL_Delay(1000);
     return 0;
 }
-*/

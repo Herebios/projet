@@ -10,6 +10,10 @@ SDL_Rect inventaire[5] = {(SDL_Rect){600, 990, 75, 75},
                     (SDL_Rect){1400, 990, 75, 75}};
 
 char * chemin_objet(objet_t * obj){
+    char chaine[50] = "../img/Objets/";
+    strcat(chaine, obj->nom);
+    strcat(chaine, ".jpg");
+    return strdup(chaine);
     if (!strcmp(obj->nom, "Baguette du magicien")) return "../img/Objets/Baguette du magicien.jpg";
     if (!strcmp(obj->nom, "Epee lourde")) return "../img/Objets/Epee lourde.jpg";
     if (!strcmp(obj->nom, "Bague du magicien")) return "../img/Objets/Bague du magicien.jpg";
