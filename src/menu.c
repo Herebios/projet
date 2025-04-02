@@ -1,5 +1,9 @@
 
 #include "menu.h"
+
+#include "inventaire.c"
+
+
 /*
 compilation :
 gcc menu.c -o menu -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer  
@@ -33,7 +37,6 @@ char cheminMusique[] = "../include/musiqueMenu.ogg";
 char cheminParamTxt[] = "../include/.sauvegarde.txt";
 char valVolume[4] = "100"; //sert à convertir la valeur du volume pour l'afficher
 char saisieIp[NB_MAX_CAR_IP] = "@";
-
 
 
 char * tab_perso[NB_MAX_PERSO]; //liste des personnages disponibles à choisir
@@ -94,7 +97,7 @@ void init_sdl(){
     SDL_Init(SDL_INIT_AUDIO);
 }
 
-void dessine_img(int i) {
+void dessine_image(int i) {
     if (tab_img[i].texture)
         SDL_RenderCopy(renderer, tab_img[i].texture, NULL, &tab_img[i].posBoutonFen);
 }
@@ -362,7 +365,7 @@ renvoie le chemin du fichier correspondant au perso actuel choisi
     return "null";
 }
 
-void detruit_img(int indice){
+void detruit_image(int indice){
 /*
 detruit une SDL_Texture dans la structure image passée en paramètre
 */
@@ -439,6 +442,8 @@ int menu(char *classe){
     int tabBoutonsCreer[] = {22, 21};
     int tabBoutonsRejoi[] = {23};
 
+    
+
 
     //tab de chaque elm pouvant être sélectionné selon l'etat actuel du menu. tabBoutonsCreer y est 2 fois car il ya 
     //l'etat BAD_IP où on affiche la même chose que REJOINDRE mais avec un message d'erreur
@@ -472,7 +477,7 @@ int menu(char *classe){
     ajout_personnage("ninja");
     ajout_personnage("vampire");
     ajout_personnage("archer");
-
+    
 
     //menu d'accueil 
     tab_img[0] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.2, WINDOW_HEIGHT * 0.37, WINDOW_WIDTH * 0.2, WINDOW_HEIGHT * 0.14}, NULL}; //bouton jouer
@@ -895,7 +900,6 @@ int menu(char *classe){
         frame = SDL_GetTicks() - start;
         if (frame < 16) SDL_Delay(16 - frame);
     }
-    
     strcpy(classe, tab_perso[actuel]);  
 
     //libération des textures, images et textes
@@ -918,11 +922,33 @@ int menu(char *classe){
     return retour;
 }
 
+
+
+
+
 int main(void){
     char classe[50];
-    
+
     printf("\nRetrour menu : %d | ", menu(classe)); 
     printf("Pseudo : %s | Classe : %s | Ip : %s|\n", nomJoueur, classe, saisieIp);
+    
     end(0);
     return 0;
 }
+    
+
+/*pour tester l'affichage de l'inventaire
+int main(void){
+    init_sdl();
+
+    perso_t perso;
+    creer_perso(&perso, tank, "nom", 0, 0);
+
+    ajouter_objet_joueur(&perso, 1);
+    ajouter_objet_joueur(&perso, 3);
+
+    show_inventaire(&perso, renderer);
+    SDL_Delay(1000);
+    return 0;
+}
+*/

@@ -95,7 +95,7 @@ void init_sdl(void);
 /**
  * @brief Utile pour la lisibilité du code, remplace une ligne de SDL_RenderCopy pour les images
  */
-void dessine_img(int i);
+void dessine_image(int i);
 
 /**
  * @brief Utile pour la lisibilité du code, remplace une ligne de SDL_RenderCopy pour les textes
@@ -171,7 +171,7 @@ char * chemin_perso();
   * @brief Détruit une texture correspondant à une image 
   * @param indice L'indice de la texture du tableau d'images que l'on veut détruire
   */
-void detruit_img(int indice);
+void detruit_image(int indice);
 
 
 /**
