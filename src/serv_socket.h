@@ -11,7 +11,7 @@
 
 void * client_thread(void *);
 void * accept_thread(void *);
-int setup_server();
+int setup_server(int port, int nb_clients);
 void fermeture_server(int code);
 
 #endif

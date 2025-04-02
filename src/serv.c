@@ -6,10 +6,10 @@
 #include "serv_socket.h"
 #include "serv_jeu.h"
 
-int main_server(int nb_clients) {
+int main_server(int port, int nb_clients) {
 	//setup socket
 	int error_code;
-	if ((error_code = setup_server()) > 0){
+	if ((error_code = setup_server(port, nb_clients)) > 0){
 		//sortie avec libération adaptée
 		fermeture_server(error_code);
 		return error_code;
@@ -122,6 +122,16 @@ int main_server(int nb_clients) {
 			if(joueurs[i].dir != nulldir){
 				avancer(joueurs+i);
 				check_sortie_tuile(joueurs, i);//fait l'envoi
+
+				char buffer[16];
+				sprintf(buffer, "%d %d %d %d %d;", JOUEUR_MV, i, joueurs[i].rect.x, joueurs[i].rect.y, joueurs[i].dir);
+				//envoie aux joueurs la position des autres
+				tuile_t * tuile = get_tuile_joueur(joueurs + i);
+		        for(tete_liste(tuile->liste_joueurs); !hors_liste(tuile->liste_joueurs); suivant_liste(tuile->liste_joueurs)){
+		            int ind = *(int*)get_liste(tuile->liste_joueurs);
+					if(ind != i)
+						send(clients[ind].socket, buffer, strlen(buffer), 0);
+				}
 			}
 		}
 
@@ -152,6 +162,11 @@ int main_server(int nb_clients) {
 }
 
 int main(int argc, char *argv[]){
-	main_server(2);
+	if(argc != 2){
+		puts("pas de port");
+		return 1;
+	}
+	if(atoi(argv[1]) > 1024)
+		main_server(atoi(argv[1]), 2);
 	return 0;
 }

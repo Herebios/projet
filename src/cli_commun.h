@@ -35,12 +35,12 @@ extern socket_struct client;
 extern int indice, nb_joueurs;
 
 void * ecoute_thread(void * null);
-int setup_client(char * ip);
+int setup_client(char * ip, int port);
 void fermeture_client(int code);
 
 void sendf(char *, ...);
 char * data_skip(char *, int);
 
-int main_client(char * ip, char * nom, classe_t);
+int main_client(char * ip, int port, char * nom, classe_t);
 
 #endif

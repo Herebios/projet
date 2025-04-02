@@ -59,7 +59,7 @@ void end(int code){
 }
 
 void init_sdl(){
-	if (SDL_Init(SDL_INIT_VIDEO) || !(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) end(1);
+	if (SDL_Init(SDL_INIT_VIDEO) || !(IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG) & (IMG_INIT_PNG | IMG_INIT_JPG))) end(1);
 	window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, W, H, SDL_WINDOW_SHOWN);
 	if (!window) end(2);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);

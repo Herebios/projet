@@ -37,10 +37,10 @@ char * data_skip(char * data, int nb){
     return skip;
 }
 
-int main_client(char * ip, char * pseudo, classe_t classe) {
+int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 	//setup socket
 	int error_code;
-	if((error_code=setup_client(ip)) > 0){
+	if((error_code=setup_client(ip, port)) > 0){
 		fermeture_client(error_code);
 		return error_code;
 	}
@@ -147,6 +147,12 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 					//!! ajout dans sdl_objet
 					break;
 				}
+				case JOUEUR_MV:{
+					int i;
+					sscanf(data_skip(data, 1), "%d", &i);
+					sscanf(data_skip(data, 2), "%d %d %d", &joueurs[i].rect.x, &joueurs[i].rect.y, (int*)&joueurs[i].dir);
+					break;
+				}
 				case JOUEUR_MV_TUILE:{
 					detruire_tuile(get_tuile_joueur(j), 1);
 
@@ -171,32 +177,40 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 						ajouter_joueur_tuile(tuile_courante, ind);
 						skip+=3;
 					}
-					puts("Ca a marché");
 				    charger_tuile(tuile_courante);
+					printf("taille liste : %d\n", taille_liste(tuile_courante->liste_joueurs));
+					break;
 				}
 				case ADD_JOUEUR_TUILE:{
 					int ind;
 					sscanf(data_skip(data, 1), "%d", &ind);
 					ajouter_joueur_tuile(tuile_courante, ind);
+					printf("Add joueur %d\n", ind);
+					break;
 				}
 				case RM_JOUEUR_TUILE:{
 					int ind;
 					sscanf(data_skip(data, 1), "%d", &ind);
 					retirer_joueur_tuile(tuile_courante, ind);
+					printf("Rm joueur %d\n", ind);
+					break;
 				}
 			}
 			free(data);
 		}
-		if (compteur > 10000) valide=0;
-		else compteur += DELAY;
+		compteur += DELAY;
 
 	//affichage
 		//fond
 		afficher_tuile();
+
 		//joueurs
 		for(tete_liste(tuile_courante->liste_joueurs); !hors_liste(tuile_courante->liste_joueurs); suivant_liste(tuile_courante->liste_joueurs)){
 			int ind = *(int*)get_liste(tuile_courante->liste_joueurs);
 			SDL_RenderCopy(renderer, textures_joueurs[ind][joueurs[ind].dir % 4], NULL, &joueurs[ind].rect);
+			if(compteur % 1000 == 0){
+                printf("J %d : tuile %d %d | position %d %d\n", ind, joueurs[ind].pos_map.x, joueurs[ind].pos_map.y, joueurs[ind].rect.x, joueurs[ind].rect.y);
+			}
 		}
 		//objets
 		for(tete_liste(tuile_courante->liste_objets); !hors_liste(tuile_courante->liste_objets); suivant_liste(tuile_courante->liste_objets)){
@@ -223,7 +237,12 @@ int main_client(char * ip, char * pseudo, classe_t classe) {
 }
 
 int main(int argc, char *argv[]){
-	return main_client("127.0.0.1", "boi", vampire);
+	if(argc == 5){
+		return main_client(argv[1], atoi(argv[2]), argv[3], atoi(argv[4]));
+	}else{
+		puts("ip port nom classe");
+		return 1;
+	}
 }
 
 void *ecoute_thread(void *arg){
@@ -291,7 +310,7 @@ case 1:
 	}
 }
 
-int setup_client(char * ip){
+int setup_client(char * ip, int port){
 	int error_code;
 	#ifdef _WIN32
     WSADATA wsa;
@@ -311,7 +330,7 @@ int setup_client(char * ip){
 		return 2;
 
 	client.addr.sin_family = AF_INET;
-	client.addr.sin_port = htons(PORT);//atoi(port)
+	client.addr.sin_port = htons(port);
 	client.addr.sin_addr.s_addr = inet_addr(ip);
 
 	if(connect(client.socket, (struct sockaddr *)&client.addr, sizeof(client.addr)) == -1)

@@ -102,7 +102,7 @@ clients est NULL si code != 0
 	if (clients) free(clients);
 }
 
-int setup_server(int nb_clients){
+int setup_server(int port, int nb_clients){
     #ifdef _WIN32
     WSADATA wsa;
     if (WSAStartup(MAKEWORD(2, 2), &wsa))
@@ -113,9 +113,9 @@ int setup_server(int nb_clients){
         return 2;
     }
     server.server_struct.addr.sin_family = AF_INET;
-    server.server_struct.addr.sin_port = htons(PORT);
+    server.server_struct.addr.sin_port = htons(port);
     server.server_struct.addr.sin_addr.s_addr = INADDR_ANY;
-    printf("Port : %d\n", PORT);flush;
+    printf("Port : %d\n", port);flush;
 
     if (bind(server.server_struct.socket, (struct sockaddr *)&server.server_struct.addr, sizeof(server.server_struct.addr)) == -1) {
         return 3;
