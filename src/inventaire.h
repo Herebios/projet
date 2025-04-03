@@ -4,8 +4,6 @@
  * @brief fonctions d'affichage de l'inventaire d'un joueur
  */
 
-#include "objet.c"
-#include "perso.c"
 
 /**
  * @brief Renvoie le chemin vers le fichier de l'image correspondant à l'objet
@@ -19,4 +17,4 @@ char * chemin_objet(objet_t * obj);
  * @param perso Un personnage
  * @param renderer Pour l'affichage SDL
  */
-void show_inventaire(perso_t * perso, SDL_Renderer * renderer);
+void show_inventaire(SDL_Renderer * renderer, perso_t * perso);

@@ -1,4 +1,5 @@
 #include "cli_jeu.h"
+#include "inventaire.c"
 
 file * file_socket;
 
@@ -130,7 +131,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 			attaqueBasique(j);
 		}
 		clavier=SDL_GetKeyboardState(NULL);	
-        Uint8 mask=clavier[SDL_SCANCODE_D] << 3 | clavier[SDL_SCANCODE_Q] << 2 | clavier[SDL_SCANCODE_S] << 1 | clavier[SDL_SCANCODE_Z];
+        Uint8 mask=clavier[SDL_SCANCODE_RIGHT] << 3 | clavier[SDL_SCANCODE_LEFT] << 2 | clavier[SDL_SCANCODE_DOWN] << 1 | clavier[SDL_SCANCODE_UP];
 		if(mask){
 			dir_t dir=j->dir;
 			changer_dir(j, mask);
@@ -138,6 +139,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 				sendf("dd", JOUEUR_CHANGE_DIR, j->dir);
 
 			avancer(j);
+
 			//serv simule aussi de son côté
 		}else if(j->dir != nulldir){
 			j->dir=nulldir;
@@ -214,7 +216,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 	//affichage
 		//fond
 		afficher_tuile();
-
+		
 		//joueurs
 		for(tete_liste(tuile_courante->liste_joueurs); !hors_liste(tuile_courante->liste_joueurs); suivant_liste(tuile_courante->liste_joueurs)){
 			int ind = *(int*)get_liste(tuile_courante->liste_joueurs);
@@ -228,6 +230,9 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 			objet_tuile_t * obj = get_liste(tuile_courante->liste_objets);
 			SDL_RenderCopy(renderer, textures_objets[obj->objet->ind], NULL, &(SDL_Rect){obj->pos.x * CARRE_W, obj->pos.y * CARRE_H, CARRE_W, CARRE_H});
 		}
+		show_inventaire(renderer, j);
+
+
 
 		ecran();
 		SDL_Delay(DELAY);

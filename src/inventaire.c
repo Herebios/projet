@@ -1,27 +1,27 @@
 #include "inventaire.h"
+#define RECT_INVENTAIRE (W - H) * 0.15
 
 
-
-
-SDL_Rect inventaire[5] = {(SDL_Rect){600, 990, 75, 75},
-                    (SDL_Rect){800, 990, 75, 75},
-                    (SDL_Rect){1000, 990, 75, 75},
-                    (SDL_Rect){1200, 990, 75, 75},
-                    (SDL_Rect){1400, 990, 75, 75}};
+SDL_Rect inventaire[5] = {(SDL_Rect){W * 0.31, H * 0.81, RECT_INVENTAIRE, RECT_INVENTAIRE},
+                    (SDL_Rect){W * 0.41, H * 0.81, RECT_INVENTAIRE, RECT_INVENTAIRE},
+                    (SDL_Rect){W * 0.52, H * 0.91, RECT_INVENTAIRE, RECT_INVENTAIRE},
+                    (SDL_Rect){W * 0.62, H * 0.91, RECT_INVENTAIRE, RECT_INVENTAIRE},
+                    (SDL_Rect){W * 0.73, H * 0.91, RECT_INVENTAIRE, RECT_INVENTAIRE}};
+                    
 
 char * chemin_objet(objet_t * obj){
-    char chaine[50] = "../img/Objets/";
+    char * chaine = malloc(strlen("../img/Objets/") + strlen(obj->nom) + strlen(".jpg") + 1);
+    strcpy(chaine, "../img/Objets/");
     strcat(chaine, obj->nom);
     strcat(chaine, ".jpg");
-    return strdup(chaine);
+    return chaine;
 }
 
 
 
-void show_inventaire(perso_t * perso, SDL_Renderer * renderer){
-    SDL_RenderClear(renderer);
+void show_inventaire(SDL_Renderer * renderer, perso_t * perso){
+    //W et H sont des constantes de prepro.h
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    int j;
     SDL_Texture * texture1 = NULL,
                 * texture2 = NULL,
                 * texture3 = NULL,
@@ -51,6 +51,7 @@ void show_inventaire(perso_t * perso, SDL_Renderer * renderer){
 
 
     for(int i = 0 ; i < 5 ; i++){
+        int j;
         for(j = 0 ; j < 5 ; j++){
             //affichage des cases d'inventaire
             SDL_RenderDrawRect(renderer, &inventaire[i]);
@@ -62,14 +63,12 @@ void show_inventaire(perso_t * perso, SDL_Renderer * renderer){
 
     }
     //affichage de l'objet
-
+    
     SDL_RenderCopy(renderer, texture1, NULL, &inventaire[0]);
     SDL_RenderCopy(renderer, texture2, NULL, &inventaire[1]);
     SDL_RenderCopy(renderer, texture3, NULL, &inventaire[2]);
     SDL_RenderCopy(renderer, texture4, NULL, &inventaire[3]);
     SDL_RenderCopy(renderer, texture5, NULL, &inventaire[4]);
-
-    SDL_RenderPresent(renderer);
 
 
     SDL_DestroyTexture(texture1);

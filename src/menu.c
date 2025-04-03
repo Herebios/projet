@@ -21,20 +21,13 @@ Mix_Music *musique = NULL;
 SDL_Texture * backgroundTexture = NULL;
 
 int nbCarJoueur = 0; //indice des lettres à ajouter lorsqu'on clique sur le clavier
-int volume = 100; 
-int nb_img = 0; //nombre de textures cliquables crées
-int nb_texte = 0; //nombre de texture texte crées
-int nb_perso_ajoutes = 0; //nombre de personnages ajoutés avec la fonction ajout_personnage()
 int actuel = 0; //pour se déplacer avec les flèches dans la liste des personnages à choisir
-int nbCarIp = 0; //nombre de caractères lors de la saisie de l'ip par le joueur
 
 
 int bouton_select = 0;
 
 
 char nomJoueur[NB_MAX_CAR_JOUEUR] = "#"; //nom saisi par l'utilisateur
-char cheminMusique[] = "../include/musiqueMenu.ogg";
-char cheminParamTxt[] = "../include/.sauvegarde.txt";
 char valVolume[4] = "100"; //sert à convertir la valeur du volume pour l'afficher
 char saisieIp[NB_MAX_CAR_IP] = "@";
 
@@ -53,10 +46,10 @@ void end(int nb){
         
     if (window)
         SDL_DestroyWindow(window);
-    for(int i = 0 ; i < nb_img ; i++){
+    for(int i = 0 ; i < NB_IMG ; i++){
         SDL_DestroyTexture(tab_img[i].texture);
     }
-    for(int i = 0 ; i < nb_texte ; i++){
+    for(int i = 0 ; i < NB_TEXTE ; i++){
         SDL_DestroyTexture(tab_texte[i].message);
     }
 	if (police){
@@ -82,9 +75,8 @@ void init_sdl(){
     
     if (SDL_Init(SDL_INIT_VIDEO) || !(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) end(1);
     
-    window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1500, 800, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, W, H, SDL_WINDOW_SHOWN);
     if (!window) end(2);
-    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
     renderer = SDL_CreateRenderer(window, -1, 0);
     if (!renderer) end(3);
@@ -128,7 +120,7 @@ void saisie_touche_ip(SDL_Keycode touche, int * nbCar, char * saisie){
                 case SDLK_KP_7 : c = '7'; break;
                 case SDLK_KP_8 : c = '8'; break;
                 case SDLK_KP_9 : c = '9'; break;            
-                case SDLK_BACKSPACE : if(*nbCar >= 1) saisie[--(*nbCar)] = ' '; return;
+                case SDLK_BACKSPACE : if(*nbCar >= 1) saisie[--(*nbCar)] = '\0'; return;
                 case SDLK_KP_ENTER :
                 case SDLK_RETURN : return;
                 default : return;
@@ -138,9 +130,10 @@ void saisie_touche_ip(SDL_Keycode touche, int * nbCar, char * saisie){
         saisie[(*nbCar)++] = c;
         saisie[*nbCar] = '\0';
     }
+    if(touche == SDLK_BACKSPACE) saisie[--(*nbCar)] = '\0';
 }
 
-void affiche_rejoindre(){
+void affiche_rejoindre(int nbCarIp){
     clear_ecran();
     //bouton retour 
     dessine_image(6);
@@ -160,7 +153,7 @@ void affiche_rejoindre(){
     }
 }
 
-void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
+void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi, int * volume, int nbCarIp){
     switch(*pos){
         case MENU_PRINCIPAL: affiche_menu_accueil(tabBouton, bouton_choisi);
                             SDL_RenderPresent(renderer);
@@ -183,8 +176,8 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
                                 if(i != 14) dessine_texte(i);
                             } 
                                 
-                            snprintf(valVolume, sizeof(valVolume), "%d", volume);
-                            Mix_VolumeMusic(volume);
+                            snprintf(valVolume, sizeof(valVolume), "%d", *volume);
+                            Mix_VolumeMusic(*volume);
                             maj_texte(tab_texte + 14, valVolume);
                             
                             dessine_texte(14);
@@ -197,7 +190,7 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
                             SDL_RenderPresent(renderer);
                             break;
 
-        case DANS_REJOINDRE : affiche_rejoindre(); SDL_RenderPresent(renderer); 
+        case DANS_REJOINDRE : affiche_rejoindre(nbCarIp); SDL_RenderPresent(renderer); 
                             break;
 
         case DANS_JOUER : clear_ecran();
@@ -240,7 +233,7 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
                     SDL_RenderPresent(renderer); 
                     break;
 
-        case BAD_IP : affiche_rejoindre();
+        case BAD_IP : affiche_rejoindre(nbCarIp);
 
                     dessine_texte(18);
                     dessine_texte(19);
@@ -302,37 +295,36 @@ met à jour l'affichage à l'écran : affichage l'image de fond et supprime tout
     
 }
 
-void ajout_personnage(char * nom){
+void ajout_personnage(char * nom, int * nb_perso){
 /*
 ajoute un personnage dans la liste des personnages
 */
-    tab_perso[nb_perso_ajoutes] = strdup(nom);
-    nb_perso_ajoutes++;
+    tab_perso[(*nb_perso)++] = strdup(nom);
 }
 
-void suivant(int * tab_bouton){
+void suivant(int * tab_bouton, int * nb_perso, int * volume, int nbCarIp){
 /*
 change l'indice courant du tableau tab_perso pour aller au suivant
 fonctionne circulairement : on revient au début si on dépasse la fin du tableau
 Appelle ensuite la fonction qui met à jour l'affichage
 */
     
-    if(actuel < nb_perso_ajoutes - 1) actuel++;
+    if(actuel < *nb_perso - 1) actuel++;
     else actuel = 0; 
     position_menu pos = MENU_PRINCIPAL;
-    aff_menu(&pos, tab_bouton, bouton_select);
+    aff_menu(&pos, tab_bouton, bouton_select, volume, nbCarIp);
 }
 
-void precedent(int * tab_bouton){
+void precedent(int * tab_bouton, int * nb_perso, int * volume, int nbCarIp){
 /*
 change l'indice courant du tableau tab_perso pour aller au precedent
 fonctionne circulairement : on revient à la fin si on arrive avant le début du tableau début
 Appelle ensuite la fonction qui met à jour l'affichage
 */
     if (actuel > 0) actuel--;
-    else actuel = nb_perso_ajoutes - 1;
+    else actuel = *nb_perso - 1;
     position_menu pos = MENU_PRINCIPAL;
-    aff_menu(&pos, tab_bouton, bouton_select);
+    aff_menu(&pos, tab_bouton, bouton_select, volume, nbCarIp);
 }
 
 SDL_Texture * creer_texture(char * chemin){
@@ -428,7 +420,15 @@ créée une texture à partir du chemin vers une image, le stocke dans le champ 
 }
 
 int menu(char *classe){
+    int nb_perso_ajoutes = 0; //nombre de personnages ajoutés avec la fonction ajout_personnage()
+    int volume = 100; 
+    char cheminParamTxt[] = "../include/.sauvegarde.txt";
+    char cheminMusique[] = "../include/musiqueMenu.ogg";
+    int nbCarIp = 0; //nombre de caractères lors de la saisie de l'ip par le joueur
+
     
+
+
     int retour;
     int modifications = 0;
     int WINDOW_WIDTH, WINDOW_HEIGHT;
@@ -458,7 +458,7 @@ int menu(char *classe){
 
     if(!musique){
         printf("Impossible d'ouvrir la musique %s\n", cheminMusique);
-        end(100);
+        //end(100);
     }
     
     Mix_VolumeMusic(volume);
@@ -473,10 +473,10 @@ int menu(char *classe){
 	backgroundTexture = creer_texture("../img/imgMenu.png");
 
     //liste des personnages à sélectionner -> modifier si on ajoute des perso
-    ajout_personnage("mage");
-    ajout_personnage("ninja");
-    ajout_personnage("vampire");
-    ajout_personnage("archer");
+    ajout_personnage("mage", &nb_perso_ajoutes);
+    ajout_personnage("ninja", &nb_perso_ajoutes);
+    ajout_personnage("vampire", &nb_perso_ajoutes);
+    ajout_personnage("archer", &nb_perso_ajoutes);
     
 
     //menu d'accueil 
@@ -600,7 +600,7 @@ int menu(char *classe){
     creer_texte(tab_texte + 11, "Charger");
     creer_texte(tab_texte + 12, "Paramètres");
     creer_texte(tab_texte + 13, "Volume");
-    creer_texte(tab_texte + 14, valVolume);
+    creer_texte(tab_texte + 14, "100");
     creer_texte(tab_texte + 15, "IP");
 
     creer_texte(tab_texte + 17, "Etre serveur");
@@ -612,7 +612,7 @@ int menu(char *classe){
 
     creer_texte_rouge(tab_texte + 23, "Nom invalide");
 
-    aff_menu(&pos_actuelle, tabBoutonsMenu, bouton_select);
+    aff_menu(&pos_actuelle, tabBoutonsMenu, bouton_select, &volume, nbCarIp);
 
     while(pos_actuelle != SORTIE_MENU){
         while(SDL_PollEvent(&event)){
@@ -644,10 +644,10 @@ int menu(char *classe){
                         bouton_select = (bouton_select - 1 + 3) % 3;
                     }
                     else if(touche == SDLK_LEFT) {
-                        precedent(tabBoutonsMenu);
+                        precedent(tabBoutonsMenu, &nb_perso_ajoutes, &volume, nbCarIp);
                     }
                     else if(touche == SDLK_RIGHT) {
-                        suivant(tabBoutonsMenu);
+                        suivant(tabBoutonsMenu, &nb_perso_ajoutes, &volume, nbCarIp);
                     }
 
                     //modifications nom du joueur saisi
@@ -741,12 +741,12 @@ int menu(char *classe){
 
                 //flèche gauche ?
                 else if(SDL_PointInRect(&point, &tab_img[3].posBoutonFen) && pos_actuelle == MENU_PRINCIPAL){
-                    precedent(tabBoutonsMenu); 
+                    precedent(tabBoutonsMenu, &nb_perso_ajoutes, &volume, nbCarIp); 
                 }
 
                 //flèche droite ?
                 else if(SDL_PointInRect(&point, &tab_img[4].posBoutonFen) && pos_actuelle == MENU_PRINCIPAL){
-                    suivant(tabBoutonsMenu);
+                    suivant(tabBoutonsMenu, &nb_perso_ajoutes, &volume, nbCarIp);
                 }
                 
                 //bouton retour
@@ -850,7 +850,7 @@ int menu(char *classe){
                 }
 
                 //bouton lancer serveur ?
-                else if((SDL_PointInRect(&point, &tab_img[21].posBoutonFen) || SDL_PointInRect(&point, &tab_img[23].posBoutonFen)) && pos_actuelle == DANS_CREER){          
+                else if((SDL_PointInRect(&point, &tab_img[21].posBoutonFen) || SDL_PointInRect(&point, &tab_img[22].posBoutonFen)) && pos_actuelle == DANS_CREER){          
                     //etre serveur et joueur
                     if(SDL_PointInRect(&point, &tab_img[21].posBoutonFen)){
                         retour = JOUER_SERVEUR;
@@ -891,13 +891,11 @@ int menu(char *classe){
                 }
             }
         }
-        if(pos_actuelle == DANS_CREER && modifications){
-            printf("%d\n", bouton_select);
-        }
+
         
         if(modifications){
             modifications = 0;
-            aff_menu(&pos_actuelle, tabBoutons[pos_actuelle], bouton_select);
+            aff_menu(&pos_actuelle, tabBoutons[pos_actuelle], bouton_select, &volume, nbCarIp);
         }
         frame = SDL_GetTicks() - start;
         if (frame < 16) SDL_Delay(16 - frame);
@@ -926,7 +924,7 @@ int menu(char *classe){
 
 
 
-
+/*
 int main(void){
     char classe[50];
 
@@ -936,9 +934,9 @@ int main(void){
     end(0);
     return 0;
 }
-    
+*/
 
-/*
+
 //pour tester l'affichage de l'inventaire
 int main(void){
     init_sdl();
@@ -952,8 +950,12 @@ int main(void){
 
     ajouter_objet_joueur(&perso, 1);
     ajouter_objet_joueur(&perso, 3);
+    ajouter_objet_joueur(&perso, 12);
+    
 
-    show_inventaire(&perso, renderer);
+    SDL_Texture * bg = IMG_LoadTexture(renderer, "../img/imgMenu.png");
+    SDL_RenderCopy(renderer, bg, NULL, NULL);   
+    show_inventaire(renderer, &perso);
     SDL_Delay(1000);
     return 0;
-}*/
+}

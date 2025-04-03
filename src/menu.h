@@ -115,8 +115,10 @@ void saisie_touche_ip(SDL_Keycode touche, int * nbCar, char * saisie);
  * @param pos L'endroit où l'on se trouve dans le menu
  * @param tabBouton Un tableau d'entier contenant les indices correspondant aux boutons de la page du menu sélectionné
  * @param bouton_choisi Un entier. En faisant tabBouton[bouton_choisi], on obtient l'indice du bouton qui est actuellement sélectionné
+ * @param volume Le volume de la musique
+ * @param nbCarIp Le nombre de caractères de l'ip saisie
  */
-void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi);
+void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi, int * volume, int nbCarIp);
 
 /**
  * @brief Affiche la page d'accueil du menu en mettant le bouton sélectionné en couleur
@@ -127,8 +129,9 @@ void affiche_menu_accueil(int tabBouton[], int bouton_choisi);
 
 /**
  * @brief Affiche la partie rejoindre du menu
+ * @param nbCarIp Le nombre de caractères saisis par l'utilisateur
  */
-void affiche_rejoindre(void);
+void affiche_rejoindre(int nbCarIp);
 
 /**
     @brief Enlève toutes les textures présentes sur l'écran et met l'arrière plan du menu en fond
@@ -140,19 +143,28 @@ void clear_ecran();
 /**
   * @brief Ajoute un personnage dans la liste des personnages à sélectionner
   * @param nom Le nom du personnage qu'on veut ajouter
+  * @param nb_perso Le nombre de personnages disponibles pouvant être sélectionnés
   */
-void ajout_personnage(char * nom);
+void ajout_personnage(char * nom, int * nb_perso);
 
 
 /**
   * @brief Passe au personnage suivant en changeant l'indice courange du tableau de personnages. Fonctionne circulairement 
+  * @param tab_bouton Le tableau de boutons pouvant être sélectionnés
+  * @param nb_perso Le nombre de personnages disponibles pouvant être sélectionnés
+  * @param volume Le volume de la musique
+  * @param nbCarIp Le nombre de caractères de l'ip saisie
   */
-void suivant(int * tab_bouton);
+void suivant(int * tab_bouton, int * nb_perso, int * volume, int nbCarIp);
 
 /**
   * @brief Passe au personnage précédent en changeant l'indice courange du tableau de personnages. Fonctionne circulairement 
+  * @param tab_bouton Le tableau de boutons pouvant être sélectionnés
+  * @param nb_perso Le nombre de personnages disponibles pouvant être sélectionnés
+  * @param volume Le volume de la musique
+  * @param nbCarIp Le nombre de caractères de l'ip saisie
   */
-void precedent(int * tab_bouton);
+void precedent(int * tab_bouton, int * nb_perso, int * volume, int nbCarIp);
 
 /**
   * @brief Créée une SDL_Texture à partir du chemin vers une image
