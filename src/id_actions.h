@@ -19,5 +19,7 @@
 #define UPDATE_ZONE 301
 #define RM_ZONE 302
 
+//pour les attaques commence par un 4
+#define BASIC_ATTACK 400
 
 #endif

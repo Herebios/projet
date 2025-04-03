@@ -142,8 +142,8 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 
 			//serv simule aussi de son côté
 		}else if(j->dir != nulldir){
-			j->dir=nulldir;
-			sendf("dd", JOUEUR_CHANGE_DIR, nulldir);
+			//j->dir=nulldir;
+			sendf("dd", JOUEUR_CHANGE_DIR, j->dir);
 		}
 
 		while(!fileVide(file_socket)){

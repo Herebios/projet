@@ -171,5 +171,5 @@ void charger_tuile(tuile_t * tuile){
 }
 
 void attaqueBasique(perso_t *p){
-    
+    sendf("dd", BASIC_ATTACK, p->dir);
 }

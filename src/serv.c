@@ -105,6 +105,28 @@ int main_server(int port, int nb_clients) {
 					spawn_objet((rarete_t)rand()%4, 1, ind_o, joueurs[ind_j].pos_map, pos_tuile);
 					break;
 				}
+				case BASIC_ATTACK:{
+					int ind_j;
+
+					pos_t tilePos;
+					perso_t *p = joueurs + ind_j;
+					position_perso(p , &tilePos);
+					tuile_t *tile = get_tuile_from_pos(tilePos);
+					tilePos.x += 2 * deplacement[p->dir].x;
+					tilePos.y += 2 * deplacement[p->dir].y;
+
+					size_t listeTaille = taille_liste(tile->liste_joueurs);
+					perso_t *victim;
+					pos_t victim_tilePos;
+					for (int i = 0; i < listeTaille; i++){
+						victim = get_liste(tile->liste_joueurs);
+						position_perso(victim, &victim_tilePos);
+						if (victim_tilePos.x == tilePos.x && victim_tilePos.y == tilePos.y){
+							printf("\nvictim!!!\n");
+						}
+						suivant_liste(tile->liste_joueurs);
+					}
+				}
 			}
 			free(data);
 		}
