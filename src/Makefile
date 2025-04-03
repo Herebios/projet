@@ -14,9 +14,9 @@ serv_jeu.o : serv_jeu.c
 serv_commun.o : serv_commun.c
 	gcc $< -c
 
-
-cli : cli.o cli_jeu.o jeu.o liste.o file.o perso.o objet.o
+cli : cli.o cli_jeu.o jeu.o liste.o file.o perso.o objet.o inventaire.o
 	gcc $^ -o cli -lpthread $(sdl_lib)
+
 cli.o : cli.c
 	gcc $< -c $(sdl_include)
 
@@ -38,5 +38,8 @@ liste.o : liste.c
 file.o : file.c
 	gcc $< -c
 
+inventaire.o : inventaire.c inventaire.h
+	gcc $< -c
+	
 clean :
 	rm *.o
