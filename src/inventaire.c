@@ -1,5 +1,5 @@
 #include "inventaire.h"
-#define RECT_INVENTAIRE (W - H) * 0.15
+#define RECT_INVENTAIRE (W - H) * 0.2
 
 
 SDL_Rect inventaire[5] = {(SDL_Rect){W * 0.31, H * 0.81, RECT_INVENTAIRE, RECT_INVENTAIRE},

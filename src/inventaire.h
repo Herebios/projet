@@ -3,7 +3,9 @@
  * @author Ilann
  * @brief fonctions d'affichage de l'inventaire d'un joueur
  */
-
+#include "perso.h"
+#include "prepro.h"
+#include "objet.h"
 
 /**
  * @brief Renvoie le chemin vers le fichier de l'image correspondant à l'objet
