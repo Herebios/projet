@@ -1,5 +1,5 @@
 #include "cli_jeu.h"
-#include "inventaire.c"
+#include "inventaire.h"
 
 file * file_socket;
 

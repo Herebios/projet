@@ -3,6 +3,8 @@
  * @author Ilann
  * @brief fonctions d'affichage de l'inventaire d'un joueur
  */
+#ifndef __INVENTAIRE__
+#define __INVENTAIRE__
 #include "perso.h"
 #include "prepro.h"
 #include "objet.h"
@@ -20,3 +22,4 @@ char * chemin_objet(objet_t * obj);
  * @param renderer Pour l'affichage SDL
  */
 void show_inventaire(SDL_Renderer * renderer, perso_t * perso);
+#endif
