@@ -5,6 +5,7 @@
 #include "jeu.h"
 #include "id_actions.h"
 #include "perso.h"
+#include "inventaire.h"
 
 #define ecran() SDL_RenderPresent(renderer)
 
