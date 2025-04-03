@@ -2,11 +2,12 @@
 #include <string.h>
 #include "liste.h"
 
-element * temp=NULL;
+element * element_temp=NULL;
 
 liste * creer_liste() {
 	liste *l=malloc(sizeof(liste));
-	l->ec = l->drapeau->suiv = l->drapeau->prec = l->drapeau = (element*)malloc(sizeof(element));
+	l->ec = l->drapeau->suiv = l->drapeau->prec = l->drapeau = malloc(sizeof(element));
+	return l;
 }
 
 int liste_vide(liste *l) {
@@ -46,11 +47,11 @@ permet d'enlever des éléments dans une boucle en faisant toujours suivant()
 void supprimer_liste(liste *l) {
 	l->ec->prec->suiv = l->ec->suiv;
 	l->ec->suiv->prec = l->ec->prec;
-	temp = l->ec;
+	element_temp = l->ec;
 	precedent_liste(l);
-	free(temp->ptr);
-	free(temp);
-	temp=NULL;
+	free(element_temp->ptr);
+	free(element_temp);
+	element_temp=NULL;
 }
 
 void vider_liste(liste *l){
@@ -61,8 +62,7 @@ void vider_liste(liste *l){
 
 void detruire_liste(liste **l){
 	if(*l){
-		for(tete_liste(*l);!hors_liste(*l);suivant_liste(*l))
-			supprimer_liste(*l);
+		vider_liste(*l);
 		free((*l)->drapeau);
 		free(*l);
 		*l=NULL;
@@ -70,30 +70,30 @@ void detruire_liste(liste **l){
 }
 
 void ajout_droit_liste(liste *l, void * data, int size) {
-	temp = malloc(sizeof(element));
-	temp->ptr = malloc(size);
-	memcpy(temp->ptr, data, size);
+	element_temp = malloc(sizeof(element));
+	element_temp->ptr = malloc(size);
+	memcpy(element_temp->ptr, data, size);
 
-	temp->prec = l->ec;
-	temp->suiv = l->ec->suiv;
-	l->ec->suiv->prec = temp;
-	l->ec->suiv = temp;
+	element_temp->prec = l->ec;
+	element_temp->suiv = l->ec->suiv;
+	l->ec->suiv->prec = element_temp;
+	l->ec->suiv = element_temp;
 
-	l->ec = temp;
-	temp=NULL;
+	l->ec = element_temp;
+	element_temp=NULL;
 }
 void ajout_gauche_liste(liste *l, void * data, int size) {
-	temp = malloc(sizeof(element));
-	temp->ptr = malloc(size);
-	memcpy(temp->ptr, data, size);
+	element_temp = malloc(sizeof(element));
+	element_temp->ptr = malloc(size);
+	memcpy(element_temp->ptr, data, size);
 
-	temp->suiv = l->ec;
-	temp->prec = l->ec->prec;
-	l->ec->prec->suiv = temp;
-	l->ec->prec = temp;
+	element_temp->suiv = l->ec;
+	element_temp->prec = l->ec->prec;
+	l->ec->prec->suiv = element_temp;
+	l->ec->prec = element_temp;
 
-	l->ec = temp;
-	temp=NULL;
+	l->ec = element_temp;
+	element_temp=NULL;
 }
 
 void ajout_debut_liste(liste *l, void * data, int size){
@@ -111,20 +111,17 @@ int taille_liste(liste *l){
 	return t;
 }
 
-void parcour_liste(liste * l, void* objet, int (*comparer)(void*, void*)){
-	tete_liste(l);
-	while (!hors_liste(l) && comparer(objet, get_liste(l)) != 0){
-		suivant_liste(l);
-	}
+static void parcours_liste(liste *l, void* objet, int (*comparer)(void*, void*)){
+	for(tete_liste(l) ; !hors_liste(l) && comparer(objet, get_liste(l)) != 0 ; suivant_liste(l));
 }
 
 void * trouver_liste(liste *l, void* objet, int (*comparer)(void*, void*)){
-	parcour_liste(l, objet, comparer);
-	return (!hors_liste(l)) ? get_liste(l) : NULL;
+	parcours_liste(l, objet, comparer);
+	return hors_liste(l) ? NULL : get_liste(l);
 }
 
 void * trouver_supprimer_liste(liste *l, void* objet, int (*comparer)(void*, void*)){
-	parcour_liste(l, objet, comparer);
+	parcours_liste(l, objet, comparer);
 	void * ret = get_liste(l);
 	supprimer_liste(l);
 	return ret;
