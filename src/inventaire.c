@@ -14,45 +14,6 @@ char * chemin_objet(objet_t * obj){
     strcat(chaine, obj->nom);
     strcat(chaine, ".jpg");
     return strdup(chaine);
-    if (!strcmp(obj->nom, "Baguette du magicien")) return "../img/Objets/Baguette du magicien.jpg";
-    if (!strcmp(obj->nom, "Epee lourde")) return "../img/Objets/Epee lourde.jpg";
-    if (!strcmp(obj->nom, "Bague du magicien")) return "../img/Objets/Bague du magicien.jpg";
-    if (!strcmp(obj->nom, "Bottes du magicien")) return "../img/Objets/Bottes du magicien.jpg";
-    if (!strcmp(obj->nom, "Bracelet du GOAT")) return "../img/Objets/Bracelet du GOAT.jpg";
-    if (!strcmp(obj->nom, "Bague du mage noir")) return "../img/Objets/Bague du mage noir.jpg";
-    if (!strcmp(obj->nom, "Baguette runique")) return "../img/Objets/Baguette runique.jpg";
-    if (!strcmp(obj->nom, "Gants du combattant")) return "../img/Objets/Gants du combattant.jpg";
-    if (!strcmp(obj->nom, "Gants en acier")) return "../img/Objets/Gants en acier.jpg";
-    if (!strcmp(obj->nom, "Casque du gardien")) return "../img/Objets/Casque du gardien.jpg";
-    if (!strcmp(obj->nom, "Gants renforces")) return "../img/Objets/Gants renforces.jpg";
-    if (!strcmp(obj->nom, "Bottes du vent")) return "../img/Objets/Bottes du vent.jpg";
-    if (!strcmp(obj->nom, "Charme du destin")) return "../img/Objets/Charme du destin.jpg";
-    if (!strcmp(obj->nom, "Anneau du hasard")) return "../img/Objets/Anneau du hasard.jpg";
-
-    if (!strcmp(obj->nom, "Talisman des arcanes")) return "../img/Objets/Talisman des arcanes.jpg";
-    if (!strcmp(obj->nom, "Anneau de sagesse")) return "../img/Objets/Anneau de sagesse.jpg";
-    if (!strcmp(obj->nom, "Epee des tempetes")) return "../img/Objets/Epee des tempetes.jpg";
-    if (!strcmp(obj->nom, "Plastron du roc")) return "../img/Objets/Plastron du roc.jpg";
-    if (!strcmp(obj->nom, "Bottes en acier")) return "../img/Objets/Bottes en acier.jpg";
-    if (!strcmp(obj->nom, "Anneau de velocite")) return "../img/Objets/Anneau de velocite.jpg";
-    if (!strcmp(obj->nom, "Bracelet d'agilité")) return "../img/Objets/Bracelet d'agilité.jpg";
-    if (!strcmp(obj->nom, "Sacoche du vagabond")) return "../img/Objets/Sacoche du vagabond.jpg";
-
-    if (!strcmp(obj->nom, "Tome des anciens")) return "../img/Objets/Tome des anciens.jpg";
-    if (!strcmp(obj->nom, "Ceinture du colosse")) return "../img/Objets/Ceinture du colosse.jpg";
-    if (!strcmp(obj->nom, "Cape du sprinteur")) return "../img/Objets/Cape du sprinteur.jpg";
-    if (!strcmp(obj->nom, "Lance des cieux")) return "../img/Objets/Lance des cieux.jpg";
-    if (!strcmp(obj->nom, "Epee du roi dechu")) return "../img/Objets/Epee du roi dechu.jpg";
-    if (!strcmp(obj->nom, "Medaillon porte-bonheur")) return "../img/Objets/Medaillon porte-bonheur.jpg";
-
-    if (!strcmp(obj->nom, "Marteau du titan")) return "../img/Objets/Marteau du titan.jpg";
-    if (!strcmp(obj->nom, "Orbe divine")) return "../img/Objets/Orbe divine.jpg";
-    if (!strcmp(obj->nom, "Bouclier du dragon")) return "../img/Objets/Bouclier du dragon.jpg";
-    if (!strcmp(obj->nom, "Bottes celestes")) return "../img/Objets/Bottes celestes.jpg";
-    if (!strcmp(obj->nom, "Talisman de la fortune")) return "../img/Objets/Talisman de la fortune.jpg";
-    if (!strcmp(obj->nom, "Orbe mystique")) return "../img/Objets/Orbe mystique.jpg";
-    if (!strcmp(obj->nom, "Baton du sorcier-roi")) return "../img/Objets/Baton du sorcier-roi.jpg";
-    if (!strcmp(obj->nom, "Cuirasse du paladin")) return "../img/Objets/Cuirasse du paladin.jpg";
 }
 
 

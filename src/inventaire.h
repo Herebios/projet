@@ -1,3 +1,9 @@
+/**
+ * @file inventaire.h
+ * @author Ilann
+ * @brief fonctions d'affichage de l'inventaire d'un joueur
+ */
+
 #include "objet.c"
 #include "perso.c"
 

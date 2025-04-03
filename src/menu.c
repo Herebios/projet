@@ -227,10 +227,10 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi){
                     else
                         SDL_SetTextureColorMod(tab_img[21].texture, 255, 255, 255);
 
-                    if(tabBouton[bouton_choisi] == 23)
-                        SDL_SetTextureColorMod(tab_img[23].texture, 180, 120, 80); // survol clavier
+                    if(tabBouton[bouton_choisi] == 22)
+                        SDL_SetTextureColorMod(tab_img[22].texture, 180, 120, 80); // survol clavier
                     else
-                        SDL_SetTextureColorMod(tab_img[23].texture, 255, 255, 255);
+                        SDL_SetTextureColorMod(tab_img[22].texture, 255, 255, 255);
 
                     dessine_image(21);
                     dessine_image(22); 
@@ -439,7 +439,7 @@ int menu(char *classe){
     int tabBoutonsMenu[] = {0, 1, 2, 3, 4};
     int tabBoutonsParam[] = {11, 12, 15, 17};
     int tabBoutonsJouer[] = {8, 9};
-    int tabBoutonsCreer[] = {22, 21};
+    int tabBoutonsCreer[] = {21, 22};
     int tabBoutonsRejoi[] = {23};
 
     
@@ -511,8 +511,8 @@ int menu(char *classe){
     tab_img[20] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.09, WINDOW_HEIGHT * 0.79, WINDOW_WIDTH * 0.05, WINDOW_HEIGHT * 0.08}, NULL}; // bouton volume off
 
     // menu serveur
-    tab_img[21] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.2, WINDOW_WIDTH * 0.35, WINDOW_HEIGHT * 0.2}, NULL}; // bouton joueur + serveur
-    tab_img[22] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.7, WINDOW_WIDTH * 0.35, WINDOW_HEIGHT * 0.2}, NULL}; // bouton serveur uniquement
+    tab_img[21] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.2, WINDOW_WIDTH * 0.35, WINDOW_HEIGHT * 0.2}, NULL}; // bouton serveur uniquement
+    tab_img[22] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.7, WINDOW_WIDTH * 0.35, WINDOW_HEIGHT * 0.2}, NULL}; // bouton joueur + serveur
     tab_img[23] = (img_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.75, WINDOW_WIDTH * 0.36, WINDOW_HEIGHT * 0.18}, NULL}; // bouton rejoindre (après saisie IP)
 
 
@@ -546,7 +546,7 @@ int menu(char *classe){
     tab_texte[17] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.34, WINDOW_HEIGHT * 0.245, WINDOW_WIDTH * 0.27, WINDOW_HEIGHT * 0.1}, NULL}; // Être serveur
     tab_texte[18] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.3, WINDOW_HEIGHT * 0.55, WINDOW_WIDTH * 0.16, WINDOW_HEIGHT * 0.06}, NULL}; // IP saisie (invalide)
     tab_texte[19] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.48, WINDOW_HEIGHT * 0.55, WINDOW_WIDTH * 0.16, WINDOW_HEIGHT * 0.06}, NULL}; // invalide
-    tab_texte[20] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.325, WINDOW_HEIGHT * 0.745, WINDOW_WIDTH * 0.28, WINDOW_HEIGHT * 0.1}, NULL}; // Être joueur
+    tab_texte[20] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.34, WINDOW_HEIGHT * 0.745, WINDOW_WIDTH * 0.28, WINDOW_HEIGHT * 0.1}, NULL}; // Être joueur
     tab_texte[21] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.285, WINDOW_HEIGHT * 0.342, WINDOW_WIDTH * 0.375, WINDOW_HEIGHT * 0.1}, NULL}; // IP saisie (rejoindre)
     tab_texte[22] = (texte_t) {(SDL_Rect){WINDOW_WIDTH * 0.33, WINDOW_HEIGHT * 0.79, WINDOW_WIDTH * 0.28, WINDOW_HEIGHT * 0.1}, NULL}; // Rejoindre
 
@@ -579,7 +579,6 @@ int menu(char *classe){
     creer_image(tab_img + 19, "../img/Boutons/boutonVolumeOn.png");
     creer_image(tab_img + 20, "../img/Boutons/boutonVolumeOff.png");    
     creer_image(tab_img + 21, "../img/Boutons/boutonMenuLargeCarre.png");
-    //creer_image(tab_img + 22, "../img/Boutons/boutonMenuLargeCarre.png");
     creer_image(tab_img + 22, "../img/Boutons/boutonMenuLargeCarre.png");
     creer_image(tab_img + 23, "../img/Boutons/boutonMenuLargeCarre.png");
 
@@ -591,7 +590,7 @@ int menu(char *classe){
     creer_texte(tab_texte + 1, "Paramètres");
     creer_texte(tab_texte + 2, "Quitter");
     creer_texte(tab_texte + 3, tab_perso[actuel]);
-    creer_texte(tab_texte + 4, "BAD'DOS 4EVER");//nom du jeu
+    creer_texte(tab_texte + 4, "VoidBorn");//nom du jeu
     creer_texte(tab_texte + 5, "Entrez votre nom");
     creer_texte(tab_texte + 6, nomJoueur);
     creer_texte(tab_texte + 7, "Créer partie");
@@ -892,6 +891,9 @@ int menu(char *classe){
                 }
             }
         }
+        if(pos_actuelle == DANS_CREER && modifications){
+            printf("%d\n", bouton_select);
+        }
         
         if(modifications){
             modifications = 0;
@@ -924,7 +926,6 @@ int menu(char *classe){
 
 
 
-/*
 
 int main(void){
     char classe[50];
@@ -934,9 +935,10 @@ int main(void){
     
     end(0);
     return 0;
-}*/
+}
     
 
+/*
 //pour tester l'affichage de l'inventaire
 int main(void){
     init_sdl();
@@ -954,4 +956,4 @@ int main(void){
     show_inventaire(&perso, renderer);
     SDL_Delay(1000);
     return 0;
-}
+}*/
