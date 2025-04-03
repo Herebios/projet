@@ -109,6 +109,8 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 
 	SDL_Event event;
     const Uint8* clavier;
+	char isSPACEPress = 0;
+	time_t t = 0;
 	while(valide && client.online){//si le thread est fermé prématurément
 
 		while (SDL_PollEvent(&event)) {
@@ -116,9 +118,18 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
                 valide=0;
 				break;
             }
+			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE && !isSPACEPress && time(NULL) - t < 3){
+				isSPACEPress = 1;
+				t = time(NULL);
+			}
+			if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_SPACE){
+				isSPACEPress = 0;
+			}
         }
-
-		clavier=SDL_GetKeyboardState(NULL);
+		if (isSPACEPress){
+			attaqueBasique(j);
+		}
+		clavier=SDL_GetKeyboardState(NULL);	
         Uint8 mask=clavier[SDL_SCANCODE_D] << 3 | clavier[SDL_SCANCODE_Q] << 2 | clavier[SDL_SCANCODE_S] << 1 | clavier[SDL_SCANCODE_Z];
 		if(mask){
 			dir_t dir=j->dir;

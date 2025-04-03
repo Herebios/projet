@@ -25,7 +25,7 @@ void init_joueurs_client(perso_t *joueurs){
 
 void charger_sdl_objets(SDL_Texture * textures_objets[NB_OBJETS]){
 	for(int i=0; i<NB_OBJETS; i++){
-		char * objnom = malloc(strlen(tab_objets[i].nom) + strlen("../img/Objets/") + strlen(".jpg"));//ajouter .jpg et "../img/Objets/"
+		char * objnom = malloc(strlen(tab_objets[i].nom) + strlen("../img/Objets/") + strlen(".jpg") + 1);//ajouter .jpg et "../img/Objets/"
 		strcpy(objnom, "../img/Objets/");
         strcpy(objnom, tab_objets[i].nom);
 		strcat(objnom, ".jpg");
@@ -168,4 +168,8 @@ void charger_tuile(tuile_t * tuile){
         for (c=0; c<LARGEUR_TUILE; c++)
             SDL_RenderCopy(renderer, tuile->biome->textures[tuile->id_texture[l][c]], 0, &(SDL_Rect){c*CARRE_W,l*CARRE_H,CARRE_W,CARRE_H});
     SDL_SetRenderTarget(renderer, NULL);
+}
+
+void attaqueBasique(perso_t *p){
+    
 }
