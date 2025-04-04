@@ -244,7 +244,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 				}
 				case GET_OBJET:{
 					char ind_o;
-					sscanf(data_skip(data, 1), &ind_o);
+					sscanf(data_skip(data, 1), "%c", &ind_o);
 					ajouter_objet_joueur(j, ind_o);
 				}
 			}
