@@ -104,9 +104,7 @@ int main_server(int port, int nb_clients) {
 					//on ajoute l'objet sur la tuile
 					pos_t pos_tuile;
 					position_perso(joueurs + ind_j, &pos_tuile);
-					printf("&%d&", ind_j);fflush(stdout);
-					//printf("POS : (%d, %d)", joueurs[ind_j].pos_map.x, joueurs[ind_j].pos_map.y);
-					spawn_objet((rarete_t)rand()%4, 1, ind_o, joueurs[ind_j].pos_map, pos_tuile);
+					spawn_objet((rarete_t)rand()%4, 1, ind_o, joueurs[ind_j].pos_map, pos_tuile, joueurs);
 					tab_objets[ind_o].p = pos_tuile;
 					break;
 				}
@@ -165,8 +163,18 @@ int main_server(int port, int nb_clients) {
 		        for(tete_liste(tuile->liste_joueurs); !hors_liste(tuile->liste_joueurs); suivant_liste(tuile->liste_joueurs)){
 		            int ind = *(int*)get_liste(tuile->liste_joueurs);
 					//if(ind != i)
-					printf("Socket : %d\n", clients[ind].socket);
+					//printf("Socket : %d\n", clients[ind].socket);
 					send(clients[ind].socket, buffer, strlen(buffer), 0);
+				}
+			}
+		}
+
+		for (int i = 0 ; i < 2; i++){
+			for (int j = 0; j < 2; j++){
+				tete_liste((map[i] + j)->liste_joueurs);
+				for (int i = 0; i < 2; i++){
+					printf("nom : %s\n", ((perso_t *)get_liste((map[i] + j)->liste_joueurs))->nom);
+					suivant_liste((map[i] + j)->liste_joueurs);
 				}
 			}
 		}
@@ -181,7 +189,7 @@ int main_server(int port, int nb_clients) {
 			puts("Spawn obj\n");flush;
 			//paramètres temporaires
 			int ind; pos_t pos1, pos2;
-			spawn_objet((rarete_t)rand()%4, 0, ind, pos1, pos2);
+			spawn_objet((rarete_t)rand()%4, 0, ind, pos1, pos2, joueurs);
 			printf("indice %d %d\n\n", pos2.x, pos2.y);
 			compteur=0;
 		}else

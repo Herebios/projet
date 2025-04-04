@@ -11,7 +11,7 @@
 #include "id_actions.h"
 
 //objets
-void spawn_objet(rarete_t, int mode, int ind_o, pos_t p_map, pos_t p_tuile);
+void spawn_objet(rarete_t, int mode, int ind_o, pos_t p_map, pos_t p_tuile, perso_t *joueurs);
 
 //joueurs
 void maj_tuile(perso_t * joueurs, int ind_j);
