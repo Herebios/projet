@@ -255,7 +255,7 @@
                     \item 2\textsuperscript{e} objet : \{\{1.5, mult\}, \{0.8, mult\}, \{20, add\}, \{0, null\}\}
                 \end{itemize} 
                 On rappelle que les statistiques sont de la forme \{vie, force, magie, vitesse\}.
-                Dans cet exemple, on commencera par calculer les trois additions puis les trois multiplications 
+                Dans cet exemple, on commencera par calculer les trois additions puis les deux multiplications 
                 (la somme étant représentée par «add» et le produit par «mult»).
             }\\\\
             Deux fonctions permettent de gérer les objets possédés par le joueur.
@@ -397,7 +397,7 @@
 
                 \paragraph{Textes}\leavevmode\newline
                 Les textes sont quant à eux chargés et sauvegardés dans un tableau de structures \textit{texte\_t} qui contient les mêmes champs que \textit{img\_t}, avec en plus un char* correspondant au texte affiché.\\
-                À la création d’un texte, nous utilisons une police importée (Go-Regular), créons une \textit{SDL\_texture}, mettons le nouveau texte dans le  champ contenu.\\
+                À la création d’un texte, nous utilisons une police importée (Go-Regular), créons une \textit{SDL\_texture} et mettons le nouveau texte dans le  champ contenu.\\
                 Certains textes doivent être modifiés dynamiquement. On utilise donc une fonction \textit{maj\_texte} qui recrée la texture si l’ancien texte est différent du nouveau.
                 
                 \begin{figure}[H]
@@ -428,7 +428,7 @@
                     Les saisies au clavier servent à modifier des chaînes de caractères (adresse IP, pseudo du joueur) mais aussi à se déplacer dans les sections du mens à l’aide des flèches et des touches frappées. La saisie de l’adresse IP se fait via un switch dans la fonction \textit{saisie\_touche\_ip} vue précédemment. \\
                     Pour la saisie du nom du joueur, on ajoute simplement chaque caractère alphanumérique à la chaîne du nom du joueur. \\
                     Il est possible de supprimer les caractères dans les deux saisies.\\
-                    Il est possible de se déplacer dans le menu avec les flèches haut et bas.\\
+                    
                     \begin{figure}[H]
                         \centering
                         \includegraphics[height=5cm]{codeMenu.png}
