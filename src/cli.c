@@ -129,6 +129,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 
 			else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_e && !isEPress){
 				isEPress = 1;
+
 				sendf("d", GET_OBJET);
 			}
 
@@ -146,7 +147,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 			}
 			if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_SPACE){
 				isSPACEPress = 0;
-			}else if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_SPACE){
+			}else if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_e){
 				isEPress = 0;
 			}
 			else if(event.type == SDL_KEYUP && enlever_obj != NUL){
@@ -155,7 +156,6 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
         }
 
 		if (isSPACEPress){
-			printf("PRESSED");
 			isSPACEPress = 0;
 			if (dir != nulldir)
 				attaqueBasique(j, dir);
@@ -182,9 +182,9 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 		}
 		while(!fileVide(file_socket)){
 			data=defiler(file_socket);
-			printf("action '%s'\n", (char*)data);flush;
 			int action;
 			sscanf(data, "%d", &action);
+			printf("\naction : %d ", action);
 			switch(action){
 				case SPAWN_OBJET:{
 					int ind_o;
@@ -243,9 +243,11 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 					break;
 				}
 				case GET_OBJET:{
-					char ind_o;
-					sscanf(data_skip(data, 1), "%c", &ind_o);
+					int ind_o;
+					printf("\nGETOBJ\n");
+					sscanf(data_skip(data, 1), "%d", &ind_o);
 					ajouter_objet_joueur(j, ind_o);
+					printf("ind : %d\n", ind_o);
 				}
 			}
 			free(data);
@@ -260,9 +262,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 		for(tete_liste(tuile_courante->liste_joueurs); !hors_liste(tuile_courante->liste_joueurs); suivant_liste(tuile_courante->liste_joueurs)){
 			int ind = *(int*)get_liste(tuile_courante->liste_joueurs);
 			SDL_RenderCopy(renderer, textures_joueurs[ind][((ind == indice) ? dir : joueurs[ind].dir) % 4], NULL, &joueurs[ind].rect);
-			if(compteur % 1000 == 0){
-                printf("J %d : tuile %d %d | position %d %d\n", ind, joueurs[ind].pos_map.x, joueurs[ind].pos_map.y, joueurs[ind].rect.x, joueurs[ind].rect.y);
-			}
+			
 		}
 		//objets
 		for(tete_liste(tuile_courante->liste_objets); !hors_liste(tuile_courante->liste_objets); suivant_liste(tuile_courante->liste_objets)){
@@ -312,7 +312,6 @@ Signal par pointeur qui arrête le main
 		buffer_size = recv(client.socket, buffer, BUFFERLEN, 0);
 		if(buffer_size > 0){
             buffer[buffer_size] = '\0';
-			printf("Recu : '%s'\n", buffer);flush;
             switch(*buffer){
                 case '!':
 					valide=0;
