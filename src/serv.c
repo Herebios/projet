@@ -5,6 +5,7 @@
  */
 #include "serv_socket.h"
 #include "serv_jeu.h"
+#include "serv_commun.h"
 
 int main_server(int port, int nb_clients) {
 	//setup socket
