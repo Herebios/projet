@@ -24,8 +24,8 @@
  #define W_BOUTON_PARAM 700
  #define H_BOUTON_PARAM 200
  #define H_FLECHE 920
- #define NB_IMG 24 //nombre d'images générés par le menu !!! a changer si le nb d'images change
- #define NB_TEXTE 24 //nombre de textes générés par le menu !!! a changer si le nb de texte change
+ #define NB_IMG 25 //nombre d'images générés par le menu !!! a changer si le nb d'images change
+ #define NB_TEXTE 28 //nombre de textes générés par le menu !!! a changer si le nb de texte change
  #define NB_MAX_PERSO 10
  #define NB_MAX_CAR_JOUEUR 20
  #define NB_MAX_CAR_IP 16
@@ -66,7 +66,10 @@ typedef struct {
      SDL_Texture * message; ///<Texture du texte
      char contenu[NB_MAX_CAR_JOUEUR + 1]; ///<le texte sous forme de chaîne de caractères
 }texte_t;
- 
+
+
+extern char nomJoueur[NB_MAX_CAR_JOUEUR]; //nom saisi par l'utilisateur
+extern char saisieIp[NB_MAX_CAR_IP];
  
  /*
  enlever les 2 premières fonctions quand ce sera avec le main. 
@@ -107,8 +110,9 @@ void dessine_texte(int i);
  * @param touche La dernière touche pressée
  * @param nbCar Le nombre de caractères que contient l'ip 
  * @param saisie L'ip qui va être modifiée
+ * @param carMax Le nombre maximum de caractère que la chaîne peut contenir
  */
-void saisie_touche_ip(SDL_Keycode touche, int * nbCar, char * saisie);
+void saisie_touche_ip(SDL_Keycode touche, int * nbCar, char * saisie, int carMax);
 
 /**
  * @brief Affiche le menu correspondant à l'endroit où l'on se trouve
@@ -117,8 +121,10 @@ void saisie_touche_ip(SDL_Keycode touche, int * nbCar, char * saisie);
  * @param bouton_choisi Un entier. En faisant tabBouton[bouton_choisi], on obtient l'indice du bouton qui est actuellement sélectionné
  * @param volume Le volume de la musique
  * @param nbCarIp Le nombre de caractères de l'ip saisie
+ * @param port Le port saisi par le joueur
+ * @param nbClients Le nombre de clients que le serveur peut contenir
  */
-void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi, int * volume, int nbCarIp);
+void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi, int * volume, int nbCarIp, char * port, char * nbClients);
 
 /**
  * @brief Affiche la page d'accueil du menu en mettant le bouton sélectionné en couleur
@@ -154,8 +160,11 @@ void ajout_personnage(char * nom, int * nb_perso);
   * @param nb_perso Le nombre de personnages disponibles pouvant être sélectionnés
   * @param volume Le volume de la musique
   * @param nbCarIp Le nombre de caractères de l'ip saisie
+  * @param port Le port saisi par l'utilisateur
+  * @param nbClients Le nombre de clients que le serveur peut contenir
+  * 
   */
-void suivant(int * tab_bouton, int * nb_perso, int * volume, int nbCarIp);
+void suivant(int * tab_bouton, int * nb_perso, int * volume, int nbCarIp, char * port, char * nbClients);
 
 /**
   * @brief Passe au personnage précédent en changeant l'indice courange du tableau de personnages. Fonctionne circulairement 
@@ -163,8 +172,11 @@ void suivant(int * tab_bouton, int * nb_perso, int * volume, int nbCarIp);
   * @param nb_perso Le nombre de personnages disponibles pouvant être sélectionnés
   * @param volume Le volume de la musique
   * @param nbCarIp Le nombre de caractères de l'ip saisie
+  * @param port Le port saisi par l'utilisateur
+  * @param nbClients Le nombre de clients que le serveur peut contenir
+  * 
   */
-void precedent(int * tab_bouton, int * nb_perso, int * volume, int nbCarIp);
+void precedent(int * tab_bouton, int * nb_perso, int * volume, int nbCarIp, char * port, char * nbClients);
 
 /**
   * @brief Créée une SDL_Texture à partir du chemin vers une image
@@ -217,6 +229,8 @@ void creer_image(img_t * image, char * nomFich);
  /**
   * @brief Fonction qui appelle toutes les précédentes pour créer le menu fonctionnel. Boucle principale de gestion d'événements SDL pour gérer les interractions avec l'utilisateur
   * @param classe Sert à renvoyer la classe choisie par le joueur
+  * @param port Sert à renvoyer le port saisi par le joueur
+  * @param nbClients Le nombre de clients que l'on saisit si on est serveur
   * @return Renvoie -1 si on quitte le menu avec echap ; 0 si on joue au jeu ; 1 si on est juste serveur ; 2 si on est serveur et joueur en même temps
   */
-int menu(char *classe);
+int menu(char *classe, char * port, char * nbClients);

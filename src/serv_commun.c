@@ -11,7 +11,7 @@ info_server server;
 
 /*Utilisé pour lire après nb espaces
 Voir switch main_serv*/
-char * data_skip(char * data, int nb){
+static char * data_skip(char * data, int nb){
     char * skip=data + 1;
     while(nb){
         if(*skip++ == ' ')

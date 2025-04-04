@@ -40,7 +40,7 @@ extern file * serv_file;
 extern socket_struct * clients;
 extern info_server server;
 
-char * data_skip(char *, int);
+static char * data_skip(char *, int);
 void broadcast(char *, int exception);
 
 #endif
