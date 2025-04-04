@@ -43,20 +43,19 @@
     \section{Analyse}
     Dans le menu, chaque joueur choisit son pseudo ainsi que la classe de son personnage, ce qui lui confère des capacités uniques qu’il peut utiliser au cours de la partie pour prendre l’avantage sur l’équipe adverse.
     Vous avez alors le choix entre être le serveur de la partie, être joueur d’une partie ou être les deux à la fois. \\
-    la fois.
-    Après cela, vous arrivez dans une salle d’attente, en attendant que les autres joueurs se joignent à vous. Une fois que la personne jouant le rôle de serveur lance la partie, le jeu démarre, et il n’est plus possible de rejoindre la partie, même si vous étiez déjà dedans, que vous avez quitté le jeu, puis tenté de vous reconnecter. \\
-    La map de notre jeu se décompose en plusieurs parties que nous appelons tuiles, chacune ayant un biome(neige, plaine, etc) choisi aléatoirement. \\
+    Après cela, vous arrivez dans une salle d’attente, en attendant que les autres joueurs se joignent à vous. Une fois que la personne jouant le rôle de serveur lance la partie, le jeu démarre. \\
+    La map de notre jeu se décompose en plusieurs zones que nous appelons tuiles, chacune ayant un biome(neige, plaine, etc) choisi aléatoirement. \\
     Les joueurs ne peuvent visualiser qu’une tuile du jeu à la fois. Cependant, il est possible de changer de tuile en passant par des portes placées à différents endroits 
     aux bords de la tuile à la manière de \href{https://en.wikipedia.org/wiki/The_Binding_of_Isaac_(video_game)}{The Binding of Isaac}. \\
-    Des obstacles sont générés aléatoirement sur la map, limitant les déplacements du joueur. \\
+    Des obstacles sont générés aléatoirement sur la map, limitant les déplacements des joueurs. \\
     Des monstres sont également présents sur la map, se dirigeant vers le joueur le plus proche pour l’attaquer. Lorsque le monstre est tué il lâche un objet que le joueur peut
     ramasser et ajouter à son inventaire.\\
     Chaque objet a une rareté et confère au joueur différents effets. Plus la rareté de l’objet est élevée, plus les effets bonus conférés au joueur sont importants. \\
-    Un système de combat est mis en place entre les joueurs d’équipes différentes lorsqu’ils se trouvent sur la même tuile. 
+    Un système de combat est mis en place entre les joueurs d’équipes différentes lorsqu’ils se trouvent sur la même tuile. \\
     Les points de vie ainsi que les objets du joueur sont affichés sur son écran à la manière d’un inventaire \href{https://fr.wikipedia.org/wiki/Minecraft}{Minecraft}.\\ 
-    La gestion des entités dynamiques et des tuiles de la map est gérée grâce à l’implémentation d’une liste générique. 
+    La gestion des entités dynamiques et des tuiles de la map est réalisée grâce à l’implémentation d’une liste générique. 
     Le serveur communique avec les clients en envoyant toutes les informations nécessaires à l’affichage du jeu par le client qui renvoie des informations au serveur 
-    en fonction des changements opérés par le joueur.
+    en fonction des actions du joueur.
     
     \section{Organisation du Projet}
     Le groupe a organisé le travail autour de différents outils pour contrôler l’avancement du projet. Le dépôt git sert à stocker les fichiers. Un document partagé Google Drive a servi à noter les idées au lancement du projet et à préparer le compte-rendu. Puis, l’application Trello et un diagramme de Gantt nous ont permis de répartir les tâches efficacement au cours du temps.
@@ -191,61 +190,61 @@
             puis en créant les tuiles en plaçant les textures selon le biome choisi.\\
             Dans le programme écrit en C, la map est une matrice de tuile. Chaque tuile est une structure, qui contient l'information du biome, 
             une matrice des textures qui la composent et les éléments du jeu qui y sont associés.
-            On représente les informations par des listes. Elles sont variables au cours du jeu et selon les tuiles. 
-            Quatre listes tiennent compte des joueurs, des objets, des monstres, et des effets des compétences actives afin de les afficher facilement.
+            On représente les informations par des listes cat elles sont variables au cours du jeu et selon les tuiles. 
+            Quatre listes tiennent compte des joueurs, des objets, des monstres, et des effets des compétences actives afin de les afficher.
             \subsubsection{Personnages}
             Les personnages sont choisis par les joueurs au début de la partie. Ils sont caractérisés par une classe, comme dans certains jeux de rôle. 
             Cette classe détermine les statistiques de base du personnage et les compétences accessibles. Les statistiques sont la vie, la force, la magie et la vitesse. 
             Chaque personnage a un point fort qui le distingue des autres.\\
-            Le personnage est représenté par une structure C. Ses statistiques sont stockées deux tableaux de quatre valeurs, 
-            une pour sauvegarder ses statistiques de base et l'autre pour avoir accès à ses statistiques améliorées par les objets. 
+            Le personnage est représenté par une structure C. Ses statistiques sont stockées dans deux tableaux de quatre valeurs, 
+            ne pour sauvegarder ses statistiques de base et l'autre pour avoir accès à ses statistiques améliorées par les objets. 
             Un tableau de pointeurs permet de retrouver les objets possédés par le joueur.\\
             La fonction creer\_perso permet d’initialiser un joueur à partir de la classe choisie.
-            Celle pour détruire est appelée à la fin du programme.\\
+            Celle pour le détruire est appelée à la fin du programme.\\
             Pour gérer le déplacement des joueurs, on utilise SDL qui écoute les évènements du clavier. 
             En utilisant l’état des flèches directionnelles, on peut faire changer la direction du joueur avec changer\_dir. 
-            Puis la fonction avancer est appelée et change la position du personnage grâc   e à sa vitesse et sa direction en vérifiant qu’il ne dépasse pas les bords de la tuile. 
-            Pour simplifier le calcul, on utilise une table de hachage qui donne une structure qui est le multiplicateur en x et en y selon la direction. \\\\
+            Puis la fonction avancer est appelée et change la position du personnage grâce à sa vitesse et sa direction en vérifiant qu’il ne dépasse pas les bords de la tuile. 
+            Pour simplifier le calcul, on utilise une table de hachage qui donne une structure qui est le multiplicateur de la vitesse en x et en y selon la direction. \\\\
             \textit{
-                Exemple : le joueur se déplace vers le haut et vers la droite, qui est converti en une valeur énumérée (type enum en C). \\
-                Cette valeur donne un indice pour le tableau deplacement. La valeur qui correspond à cette direction est la structure de valeurs $x=1$ et $y=-1$, 
+                Exemple : le joueur se déplace vers le haut et vers la droite, information convertie en une valeur énumérée (type enum en C). \\
+                Cette valeur donne un indice pour le tableau deplacement. Le point (0, 0) de la fenêtre est le coin en haut à gauche. La valeur qui correspond à cette direction est la structure de valeurs $x=1$ et $y=-1$, 
                 car un déplacement vers la droite signifie ajouter une valeur x (la vitesse du joueur) 
                 et un déplacement vers le haut implique de diminuer la valeur y du joueur de sa vitesse aussi.
             }
             \subsubsection{Compétences}
             Les compétences sont les capacités des personnages, elles peuvent être de simples attaques, des techniques de déplacement ou bien des sorts.\\\\
-            Elles sont définies, de manière statique dans la structure compétence, et de manière dynamique dans la structure \textit{cast}. Quand une compétence est lancée, la structure de \textit{cast} est créée et ajoutée dans une liste. Le \textit{cast} va évoluer en fonction des appels de la fonction \textit{update}. De sorte à par exemple supprimer une compétence de zone, après sa durée de vie. La fonction d’update permet aussi de détecter des joueurs en collision pour leur infliger des dégâts par exemple. Les \textit{casts} de compétences sont génériques, on peut ainsi avoir plusieurs types de compétences différentes.\\\\
+            Elles sont définies de manière statique dans un tableau de structures compétence et de manière dynamique avec la structure \textit{cast}. Quand une compétence est lancée, une structure de \textit{cast} est créée et ajoutée dans une liste. Le \textit{cast} va évoluer en fonction des appels de la fonction \textit{update}. Par exemple, une compétence de zone est supprimée de la liste à la fin de sa durée de vie. La fonction d’update permet aussi de détecter des joueurs en collision pour leur infliger des dégâts ou un autre effet. Les \textit{casts} de compétences sont génériques, on peut ainsi avoir plusieurs types de compétences différentes.\\\\
             L’implémentation des \textit{casts} est différente entre le côté client et le côté serveur.\\
-            Le client, au moment de la détection d’une touche d’envoi de compétence, fait une requête au serveur avec les paramètres nécessaires, comme les positions etc.\\
-            Le serveur ajoute ce nouveau \textit{cast} dans une liste et communique avec les joueurs sur la tuile, les informations comme la position, la taille d’une zone etc.
+            Le client, au moment de la détection d’une touche d’envoi de compétence, fait une requête au serveur avec les paramètres nécessaires.\\
+            Le serveur ajoute ce nouveau \textit{cast} dans une liste et communique avec les joueurs sur la tuile les informations comme la position, la taille pour zone, la portée pour un projectile, etc.
             Le serveur va souvent faire l’update des \textit{casts}, et ainsi envoyer les informations aux joueurs.\\
-            Le client, à la suite de la requête du lancement de la compétence ne s’occupe seulement de la récupération des informations envoyées par le serveur et de l’affichage de la compétence.
+            Le client, à la suite de la requête du lancement de la compétence s’occupe seulement de la récupération des informations envoyées par le serveur et de l’affichage de la compétence.
             
             \subsubsection{Objets}
             Les objets sont essentiels au jeu. Ils permettent d'augmenter les statistiques de base de notre personnage. 
-            Quarante objets sont présents dans le jeu, séparés en 4 catégories de rareté : 
+            Quarante objets sont présents dans le jeu, séparés en quatre catégories de rareté : 
             \begin{itemize}
                 \item commun
                 \item rare
                 \item épique
                 \item légendaire
             \end{itemize}
-            Chaque objet a 4 statistiques différentes :
+            Chaque objet a quatre statistiques différentes, correspondant à celles d'un personnage :
             \begin{itemize}
                 \item vie
                 \item force
                 \item magie
                 \item vitesse
             \end{itemize}
-            Ensuite pour calculer le bonus apporté au joueur par chaque objet on différencie trois cas de figure :
+            Ensuite, pour calculer le bonus apporté au joueur par l'objet on différencie trois cas de figure :
             \begin{itemize}
-                \item bonus nul
+                \item aucun bonus
                 \item bonus à additionner 
                 \item bonus à multiplier
             \end{itemize}
             Pour garder une certaine cohérence dans les calculs de statistiques du personnage un ordre de calcul a été décidé.
-            On effectue d'abord les calculs de somme puis les calculs de produit. Pour ce faire chaque statistiques de l'objet a un couple de valeurs. 
-            La première valeur correspond à ce qui est à sommer ou multiplier à la statistiques de base du personnage. 
+            On effectue d'abord les calculs de somme puis les calculs de produit. Pour ce faire, chaque statistique de l'objet a un couple de valeurs. 
+            La première valeur correspond à ce qui est à sommer ou multiplier avec la statistique de base du personnage. 
             La deuxième valeur est un ordre de priorité permettant d'effectuer les calculs dans le bon ordre.
             \\
             \\
@@ -266,13 +265,13 @@
             La fonction update\_stats est appelée quand un joueur gagne ou perd un objet. Elle permet de recalculer les statistiques du personnage
 
             \subsubsection{Monstres}
-            Le jeu intègre des personnages non joueurs.
+            Le jeu intègre des personnages non-joueurs.
             Ce sont des monstres, appelés mobs. Lorsqu'ils sont tués il permettent d'obtenir des objets qui augmentent les capacités de base de notre personnage.
             Les mobs ont plusieurs fonctionnalités. La première est qu'ils se rapprochent du joueur le plus proche à l'aide d'une fonction de calcul de distance.
             \\
             Une fois que cette distance est calculée, la direction que le mob doit prendre est choisie avec un calcul d'angle. 
-            Un vecteur horizontal orienté à droite qui servira de base est créé ainsi qu'un vecteur représentant la direction du personnage vers le mobs. (Voir Figure~\ref{fig:Mob}) 
-            On calcule l'angle en radians formé par ces deux vecteurs.\\
+            Un vecteur horizontal orienté à droite qui servira de base est créé ainsi qu'un vecteur représentant la direction du personnage vers le mob. (Voir Figure~\ref{fig:Mob}) 
+            On calcule la valeur en radians de l'angle formé par ces deux vecteurs.\\
             On obtient donc une valeur du cercle trigonométrique que l'on exploite de la manière suivante : 
             \begin{itemize}
                 \item Le monstre va en haut si   $ \frac{\pi}{4}  \leq \text{angle} < \frac{3\pi}{4} $
@@ -288,7 +287,6 @@
                 \label{fig:Mob}
             \end{figure}
 
-            \subsubsection{Évènement}
         \subsection{Réseau}
         Nous allons maintenant voir comment connecter les joueurs avec un serveur pour permettre la connexion et le jeu.
 	    Tout d’abord la communication à travers le réseau se fait par des écoutes et des envois dans différents flux. 
@@ -296,9 +294,7 @@
         La parallélisation est donc obligatoire.
 
             \subsubsection{Networking}
-            Tout d’abord le client se connecte au serveur, suite au choix réalisé dans le menu et suite à l’initialisation du serveur. 
-            Plusieurs structures vont être créées et la parallélisation démarre.
-            \\
+            Tout d’abord le client se connecte au serveur, suite au choix réalisé dans le menu et à l’initialisation du serveur. \\
             L’envoi et la réception de données s’assurent avec deux fonctions principales :
             La fonction send (qui n’est pas bloquante) permet l’envoi d’un paquet en unicast.
             La fonction recv (qui est bloquante) permet l’écoute du flux et la réception des paquets.
@@ -310,10 +306,10 @@
                 \item Le programme principal qui a appelé la création des autres threads.
                 \item Un (ou plusieurs pour le serveur) thread(s) d’écoute. 
             \end{itemize}
-            La connexion entre eux se fait par une file. Les threads d’écoute enfilent et le programme principal défile les informations envoyées par le serveur. 
-            Ces informations passent ainsi du serveur à l’écoute au main pour ensuite être traitées. \\
+            La connexion entre eux se fait par une file. Les threads d’écoute enfilent et le programme principal défile les informations reçues. 
+            Les informations sont envoyées d'un côté, passent du thread d’écoute au programme principal de l'autre côté pour ensuite être traitées. \\
             Cette file permet aussi au serveur de traiter les différents clients.\\\\
-            Différents codes peuvent être utilisé lors de l’envoi de paquets (Voir Table~\ref{tab:tabCliServ}): 
+            Différents codes peuvent être utilisés lors de l’envoi de paquets (Voir Table~\ref{tab:tabCliServ}): 
     
             \begin{table}[h]
                 \centering
@@ -344,14 +340,14 @@
             Il récupère de cette manière la position des autres joueurs, leurs actions, s’il doit les afficher, l’ajout et la suppression d’objets sur la tuile, le changement de tuile, etc.
             La fonction \textit{sscanf} de la bibliothèque standard a été très utile pour ça, ainsi que \textit{data\_skip}, écrite pour faciliter la lecture des données dans le buffer.\\\\
             Ensuite le client informe le serveur de ses actions comme un changement de direction, l’utilisation d’une compétence, un objet équipé ou lâché.
-            Pour cela, la fonction \textit{sendf} inspirée de \textit{sprintf} est utilisée pour mettre en forme les informations à envoyer au serveur.\\\\
+            Pour cela, la fonction \textit{sendf} qui utilise \textit{send} inspirée de \textit{sprintf} est utilisée pour mettre en forme les informations à envoyer au serveur.\\\\
             Enfin, le client affiche l’état du jeu. Pour cela, des fonctions s’occupent de charger et d’afficher la tuile courante du joueur. Grâce aux listes actualisées des entités, le client affiche les textures correspondant à tous les personnages, objets et compétences utilisées.
 
             \subsubsection{Serveur}
             Le serveur est le premier qui démarre, puis se met en attente des joueurs. Une fois tous les joueurs connectés, il envoie un message start avec une graine de génération de la carte. Une fois la partie commencée, le serveur communique les informations sur le jeu à chaque joueur. C’est à ce moment que le serveur se met en écoute, pour gérer la communication entre les joueurs et le jeu de manière générale.\\\\
             Le serveur fonctionne grâce à une boucle dans laquelle il traite les événements arrivant dans le jeu. A partir de cela, il peut modifier les informations du jeu qu’il possède, pour ensuite les communiquer avec les clients. Les informations sont récupérées par une file partagée entre plusieurs threads d’écoutes pour pouvoir écouter chaque client.
             Par exemple, le serveur vérifie, au moment du déplacement d’un joueur, qu’il ne sorte pas du jeu ni ne crée de collision avec des éléments bloquants sur la carte.
-            Il renvoie ensuite à tous les joueurs présents sur la tuile, la position de ce joueur après un déplacement ou non.\\\\
+            Il renvoie ensuite à tous les joueurs présents sur la tuile, la position de ce joueur s'il se déplace.\\\\
             Le serveur s'arrête à la fin du jeu, c'est-à-dire au moment où les joueurs se déconnectent en renvoyant le code d'arrêt '!'.
 
         \subsection{Rendu Graphique}
@@ -375,12 +371,12 @@
                     \item 2 : être uniquement serveur de la partie
                 \end{itemize}
                 Dans la page d’accueil du menu, il est possible de saisir son pseudo et de changer la classe de son personnage. Il est également possible de quitter le jeu directement sans le lancer ni être serveur. En cliquant sur l’onglet paramètres, une nouvelle section s’ouvre.\\ 
-                Nous y retrouvons : 
+                Nous y trouvons : 
                 \begin{itemize}
-                    \item un bouton de retour au menu d’accueil
-                    \item un bouton de sauvegarde des paramètres
-                    \item un bouton charger paramètres qui charge les paramètres dans ce même fichier
-                    \item un bouton plus et un bouton moins qui changent la valeur du volume de la musique du menu
+                    \item un bouton de retour au menu d’accueil,
+                    \item un bouton de sauvegarde des paramètres,
+                    \item un bouton charger_paramètres qui charge les paramètres dans ce même fichier,
+                    \item un bouton plus et un bouton moins qui changent la valeur du volume de la musique du menu.
                 \end{itemize}
    
                 \paragraph{Affichage général}\leavevmode\newline
@@ -396,11 +392,11 @@
                 \end{itemize}
                 \leavevmode\newline
                 Les images des personnages vus de face sont chargées en fonction du personnage sélectionné par le joueur. 
-                Toutes les images chargées sont stockées dans un tableau de structure img\_t. Chaque structure img\_t possède deux champs : une \texttt{SDL\_Texture}\footnote{image ou surface graphique que l’on peut afficher à l’écran à l’aide de la fonction SDL\_Render\_Copy.} et la position de l’image représentée par un \texttt{SDL\_Rect}\footnote{structure de SDL à 4 champs : (coordonnées x et y de départ, longueur et largeur de la zone ou sera affichée l’image).}.\\
+                Toutes les images chargées sont stockées dans un tableau de structures img\_t. Chaque structure possède deux champs : une \texttt{SDL\_Texture}\footnote{image ou surface graphique que l’on peut afficher à l’écran à l’aide de la fonction SDL\_Render\_Copy.} et la position de l’image représentée par un \texttt{SDL\_Rect}\footnote{structure de SDL à 4 champs : (coordonnées x et y de départ, longueur et largeur de la zone ou sera affichée l’image).}.\\
                 Nous utilisons principalement quatre images de boutons boisés pour servir d’arrière-plan aux textes présents.
 
                 \paragraph{Textes}\leavevmode\newline
-                Les textes sont quant à eux chargés et sauvegardés dans un tableau de structure \textit{texte\_t} qui contient les mêmes champs que \textit{img\_t}, avec en plus un char* correspondant au texte affiché.\\
+                Les textes sont quant à eux chargés et sauvegardés dans un tableau de structures \textit{texte\_t} qui contient les mêmes champs que \textit{img\_t}, avec en plus un char* correspondant au texte affiché.\\
                 À la création d’un texte, nous utilisons une police importée (Go-Regular), créons une \textit{SDL\_texture}, mettons le nouveau texte dans le  champ contenu.\\
                 Certains textes doivent être modifiés dynamiquement. On utilise donc une fonction \textit{maj\_texte} qui recrée la texture si l’ancien texte est différent du nouveau.
                 
@@ -426,10 +422,10 @@
                 Les événements en SDL sont gérés à l’aide d’une structure \textit{SDL\_Event} fournie par SDL. Nous nous en servons dans notre projet pour détecter les clics de la souris et les touches pressées au clavier. 
 
                     \subparagraph{souris}\leavevmode\newline
-                    Les clics souris sont assez simples à gérer : si l’événement est de type clic souris, on crée un \textit{\texttt{SDL\_Point}\footnote{une position sur la fenêtre représentée par deux coordonnées x et y.}} correspondant aux coordonnées du curseur de la souris. De nombreuses conditions testent si le clic de la souris est dans les coordonnées d’un bouton à l’aide de la fonction \textit{SDL\_PointInRect} et de la valeur de \textit{pos\_actuelle}. En fonction des boutons cliqués, différentes actions se passent. Il est possible de naviguer entre les différentes sections du menu de cette manière. 
+                    Les clics souris sont assez simples à gérer : si l’événement est de type clic de souris, on crée un \textit{\texttt{SDL\_Point}\footnote{une position sur la fenêtre représentée par deux coordonnées x et y.}} correspondant aux coordonnées du curseur de la souris. De nombreuses conditions testent si le clic de la souris est inclus dans le rectangle d’un bouton à l’aide de la fonction \textit{SDL\_PointInRect} et de la valeur de \textit{pos\_actuelle}. En fonction des boutons cliqués, différentes actions se passent. Il est possible de naviguer entre les différentes sections du menu de cette manière. 
 
                     \subparagraph{clavier}\leavevmode\newline
-                    Les saisies clavier servent à modifier des chaînes de caractères mais aussi à se déplacer dans les menus à l’aide des flèches et des touches entrées. La saisie de l’adresse IP se fait via un switch dans la fonction \textit{saisie\_touche\_ip} vue précédemment. \\
+                    Les saisies au clavier servent à modifier des chaînes de caractères (adresse IP, pseudo du joueur) mais aussi à se déplacer dans les sections du mens à l’aide des flèches et des touches frappées. La saisie de l’adresse IP se fait via un switch dans la fonction \textit{saisie\_touche\_ip} vue précédemment. \\
                     Pour la saisie du nom du joueur, on ajoute simplement chaque caractère alphanumérique à la chaîne du nom du joueur. \\
                     Il est possible de supprimer les caractères dans les deux saisies.\\
                     Il est possible de se déplacer dans le menu avec les flèches haut et bas.\\
@@ -439,8 +435,8 @@
                         \caption{voici un exemple de la gestion des déplacemen ts dans le menu via les flèches}
                         \label{fig:codeMenu}
                     \end{figure}
-                    Si l’événement SDL est de type \textit{SDL\_KEYDOWN}, on créée un \textit{SDL\_Point} qui correspond aux coordonnées du bouton. \\
-                    Lorsque l’on clique sur echap, cela force l’arrêt du menu.
+                    Si l’événement SDL est de type \textit{SDL\_KEYDOWN}, on crée un \textit{SDL\_Point} qui correspond aux coordonnées du bouton. \\
+                    Lorsque l’on appuie sur la touche echap, cela force l’arrêt du menu.
 
 
 
@@ -472,7 +468,7 @@
                 \end{minipage}
             \end{figure}
             Pour l’affichage des personnages. Nous avons développé une fonction \textit{charger\_sdl\_joueurs}, qui prend en paramètres le tableau des joueurs et un tableau 
-            à deux dimensions qui stocke les différentes textures des personnages. La fonction s’occupe de charger les bonnes images en fonction de la classe de chaque joueur. 
+            à deux dimensions qui stocke les différentes textures des personnages pour chaque direction. La fonction s’occupe de charger les bonnes images en fonction de la classe de chaque joueur. 
             Dans la boucle principale du client, la liste des personnages présents est parcourue, on affiche alors la texture du personnage qui correspond à sa direction, 
             à sa position courante.\\
             L’affichage des objets est similaire, les textures sont préchargées, puis, graĉe à la liste qui tient compte de ceux qui sont présents sur la même tuile 
@@ -502,7 +498,7 @@
         \begin{figure}[H]
             \centering
             \includegraphics[height=10cm]{gdb.png}
-            \caption{\textit{nom} ne doit pas être un pointeur mais un tableau}
+            \caption{\textit{nom} ne doit pas être un pointeur mais un tableau alloué avec une taille fixe suffisante}
         \end{figure}
 
 
