@@ -12,6 +12,7 @@
 #define ADD_OBJET_JOUEUR 20
 #define RM_OBJET_JOUEUR 21
 #define SPAWN_OBJET 22
+#define GET_OBJET 23
 
 //pour les casts, commence par 3
 // + 0 pour les zones
