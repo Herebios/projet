@@ -2,34 +2,34 @@
 \contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
 \contentsline {section}{\numberline {2}Analyse}{3}{section.2}%
 \contentsline {section}{\numberline {3}Organisation du Projet}{3}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Planning Prévisionnel}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.1}Planning Prévisionnel}{4}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Répartition des tâches}{4}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Développement}{4}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Création des ressources}{4}{subsection.4.1}%
+\contentsline {section}{\numberline {4}Développement}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Création des ressources}{5}{subsection.4.1}%
 \contentsline {subsubsection}{\numberline {4.1.1}Objet}{5}{subsubsection.4.1.1}%
 \contentsline {subsubsection}{\numberline {4.1.2}Sprites et Personnages}{5}{subsubsection.4.1.2}%
-\contentsline {subsubsection}{\numberline {4.1.3}Tuiles et Biomes}{5}{subsubsection.4.1.3}%
+\contentsline {subsubsection}{\numberline {4.1.3}Tuiles et Biomes}{6}{subsubsection.4.1.3}%
 \contentsline {subsection}{\numberline {4.2}Implémentation}{6}{subsection.4.2}%
-\contentsline {subsubsection}{\numberline {4.2.1}Map}{6}{subsubsection.4.2.1}%
-\contentsline {subsubsection}{\numberline {4.2.2}Personnages}{6}{subsubsection.4.2.2}%
-\contentsline {subsubsection}{\numberline {4.2.3}Compétences}{7}{subsubsection.4.2.3}%
-\contentsline {subsubsection}{\numberline {4.2.4}Objets}{7}{subsubsection.4.2.4}%
-\contentsline {subsubsection}{\numberline {4.2.5}Monstres}{8}{subsubsection.4.2.5}%
-\contentsline {subsubsection}{\numberline {4.2.6}Évènement}{9}{subsubsection.4.2.6}%
-\contentsline {subsection}{\numberline {4.3}Réseau}{9}{subsection.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.1}Networking}{9}{subsubsection.4.3.1}%
-\contentsline {subsubsection}{\numberline {4.3.2}Client}{10}{subsubsection.4.3.2}%
-\contentsline {subsubsection}{\numberline {4.3.3}Serveur}{10}{subsubsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.4}Rendu Graphique}{10}{subsection.4.4}%
-\contentsline {subsubsection}{\numberline {4.4.1}Menu Principal}{10}{subsubsection.4.4.1}%
-\contentsline {paragraph}{Fonctionnalités du menu}{11}{section*.2}%
-\contentsline {paragraph}{Affichage général}{11}{section*.3}%
-\contentsline {paragraph}{Images}{11}{section*.4}%
-\contentsline {paragraph}{Textes}{12}{section*.5}%
-\contentsline {paragraph}{Gestion des événements du menu}{12}{section*.6}%
-\contentsline {subparagraph}{souris}{12}{section*.7}%
-\contentsline {subparagraph}{clavier}{13}{section*.8}%
-\contentsline {subsubsection}{\numberline {4.4.2}Jeu}{13}{subsubsection.4.4.2}%
-\contentsline {section}{\numberline {5}Résultats et conclusion}{14}{section.5}%
-\contentsline {section}{\numberline {6}Annexes}{15}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Débogage}{15}{subsection.6.1}%
+\contentsline {subsubsection}{\numberline {4.2.1}Map}{7}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Personnages}{7}{subsubsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.3}Compétences}{8}{subsubsection.4.2.3}%
+\contentsline {subsubsection}{\numberline {4.2.4}Objets}{8}{subsubsection.4.2.4}%
+\contentsline {subsubsection}{\numberline {4.2.5}Monstres}{9}{subsubsection.4.2.5}%
+\contentsline {subsubsection}{\numberline {4.2.6}Évènement}{10}{subsubsection.4.2.6}%
+\contentsline {subsection}{\numberline {4.3}Réseau}{10}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Networking}{10}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Client}{11}{subsubsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.3}Serveur}{12}{subsubsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.4}Rendu Graphique}{12}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Menu Principal}{12}{subsubsection.4.4.1}%
+\contentsline {paragraph}{Fonctionnalités du menu}{13}{section*.2}%
+\contentsline {paragraph}{Affichage général}{13}{section*.3}%
+\contentsline {paragraph}{Images}{13}{section*.4}%
+\contentsline {paragraph}{Textes}{14}{section*.5}%
+\contentsline {paragraph}{Gestion des événements du menu}{14}{section*.6}%
+\contentsline {subparagraph}{souris}{14}{section*.7}%
+\contentsline {subparagraph}{clavier}{15}{section*.8}%
+\contentsline {subsubsection}{\numberline {4.4.2}Jeu}{15}{subsubsection.4.4.2}%
+\contentsline {section}{\numberline {5}Résultats et conclusion}{16}{section.5}%
+\contentsline {section}{\numberline {6}Annexes}{17}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Débogage}{17}{subsection.6.1}%

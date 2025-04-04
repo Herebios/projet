@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.3.28)  3 APR 2025 16:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.3.28)  4 APR 2025 17:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -469,161 +469,195 @@ _IC2.png>]
 \tf@toc=\write4
 \openout4 = `compteRendu.toc'.
 
- [2]
-<gant.png, id=165, 508.90125pt x 517.935pt>
+ [2] [3]
+<gant.png, id=169, 575.14874pt x 574.145pt>
 File: gant.png Graphic file (type png)
 <use gant.png>
-Package pdftex.def Info: gant.png  used on input line 66.
-(pdftex.def)             Requested size: 251.61569pt x 256.0748pt.
- [3]
-<Bague du mage noir.jpg, id=176, 1027.84pt x 1027.84pt>
+Package pdftex.def Info: gant.png  used on input line 68.
+(pdftex.def)             Requested size: 256.52399pt x 256.0748pt.
+ [4 <./gant.png>]
+<Bague du mage noir.jpg, id=181, 1027.84pt x 1027.84pt>
 File: Bague du mage noir.jpg Graphic file (type jpg)
 <use Bague du mage noir.jpg>
-Package pdftex.def Info: Bague du mage noir.jpg  used on input line 91.
+Package pdftex.def Info: Bague du mage noir.jpg  used on input line 95.
 (pdftex.def)             Requested size: 113.79987pt x 113.81102pt.
-<Orbe mystique.jpg, id=177, 1027.84pt x 1027.84pt>
+<Orbe mystique.jpg, id=182, 1027.84pt x 1027.84pt>
 File: Orbe mystique.jpg Graphic file (type jpg)
 <use Orbe mystique.jpg>
-Package pdftex.def Info: Orbe mystique.jpg  used on input line 99.
+Package pdftex.def Info: Orbe mystique.jpg  used on input line 103.
 (pdftex.def)             Requested size: 113.79987pt x 113.81102pt.
- [4 <./gant.png>]
-<mageSrc.png, id=186, 141.52875pt x 250.9375pt>
+<mageSrc.png, id=185, 141.52875pt x 250.9375pt>
 File: mageSrc.png Graphic file (type png)
 <use mageSrc.png>
-Package pdftex.def Info: mageSrc.png  used on input line 119.
+Package pdftex.def Info: mageSrc.png  used on input line 123.
 (pdftex.def)             Requested size: 64.19052pt x 113.81102pt.
-<archerSRC.png, id=187, 147.55125pt x 193.72375pt>
+<archerSRC.png, id=186, 147.55125pt x 193.72375pt>
 File: archerSRC.png Graphic file (type png)
 <use archerSRC.png>
-Package pdftex.def Info: archerSRC.png  used on input line 127.
+Package pdftex.def Info: archerSRC.png  used on input line 131.
 (pdftex.def)             Requested size: 86.68523pt x 113.81102pt.
- [5 <./Bague du mage noir.jpg> <./Orbe mystique.jpg> <./mageSrc.png> <./archerS
-RC.png>]
-<normal.png, id=205, 46.1725pt x 46.1725pt>
+ [5 <./Bague du mage noir.jpg> <./Orbe mystique.jpg>]
+<normal.png, id=197, 46.1725pt x 46.1725pt>
 File: normal.png Graphic file (type png)
 <use normal.png>
-Package pdftex.def Info: normal.png  used on input line 147.
+Package pdftex.def Info: normal.png  used on input line 151.
 (pdftex.def)             Requested size: 42.67928pt x 42.67912pt.
-<obstacle1.png, id=206, 45.16875pt x 46.1725pt>
+<obstacle1.png, id=198, 45.16875pt x 46.1725pt>
 File: obstacle1.png Graphic file (type png)
 <use obstacle1.png>
-Package pdftex.def Info: obstacle1.png  used on input line 155.
+Package pdftex.def Info: obstacle1.png  used on input line 159.
 (pdftex.def)             Requested size: 41.75146pt x 42.67912pt.
-<obstacle2.png, id=207, 46.1725pt x 46.1725pt>
+<obstacle2.png, id=199, 46.1725pt x 46.1725pt>
 File: obstacle2.png Graphic file (type png)
 <use obstacle2.png>
-Package pdftex.def Info: obstacle2.png  used on input line 165.
+Package pdftex.def Info: obstacle2.png  used on input line 169.
 (pdftex.def)             Requested size: 42.67928pt x 42.67912pt.
-<sortie.png, id=208, 46.1725pt x 46.1725pt>
+<sortie.png, id=200, 46.1725pt x 46.1725pt>
 File: sortie.png Graphic file (type png)
 <use sortie.png>
-Package pdftex.def Info: sortie.png  used on input line 173.
+Package pdftex.def Info: sortie.png  used on input line 177.
 (pdftex.def)             Requested size: 42.67928pt x 42.67912pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 193--211
+ [6 <./mageSrc.png> <./archerSRC.png> <./normal.png> <./obstacle1.png> <./obsta
+cle2.png> <./sortie.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 197--215
 
  []
 
-[6 <./normal.png> <./obstacle1.png> <./obstacle2.png> <./sortie.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 235--250
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--223
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--223
 
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 250--254
+Underfull \hbox (badness 10000) in paragraph at lines 246--261
 
  []
 
-<cercleTrigo.png, id=230, 691.58376pt x 678.535pt>
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 261--265
+
+ []
+
+<cercleTrigo.png, id=233, 691.58376pt x 678.535pt>
 File: cercleTrigo.png Graphic file (type png)
 <use cercleTrigo.png>
-Package pdftex.def Info: cercleTrigo.png  used on input line 275.
+Package pdftex.def Info: cercleTrigo.png  used on input line 286.
 (pdftex.def)             Requested size: 261.00005pt x 256.0748pt.
-[8] [9 <./cercleTrigo.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 302--306
+[9] [10 <./cercleTrigo.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 313--317
 
  []
 
-<screenMenu.png, id=248, 1927.2pt x 1084.05pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 341--349
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 341--349
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 341--349
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 351--356
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 351--356
+
+ []
+
+<screenMenu.png, id=256, 1927.2pt x 1084.05pt>
 File: screenMenu.png Graphic file (type png)
 <use screenMenu.png>
-Package pdftex.def Info: screenMenu.png  used on input line 338.
+Package pdftex.def Info: screenMenu.png  used on input line 364.
 (pdftex.def)             Requested size: 303.47679pt x 170.71652pt.
-[10] [11 <./screenMenu.png>]
-Underfull \hbox (badness 2941) in paragraph at lines 373--373
+[12] [13 <./screenMenu.png>]
+Underfull \hbox (badness 2941) in paragraph at lines 399--399
 [][][]\T1/cmr/m/n/9 .[][]image ou sur-face gra-phique que l'on peut af-fi-cher 
 à l'écran à l'aide de la fonc-tion
  []
 
-<screenIpOk.png, id=265, 1927.2pt x 1084.05pt>
+<screenIpOk.png, id=273, 1927.2pt x 1084.05pt>
 File: screenIpOk.png Graphic file (type png)
 <use screenIpOk.png>
-Package pdftex.def Info: screenIpOk.png  used on input line 386.
+Package pdftex.def Info: screenIpOk.png  used on input line 412.
 (pdftex.def)             Requested size: 182.08607pt x 102.43008pt.
-<screenIpKo.png, id=266, 1927.2pt x 1084.05pt>
+<screenIpKo.png, id=274, 1927.2pt x 1084.05pt>
 File: screenIpKo.png Graphic file (type png)
 <use screenIpKo.png>
-Package pdftex.def Info: screenIpKo.png  used on input line 394.
+Package pdftex.def Info: screenIpKo.png  used on input line 420.
 (pdftex.def)             Requested size: 182.08607pt x 102.43008pt.
-[12 <./screenIpOk.png> <./screenIpKo.png>]
-<codeMenu.png, id=285, 386.94562pt x 137.7647pt>
+[14 <./screenIpOk.png> <./screenIpKo.png>]
+<codeMenu.png, id=294, 386.94562pt x 137.7647pt>
 File: codeMenu.png Graphic file (type png)
 <use codeMenu.png>
-Package pdftex.def Info: codeMenu.png  used on input line 412.
+Package pdftex.def Info: codeMenu.png  used on input line 438.
 (pdftex.def)             Requested size: 399.62122pt x 142.26378pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 405--415
+Underfull \hbox (badness 10000) in paragraph at lines 431--441
 
  []
 
-<biomeForet.png, id=292, 753.81625pt x 601.24625pt>
+<biomeForet.png, id=301, 753.81625pt x 601.24625pt>
 File: biomeForet.png Graphic file (type png)
 <use biomeForet.png>
-Package pdftex.def Info: biomeForet.png  used on input line 435.
+Package pdftex.def Info: biomeForet.png  used on input line 461.
 (pdftex.def)             Requested size: 196.19464pt x 156.49014pt.
 
-Overfull \hbox (7.98177pt too wide) in paragraph at lines 435--436
+Overfull \hbox (7.98177pt too wide) in paragraph at lines 461--462
  [][] 
  []
 
-<biomeGlace.png, id=293, 745.78625pt x 601.24625pt>
+<biomeGlace.png, id=302, 745.78625pt x 601.24625pt>
 File: biomeGlace.png Graphic file (type png)
 <use biomeGlace.png>
-Package pdftex.def Info: biomeGlace.png  used on input line 443.
+Package pdftex.def Info: biomeGlace.png  used on input line 469.
 (pdftex.def)             Requested size: 194.10469pt x 156.49014pt.
 
-Overfull \hbox (5.89182pt too wide) in paragraph at lines 443--444
+Overfull \hbox (5.89182pt too wide) in paragraph at lines 469--470
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 424--447
+Underfull \hbox (badness 10000) in paragraph at lines 450--473
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 424--447
+Underfull \hbox (badness 10000) in paragraph at lines 450--473
 
  []
 
-[13 <./codeMenu.png>]
-Overfull \hbox (20.66335pt too wide) in paragraph at lines 448--457
+[15 <./codeMenu.png>]
+Overfull \hbox (20.59387pt too wide) in paragraph at lines 474--483
 []\T1/cmr/m/n/10.95 Pour l'af-fi-chage des per-son-nages. Nous avons dé-ve-lopp
-é une fonc-tion char-ger_sdl_joueurs,
+é une fonc-tion \T1/cmr/m/it/10.95 char-ger_sdl_joueurs\T1/cmr/m/n/10.95 ,
  []
 
-[14 <./biomeForet.png> <./biomeGlace.png>]
-<fonction.png, id=311, 621.32124pt x 382.42876pt>
+[16 <./biomeForet.png> <./biomeGlace.png>]
+<fonction.png, id=319, 621.32124pt x 382.42876pt>
 File: fonction.png Graphic file (type png)
 <use fonction.png>
-Package pdftex.def Info: fonction.png  used on input line 470.
+Package pdftex.def Info: fonction.png  used on input line 496.
 (pdftex.def)             Requested size: 323.5819pt x 199.16928pt.
-<gdb.png, id=312, 714.67pt x 669.50125pt>
+<gdb.png, id=320, 714.67pt x 669.50125pt>
 File: gdb.png Graphic file (type png)
 <use gdb.png>
-Package pdftex.def Info: gdb.png  used on input line 476.
+Package pdftex.def Info: gdb.png  used on input line 502.
 (pdftex.def)             Requested size: 303.73618pt x 284.52756pt.
- [15 <./fonction.png>] [16 <./gdb.png>] (./compteRendu.aux)
+ [17 <./fonction.png>] [18 <./gdb.png>] (./compteRendu.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -631,37 +665,38 @@ Package rerunfilecheck Info: File `compteRendu.out' has not changed.
 (rerunfilecheck)             Checksum: 9A2DEF6C7DDCC41BFB1A58829E6F4022;3314.
  ) 
 Here is how much of TeX's memory you used:
- 11749 strings out of 478287
- 184726 string characters out of 5849289
+ 11755 strings out of 478287
+ 184789 string characters out of 5849289
  499079 words of memory out of 5000000
- 29695 multiletter control sequences out of 15000+600000
- 484962 words of font info for 60 fonts, out of 8000000 for 9000
+ 29698 multiletter control sequences out of 15000+600000
+ 485278 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,9n,63p,721b,430s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,9n,63p,721b,426s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.600
-pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.60
-0pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.6
-00pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti0800.
-600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095
-.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc109
-5.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx12
-00.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1
-095.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx
-1440.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecr
-m1095.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ec
-rm1200.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/e
-cbx1728.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/
-ectt1728.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec
-/ecrm1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on compteRendu.pdf (16 pages, 10554795 bytes).
+pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecit1095.60
+0pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.6
+00pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.
+600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti0800
+.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti109
+5.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc10
+95.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1
+200.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx
+1095.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecb
+x1440.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ec
+rm1095.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/e
+crm1200.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/
+ecbx1728.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec
+/ectt1728.600pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/e
+c/ecrm1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on compteRendu.pdf (18 pages, 10578020 bytes).
 PDF statistics:
- 826 PDF objects out of 1000 (max. 8388607)
- 341 compressed objects within 4 object streams
- 74 named destinations out of 1000 (max. 500000)
+ 852 PDF objects out of 1000 (max. 8388607)
+ 350 compressed objects within 4 object streams
+ 76 named destinations out of 1000 (max. 500000)
  317 words of extra memory for PDF output out of 10000 (max. 10000000)
 

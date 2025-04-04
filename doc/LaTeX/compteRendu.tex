@@ -59,6 +59,8 @@
     en fonction des changements opérés par le joueur.
     
     \section{Organisation du Projet}
+    Le groupe a organisé le travail autour de différents outils pour contrôler l’avancement du projet. Le dépôt git sert à stocker les fichiers. Un document partagé Google Drive a servi à noter les idées au lancement du projet et à préparer le compte-rendu. Puis, l’application Trello et un diagramme de Gantt nous ont permis de répartir les tâches efficacement au cours du temps.
+
         \subsection{Planning Prévisionnel}
         Ci-dessous notre planning prévisionnel sur 3 mois. (Voir Figure~\ref{fig:Gant})
         \begin{figure}[H]
@@ -69,19 +71,21 @@
             \end{center}
         \end{figure}
         \subsection{Répartition des tâches}
-        Nous nous sommes répartis les tâches de la manière suivante (se référer au numérotage sur le diagrame Gant Figure~\ref{fig:Gant}) :
+
+
+        Nous nous sommes répartis les tâches de la manière suivante :
         \begin{itemize}
-            \item Baptiste : 1.1, 1.2, 3.1, 3.2, 3.3, 3.4, 5.1, 5.2, 5.4, 5.5
-            \item Lucas : 1.1, 3.2, 4.1, 4.2, 4.3, 4.4, 5.1, 5.5
-            \item Ilann : 1.1, 2.2, 3.1, 5.4
-            \item Nathan : 1.1, 2.1, 3.1, 5.2, 5.5
+            \item Baptiste : affichage du client, déplacement d’un personnage, gestion de la carte et des tuiles. Réalisation de la partie réseau, l’envoi des informations au lancement du jeu, le format des messages, la mémorisation et le traitement des informations du jeu pour le client et le serveur.       
+            \item Lucas : réalisation du réseau de neurones, une partie qui n’est pas possible de rattacher au jeu dans l’état actuel du jeu. Lucas a aussi sa part dans la partie réseaux avec la création de la file et la mise en place des threads et de l’écoute des flux. Les compétences ont aussi été développées, dans l’état l’implémentation n’est pas concluante et ne peut pas être ajouter au jeu. Résolution de nombreux bugs dans tout le projet. 
+            \item Ilann : réalisation menu, dans le but de récupérer le pseudo, le personnage ainsi que l'adresse IP d’un joueur ou serveur. Réalisation de l’affichage des objets dans l’inventaire des joueurs ainsi que leur récupération sur la carte et la possibilité de les relâcher.  
+            \item Nathan : réalisation des statistiques des personnages, création des objets permettant la modification des statistiques du joueur et implémentation des monstres (partiellement intégrés au jeu). Génération de beaucoup d'images et de textures de la map, laissant un libre choix de cohérence graphique dans le jeu.
         \end{itemize}
     \section{Développement}
     Cette partie abordera le développement du jeu dans sa globalité. De la création des ressources graphiques à la création du client/serveur en passant par la gestion des de la carte, des objets etc. 
         \subsection{Création des ressources}
         Cette section abordera la génération des ressources graphiques de base permettant la réalisation du jeu.
             \subsubsection{Objet}
-            Il y a quarante objets dans le jeu. Tous générés avec un prompt chat gpt.\\
+            Quarante objets sont présents dans le jeu. Tous générés avec un prompt chat gpt.\\
             Quelques exemples d'objets ci-dessous (Figure~\ref{fig:BagueMageNoir}, Figure~\ref{fig:OrbeMystique}).
             \begin{figure}[H]
                 \centering
@@ -102,7 +106,7 @@
                 \end{minipage}
             \end{figure}
             \subsubsection{Sprites et Personnages}
-            Il y a quatre personnages dans le jeu :
+            Quatre personnages sont présents dans le jeu :
             \begin{itemize}
                 \item Archer
                 \item Mage
@@ -130,7 +134,7 @@
                 \end{minipage}
             \end{figure}
             \subsubsection{Tuiles et Biomes}
-            Il y a six biomes différents dans le jeu.\\
+            Six biomes différents sont implémentés au jeu.\\
             Chaque biome a :
             \begin{itemize}
                 \item une texture de base pour le sol (voir Figure~\ref{fig:normal})
@@ -188,7 +192,7 @@
             Dans le programme écrit en C. La map est une matrice de tuile. Chaque tuile est une structure, qui contient l'information du biome, 
             une matrice des textures qui la composent et les éléments du jeu qui y sont associés.
             On représente les informations par des listes. Elles sont variables au cours du jeu et selon les tuiles. 
-            Il y a quatre listes qui tiennent compte des joueurs, des objets, des monstres, et des effets des compétences actives afin de les afficher facilement.
+            Quatre listes tiennent compte des joueurs, des objets, des monstres, et des effets des compétences actives afin de les afficher facilement.
             \subsubsection{Personnages}
             Les personnages sont choisis par les joueurs au début de la partie. Ils sont caractérisés par une classe, comme dans certains jeux de rôle. 
             Cette classe détermine les statistiques de base du personnage et les compétences accessibles. Les statistiques sont la vie, la force, la magie et la vitesse. 
@@ -209,10 +213,17 @@
                 et un déplacement vers le haut implique de diminuer la valeur y du joueur de sa vitesse aussi.
             }
             \subsubsection{Compétences}
-            Les compétences sont les capacités des personnages, elles peuvent être de simples attaques, des techniques de déplacement ou bien des sorts.
+            Les compétences sont les capacités des personnages, elles peuvent être de simples attaques, des techniques de déplacement ou bien des sorts.\\\\
+            Elles sont définies, de manière statique dans la structure compétence, et de manière dynamique dans la structure \textit{cast}. Quand une compétence est lancée, la structure de \textit{cast} est créée et ajoutée dans une liste. Le \textit{cast} va évoluer en fonction des appelles de la fonction update. De sorte à par exemple supprimer une compétence de zone, après sa durée de vie. La fonction d’update permet aussi de détecter des joueurs en collision pour leur infliger des dégâts par exemples etc. Les \textit{casts} de compétences sont génériques, on peut ainsi avoir plusieurs types de compétences différentes.\\\\
+            L’implémentation des \textit{casts} est différente entre le côté client et le côté serveur.\\
+            Le client, au moment de la détection d’une touche d’envoie de compétence, fait une requête au serveur avec les paramètres nécessaires, comme les positions etc.\\
+            Le serveur ajoute ce nouveau \textit{cast} dans une liste et communique avec les joueurs sur la tuiles, les informations comme la position, la taille d’une zone etc.
+            Le serveur va souvent faire l’update des \textit{casts}, et ainsi envoyer les informations au joueurs.\\
+            Le client à la suite de la requête du lancement de la compétence ne s’occupe seulement de la récupération des informations envoyées par le serveur et de l’affichage de la compétence.
+            
             \subsubsection{Objets}
             Les objets sont essentiels au jeu. Ils permettent d'augmenter les statisques de base de notre personnage. 
-            Il y a 40 objets dans le jeu, séparés en 4 catégories de rareté : 
+            Quarante objets sont présents dans le jeu, séparés en 4 catégories de rareté : 
             \begin{itemize}
                 \item commun
                 \item rare
@@ -261,7 +272,7 @@
             \\
             Une fois que cette distance est calculée, la direction que le mob doit prendre est choisie avec un calcul d'angle. 
             Un vecteur horizontal orienté à droite qui servira de base est créé ainsi qu'un vecteur représentant la direction personnage vers mobs. (Voir Figure~\ref{fig:Mob}) 
-            On calcule l'angle en radians formé par ces deux vecteurs.
+            On calcule l'angle en radians formé par ces deux vecteurs.\\
             On obtient donc une valeur du cercle trigonométrique que l'on exploite de la manière suivante : 
             \begin{itemize}
                 \item Le monstre va en haut si   $ \frac{\pi}{4}  \leq \text{angle} < \frac{3\pi}{4} $
@@ -285,7 +296,7 @@
         La parallélisation est donc obligatoire.
 
             \subsubsection{Networking}
-            Il y a tout d’abord une étape ou le client se connecte au serveur, suite au choix réalisé dans le menu et suite à la l’initialisation du serveur. 
+            Tout d’abord le client se connecte au serveur, suite au choix réalisé dans le menu et suite à la l’initialisation du serveur. 
             Plusieurs structures vont être créées et la parallélisation démarre.
             \\
             L’envoi et la réception de données s’assure avec deux fonctions principales :
@@ -327,7 +338,22 @@
             \end{table}
 
             \subsubsection{Client}
+            Au début du jeu, le client se connecte au serveur via socket. Il envoie les informations de son personnage au serveur, puis récupère celles de tous les autres joueurs grâce à lui. Il initialise le jeu grâce aux fonctions \textit{init\_sdl} et \textit{init\_jeu} qui créent respectivement la fenêtre du jeu et les ressources pour la gestion de la map.\\\\
+            L’élément principal du programme du client est la boucle de jeu, qui récupère les actions effectuées par le client grâce à SDL. Le joueur se déplace, récupère un objet ou lance une compétence.\\
+            Puis, en récupérant un à un dans un buffer les messages stockés dans la file qui écoute le réseau, le client traite les informations qu’il reçoit du serveur. 
+            Il récupère de cette manière la position des autres joueurs, leurs actions, s’il doit les afficher, l’ajout et la suppression d’objets sur la tuile, le changement de tuile, etc.
+            La fonction \textit{sscanf} de la bibliothèque standard a été très utile pour ça, ainsi que \textit{data\_skip}, écrite pour faciliter la lecture des données dans le buffer.\\\\
+            Ensuite le client informe le serveur de ses actions comme un changement de direction, l’utilisation d’une compétence, un objet équipé ou lâché.
+            Pour cela, la fonction \textit{sendf} inspirée de \textit{sprintf} est utilisée pour mettre en forme les informations à envoyer au serveur.\\\\
+            Enfin, le client affiche l’état du jeu. Pour cela, des fonctions s’occupent de charger et d’afficher la tuile courante du joueur. Grâce aux listes actualisées des entités, le client affiche les textures correspondant à tous les personnages, objets et compétences utilisées.
+
             \subsubsection{Serveur}
+            Le serveur est le premier qui démarre, puis se met en attente des joueurs. Une fois tous les joueurs connectés, il envoie un message start avec une graine de génération de la carte. Une fois la partie commencée, le serveur communique les informations sur le jeu à chaque joueur. C’est à ce moment que le serveur se met en écoute, pour gérer la communication entre les joueurs et le jeu de manière générale.\\\\
+            Le serveur fonctionne grâce à une boucle dans laquelle il traite les événements arrivant dans le jeu. A partir de cela, il peut modifier les informations du jeu qu’il possède, pour ensuite les communiquer avec les clients. Les informations sont récupérées par une file partagée entre plusieurs threads d’écoutes pour pouvoir écouter chaque client.
+            Par exemple, le serveur vérifie, au moment du déplacement d’un joueur, qu’il ne sorte pas du jeu ni ne crée de collision avec des éléments bloquants sur la carte.
+            Il renvoie ensuite à tous les joueurs présents sur la tuile, la position de ce joueur après un déplacement ou non.\\\\
+            Le serveur s'arrête à la fin du jeu, c'est-à-dire au moment où les joueurs se déconnectent en renvoyant le code d'arrêt '!'.
+
         \subsection{Rendu Graphique}
         Cette partie traitera de l'utilisation de la librairie SDL2 qui sert pour le rendu graphique du jeu.
             \subsubsection{Menu Principal}
@@ -374,9 +400,9 @@
                 Nous utilisons principalement quatre images de boutons boisés pour servir d’arrière-plan aux textes présents.
 
                 \paragraph{Textes}\leavevmode\newline
-                Les textes sont quant à eux chargés et sauvegardés dans un tableau de structure texte\_t qui contient les mêmes champs que img\_t, avec en plus un char* correspondant au texte affiché.\\
-                À la création d’un texte, nous utilisons une police importée (Go-Regular), créons une SDL\_texture, mettons le nouveau texte dans le  champ contenu.\\
-                Certains textes doivent être modifiés dynamiquement. On utilise donc une fonction maj\_texte qui recrée la texture si l’ancien texte est différent du nouveau.
+                Les textes sont quant à eux chargés et sauvegardés dans un tableau de structure \textit{texte\_t} qui contient les mêmes champs que \textit{img\_t}, avec en plus un char* correspondant au texte affiché.\\
+                À la création d’un texte, nous utilisons une police importée (Go-Regular), créons une \textit{SDL\_texture}, mettons le nouveau texte dans le  champ contenu.\\
+                Certains textes doivent être modifiés dynamiquement. On utilise donc une fonction \textit{maj\_texte} qui recrée la texture si l’ancien texte est différent du nouveau.
                 
                 \begin{figure}[H]
                     \centering
@@ -397,13 +423,13 @@
                     \end{minipage}
                 \end{figure}
                 \paragraph{Gestion des événements du menu}\leavevmode\newline
-                Les événements en SDL sont gérés à l’aide d’une structure SDL\_Event fournie par SDL. Nous nous en servons dans notre projet pour détecter les clics de la souris et les touches pressées au clavier. 
+                Les événements en SDL sont gérés à l’aide d’une structure \textit{SDL\_Event} fournie par SDL. Nous nous en servons dans notre projet pour détecter les clics de la souris et les touches pressées au clavier. 
 
                     \subparagraph{souris}\leavevmode\newline
-                    Les clics souris sont assez simples à gérer : si l’événement est de type clic souris, on crée un \texttt{SDL\_Point}\footnote{une position sur la fenêtre représentée par deux coordonnées x et y.} correspondant aux coordonnées du curseur de la souris. De nombreuses conditions testent si le clic de la souris est dans les coordonnées d’un bouton à l’aide de la fonction SDL\_PointInRect et de la valeur de pos\_actuelle. En fonction des boutons cliqués, différentes actions se passent. Il est possible de naviguer entre les différentes sections du menu de cette manière. 
+                    Les clics souris sont assez simples à gérer : si l’événement est de type clic souris, on crée un \textit{\texttt{SDL\_Point}\footnote{une position sur la fenêtre représentée par deux coordonnées x et y.}} correspondant aux coordonnées du curseur de la souris. De nombreuses conditions testent si le clic de la souris est dans les coordonnées d’un bouton à l’aide de la fonction \textit{SDL\_PointInRect} et de la valeur de \textit{pos\_actuelle}. En fonction des boutons cliqués, différentes actions se passent. Il est possible de naviguer entre les différentes sections du menu de cette manière. 
 
                     \subparagraph{clavier}\leavevmode\newline
-                    Les saisies clavier servent à modifier des chaînes de caractères mais aussi à se déplacer dans les menus à l’aide des flèches et des touches entrées. La saisie de l’adresse IP se fait via un switch dans la fonction  saisie\_touche\_ip vue précédemment. \\
+                    Les saisies clavier servent à modifier des chaînes de caractères mais aussi à se déplacer dans les menus à l’aide des flèches et des touches entrées. La saisie de l’adresse IP se fait via un switch dans la fonction \textit{saisie\_touche\_ip} vue précédemment. \\
                     Pour la saisie du nom du joueur, on ajoute simplement chaque caractère alphanumérique à la chaîne du nom du joueur. \\
                     Il est possible de supprimer les caractères dans les deux saisies.\\
                     Il est possible de se déplacer dans le menu avec les flèches haut et bas.\\
@@ -413,7 +439,7 @@
                         \caption{voici un exemple de la gestion des déplacemen ts dans le menu via les flèches}
                         \label{fig:codeMenu}
                     \end{figure}
-                    Si l’événement SDL est de type SDL\_KEYDOWN, on créée un SDL\_Point qui correspond aux coordonnées du bouton. \\
+                    Si l’événement SDL est de type \textit{SDL\_KEYDOWN}, on créée un \textit{SDL\_Point} qui correspond aux coordonnées du bouton. \\
                     Lorsque l’on clique sur echap, cela force l’arrêt du menu.
 
 
@@ -422,8 +448,8 @@
 
             \subsubsection{Jeu}
             Dans cette partie, nous présenterons les moyens d’affichage des différents composants du jeu.\\\\
-            Dans le jeu, le rendu de la map est généré en plusieurs étapes. Premièrement, la fonction init\_biomes charge toutes les textures du jeu
-            qui composent les tuiles (voir Figure~\ref{fig:normal}, ~\ref{fig:obstacle1}, ~\ref{fig:obstacle2} et ~\ref{fig:sortie}). Ensuite, les fonctions init\_map et init\_tuile génèrent pour chaque tuile une instance d’un biome. Enfin, il reste la phase d’exploitation : 
+            Dans le jeu, le rendu de la map est généré en plusieurs étapes. Premièrement, la fonction \textit{init\_biomes} charge toutes les textures du jeu
+            qui composent les tuiles (voir Figure~\ref{fig:normal}, ~\ref{fig:obstacle1}, ~\ref{fig:obstacle2} et ~\ref{fig:sortie}). Ensuite, les fonctions \textit{init\_map} et \textit{init\_tuile} génèrent pour chaque tuile une instance d’un biome. Enfin, il reste la phase d’exploitation : 
             quand un joueur entre sur une tuile. La fonction charger\_tuile s’occupe de créer le rendu qui sera affiché sur l’écran (qui est fixe) 
             à partir de la matrice de la tuile (voir exemple biome Figure \ref{fig:foret} et \ref{fig:glace}).
             Dans la boucle du jeu, cette texture est affichée avant les autres éléments du jeu à l’écran, graĉe à la bibliothèque SDL, car elle est le décor.\\
@@ -445,7 +471,7 @@
                     \label{fig:glace}
                 \end{minipage}
             \end{figure}
-            Pour l’affichage des personnages. Nous avons développé une fonction charger\_sdl\_joueurs, qui prend en paramètres le tableau des joueurs et un tableau 
+            Pour l’affichage des personnages. Nous avons développé une fonction \textit{charger\_sdl\_joueurs}, qui prend en paramètres le tableau des joueurs et un tableau 
             à deux dimensions qui stocke les différentes textures des personnages. La fonction s’occupe de charger les bonnes images en fonction de la classe de chaque joueur. 
             Dans la boucle principale du client, la liste des personnages présents est parcourue, on affiche alors la texture du personnage qui correspond à sa direction, 
             à sa position courante.\\
@@ -453,7 +479,7 @@
             que le joueur, ils sont affichés.\\
             Les fonctions de destruction et de libération des ressources sont appelées à la fin du programme. 
             Les textures des objets, personnages, biomes doivent être détruites par la fonction SDL adéquate. 
-            Tous les éléments des listes de chaque tuile sont aussi supprimés par detruire\_tuile, faisant appel à detruire\_liste.
+            Tous les éléments des listes de chaque tuile sont aussi supprimés par \textit{detruire\_tuile}, faisant appel à \textit{detruire\_liste}.
 
                 
     \section{Résultats et conclusion}
