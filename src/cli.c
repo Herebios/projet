@@ -110,10 +110,10 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 	SDL_Event event;
     const Uint8* clavier = NULL;
 	char isSPACEPress = 0;
+	char isEPress = 0;
 	time_t t = 0;
 	dir_t dir = nulldir;
 	supp_t enlever_obj = NUL;
-	int test = 5;
 	while(valide && client.online){//si le thread est fermé prématurément
 
 		
@@ -127,23 +127,9 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 				t = time(NULL);
 			}
 
-			else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_e && time(NULL) - t > 3){
-				t = time(NULL);
-				ramasser_objet(j, test++);
-				tete_liste(tuile_courante->liste_objets);
-				objet_t * elm;
-				SDL_Point point;
-				
-				while(!hors_liste(tuile_courante->liste_objets)){
-					elm = (get_liste(tuile_courante->liste_objets));
-					point.x = elm->p.x;
-					point.y = elm->p.y;
-
-					printf("\n%d\n", SDL_PointInRect(&point, &(j->rect)));
-					suivant_liste(tuile_courante->liste_objets);
-				}
-				printf("obj : %d %d\n", point.x, point.y);
-				printf("joueur : x:%d y:%d w:%d h:%d\n", j->rect.x, j->rect.y, j->rect.w, j->rect.h);
+			else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_e && !isEPress){
+				isEPress = 1;
+				sendf("d", GET_OBJET);
 			}
 
 			
@@ -160,6 +146,8 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 			}
 			if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_SPACE){
 				isSPACEPress = 0;
+			}else if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_SPACE){
+				isEPress = 0;
 			}
 			else if(event.type == SDL_KEYUP && enlever_obj != NUL){
 				enlever_obj = NUL;
@@ -193,18 +181,15 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 			sendf("dd", JOUEUR_CHANGE_DIR, nulldir);
 		}
 		while(!fileVide(file_socket)){
-			puts("check");
 			data=defiler(file_socket);
 			printf("action '%s'\n", (char*)data);flush;
 			int action;
 			sscanf(data, "%d", &action);
 			switch(action){
 				case SPAWN_OBJET:{
-					printf("\nRECV\n");
 					int ind_o;
 					pos_t pos_tuile;
 					sscanf(data_skip(data, 1), "%d %d %d", &ind_o, &pos_tuile.x, &pos_tuile.y);
-					printf("\n(%d, %d)\n", pos_tuile.x, pos_tuile.y);
 					ajouter_objet_tuile(tuile_courante, ind_o, pos_tuile);
 					//!! ajout dans sdl_objet
 					break;
@@ -256,6 +241,11 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 					retirer_joueur_tuile(tuile_courante, ind);
 					printf("Rm joueur %d\n", ind);
 					break;
+				}
+				case GET_OBJET:{
+					char ind_o;
+					sscanf(data_skip(data, 1), "%c", &ind_o);
+					ajouter_objet_joueur(j, ind_o);
 				}
 			}
 			free(data);

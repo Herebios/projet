@@ -105,11 +105,9 @@ int main_server(int port, int nb_clients) {
 					pos_t pos_tuile;
 					position_perso(joueurs + ind_j, &pos_tuile);
 					spawn_objet((rarete_t)rand()%4, 1, ind_o, joueurs[ind_j].pos_map, pos_tuile, joueurs);
-					tab_objets[ind_o].p = pos_tuile;
 					break;
 				}
 				case BASIC_ATTACK:{
-					printf("\nBASIC_ATTACK ");fflush(stdout);
 					int direction;
 					sscanf(data_skip(data, 2), "%d", &direction);
 					if (direction != nulldir){
@@ -128,7 +126,6 @@ int main_server(int port, int nb_clients) {
 						for (int i = 0; i < listeTaille; i++){
 							victim = get_liste(tile->liste_joueurs);
 							position_perso(victim, &victimPos);
-							printf("%d %d %d %d\n", hitPos.x, hitPos.y, victimPos.x, victimPos.y);
 							if (hitPos.x == victimPos.x && hitPos.y == victimPos.y){
 								victim->vie_reelle -= (p->stats[magie] + p->stats[force]) / 2; // temporaire
 								printf("\nvie : %d\n", victim->vie_reelle);
@@ -137,6 +134,31 @@ int main_server(int port, int nb_clients) {
 						}
 					}
 					printf("end\n");fflush(stdout);
+					break;
+				}
+				case GET_OBJET:{
+					pos_t posJoueur;
+					int estTrouve = 0;
+					perso_t *p = joueurs + ind_j;
+					position_perso(p , &posJoueur);
+					tuile_t * tuile = get_tuile_from_pos(p->pos_map);
+					objet_tuile_t *obj;
+					for(tete_liste(tuile->liste_objets); !hors_liste(tuile->liste_objets) && !estTrouve; suivant_liste(tuile->liste_objets)){
+						obj=get_liste(tuile->liste_objets);
+						if(obj->pos.x == posJoueur.x && obj->pos.y == posJoueur.y){
+							estTrouve = 1;
+							int ind = obj->objet - tab_objets;
+							ajouter_objet_joueur(p, ind);
+							retirer_objet_tuile(tuile, ind);
+							printf("récupération de l'objet à l'indice %d\n", ind);
+							char buffer[3];
+							sprintf(buffer, "%d", ind);
+							
+							send(clients[ind_j].socket, buffer, strlen(buffer), 0);
+							
+						}
+					}
+					break;
 				}
 			}
 			free(data);
@@ -173,7 +195,6 @@ int main_server(int port, int nb_clients) {
 			for (int j = 0; j < 2; j++){
 				tete_liste((map[i] + j)->liste_joueurs);
 				for (int i = 0; i < 2; i++){
-					printf("nom : %s\n", ((perso_t *)get_liste((map[i] + j)->liste_joueurs))->nom);
 					suivant_liste((map[i] + j)->liste_joueurs);
 				}
 			}
