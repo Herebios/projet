@@ -35,26 +35,26 @@
     \newpage
     
     \section{Introduction}
-    Nous sommes un groupe de quatre étudiants à l’université du Mans. Notre objectif à été de créer un jeu en respectant un délai d'environ 3 mois.
-    Lors de notre phase de réflexion sur le jeu, nous souhaitions créer un jeu multijoueur en deux dimensions à l'aide de la librairie graphique SDL2 en langage C. 
-    Lors d’une partie de notre jeu, deux équipes s'affrontent pour détruire la base adverse tout en protégeant la sienne. 
+    Nous sommes un groupe de quatre étudiants à l’Université du Mans. Notre objectif a été de créer un jeu en respectant un délai d’environ trois mois.
+    Lors de notre phase de réflexion, nous souhaitions créer un jeu multijoueur en deux dimensions à l’aide de la bibliothèque graphique SDL2, en langage C.
+    Pendant une partie, deux équipes s’affrontent pour détruire la base adverse tout en protégeant la leur.
     Nous nous sommes fixé comme contrainte de développer ce jeu en réseau.
 
     \section{Analyse}
-    Dans le menu, chaque joueur choisit son pseudo et la classe de son personnage, lui conférant des capacités uniques qu’il peut utiliser au cours de la partie pour 
-    prendre l’avantage sur l’équipe adverse. Dans le menu, vous avez le choix entre être le serveur de la partie, être joueur d’une partie ou être les deux à la fois. \\
-    Après cela, vous arrivez dans une salle d’attente pour que les autres joueurs se joignent à vous. Une fois que la personne servant de serveur lance la partie, 
-    le jeu se lance et il n’est plus possible de rejoindre la partie, même si vous étiez dedans, que vous quittez le jeu et que vous tentez de vous reconnecter. \\
+    Dans le menu, chaque joueur choisit son pseudo ainsi que la classe de son personnage, ce qui lui confère des capacités uniques qu’il peut utiliser au cours de la partie pour prendre l’avantage sur l’équipe adverse.
+    Vous avez alors le choix entre être le serveur de la partie, être joueur d’une partie ou être les deux à la fois. \\
+    la fois.
+    Après cela, vous arrivez dans une salle d’attente, en attendant que les autres joueurs se joignent à vous. Une fois que la personne jouant le rôle de serveur lance la partie, le jeu démarre, et il n’est plus possible de rejoindre la partie, même si vous étiez déjà dedans, que vous avez quitté le jeu, puis tenté de vous reconnecter. \\
     La map de notre jeu se décompose en plusieurs parties que nous appelons tuiles, chacune ayant un biome(neige, plaine, etc) choisi aléatoirement. \\
     Les joueurs ne peuvent visualiser qu’une tuile du jeu à la fois. Cependant, il est possible de changer de tuile en passant par des portes placées à différents endroits 
     aux bords de la tuile à la manière de \href{https://en.wikipedia.org/wiki/The_Binding_of_Isaac_(video_game)}{The Binding of Isaac}. \\
     Des obstacles sont générés aléatoirement sur la map, limitant les déplacements du joueur. \\
-    Des monstres sont également présents sur la map, se dirigeant vers le joueur le plus proche pour l’attaquer. Lorsque le monstre est tué il lache un objet que le joueur peut
-    rammaser et ajouter à son inventaire.\\
+    Des monstres sont également présents sur la map, se dirigeant vers le joueur le plus proche pour l’attaquer. Lorsque le monstre est tué il lâche un objet que le joueur peut
+    ramasser et ajouter à son inventaire.\\
     Chaque objet a une rareté et confère au joueur différents effets. Plus la rareté de l’objet est élevée, plus les effets bonus conférés au joueur sont importants. \\
-    Un système de combat est mis en place entre les joueurs d’équipes différentes lorsqu’ils se situent sur la même tuile. 
+    Un système de combat est mis en place entre les joueurs d’équipes différentes lorsqu’ils se trouvent sur la même tuile. 
     Les points de vie ainsi que les objets du joueur sont affichés sur son écran à la manière d’un inventaire \href{https://fr.wikipedia.org/wiki/Minecraft}{Minecraft}.\\ 
-    La gestion des entités dynamiques et des tuiles de la map sont gérées grâce à l’implémentation d’une liste générique. 
+    La gestion des entités dynamiques et des tuiles de la map est gérée grâce à l’implémentation d’une liste générique. 
     Le serveur communique avec les clients en envoyant toutes les informations nécessaires à l’affichage du jeu par le client qui renvoie des informations au serveur 
     en fonction des changements opérés par le joueur.
     
@@ -75,17 +75,17 @@
 
         Nous nous sommes répartis les tâches de la manière suivante :
         \begin{itemize}
-            \item Baptiste : affichage du client, déplacement d’un personnage, gestion de la carte et des tuiles. Réalisation de la partie réseau, l’envoi des informations au lancement du jeu, le format des messages, la mémorisation et le traitement des informations du jeu pour le client et le serveur.       
-            \item Lucas : réalisation du réseau de neurones, une partie qui n’est pas possible de rattacher au jeu dans l’état actuel du jeu. Lucas a aussi sa part dans la partie réseaux avec la création de la file et la mise en place des threads et de l’écoute des flux. Les compétences ont aussi été développées, dans l’état l’implémentation n’est pas concluante et ne peut pas être ajouter au jeu. Résolution de nombreux bugs dans tout le projet. 
-            \item Ilann : réalisation menu, dans le but de récupérer le pseudo, le personnage ainsi que l'adresse IP d’un joueur ou serveur. Réalisation de l’affichage des objets dans l’inventaire des joueurs ainsi que leur récupération sur la carte et la possibilité de les relâcher.  
-            \item Nathan : réalisation des statistiques des personnages, création des objets permettant la modification des statistiques du joueur et implémentation des monstres (partiellement intégrés au jeu). Génération de beaucoup d'images et de textures de la map, laissant un libre choix de cohérence graphique dans le jeu.
+            \item Baptiste : affichage du client, déplacement d’un personnage, gestion de la carte et des tuiles. Réalisation de la partie réseau, de l’envoi des informations au lancement du jeu, le format des messages, la mémorisation et le traitement des informations du jeu pour le client et le serveur.       
+            \item Lucas : réalisation du réseau de neurones, une partie qu'il n’est pas possible de rattacher au jeu dans son état actuel. Lucas a aussi sa part dans la partie réseaux avec la création de la file et la mise en place des threads et de l’écoute des flux. Les compétences ont aussi été développées, dans l’état l’implémentation n’est pas concluante et ne peut pas être ajoutée au jeu. Résolution de nombreux bugs dans tout le projet. 
+            \item Ilann : réalisation du menu, dans le but de récupérer le pseudo, le personnage ainsi que l'adresse IP d’un joueur ou serveur. Réalisation de l’affichage des objets dans l’inventaire des joueurs ainsi que leur récupération sur la carte et la possibilité de les relâcher.  
+            \item Nathan : réalisation des statistiques des personnages, création des objets permettant la modification des statistiques du joueur et implémentation des monstres (partiellement intégrés au jeu). Génération de beaucoup d'images et de textures de la map, laissant une liberté de choix graphique.
         \end{itemize}
     \section{Développement}
-    Cette partie abordera le développement du jeu dans sa globalité. De la création des ressources graphiques à la création du client/serveur en passant par la gestion des de la carte, des objets etc. 
+    Cette partie abordera le développement du jeu dans sa globalité. De la création des ressources graphiques à la création du client/serveur en passant par la gestion de la carte, des objets, etc. 
         \subsection{Création des ressources}
         Cette section abordera la génération des ressources graphiques de base permettant la réalisation du jeu.
             \subsubsection{Objet}
-            Quarante objets sont présents dans le jeu. Tous générés avec un prompt chat gpt.\\
+            Quarante objets sont présents dans le jeu. Tous sont générés avec un prompt chatGPT.\\
             Quelques exemples d'objets ci-dessous (Figure~\ref{fig:BagueMageNoir}, Figure~\ref{fig:OrbeMystique}).
             \begin{figure}[H]
                 \centering
@@ -113,7 +113,7 @@
                 \item Ninja
                 \item Vampire
             \end{itemize}
-            Chaque personnage à un spritesheet de 12 images (3 images par direction).\\
+            Chaque personnage a un spritesheet de 12 images (3 images par direction).\\
             Quelques exemples de spritesheet ci-dessous (Figure~\ref{fig:Mage}, Figure~\ref{fig:Archer}). 
             \begin{figure}[H]
                 \centering
@@ -134,15 +134,15 @@
                 \end{minipage}
             \end{figure}
             \subsubsection{Tuiles et Biomes}
-            Six biomes différents sont implémentés au jeu.\\
+            Six biomes différents sont implémentés dans le jeu.\\
             Chaque biome a :
             \begin{itemize}
                 \item une texture de base pour le sol (voir Figure~\ref{fig:normal})
                 \item une texture pour un premier obstacle (voir Figure~\ref{fig:obstacle1})
                 \item une texture pour un deuxième obstacle (voir Figure~\ref{fig:obstacle2})
-                \item Une texture pour indiquer la sortie d'une tuile (voir Figure~\ref{fig:sortie})
+                \item une texture pour indiquer la sortie d'une tuile (voir Figure~\ref{fig:sortie})
             \end{itemize}
-            Exemple des 4 textures du biome plaine ci-dessous. 
+            Voici un exemple des quatre textures du biome plaine ci-dessous. 
             \begin{figure}[H]
                 \centering
                 % Première image
@@ -186,10 +186,10 @@
             La map est inspirée des jeux comme \href{https://en.wikipedia.org/wiki/The_Binding_of_Isaac_(video_game)}{The Binding of Isaac}, 
             dans lesquels le joueur se déplace de salle en salle dans les quatre directions. \\
             On appelle ces salles des tuiles. De plus, la map est constituée de différents biomes qui déterminent l'apparence de la tuile. Similaires aux biomes de \href{https://fr.wikipedia.org/wiki/Minecraft}{Minecraft},
-            les textures diffèrent selon les biomes (forêt, plaine, montagne, desert, neige, glace).
-            Pour que le jeu soit re-jouable et intéressant, la map est générée procéduralement, en associant à chaque tuile un biome, 
+            les textures diffèrent selon les biomes (forêt, plaine, montagne, désert, neige, glace).
+            Pour que le jeu soit rejouable et intéressant, la map est générée procéduralement, en associant à chaque tuile un biome, 
             puis en créant les tuiles en plaçant les textures selon le biome choisi.\\
-            Dans le programme écrit en C. La map est une matrice de tuile. Chaque tuile est une structure, qui contient l'information du biome, 
+            Dans le programme écrit en C, la map est une matrice de tuile. Chaque tuile est une structure, qui contient l'information du biome, 
             une matrice des textures qui la composent et les éléments du jeu qui y sont associés.
             On représente les informations par des listes. Elles sont variables au cours du jeu et selon les tuiles. 
             Quatre listes tiennent compte des joueurs, des objets, des monstres, et des effets des compétences actives afin de les afficher facilement.
@@ -197,14 +197,14 @@
             Les personnages sont choisis par les joueurs au début de la partie. Ils sont caractérisés par une classe, comme dans certains jeux de rôle. 
             Cette classe détermine les statistiques de base du personnage et les compétences accessibles. Les statistiques sont la vie, la force, la magie et la vitesse. 
             Chaque personnage a un point fort qui le distingue des autres.\\
-            Le personnage est représenté par une structure C. Ses statistiques  sont deux tableaux de quatre valeurs, 
+            Le personnage est représenté par une structure C. Ses statistiques sont stockées deux tableaux de quatre valeurs, 
             une pour sauvegarder ses statistiques de base et l'autre pour avoir accès à ses statistiques améliorées par les objets. 
             Un tableau de pointeurs permet de retrouver les objets possédés par le joueur.\\
             La fonction creer\_perso permet d’initialiser un joueur à partir de la classe choisie.
             Celle pour détruire est appelée à la fin du programme.\\
             Pour gérer le déplacement des joueurs, on utilise SDL qui écoute les évènements du clavier. 
             En utilisant l’état des flèches directionnelles, on peut faire changer la direction du joueur avec changer\_dir. 
-            Puis la fonction avancer est appelée et change la position du personnage graĉe à sa vitesse et sa direction en vérifiant qu’il ne dépasse pas les bords de la tuile. 
+            Puis la fonction avancer est appelée et change la position du personnage grâc   e à sa vitesse et sa direction en vérifiant qu’il ne dépasse pas les bords de la tuile. 
             Pour simplifier le calcul, on utilise une table de hachage qui donne une structure qui est le multiplicateur en x et en y selon la direction. \\\\
             \textit{
                 Exemple : le joueur se déplace vers le haut et vers la droite, qui est converti en une valeur énumérée (type enum en C). \\
@@ -214,15 +214,15 @@
             }
             \subsubsection{Compétences}
             Les compétences sont les capacités des personnages, elles peuvent être de simples attaques, des techniques de déplacement ou bien des sorts.\\\\
-            Elles sont définies, de manière statique dans la structure compétence, et de manière dynamique dans la structure \textit{cast}. Quand une compétence est lancée, la structure de \textit{cast} est créée et ajoutée dans une liste. Le \textit{cast} va évoluer en fonction des appelles de la fonction update. De sorte à par exemple supprimer une compétence de zone, après sa durée de vie. La fonction d’update permet aussi de détecter des joueurs en collision pour leur infliger des dégâts par exemples etc. Les \textit{casts} de compétences sont génériques, on peut ainsi avoir plusieurs types de compétences différentes.\\\\
+            Elles sont définies, de manière statique dans la structure compétence, et de manière dynamique dans la structure \textit{cast}. Quand une compétence est lancée, la structure de \textit{cast} est créée et ajoutée dans une liste. Le \textit{cast} va évoluer en fonction des appels de la fonction \textit{update}. De sorte à par exemple supprimer une compétence de zone, après sa durée de vie. La fonction d’update permet aussi de détecter des joueurs en collision pour leur infliger des dégâts par exemple. Les \textit{casts} de compétences sont génériques, on peut ainsi avoir plusieurs types de compétences différentes.\\\\
             L’implémentation des \textit{casts} est différente entre le côté client et le côté serveur.\\
-            Le client, au moment de la détection d’une touche d’envoie de compétence, fait une requête au serveur avec les paramètres nécessaires, comme les positions etc.\\
-            Le serveur ajoute ce nouveau \textit{cast} dans une liste et communique avec les joueurs sur la tuiles, les informations comme la position, la taille d’une zone etc.
-            Le serveur va souvent faire l’update des \textit{casts}, et ainsi envoyer les informations au joueurs.\\
-            Le client à la suite de la requête du lancement de la compétence ne s’occupe seulement de la récupération des informations envoyées par le serveur et de l’affichage de la compétence.
+            Le client, au moment de la détection d’une touche d’envoi de compétence, fait une requête au serveur avec les paramètres nécessaires, comme les positions etc.\\
+            Le serveur ajoute ce nouveau \textit{cast} dans une liste et communique avec les joueurs sur la tuile, les informations comme la position, la taille d’une zone etc.
+            Le serveur va souvent faire l’update des \textit{casts}, et ainsi envoyer les informations aux joueurs.\\
+            Le client, à la suite de la requête du lancement de la compétence ne s’occupe seulement de la récupération des informations envoyées par le serveur et de l’affichage de la compétence.
             
             \subsubsection{Objets}
-            Les objets sont essentiels au jeu. Ils permettent d'augmenter les statisques de base de notre personnage. 
+            Les objets sont essentiels au jeu. Ils permettent d'augmenter les statistiques de base de notre personnage. 
             Quarante objets sont présents dans le jeu, séparés en 4 catégories de rareté : 
             \begin{itemize}
                 \item commun
@@ -230,7 +230,7 @@
                 \item épique
                 \item légendaire
             \end{itemize}
-            Chaque objet a 4 statisques différentes :
+            Chaque objet a 4 statistiques différentes :
             \begin{itemize}
                 \item vie
                 \item force
@@ -243,9 +243,9 @@
                 \item bonus à additionner 
                 \item bonus à multiplier
             \end{itemize}
-            Pour garder une certaine cohérence dans les calculs de statisques du personnages un ordre de calcul a été décidé.
-            On affectue d'abord les calculs de somme puis les calculs de produit. Pour ce faire chaque statisque de l'objet a un couple de valeur. 
-            La première valeur corresponds à ce qui est a sommer ou multiplier à la statisque de base du personnage. 
+            Pour garder une certaine cohérence dans les calculs de statistiques du personnage un ordre de calcul a été décidé.
+            On effectue d'abord les calculs de somme puis les calculs de produit. Pour ce faire chaque statistiques de l'objet a un couple de valeurs. 
+            La première valeur correspond à ce qui est à sommer ou multiplier à la statistiques de base du personnage. 
             La deuxième valeur est un ordre de priorité permettant d'effectuer les calculs dans le bon ordre.
             \\
             \\
@@ -255,9 +255,9 @@
                     \item 1\textsuperscript{er} objet :\{\{0, null\}, \{10, add\}, \{0, null\}, \{-2, add\}\}
                     \item 2\textsuperscript{e} objet : \{\{1.5, mult\}, \{0.8, mult\}, \{20, add\}, \{0, null\}\}
                 \end{itemize} 
-                On rapelle que les statisques sont de la forme \{vie, force, magie, vitesse\}.
+                On rappelle que les statistiques sont de la forme \{vie, force, magie, vitesse\}.
                 Dans cet exemple, on commencera par calculer les trois additions puis les trois multiplications 
-                (la somme étant représenté par «add» et le produit par «mult»).
+                (la somme étant représentée par «add» et le produit par «mult»).
             }\\\\
             Deux fonctions permettent de gérer les objets possédés par le joueur.
             La fonction ajouter\_objet permet de placer un nouvel objet dans l’inventaire à une place libre. La fonction retirer\_objet supprime l’objet à la position donnée.
@@ -267,11 +267,11 @@
 
             \subsubsection{Monstres}
             Le jeu intègre des personnages non joueurs.
-            Ce sont des monstres, appelés mobs. Lorsqu'il sont tués il permettent d'obtenir des objets qui augmentent les capacités de base de notre personnage.
+            Ce sont des monstres, appelés mobs. Lorsqu'ils sont tués il permettent d'obtenir des objets qui augmentent les capacités de base de notre personnage.
             Les mobs ont plusieurs fonctionnalités. La première est qu'ils se rapprochent du joueur le plus proche à l'aide d'une fonction de calcul de distance.
             \\
             Une fois que cette distance est calculée, la direction que le mob doit prendre est choisie avec un calcul d'angle. 
-            Un vecteur horizontal orienté à droite qui servira de base est créé ainsi qu'un vecteur représentant la direction personnage vers mobs. (Voir Figure~\ref{fig:Mob}) 
+            Un vecteur horizontal orienté à droite qui servira de base est créé ainsi qu'un vecteur représentant la direction du personnage vers le mobs. (Voir Figure~\ref{fig:Mob}) 
             On calcule l'angle en radians formé par ces deux vecteurs.\\
             On obtient donc une valeur du cercle trigonométrique que l'on exploite de la manière suivante : 
             \begin{itemize}
@@ -292,14 +292,14 @@
         \subsection{Réseau}
         Nous allons maintenant voir comment connecter les joueurs avec un serveur pour permettre la connexion et le jeu.
 	    Tout d’abord la communication à travers le réseau se fait par des écoutes et des envois dans différents flux. 
-        Le client n’a donc comme flux, seulement le serveur. Le serveur a bien plus de flux, un pour chaque joueur. 
+        Le client n’a donc comme flux que celui du serveur. Le serveur a bien plus de flux, un pour chaque joueur. 
         La parallélisation est donc obligatoire.
 
             \subsubsection{Networking}
-            Tout d’abord le client se connecte au serveur, suite au choix réalisé dans le menu et suite à la l’initialisation du serveur. 
+            Tout d’abord le client se connecte au serveur, suite au choix réalisé dans le menu et suite à l’initialisation du serveur. 
             Plusieurs structures vont être créées et la parallélisation démarre.
             \\
-            L’envoi et la réception de données s’assure avec deux fonctions principales :
+            L’envoi et la réception de données s’assurent avec deux fonctions principales :
             La fonction send (qui n’est pas bloquante) permet l’envoi d’un paquet en unicast.
             La fonction recv (qui est bloquante) permet l’écoute du flux et la réception des paquets.
             \\
@@ -313,7 +313,7 @@
             La connexion entre eux se fait par une file. Les threads d’écoute enfilent et le programme principal défile les informations envoyées par le serveur. 
             Ces informations passent ainsi du serveur à l’écoute au main pour ensuite être traitées. \\
             Cette file permet aussi au serveur de traiter les différents clients.\\\\
-            Différents code peuvent être utilisé lors de l’envoi de paquets (Voir Table~\ref{tab:tabCliServ}): 
+            Différents codes peuvent être utilisé lors de l’envoi de paquets (Voir Table~\ref{tab:tabCliServ}): 
     
             \begin{table}[h]
                 \centering
@@ -488,6 +488,8 @@
     Le développement du serveur et du client ont finalement duré du début à la fin du développement, il fallait les développer en parallèle des autres fonctionnalités car elles y sont toutes intégrées. La partie qui a le plus dépassé les prévisions était la gestion des collisions avec les obstacles de la map.\\
     Si nous avions un peu plus de temps pour améliorer le jeu, nous nous concentrerions sur le système de combat pour permettre la victoire d’une des équipes et développer les compétences, dont l’implémentation dans le code était en voie, pour que le jeu soit plus intéressant.
     
+
+    \newpage
     \section{Annexes}
         \subsection{Débogage}
         
