@@ -340,11 +340,27 @@
                     \label{fig:mainMenu} 
                 \end{center}
             \end{figure}
+                \paragraph{Fonctionnalités du menu}
+                Dès qu’il est lancé, une musique de fond se lance. Le menu renvoie un entier qui peut être :
+                \begin{itemize}
+                    \item-1 : quitter le menu sans jouer
+                    \item 0 : rejoindre une partie créée par une autre personne en saisissant son adresse IP
+                    \item 1 : être joueur et serveur à la fois
+                    \item 2 : être uniquement serveur de la partie
+                \end{itemize}
+                Dans la page d’accueil du menu, il est possible de saisir son pseudo et de changer la classe de son personnage. Il est également possible de quitter le jeu directement sans le lancer ni être serveur. En cliquant sur l’onglet paramètres, une nouvelle section s’ouvre.\\ 
+                Nous y retrouvons : 
+                \begin{itemize}
+                    \item un bouton de retour au menu d’accueil
+                    \item un bouton de sauvegarde des paramètres
+                    \item un bouton charger paramètres qui charge les paramètres dans ce même fichier
+                    \item un bouton plus et un bouton moins qui changent la valeur du volume de la musique du menu
+                \end{itemize}
+   
                 \paragraph{Affichage général}\leavevmode\newline
-                Le menu peut être dans différents états représentés par un type enum pos\_actuelle, comme MENU\_PRINCIPAL, DANS\_PARAM ou SORTIE\_MENU. Cet enum est mis à jour en fonction des boutons cliqués par le joueur.\\  
-                La fonction aff\_menu utilise l’enum pour afficher la bonne partie du menu. Elle utilise différentes fonctions comme clear\_ecran  qui sert à effacer tout ce qui est affiché sur l’écran et à remettre l’image d'arrière-plan. Elle utilise également les fonctions dessine\_texte et dessine\_image qui simplifient la lisibilité du code en remplaçant une longue ligne de SDL permettant d’afficher une image ou un texte à la fois par un simple appel à ces fonctions avec l’indice de leur tableau. \\
-                Il existe deux tableaux principaux pour la gestion des images et des textes que nous verrons plus en détail par la suite. Ces tableaux sont initialisés avec les coordonnées de chaque image et de chaque texte en s’adaptant à la taille de la fenêtre avec laquelle on lance le menu.\\
-
+                Le menu peut être dans différents états représentés par un type enum pos\_actuelle. Cet enum est mis à jour en fonction des boutons cliqués par le joueur.  \\
+                La fonction aff\_menu permet d’afficher la bonne partie du menu en fonction de la valeur de l’enum. 
+                                
                 \paragraph{Images}\leavevmode\newline
                 Plusieurs images sont présentes dans le menu. On y retrouve différentes catégories : 
                 \begin{itemize}
@@ -354,29 +370,14 @@
                 \end{itemize}
                 \leavevmode\newline
                 Les images des personnages vus de face sont chargées en fonction du personnage sélectionné par le joueur. 
-                Pour se faire, on détruit puis recréée la texture correspondante dans tab\_img à l’aide de deux fonctions : 
-                \begin{itemize}
-                    \item creer\_image créée une SDL\_Texture à partir du chemin vers le fichier correspondant à l’image
-                    \item detruit\_image détruit la SDL\_Texture à partir de l’indice de tab\_image 
-                \end{itemize}
                 Toutes les images chargées sont stockées dans un tableau de structure img\_t. Chaque structure img\_t possède deux champs : une \texttt{SDL\_Texture}\footnote{image ou surface graphique que l’on peut afficher à l’écran à l’aide de la fonction SDL\_Render\_Copy.} et la position de l’image représentée par un \texttt{SDL\_Rect}\footnote{structure de SDL à 4 champs : (coordonnées x et y de départ, longueur et largeur de la zone ou sera affichée l’image).}.\\
-                L’image d’arrière-plan est une SDL\_Texture que l’on affiche sur tout l’écran. L’image est créée via la fonction creer\_image et n’est pas stockée dans le tableau de img\_t.\\
-                Nous utilisons principalement quatre images de boutons boisés pour servir d’arrière-plan aux textes présents. D’autres boutons sont présents en plus petit nombre comme un bouton de retour qui ramène au menu principal, des boutons plus et moins pour changer le volume de la musique du menu etc.\\
+                Nous utilisons principalement quatre images de boutons boisés pour servir d’arrière-plan aux textes présents.
 
                 \paragraph{Textes}\leavevmode\newline
-                Les textes sont quant à eux chargés et sauvegardés dans un tableau de structure texte\_t qui contient les mêmes champs que img\_t, avec en plus un champ contenu qui est une chaîne de caractères correspondant au texte que l’on va afficher.\\
-                Pour créer des textes en SDL, on importe une police d’écriture  (Go-Regular pour notre projet) et on choisit une couleur pour chaque texte. Nous utilisons principalement la couleur blanche pour les textes et dans certains cas la couleur est rouge.\\
-                La plupart des textes sont fixés et sont utilisés pour le nom des boutons mais certains sont modifiés en fonction des interactions avec l’utilisateur. Le nom du joueur, le nom du personnage choisi, le volume de la musique et la saisie de l’adresse IP en font partie. \\
-                Pour créer un texte, nous avons deux fonctions : 
-                \begin{itemize}
-                    \item creer\_texte
-                    \item creer\_texte\_rouge
-                \end{itemize}
-                Elles prennent les mêmes paramètres : un pointeur sur texte\_t et une chaîne de caractères.\\
-                Elles créent une texture avec la couleur correspondante, la stockent dans le champ correspondant à la SDL\_texture et mettent le nouveau texte dans le  champ contenu.\\
-                Pour modifier les textes, on utilise une fonction maj\_texte qui prend en paramètre un pointeur sur texte\_t et une chaîne de caractères qui est le nouveau texte. On compare les deux textes et s'ils sont différents, on détruit le texte actuel et on le recrée avec la nouvelle chaîne de caractères. \\
-                Lors de la saisie de l’adresse IP (lorsque l’enum est en position DANS\_REJOINDRE), on applique la fonction saisie\_touche\_ip qui sert à ajouter ou supprimer des caractères à l’IP en fonction du \texttt{SDL\_Keycode}\footnote{un enum SDL correspondant à une touche pressée au clavier.}passé en paramètre.\\
-                Lorsque l’on clique sur le bouton rejoindre, on applique une expression régulière sur l’IP pour la valider ou non (Voir Figure~\ref{fig:IPOK} et ~\ref{fig:IPKO}). En cas d’échec, un texte s’affiche en rouge pour prévenir l’utilisateur d’une erreur de saisie.\\
+                Les textes sont quant à eux chargés et sauvegardés dans un tableau de structure texte\_t qui contient les mêmes champs que img\_t, avec en plus un char* correspondant au texte affiché.\\
+                À la création d’un texte, nous utilisons une police importée (Go-Regular), créons une SDL\_texture, mettons le nouveau texte dans le  champ contenu.\\
+                Certains textes doivent être modifiés dynamiquement. On utilise donc une fonction maj\_texte qui recrée la texture si l’ancien texte est différent du nouveau.
+                
                 \begin{figure}[H]
                     \centering
                     % Première image
@@ -396,16 +397,23 @@
                     \end{minipage}
                 \end{figure}
                 \paragraph{Gestion des événements du menu}\leavevmode\newline
-                Les événements en SDL sont gérés à l’aide d’une structure SDL\_Event fournie par SDL. Le SDL\_Event est utilisé, dans notre projet, pour détecter les clics de la souris et les touches pressées au clavier. Pour détecter ces entrées, nous regardons quel est le type du SDL\_Event. Il peut être de type SDL\_KEYDOWN (touche clavier) ou SDL\_MOUSEBUTTON (clic souris).
+                Les événements en SDL sont gérés à l’aide d’une structure SDL\_Event fournie par SDL. Nous nous en servons dans notre projet pour détecter les clics de la souris et les touches pressées au clavier. 
+
                     \subparagraph{souris}\leavevmode\newline
-                    Les clics souris sont assez simples à gérer : si l’événement est de type clic souris, on crée un \texttt{SDL\_Point}\footnote{une position sur la fenêtre représentée par deux coordonnées x et y.} correspondant aux coordonnées du curseur de la souris. Nous avons une succession de conditions qui testent si le clic de la souris est dans les coordonnées d’un bouton à l’aide de la fonction SDL\_PointInRect. Les conditions testent également la position de l’enum pos\_actuelle pour que si par exemple, on clique sur le bouton de sauvegarde des paramètres alors qu’on n’est pas dans l’onglet paramètres, rien ne se passe. En fonction des boutons cliqués, différentes actions se passent. Il est possible de naviguer entre les différentes sections du menu de cette manière.
+                    Les clics souris sont assez simples à gérer : si l’événement est de type clic souris, on crée un \texttt{SDL\_Point}\footnote{une position sur la fenêtre représentée par deux coordonnées x et y.} correspondant aux coordonnées du curseur de la souris. De nombreuses conditions testent si le clic de la souris est dans les coordonnées d’un bouton à l’aide de la fonction SDL\_PointInRect et de la valeur de pos\_actuelle. En fonction des boutons cliqués, différentes actions se passent. Il est possible de naviguer entre les différentes sections du menu de cette manière. 
+
                     \subparagraph{clavier}\leavevmode\newline
-                    Les saisies clavier servent à modifier des chaînes de caractères mais aussi à se déplacer dans les menus à l’aide des flèches et des touches entrées. La saisie de l’adresse IP se fait via un switch dans la fonction  saisie\_touche\_ip vue précédemment. Elle teste si on clique sur les chiffres du pavé numérique ou sur un point pour l’ajouter à la chaîne de l’IP. Si on appuie sur la touche effacer, ça enlève le dernier caractère de la chaîne s’il y en a au moins un. Pour la saisie du nom du joueur, c’est la même chose mais en plus simple : chaque caractère alphanumérique est ajouté à la chaîne du nom du joueur. Si on appuie sur effacer ça fait la même chose que pour la saisie de l’IP.\\
-                    Lorsqu’un bouton est sélectionné, son affichage change en fonçant légèrement l’image de fond. Chaque partie du menu a un tableau d’entiers correspondant aux indices des boutons pouvant être sélectionnés à l’aide des flèches. Un entier bouton\_select correspond à l’indice du bouton sélectionné dans le tableau actuel. \\
-                    Un pointeur sur tableau (tabBoutons) contient tous les tableaux d’indices. On récupère le tableau correspondant à l’endroit où on se situe dans le menu en faisant tabBoutons[pos\_actuelle] pour le mettre en paramètre dans la fonction d’affichage du menu. \\
-                    bouton\_select fonctionne circulairement : il est positionné sur le premier bouton du tableau et lorsque l’on clique sur les flèches haut ou bad, on se déplace dans le tableau en gérant les dépassements avec un modulo. \\
-                    (image codeMenu - description : voici un exemple de gestion des entrées clavier par le joueur)\\
-                    Si l’événement SDL est de type SDL\_KEYDOWN, on créée un SDL\_Point qui correspond aux coordonnées du bouton sélectionné en ajoutant un aux abscisses et aux ordonnées pour qu’il soit à l’intérieur des coordonnées. \\
+                    Les saisies clavier servent à modifier des chaînes de caractères mais aussi à se déplacer dans les menus à l’aide des flèches et des touches entrées. La saisie de l’adresse IP se fait via un switch dans la fonction  saisie\_touche\_ip vue précédemment. \\
+                    Pour la saisie du nom du joueur, on ajoute simplement chaque caractère alphanumérique à la chaîne du nom du joueur. \\
+                    Il est possible de supprimer les caractères dans les deux saisies.\\
+                    Il est possible de se déplacer dans le menu avec les flèches haut et bas.\\
+                    \begin{figure}[H]
+                        \centering
+                        \includegraphics[height=5cm]{codeMenu.png}
+                        \caption{voici un exemple de la gestion des déplacemen ts dans le menu via les flèches}
+                        \label{fig:codeMenu}
+                    \end{figure}
+                    Si l’événement SDL est de type SDL\_KEYDOWN, on créée un SDL\_Point qui correspond aux coordonnées du bouton. \\
                     Lorsque l’on clique sur echap, cela force l’arrêt du menu.
 
 
@@ -449,6 +457,11 @@
 
                 
     \section{Résultats et conclusion}
+    L’état final du jeu rendu n’est pas conforme à nos premières attentes. De nombreuses fonctionnalités n’ont pas pu être ajoutées : les quêtes, l’ajout complet des objets dans le jeu (l’envoi des informations nécessaires entre le serveur et les clients est codé mais ils n’impactent pas le jeu) et l’implémentation des compétences des personnages (malgré la présence des bases pour le faire également). Cependant, les fonctionnalités les plus importantes sont réussies : la discussion entre les clients et le serveur permet aux joueurs de se rencontrer dans le jeu, les tuiles et la map sont réussies au niveau graphique, tout comme les personnages.\\
+    Le planning prévisionnel n’a pas été respecté car nous avons abandonné de multiples fonctionnalités, mais celles qui ont été réalisées ont généralement suivi les dates imposées.\\
+    Le développement du serveur et du client ont finalement duré du début à la fin du développement, il fallait les développer en parallèle des autres fonctionnalités car elles y sont toutes intégrées. La partie qui a le plus dépassé les prévisions était la gestion des collisions avec les obstacles de la map.\\
+    Si nous avions un peu plus de temps pour améliorer le jeu, nous nous concentrerions sur le système de combat pour permettre la victoire d’une des équipes et développer les compétences, dont l’implémentation dans le code était en voie, pour que le jeu soit plus intéressant.
+    
     \section{Annexes}
         \subsection{Débogage}
         

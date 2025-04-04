@@ -22,13 +22,14 @@
 \contentsline {subsubsection}{\numberline {4.3.3}Serveur}{10}{subsubsection.4.3.3}%
 \contentsline {subsection}{\numberline {4.4}Rendu Graphique}{10}{subsection.4.4}%
 \contentsline {subsubsection}{\numberline {4.4.1}Menu Principal}{10}{subsubsection.4.4.1}%
-\contentsline {paragraph}{Affichage général}{11}{section*.2}%
-\contentsline {paragraph}{Images}{11}{section*.3}%
-\contentsline {paragraph}{Textes}{12}{section*.4}%
-\contentsline {paragraph}{Gestion des événements du menu}{13}{section*.5}%
-\contentsline {subparagraph}{souris}{13}{section*.6}%
-\contentsline {subparagraph}{clavier}{13}{section*.7}%
-\contentsline {subsubsection}{\numberline {4.4.2}Jeu}{14}{subsubsection.4.4.2}%
-\contentsline {section}{\numberline {5}Résultats et conclusion}{16}{section.5}%
-\contentsline {section}{\numberline {6}Annexes}{16}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Débogage}{16}{subsection.6.1}%
+\contentsline {paragraph}{Fonctionnalités du menu}{11}{section*.2}%
+\contentsline {paragraph}{Affichage général}{11}{section*.3}%
+\contentsline {paragraph}{Images}{11}{section*.4}%
+\contentsline {paragraph}{Textes}{12}{section*.5}%
+\contentsline {paragraph}{Gestion des événements du menu}{12}{section*.6}%
+\contentsline {subparagraph}{souris}{12}{section*.7}%
+\contentsline {subparagraph}{clavier}{13}{section*.8}%
+\contentsline {subsubsection}{\numberline {4.4.2}Jeu}{13}{subsubsection.4.4.2}%
+\contentsline {section}{\numberline {5}Résultats et conclusion}{14}{section.5}%
+\contentsline {section}{\numberline {6}Annexes}{15}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Débogage}{15}{subsection.6.1}%

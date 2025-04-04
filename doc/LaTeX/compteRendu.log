@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.3.28)  3 APR 2025 12:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.3.28)  3 APR 2025 16:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -549,86 +549,81 @@ File: screenMenu.png Graphic file (type png)
 <use screenMenu.png>
 Package pdftex.def Info: screenMenu.png  used on input line 338.
 (pdftex.def)             Requested size: 303.47679pt x 170.71652pt.
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 343--347
-
- []
-
-[11 <./screenMenu.png>]
-Underfull \hbox (badness 2941) in paragraph at lines 362--362
+[10] [11 <./screenMenu.png>]
+Underfull \hbox (badness 2941) in paragraph at lines 373--373
 [][][]\T1/cmr/m/n/9 .[][]image ou sur-face gra-phique que l'on peut af-fi-cher 
 à l'écran à l'aide de la fonc-tion
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 362--365
-
- []
-
-<screenIpOk.png, id=267, 1927.2pt x 1084.05pt>
+<screenIpOk.png, id=265, 1927.2pt x 1084.05pt>
 File: screenIpOk.png Graphic file (type png)
 <use screenIpOk.png>
-Package pdftex.def Info: screenIpOk.png  used on input line 385.
+Package pdftex.def Info: screenIpOk.png  used on input line 386.
 (pdftex.def)             Requested size: 182.08607pt x 102.43008pt.
-<screenIpKo.png, id=268, 1927.2pt x 1084.05pt>
+<screenIpKo.png, id=266, 1927.2pt x 1084.05pt>
 File: screenIpKo.png Graphic file (type png)
 <use screenIpKo.png>
-Package pdftex.def Info: screenIpKo.png  used on input line 393.
+Package pdftex.def Info: screenIpKo.png  used on input line 394.
 (pdftex.def)             Requested size: 182.08607pt x 102.43008pt.
+[12 <./screenIpOk.png> <./screenIpKo.png>]
+<codeMenu.png, id=285, 386.94562pt x 137.7647pt>
+File: codeMenu.png Graphic file (type png)
+<use codeMenu.png>
+Package pdftex.def Info: codeMenu.png  used on input line 412.
+(pdftex.def)             Requested size: 399.62122pt x 142.26378pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 375--397
+Underfull \hbox (badness 10000) in paragraph at lines 405--415
 
  []
 
-[12] [13 <./screenIpOk.png> <./screenIpKo.png>]
-<biomeForet.png, id=300, 753.81625pt x 601.24625pt>
+<biomeForet.png, id=292, 753.81625pt x 601.24625pt>
 File: biomeForet.png Graphic file (type png)
 <use biomeForet.png>
-Package pdftex.def Info: biomeForet.png  used on input line 427.
+Package pdftex.def Info: biomeForet.png  used on input line 435.
 (pdftex.def)             Requested size: 196.19464pt x 156.49014pt.
 
-Overfull \hbox (7.98177pt too wide) in paragraph at lines 427--428
+Overfull \hbox (7.98177pt too wide) in paragraph at lines 435--436
  [][] 
  []
 
-<biomeGlace.png, id=301, 745.78625pt x 601.24625pt>
+<biomeGlace.png, id=293, 745.78625pt x 601.24625pt>
 File: biomeGlace.png Graphic file (type png)
 <use biomeGlace.png>
-Package pdftex.def Info: biomeGlace.png  used on input line 435.
+Package pdftex.def Info: biomeGlace.png  used on input line 443.
 (pdftex.def)             Requested size: 194.10469pt x 156.49014pt.
 
-Overfull \hbox (5.89182pt too wide) in paragraph at lines 435--436
+Overfull \hbox (5.89182pt too wide) in paragraph at lines 443--444
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 416--439
+Underfull \hbox (badness 10000) in paragraph at lines 424--447
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 416--439
+Underfull \hbox (badness 10000) in paragraph at lines 424--447
 
  []
 
-[14]
-Overfull \hbox (20.66335pt too wide) in paragraph at lines 440--449
+[13 <./codeMenu.png>]
+Overfull \hbox (20.66335pt too wide) in paragraph at lines 448--457
 []\T1/cmr/m/n/10.95 Pour l'af-fi-chage des per-son-nages. Nous avons dé-ve-lopp
 é une fonc-tion char-ger_sdl_joueurs,
  []
 
-<fonction.png, id=309, 621.32124pt x 382.42876pt>
+[14 <./biomeForet.png> <./biomeGlace.png>]
+<fonction.png, id=311, 621.32124pt x 382.42876pt>
 File: fonction.png Graphic file (type png)
 <use fonction.png>
-Package pdftex.def Info: fonction.png  used on input line 457.
+Package pdftex.def Info: fonction.png  used on input line 470.
 (pdftex.def)             Requested size: 323.5819pt x 199.16928pt.
-<gdb.png, id=310, 714.67pt x 669.50125pt>
+<gdb.png, id=312, 714.67pt x 669.50125pt>
 File: gdb.png Graphic file (type png)
 <use gdb.png>
-Package pdftex.def Info: gdb.png  used on input line 463.
+Package pdftex.def Info: gdb.png  used on input line 476.
 (pdftex.def)             Requested size: 303.73618pt x 284.52756pt.
-[15 <./biomeForet.png> <./biomeGlace.png>] [16 <./fonction.png>] [17 <./gdb.png
->] (./compteRendu.aux)
+ [15 <./fonction.png>] [16 <./gdb.png>] (./compteRendu.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -636,13 +631,13 @@ Package rerunfilecheck Info: File `compteRendu.out' has not changed.
 (rerunfilecheck)             Checksum: 9A2DEF6C7DDCC41BFB1A58829E6F4022;3314.
  ) 
 Here is how much of TeX's memory you used:
- 11741 strings out of 478287
- 184596 string characters out of 5849289
- 498975 words of memory out of 5000000
- 29688 multiletter control sequences out of 15000+600000
+ 11749 strings out of 478287
+ 184726 string characters out of 5849289
+ 499079 words of memory out of 5000000
+ 29695 multiletter control sequences out of 15000+600000
  484962 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,9n,63p,867b,430s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,9n,63p,721b,430s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.600
 pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.60
 0pk> </home/morin/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.6
@@ -663,10 +658,10 @@ fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on compteRendu.pdf (17 pages, 10538407 bytes).
+Output written on compteRendu.pdf (16 pages, 10554795 bytes).
 PDF statistics:
- 835 PDF objects out of 1000 (max. 8388607)
- 346 compressed objects within 4 object streams
+ 826 PDF objects out of 1000 (max. 8388607)
+ 341 compressed objects within 4 object streams
  74 named destinations out of 1000 (max. 500000)
- 312 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 317 words of extra memory for PDF output out of 10000 (max. 10000000)
 
