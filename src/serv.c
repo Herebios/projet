@@ -106,26 +106,34 @@ int main_server(int port, int nb_clients) {
 					break;
 				}
 				case BASIC_ATTACK:{
-					int ind_j;
+					printf("\nBASIC_ATTACK ");fflush(stdout);
+					int direction;
+					sscanf(data_skip(data, 2), "%d", &direction);
+					if (direction != nulldir){
+						pos_t tilePos;
+						perso_t *p = joueurs + ind_j;
+						position_perso(p , &tilePos);
 
-					pos_t tilePos;
-					perso_t *p = joueurs + ind_j;
-					position_perso(p , &tilePos);
-					tuile_t *tile = get_tuile_from_pos(tilePos);
-					tilePos.x += 2 * deplacement[p->dir].x;
-					tilePos.y += 2 * deplacement[p->dir].y;
+						pos_t hitPos = {tilePos.x + 2 * deplacement[direction].x, tilePos.y + 2 * deplacement[direction].y};
 
-					size_t listeTaille = taille_liste(tile->liste_joueurs);
-					perso_t *victim;
-					pos_t victim_tilePos;
-					for (int i = 0; i < listeTaille; i++){
-						victim = get_liste(tile->liste_joueurs);
-						position_perso(victim, &victim_tilePos);
-						if (victim_tilePos.x == tilePos.x && victim_tilePos.y == tilePos.y){
-							printf("\nvictim!!!\n");
+						tuile_t *tile = get_tuile_joueur(p);
+						size_t listeTaille = taille_liste(tile->liste_joueurs);
+						perso_t *victim;
+						pos_t victimPos;
+
+						tete_liste(tile->liste_joueurs);
+						for (int i = 0; i < listeTaille; i++){
+							victim = get_liste(tile->liste_joueurs);
+							position_perso(victim, &victimPos);
+							printf("%d %d %d %d\n", hitPos.x, hitPos.y, victimPos.x, victimPos.y);
+							if (hitPos.x == victimPos.x && hitPos.y == victimPos.y){
+								victim->vie_reelle -= (p->stats[magie] + p->stats[force]) / 2; // temporaire
+								printf("\nvie : %d\n", victim->vie_reelle);
+							}
+							suivant_liste(tile->liste_joueurs);
 						}
-						suivant_liste(tile->liste_joueurs);
 					}
+					printf("end\n");fflush(stdout);
 				}
 			}
 			free(data);
@@ -151,8 +159,8 @@ int main_server(int port, int nb_clients) {
 				tuile_t * tuile = get_tuile_joueur(joueurs + i);
 		        for(tete_liste(tuile->liste_joueurs); !hors_liste(tuile->liste_joueurs); suivant_liste(tuile->liste_joueurs)){
 		            int ind = *(int*)get_liste(tuile->liste_joueurs);
-					if(ind != i)
-						send(clients[ind].socket, buffer, strlen(buffer), 0);
+					//if(ind != i)
+					send(clients[ind].socket, buffer, strlen(buffer), 0);
 				}
 			}
 		}

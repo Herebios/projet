@@ -29,6 +29,6 @@ void changer_dir(perso_t *, char mask);
 void afficher_tuile();
 void charger_tuile(tuile_t * tuile);
 
-void attaqueBasique(perso_t *p);
+void attaqueBasique(perso_t *p, dir_t dir);
 
 #endif

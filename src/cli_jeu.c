@@ -170,6 +170,6 @@ void charger_tuile(tuile_t * tuile){
     SDL_SetRenderTarget(renderer, NULL);
 }
 
-void attaqueBasique(perso_t *p){
-    sendf("dd", BASIC_ATTACK, p->dir);
+void attaqueBasique(perso_t *p, dir_t dir){
+    sendf("dd", BASIC_ATTACK, dir);
 }

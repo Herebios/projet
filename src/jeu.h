@@ -43,6 +43,7 @@ SDL_Texture * get_nouv_texture(char*);
 
 //a dans b
 int inclus(SDL_Rect* a, SDL_Rect* b);
+char collision(SDL_Rect a, SDL_Rect b);
 
 void avancer(perso_t *);
 

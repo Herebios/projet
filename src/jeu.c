@@ -230,6 +230,15 @@ SDL_Texture * get_nouv_texture(char * path){
 int inclus(SDL_Rect* a, SDL_Rect* b){
     return (a->x >= b->x) && (a->y >= b->y) && ((a->x + a->w) <= (b->x + b->w)) && ((a->y + a->h) <= (b->y + b->h));
 }
+char collision(SDL_Rect a, SDL_Rect b){
+    SDL_Point p[4] = {{a.x, a.y}, {a.x + a.w, a.y}, {a.x, a.y + a.h}, {a.x + a.w, a.y + a.h}};
+    for (int i = 0; i < 4; i++){
+        if (SDL_PointInRect(p + i, &b)){
+            return 1;
+        }
+    }
+    return 0;
+}
 
 //mouvement d'un perso à chaque boucle de jeu
 //!!gérer collisions avec obstacles

@@ -109,9 +109,10 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 	tuile_t * tuile_courante = NULL;;
 
 	SDL_Event event;
-    const Uint8* clavier;
+    const Uint8* clavier = NULL;
 	char isSPACEPress = 0;
 	time_t t = 0;
+	dir_t dir = nulldir;
 	while(valide && client.online){//si le thread est fermé prématurément
 
 		while (SDL_PollEvent(&event)) {
@@ -119,7 +120,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
                 valide=0;
 				break;
             }
-			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE && !isSPACEPress && time(NULL) - t < 3){
+			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE && !isSPACEPress && time(NULL) - t > 3){
 				isSPACEPress = 1;
 				t = time(NULL);
 			}
@@ -128,12 +129,15 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 			}
         }
 		if (isSPACEPress){
-			attaqueBasique(j);
+			printf("PRESSED");
+			isSPACEPress = 0;
+			if (dir != nulldir)
+				attaqueBasique(j, dir);
 		}
 		clavier=SDL_GetKeyboardState(NULL);	
         Uint8 mask=clavier[SDL_SCANCODE_RIGHT] << 3 | clavier[SDL_SCANCODE_LEFT] << 2 | clavier[SDL_SCANCODE_DOWN] << 1 | clavier[SDL_SCANCODE_UP];
 		if(mask){
-			dir_t dir=j->dir;
+			dir=j->dir;
 			changer_dir(j, mask);
 			if(j->dir != dir)
 				sendf("dd", JOUEUR_CHANGE_DIR, j->dir);
@@ -220,7 +224,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 		//joueurs
 		for(tete_liste(tuile_courante->liste_joueurs); !hors_liste(tuile_courante->liste_joueurs); suivant_liste(tuile_courante->liste_joueurs)){
 			int ind = *(int*)get_liste(tuile_courante->liste_joueurs);
-			SDL_RenderCopy(renderer, textures_joueurs[ind][joueurs[ind].dir % 4], NULL, &joueurs[ind].rect);
+			SDL_RenderCopy(renderer, textures_joueurs[ind][((ind == indice) ? dir : joueurs[ind].dir) % 4], NULL, &joueurs[ind].rect);
 			if(compteur % 1000 == 0){
                 printf("J %d : tuile %d %d | position %d %d\n", ind, joueurs[ind].pos_map.x, joueurs[ind].pos_map.y, joueurs[ind].rect.x, joueurs[ind].rect.y);
 			}
@@ -286,7 +290,7 @@ Signal par pointeur qui arrête le main
 					while(*fin)
 						if(*fin == ';'){
 							*fin=0;
-							enfiler(file_socket, debut, fin-debut);
+							enfiler(file_socket, debut, fin-debut+1);
 							fin++;
 							debut=fin;
 						}else fin++;
