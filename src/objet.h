@@ -33,8 +33,7 @@ typedef struct {
 struct objet_s {
     char * nom;         /**< nom de l'objet */
     rarete_t rarete;    /**< raretée de l'objet */
-	prio_t stats[4];
-    char isSpawn;   /**< statistiques de l'objet */
+	prio_t stats[4]; /**< statistiques de l'objet */
 	int ind;  /**< indice de l'objet dans l'inventaire */
 };
 
