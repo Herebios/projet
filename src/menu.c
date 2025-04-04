@@ -13,12 +13,14 @@ PF : doc, continuer gestion de boutons avec clic dans param etc
 */
 
 
-SDL_Window *window = NULL;
-SDL_Renderer *renderer = NULL;
+//SDL_Window *window = NULL;
+//SDL_Renderer *renderer = NULL;
 SDL_Surface *surface = NULL;
-TTF_Font *police = NULL;
 Mix_Music *musique = NULL;
 SDL_Texture * backgroundTexture = NULL;
+
+TTF_Font *police;
+
 
 int nbCarJoueur = 0; //indice des lettres à ajouter lorsqu'on clique sur le clavier
 int actuel = 0; //pour se déplacer avec les flèches dans la liste des personnages à choisir
@@ -38,58 +40,6 @@ char * tab_perso[NB_MAX_PERSO]; //liste des personnages disponibles à choisir
 img_t tab_img[NB_IMG]; //tableau de textures images
 texte_t tab_texte[NB_TEXTE];//tableau de textures texte
 
-
-void end(int nb){
-    
-    if (renderer){
-        SDL_DestroyRenderer(renderer);
-        renderer = NULL;
-    }
-        
-    if (window)
-        SDL_DestroyWindow(window);
-    for(int i = 0 ; i < NB_IMG ; i++){
-        SDL_DestroyTexture(tab_img[i].texture);
-    }
-    for(int i = 0 ; i < NB_TEXTE ; i++){
-        SDL_DestroyTexture(tab_texte[i].message);
-    }
-	if (police){
-		TTF_CloseFont(police);
-        police =  NULL;
-    }
-    if (musique) {
-        Mix_FreeMusic(musique);
-        musique = NULL;
-    }
-
-    Mix_CloseAudio();
-
-
-	TTF_Quit();
-    IMG_Quit();
-    Mix_Quit();
-    SDL_Quit();
-    if(nb) exit(nb);
-}
-
-void init_sdl(){
-    
-    if (SDL_Init(SDL_INIT_VIDEO) || !(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) end(1);
-    
-    window = SDL_CreateWindow("Jeu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, W, H, SDL_WINDOW_SHOWN);
-    if (!window) end(2);
-
-    renderer = SDL_CreateRenderer(window, -1, 0);
-    if (!renderer) end(3);
-
-    TTF_Init();
-
-    police = TTF_OpenFont("../include/Go-Regular.ttf", 100);
-	if (!police) end(6);
-
-    SDL_Init(SDL_INIT_AUDIO);
-}
 
 void dessine_image(int i) {
     if (tab_img[i].texture)
@@ -432,7 +382,13 @@ créée une texture à partir du chemin vers une image, le stocke dans le champ 
     if(!image->texture) end(5);
 }
 
-int menu(char *classe, char * port, char * nbCli){
+int menu(int *classe, char * port, char * nbCli){
+
+    TTF_Init();
+    SDL_Init(SDL_INIT_AUDIO);
+
+
+
     int nb_perso_ajoutes = 0; //nombre de personnages ajoutés avec la fonction ajout_personnage()
     int volume = 100; 
     char cheminParamTxt[] = "../include/.sauvegarde.txt";
@@ -440,8 +396,10 @@ int menu(char *classe, char * port, char * nbCli){
     int nbCarIp = 0; //nombre de caractères lors de la saisie de l'ip par le joueur
 
     char nbClients[2];
-    nbClients[0] = '0';
+    nbClients[0] = '2';
     nbClients[1] = '\0';
+    police = TTF_OpenFont("../include/Go-Regular.ttf", 100);
+
 
 
     int retour;
@@ -466,7 +424,6 @@ int menu(char *classe, char * port, char * nbCli){
     //l'etat BAD_IP où on affiche la même chose que REJOINDRE mais avec un message d'erreur
     int * tabBoutons[] = {tabBoutonsMenu, tabBoutonsParam, tabBoutonsJouer, tabBoutonsCreer, tabBoutonsRejoi, tabBoutonsCreer, tabBoutonsMenu}; 
     
-    init_sdl();
     
     //lance la musique dans le menu
     
@@ -894,11 +851,12 @@ int menu(char *classe, char * port, char * nbCli){
                 else if((SDL_PointInRect(&point, &tab_img[21].posBoutonFen) || SDL_PointInRect(&point, &tab_img[22].posBoutonFen)) && pos_actuelle == DANS_CREER){          
                     //etre serveur et joueur
                     if(SDL_PointInRect(&point, &tab_img[21].posBoutonFen)){
-                        retour = JOUER_SERVEUR;
-                    }
-                    else{
                         retour = SERVEUR;
                     }
+                    else{
+                        retour = JOUER_SERVEUR;
+                    }
+                    
                     pos_actuelle = SORTIE_MENU;                                  
                 } 
                 
@@ -941,7 +899,7 @@ int menu(char *classe, char * port, char * nbCli){
         frame = SDL_GetTicks() - start;
         if (frame < 16) SDL_Delay(16 - frame);
     }
-    strcpy(classe, tab_perso[actuel]);  
+    *classe = actuel;  
     *nbCli = nbClients[0];
 
     //libération des textures, images et textes
@@ -960,13 +918,28 @@ int menu(char *classe, char * port, char * nbCli){
     if (backgroundTexture) {
         SDL_DestroyTexture(backgroundTexture);
     }
-    
+    for(int i = 0 ; i < NB_IMG ; i++){
+        SDL_DestroyTexture(tab_img[i].texture);
+    }
+	if (police){
+		TTF_CloseFont(police);
+        police =  NULL;
+    }
+    if (musique) {
+        Mix_FreeMusic(musique);
+        musique = NULL;
+    }
+
+    Mix_CloseAudio();
+	TTF_Quit();
+    SDL_Quit();
+    Mix_Quit();
     return retour;
 }
 
 
 
-
+/*
 int main(void){
     char classe[50];
     char port[5];
@@ -977,4 +950,4 @@ int main(void){
     
     end(0);
     return 0;
-}
+}*/

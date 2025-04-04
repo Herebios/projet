@@ -1,5 +1,4 @@
-#include "cli_jeu.h"
-#include "inventaire.h"
+#include "cli.h"
 
 file * file_socket;
 
@@ -301,15 +300,14 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 	fermeture_client(0);
     return 0;
 }
-
-int main(int argc, char *argv[]){
+/*int main(int argc, char *argv[]){
 	if(argc == 5){
 		return main_client(argv[1], atoi(argv[2]), argv[3], atoi(argv[4]));
 	}else{
 		puts("ip port nom classe");
 		return 1;
 	}
-}
+}*/
 
 void *ecoute_thread(void *arg){
 /*

@@ -4,7 +4,8 @@
  * @brief Création du menu principal du jeu
  */
 
-
+#ifndef __MENU_H_
+#define __MENU_H_
 
  #include <stdio.h>
  #include <stdlib.h>
@@ -14,7 +15,7 @@
  #include <SDL2/SDL_ttf.h>
  #include <SDL2/SDL_mixer.h>
  #include <regex.h>
-
+ #include "jeu.h"
  
  
  #define IMG_X 400
@@ -32,6 +33,7 @@
  #define JOUER 0
  #define SERVEUR 1
  #define JOUER_SERVEUR 2
+
 
 
 /**
@@ -70,29 +72,8 @@ typedef struct {
 
 extern char nomJoueur[NB_MAX_CAR_JOUEUR]; //nom saisi par l'utilisateur
 extern char saisieIp[NB_MAX_CAR_IP];
- 
- /*
- enlever les 2 premières fonctions quand ce sera avec le main. 
- end : rajouter 
-     for(int i = 0 ; i < nb_img ; i++){
-         SDL_DestroyTexture(tab_img[i].texture);
-     }
-     for(int i = 0 ; i < nb_texte ; i++){
-         SDL_DestroyTexture(tab_texte[i].message);
-     }
-     if (police)
-         TTF_CloseFont(police);
- 
-     TTF_Quit();
- 
-     init_sdl :rajouter
-     SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
- */
- 
 
 
-void end(int nb);
-void init_sdl(void);
  
 
 /**
@@ -233,4 +214,6 @@ void creer_image(img_t * image, char * nomFich);
   * @param nbClients Le nombre de clients que l'on saisit si on est serveur
   * @return Renvoie -1 si on quitte le menu avec echap ; 0 si on joue au jeu ; 1 si on est juste serveur ; 2 si on est serveur et joueur en même temps
   */
-int menu(char *classe, char * port, char * nbClients);
+int menu(int *classe, char * port, char * nbClients);
+
+#endif

@@ -21,6 +21,7 @@ extern SDL_Window *window;
 extern SDL_Renderer *renderer;
 extern pos_t deplacement[8];//multiplicateur pour la direction
 
+
 void end(int);
 //Fonctions d'initialisation du jeu
 void init_sdl(void);
