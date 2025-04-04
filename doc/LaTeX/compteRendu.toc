@@ -15,7 +15,6 @@
 \contentsline {subsubsection}{\numberline {4.2.3}Compétences}{8}{subsubsection.4.2.3}%
 \contentsline {subsubsection}{\numberline {4.2.4}Objets}{8}{subsubsection.4.2.4}%
 \contentsline {subsubsection}{\numberline {4.2.5}Monstres}{9}{subsubsection.4.2.5}%
-\contentsline {subsubsection}{\numberline {4.2.6}Évènement}{10}{subsubsection.4.2.6}%
 \contentsline {subsection}{\numberline {4.3}Réseau}{10}{subsection.4.3}%
 \contentsline {subsubsection}{\numberline {4.3.1}Networking}{10}{subsubsection.4.3.1}%
 \contentsline {subsubsection}{\numberline {4.3.2}Client}{11}{subsubsection.4.3.2}%
