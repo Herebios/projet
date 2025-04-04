@@ -182,6 +182,7 @@ type_carre indice de texture dans biome->textures[]
 
 void ajouter_objet_tuile(tuile_t * t, int ind_o, pos_t pos_tuile){
 	//!!verifier
+    printf("Essai : (%d, %d)\n", pos_tuile.x, pos_tuile.y);
 	ajout_fin_liste(t->liste_objets, &(objet_tuile_t){tab_objets + ind_o, (pos_t){pos_tuile.x, pos_tuile.y}}, sizeof(objet_tuile_t));
 }
 

@@ -28,7 +28,7 @@ void show_inventaire(SDL_Renderer * renderer, perso_t * perso){
                 * texture4 = NULL,
                 * texture5 = NULL;
                 
-    printf("%d %d %d %d\n\n", inventaire[0].x, inventaire[0].y, inventaire[0].w, inventaire[0].h);
+    //printf("%d %d %d %d\n\n", inventaire[0].x, inventaire[0].y, inventaire[0].w, inventaire[0].h);
     if(perso->objets[0] != NULL){
         texture1 = IMG_LoadTexture(renderer, chemin_objet(perso->objets[0]));
     }

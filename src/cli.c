@@ -113,8 +113,11 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 	char isSPACEPress = 0;
 	time_t t = 0;
 	dir_t dir = nulldir;
+	supp_t enlever_obj = NUL;
+	int test = 5;
 	while(valide && client.online){//si le thread est fermé prématurément
 
+		
 		while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT || event.key.keysym.sym==SDLK_m){
                 valide=0;
@@ -124,15 +127,56 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 				isSPACEPress = 1;
 				t = time(NULL);
 			}
+
+			else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_e && time(NULL) - t > 3){
+				t = time(NULL);
+				ramasser_objet(j, test++);
+				tete_liste(tuile_courante->liste_objets);
+				objet_t * elm;
+				SDL_Point point;
+				
+				while(!hors_liste(tuile_courante->liste_objets)){
+					elm = (get_liste(tuile_courante->liste_objets));
+					point.x = elm->p.x;
+					point.y = elm->p.y;
+
+					printf("\n%d\n", SDL_PointInRect(&point, &(j->rect)));
+					suivant_liste(tuile_courante->liste_objets);
+				}
+				printf("obj : %d %d\n", point.x, point.y);
+				printf("joueur : x:%d y:%d w:%d h:%d\n", j->rect.x, j->rect.y, j->rect.w, j->rect.h);
+			}
+
+			
+
+			else if(event.type == SDL_KEYDOWN){
+				switch(event.key.keysym.sym){
+					case SDLK_1 : enlever_obj = UN; break;
+					case SDLK_2 : enlever_obj = DEUX; break; 
+					case SDLK_3 : enlever_obj = TROIS; break; 
+					case SDLK_4 : enlever_obj = QUATRE; break; 
+					case SDLK_5 : enlever_obj = CINQ; break; 
+					default : break;
+				}
+			}
 			if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_SPACE){
 				isSPACEPress = 0;
 			}
+			else if(event.type == SDL_KEYUP && enlever_obj != NUL){
+				enlever_obj = NUL;
+			}
         }
+
 		if (isSPACEPress){
 			printf("PRESSED");
 			isSPACEPress = 0;
 			if (dir != nulldir)
 				attaqueBasique(j, dir);
+		}
+
+		else if(enlever_obj != NUL){
+			lacher_objet(j, enlever_obj);
+			enlever_obj = NUL;
 		}
 		clavier=SDL_GetKeyboardState(NULL);	
         Uint8 mask=clavier[SDL_SCANCODE_RIGHT] << 3 | clavier[SDL_SCANCODE_LEFT] << 2 | clavier[SDL_SCANCODE_DOWN] << 1 | clavier[SDL_SCANCODE_UP];
@@ -149,17 +193,19 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 			j->dir=nulldir;
 			sendf("dd", JOUEUR_CHANGE_DIR, nulldir);
 		}
-
 		while(!fileVide(file_socket)){
+			puts("check");
 			data=defiler(file_socket);
 			printf("action '%s'\n", (char*)data);flush;
 			int action;
 			sscanf(data, "%d", &action);
 			switch(action){
 				case SPAWN_OBJET:{
+					printf("\nRECV\n");
 					int ind_o;
 					pos_t pos_tuile;
 					sscanf(data_skip(data, 1), "%d %d %d", &ind_o, &pos_tuile.x, &pos_tuile.y);
+					printf("\n(%d, %d)\n", pos_tuile.x, pos_tuile.y);
 					ajouter_objet_tuile(tuile_courante, ind_o, pos_tuile);
 					//!! ajout dans sdl_objet
 					break;

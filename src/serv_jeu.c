@@ -23,6 +23,8 @@ static void spawn_objetbis(rarete_t r, int *ind_o, pos_t *p_map, pos_t *p_tuile)
 			ind=rand()%NB_OBJETS_L + NB_OBJETS-NB_OBJETS_L;
 	}
 	int xmap, ymap, xtuile, ytuile;
+	printf("indd%p", ind_o);
+	//printf("indd %d\n", *ind_o);
 	*ind_o = ind;
 	char valide=0;
 	tuile_t *tuile;
@@ -61,7 +63,12 @@ void spawn_objet(rarete_t r, int mode, int ind_o, pos_t p_map, pos_t p_tuile){
 	sprintf(buffer, "%d %d %d %d;", SPAWN_OBJET, ind_o, p_tuile.x, p_tuile.y);
 
 	for(tete_liste(t->liste_joueurs); !hors_liste(t->liste_joueurs); suivant_liste(t->liste_joueurs)){
+		printf("SEND : %s\n", buffer);
 		perso_t *p=get_liste(t->liste_joueurs);
+		for (int i = 0 ; i < 2 ; i++){
+			printf("%d ", clients[i].socket);
+		}
+		printf("socket : %d, nom : %s, iperso : %d\n", clients[p->iperso].socket, p->nom, p->iperso);
 		send(clients[p->iperso].socket, buffer, strlen(buffer), 0);
 	}
 }

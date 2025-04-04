@@ -89,6 +89,9 @@ void ramasser_objet(perso_t *perso, int ind_o){
 }
 //position dans l'inventaire
 void lacher_objet(perso_t *perso, int ind_inv){
+    if (perso->objets[ind_inv] == NULL)
+        return;
+        
     sendf("%d %d", RM_OBJET_JOUEUR, ind_inv);
     retirer_objet_joueur(perso, ind_inv);
     update_stats(perso);

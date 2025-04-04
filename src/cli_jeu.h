@@ -9,6 +9,10 @@
 
 #define ecran() SDL_RenderPresent(renderer)
 
+typedef enum{
+    UN, DEUX, TROIS, QUATRE, CINQ, NUL
+}supp_t;
+
 extern SDL_Texture * texture_tuile;
 
 void init_joueurs_client(perso_t *);
