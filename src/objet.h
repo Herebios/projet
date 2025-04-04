@@ -34,7 +34,8 @@ struct objet_s {
     char * nom;         /**< nom de l'objet */
     rarete_t rarete;    /**< raretée de l'objet */
 	prio_t stats[4];    /**< statistiques de l'objet */
-	unsigned char ind;  /**< indice de l'objet dans l'inventaire */
+    pos_t p; /**< coordonnées du milieu de l'objet*/
+	int ind;  /**< indice de l'objet dans l'inventaire */
 };
 
 extern objet_t tab_objets[NB_OBJETS];
