@@ -25,7 +25,6 @@ void init_joueurs_client(perso_t *joueurs){
 
 void charger_sdl_objets(SDL_Texture * textures_objets[NB_OBJETS]){
 	for(int i=0; i<NB_OBJETS; i++){
-        printf("chaine : %s\n", tab_objets[i].nom);
 		char * objnom = malloc(strlen(tab_objets[i].nom) + strlen("../img/Objets/") + strlen(".jpg") + 1);//ajouter .jpg et "../img/Objets/"
 		strcpy(objnom, "../img/Objets/");
         strcat(objnom, tab_objets[i].nom);

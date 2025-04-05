@@ -55,9 +55,7 @@ int main_server(int port, int nb_clients) {
 	init_joueurs_server(joueurs, nb_clients);
 	send_joueurs_server(joueurs, nb_clients);
 	puts("Joueurs :");
-	for(int i=0; i<nb_clients; i++){
-		printf("ind %d , classe %d , nom %s , equipe %d\n", i, joueurs[i].classe, joueurs[i].nom, joueurs[i].equipe);
-	}
+	
 	flush;
 	//init les tuiles avec les joueurs
 	for(int i=0; i<nb_clients; i++){
@@ -150,12 +148,11 @@ int main_server(int port, int nb_clients) {
 							int ind = obj->objet - tab_objets;
 							ajouter_objet_joueur(p, ind);
 							retirer_objet_tuile(tuile, ind);
-							printf("récupération de l'objet à l'indice %d\n", ind);
-							char buffer[3];
-							sprintf(buffer, "%d", ind);
-							
+							char buffer[30]; buffer[0] = '\0';
+							sprintf(buffer, "%d %d;", GET_OBJET, ind);
+ 							printf("\nbuffer : %s; strlen : %d\n", buffer, strlen(buffer));
+							printf("\nsocket : %d && ind : %d\n", clients[ind_j].socket, ind);
 							send(clients[ind_j].socket, buffer, strlen(buffer), 0);
-							
 						}
 					}
 					break;
@@ -171,7 +168,6 @@ int main_server(int port, int nb_clients) {
 				server.nb_on--;
 			}
 		}
-
 		//bouger les joueurs
 		for(int i=0; i<nb_clients; i++){
 			if(joueurs[i].dir != nulldir){
@@ -184,9 +180,10 @@ int main_server(int port, int nb_clients) {
 				tuile_t * tuile = get_tuile_joueur(joueurs + i);
 		        for(tete_liste(tuile->liste_joueurs); !hors_liste(tuile->liste_joueurs); suivant_liste(tuile->liste_joueurs)){
 		            int ind = *(int*)get_liste(tuile->liste_joueurs);
-					//if(ind != i)
-					//printf("Socket : %d\n", clients[ind].socket);
+					
 					send(clients[ind].socket, buffer, strlen(buffer), 0);
+					
+					
 				}
 			}
 		}
@@ -201,17 +198,12 @@ int main_server(int port, int nb_clients) {
 		}
 
 		//evenements
-		if(compteur % 1000 == 0){
-			for(int i=0; i<nb_clients; i++){
-				printf("J %d : tuile %d %d | position %d %d\n", i, joueurs[i].pos_map.x, joueurs[i].pos_map.y, joueurs[i].rect.x, joueurs[i].rect.y);
-			}
-		}
-		if(compteur >= 5000){
+		
+		if(compteur >= 10000){
 			puts("Spawn obj\n");flush;
 			//paramètres temporaires
 			int ind; pos_t pos1, pos2;
 			spawn_objet((rarete_t)rand()%4, 0, ind, pos1, pos2, joueurs);
-			printf("indice %d %d\n\n", pos2.x, pos2.y);
 			compteur=0;
 		}else
 			compteur+=DELAY;

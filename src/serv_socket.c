@@ -9,6 +9,7 @@ void *client_thread(void *arg){
 /*on récupère un pointeur sur nb_clients et le tableau de socket_struct clients avec l'indice du client courant*/
     int ind=*(int*)arg;
     free(arg);
+    printf("thread ecoute du client %d\n", ind);flush;
 
     int buffer_size;
     char buffer[BUFFERLEN];
@@ -17,7 +18,6 @@ void *client_thread(void *arg){
         buffer_size = recv(clients[ind].socket, buffer, BUFFERLEN, 0);
         if(buffer_size > 0){
             buffer[buffer_size] = '\0';
-			//printf("Recu %d : '%s'\n", ind, buffer);
             switch(*buffer){
                 //signal qui met fin au thread, le client ind se déconnecte
                 case '!': valide=0;break;
@@ -58,7 +58,7 @@ void *accept_thread(void *arg){
             void* info=malloc(sizeof(int));
             *(int*)info=nb_clients;//l'indice du client dont il s'occupe
             pthread_create(&clients[nb_clients].thread, NULL, client_thread, info);
-
+            printf("client %d\n", server.nb_clients++);flush;
         }
     }
     printf("fin thread accept\n");flush;

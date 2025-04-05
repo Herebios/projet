@@ -95,11 +95,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 	charger_sdl_joueurs(joueurs, textures_joueurs);
 	charger_sdl_objets(textures_objets);
 
-	puts("Les joueurs sont :");
-	for(int i=0; i<nb_joueurs; i++){
-        printf("ind %d ; classe %d ; nom %s ; equipe %d\n", joueurs[i].iperso, joueurs[i].classe, joueurs[i].nom, joueurs[i].equipe);
-    }
-	flush;
+	
 	perso_t * j = joueurs + indice;//pointeur sur le joueur, plus rapide
 	char valide=1;
 	int compteur=0;
@@ -184,7 +180,6 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 			data=defiler(file_socket);
 			int action;
 			sscanf(data, "%d", &action);
-			printf("\naction : %d ", action);
 			switch(action){
 				case SPAWN_OBJET:{
 					int ind_o;
@@ -205,7 +200,6 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 
 					int nb_o, nb_j;
 					sscanf(data_skip(data, 1), "%d %d %d", &j->pos_map.x, &j->pos_map.y, &nb_o);
-					printf("Nouvelle tuile : %d %d\n", j->pos_map.x, j->pos_map.y);
 					tuile_courante = get_tuile_joueur(j);
 					int skip=4;
 					int ind;
@@ -218,36 +212,30 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 					sscanf(data_skip(data, skip++), "%d", &nb_j);
 					for(int i=0; i<nb_j; i++){
 						sscanf(data_skip(data, skip), "%d %d %d", &ind, &pos.x, &pos.y);
-						printf("Joueur sur la tuile : %d (%s)\n", ind, ind==indice ? "moi" : "pas moi");
 						joueurs[ind].rect.x = pos.x;
 						joueurs[ind].rect.y = pos.y;
 						ajouter_joueur_tuile(tuile_courante, ind);
 						skip+=3;
 					}
 				    charger_tuile(tuile_courante);
-					printf("taille liste : %d\n", taille_liste(tuile_courante->liste_joueurs));
 					break;
 				}
 				case ADD_JOUEUR_TUILE:{
 					int ind;
 					sscanf(data_skip(data, 1), "%d", &ind);
 					ajouter_joueur_tuile(tuile_courante, ind);
-					printf("Add joueur %d\n", ind);
 					break;
 				}
 				case RM_JOUEUR_TUILE:{
 					int ind;
 					sscanf(data_skip(data, 1), "%d", &ind);
 					retirer_joueur_tuile(tuile_courante, ind);
-					printf("Rm joueur %d\n", ind);
 					break;
 				}
 				case GET_OBJET:{
 					int ind_o;
-					printf("\nGETOBJ\n");
 					sscanf(data_skip(data, 1), "%d", &ind_o);
 					ajouter_objet_joueur(j, ind_o);
-					printf("ind : %d\n", ind_o);
 				}
 			}
 			free(data);
