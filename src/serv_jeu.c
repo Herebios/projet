@@ -8,7 +8,13 @@
 //objets
 //fonction intermédiaire, renvoie position exacte et indice de l'objet choisi aléatoirement
 static void spawn_objetbis(rarete_t r, int *ind_o, pos_t *p_map, pos_t *p_tuile) {
+	static int nbObjetCreated = 0;
+	if (nbObjetCreated == NB_OBJETS){
+		*ind_o = -1;
+		return;
+	}
 	int ind;
+	int sens = -1;
 	switch(r){
 		case commun:
 			ind=rand()%NB_OBJETS_C;
@@ -22,9 +28,9 @@ static void spawn_objetbis(rarete_t r, int *ind_o, pos_t *p_map, pos_t *p_tuile)
 		case legendaire:
 			ind=rand()%NB_OBJETS_L + NB_OBJETS-NB_OBJETS_L;
 	}
+	
+	nbObjetCreated++;
 	int xmap, ymap, xtuile, ytuile;
-	printf("&indd%p", ind_o);
-	//printf("indd %d\n", *ind_o);
 	*ind_o = ind;
 	char valide=0;
 	tuile_t *tuile;
@@ -52,7 +58,7 @@ soit un joueur laisse tomber un objet, paramètres connus.
 void spawn_objet(rarete_t r, int mode, int ind_o, pos_t p_map, pos_t p_tuile, perso_t *joueurs){
 	if(mode==0)
 		spawn_objetbis(r, &ind_o, &p_map, &p_tuile);
-	
+	if (ind_o == -1) return ;
 	tuile_t *t=get_tuile_from_pos(p_map);
 	
 	ajouter_objet_tuile(t, ind_o, p_tuile);
@@ -64,7 +70,6 @@ void spawn_objet(rarete_t r, int mode, int ind_o, pos_t p_map, pos_t p_tuile, pe
 	sprintf(buffer, "%d %d %d %d;", SPAWN_OBJET, ind_o, p_tuile.x, p_tuile.y);
 	int ind;
 	for(tete_liste(t->liste_joueurs); !hors_liste(t->liste_joueurs); suivant_liste(t->liste_joueurs)){
-		printf("SEND : %s\n", buffer);
 		ind = *(int*)get_liste(t->liste_joueurs);
 		
 		send(clients[joueurs[ind].iperso].socket, buffer, strlen(buffer), 0);
