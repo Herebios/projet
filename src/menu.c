@@ -916,7 +916,7 @@ int menu(int *classe, char * port, char * nbCli){
         if (frame < 16) SDL_Delay(16 - frame);
     }
     *classe = actuel;  
-    *nbCli = nbClients[0];
+    *nbCli = (char) atoi(nbClients);
 
     //libération des textures, images et textes
     for(int i = 0 ; i < NB_TEXTE ; i++){

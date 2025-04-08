@@ -220,11 +220,12 @@ int main_server(int port, int nb_clients) {
 }
 
 int main(int argc, char *argv[]){
-	if(argc != 2){
-		puts("pas de port");
+	if(argc != 3){
+		puts("pas de port ou pas de nbJoueur");
 		return 1;
 	}
-	if(atoi(argv[1]) > 1024)
-		main_server(atoi(argv[1]), 2);
+	int port = atoi(argv[1]), nbJoueur = atoi(argv[2]);
+	if(port && nbJoueur)
+		main_server(port, nbJoueur);
 	return 0;
 }
