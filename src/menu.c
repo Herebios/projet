@@ -307,13 +307,13 @@ renvoie le chemin du fichier correspondant au perso actuel choisi
 */
     switch(actuel){
         case 0:
-            return "../img/Characters/mage/Face.png";
+            return "img/Characters/mage/Face.png";
         case 1:
-            return "../img/Characters/ninja/Face.png";
+            return "img/Characters/ninja/Face.png";
         case 2:
-            return "../img/Characters/vampire/Face.png";
+            return "img/Characters/vampire/Face.png";
         case 3:
-            return "../img/Characters/archer/Face.png";
+            return "img/Characters/archer/Face.png";
         default:
             end(12);
     }
@@ -382,6 +382,55 @@ créée une texture à partir du chemin vers une image, le stocke dans le champ 
     if(!image->texture) end(5);
 }
 
+void charger_param(char * cheminParamTxt, int * volume, int * nbCarIp, char * port){
+    FILE * fichier = fopen(cheminParamTxt, "r");
+    char joueur[NB_MAX_CAR_JOUEUR];
+    char port_temp[5];
+
+    if(fichier){
+        fscanf(fichier, "%d %d %s %s %s", &actuel, volume, joueur, saisieIp, port_temp);
+        
+        if (!strcmp(joueur, "#")){
+            
+            nomJoueur[0] = '#';
+            nbCarJoueur = 0;
+        } 
+
+        else{
+            strcpy(nomJoueur, joueur);
+            nbCarJoueur = strlen(nomJoueur);
+        }
+
+        if (!strcmp(port, "%")){
+            
+            port[0] = '#';
+            nbCarPort = 0;
+        } 
+
+        else{
+            strcpy(port, port_temp);
+            nbCarPort = strlen(port);
+        }
+            
+
+        if (strcmp(saisieIp, "@") == 0) {
+            saisieIp[0] = '@';
+            *nbCarIp = 0;
+        } 
+
+        else{
+            *nbCarIp = strlen(saisieIp);
+        }
+        maj_texte(tab_texte + 6, nomJoueur);
+        maj_texte(tab_texte + 16, saisieIp);
+        fclose(fichier);
+    }
+    else{
+        printf("\nFichier %s introuvable. Veuillez sauvegarder vos paramètres avant de les charger.\n", cheminParamTxt);
+        end(111);
+    }
+}
+
 int menu(int *classe, char * port, char * nbCli){
 
     TTF_Init();
@@ -391,14 +440,14 @@ int menu(int *classe, char * port, char * nbCli){
 
     int nb_perso_ajoutes = 0; //nombre de personnages ajoutés avec la fonction ajout_personnage()
     int volume = 100; 
-    char cheminParamTxt[] = "../include/.sauvegarde.txt";
-    char cheminMusique[] = "../include/musiqueMenu.ogg";
+    char cheminParamTxt[] = "include/.sauvegarde.txt";
+    char cheminMusique[] = "include/musiqueMenu.ogg";
     int nbCarIp = 0; //nombre de caractères lors de la saisie de l'ip par le joueur
 
     char nbClients[2];
     nbClients[0] = '2';
     nbClients[1] = '\0';
-    police = TTF_OpenFont("../include/Go-Regular.ttf", 100);
+    police = TTF_OpenFont("include/Go-Regular.ttf", 100);
 
 
 
@@ -444,7 +493,7 @@ int menu(int *classe, char * port, char * nbCli){
 
 
     //image de fond
-	backgroundTexture = creer_texture("../img/imgMenu.png");
+	backgroundTexture = creer_texture("img/imgMenu.png");
 
     //liste des personnages à sélectionner -> modifier si on ajoute des perso
     ajout_personnage("mage", &nb_perso_ajoutes);
@@ -540,31 +589,31 @@ int menu(int *classe, char * port, char * nbCli){
 
     
     //creation des images
-    creer_image(tab_img, "../img/Boutons/boutonMenuLarge.png");
-    creer_image(tab_img + 1, "../img/Boutons/boutonMenuLarge.png");
-    creer_image(tab_img + 2, "../img/Boutons/boutonMenuLarge.png");
-    creer_image(tab_img + 3, "../img/Boutons/flecheGauche.png");
-    creer_image(tab_img + 4, "../img/Boutons/flecheDroite.png");
+    creer_image(tab_img, "img/Boutons/boutonMenuLarge.png");
+    creer_image(tab_img + 1, "img/Boutons/boutonMenuLarge.png");
+    creer_image(tab_img + 2, "img/Boutons/boutonMenuLarge.png");
+    creer_image(tab_img + 3, "img/Boutons/flecheGauche.png");
+    creer_image(tab_img + 4, "img/Boutons/flecheDroite.png");
     creer_image(tab_img + 5, chemin_perso());
-    creer_image(tab_img + 6, "../img/Boutons/boutonMenuRond.png");
-    creer_image(tab_img + 7, "../img/Boutons/boutonRetour.png");
-    creer_image(tab_img + 8, "../img/Boutons/boutonMenuLargeCarre.png");
-    creer_image(tab_img + 9, "../img/Boutons/boutonMenuLargeCarre.png");
-    creer_image(tab_img + 10, "../img/Boutons/boutonMenuLargeCarre.png");
-    creer_image(tab_img + 11, "../img/Boutons/boutonMenuLargeCarre.png");
-    creer_image(tab_img + 12, "../img/Boutons/boutonMenuLargeCarre.png");
-    creer_image(tab_img + 13, "../img/Boutons/boutonMenuLargeCarre.png");
-    creer_image(tab_img + 14, "../img/Boutons/boutonMenuCarre.png");
-    creer_image(tab_img + 15, "../img/Boutons/boutonPlus.png");
-    creer_image(tab_img + 16, "../img/Boutons/boutonMenuCarre.png");
-    creer_image(tab_img + 17, "../img/Boutons/boutonMoins.png");
-    creer_image(tab_img + 18, "../img/Boutons/boutonMenuRond.png");
-    creer_image(tab_img + 19, "../img/Boutons/boutonVolumeOn.png");
-    creer_image(tab_img + 20, "../img/Boutons/boutonVolumeOff.png");    
-    creer_image(tab_img + 21, "../img/Boutons/boutonMenuLargeCarre.png");
-    creer_image(tab_img + 22, "../img/Boutons/boutonMenuLargeCarre.png");
-    creer_image(tab_img + 23, "../img/Boutons/boutonMenuLargeCarre.png");
-    creer_image(tab_img + 24, "../img/Boutons/boutonMenuLargeCarre.png");
+    creer_image(tab_img + 6, "img/Boutons/boutonMenuRond.png");
+    creer_image(tab_img + 7, "img/Boutons/boutonRetour.png");
+    creer_image(tab_img + 8, "img/Boutons/boutonMenuLargeCarre.png");
+    creer_image(tab_img + 9, "img/Boutons/boutonMenuLargeCarre.png");
+    creer_image(tab_img + 10, "img/Boutons/boutonMenuLargeCarre.png");
+    creer_image(tab_img + 11, "img/Boutons/boutonMenuLargeCarre.png");
+    creer_image(tab_img + 12, "img/Boutons/boutonMenuLargeCarre.png");
+    creer_image(tab_img + 13, "img/Boutons/boutonMenuLargeCarre.png");
+    creer_image(tab_img + 14, "img/Boutons/boutonMenuCarre.png");
+    creer_image(tab_img + 15, "img/Boutons/boutonPlus.png");
+    creer_image(tab_img + 16, "img/Boutons/boutonMenuCarre.png");
+    creer_image(tab_img + 17, "img/Boutons/boutonMoins.png");
+    creer_image(tab_img + 18, "img/Boutons/boutonMenuRond.png");
+    creer_image(tab_img + 19, "img/Boutons/boutonVolumeOn.png");
+    creer_image(tab_img + 20, "img/Boutons/boutonVolumeOff.png");    
+    creer_image(tab_img + 21, "img/Boutons/boutonMenuLargeCarre.png");
+    creer_image(tab_img + 22, "img/Boutons/boutonMenuLargeCarre.png");
+    creer_image(tab_img + 23, "img/Boutons/boutonMenuLargeCarre.png");
+    creer_image(tab_img + 24, "img/Boutons/boutonMenuLargeCarre.png");
 
 
     
@@ -604,7 +653,7 @@ int menu(int *classe, char * port, char * nbCli){
 
 
 
-
+    charger_param(cheminParamTxt, &volume, &nbCarIp, port);
     aff_menu(&pos_actuelle, tabBoutonsMenu, bouton_select, &volume, nbCarIp, port, nbClients);
     
 
@@ -757,10 +806,11 @@ int menu(int *classe, char * port, char * nbCli){
                 //sauvegarde param
                 else if(SDL_PointInRect(&point, &tab_img[11].posBoutonFen) && pos_actuelle == DANS_PARAM){
                     FILE * fichier = fopen(cheminParamTxt, "w");
+                    if(!nbCarPort) port[0] = '%';
                     if(!nbCarJoueur) nomJoueur[0] = '#';
                     if(!nbCarIp) saisieIp[0] = '@';
                     if(fichier){
-                        fprintf(fichier, "%d\n%d\n%s\n%s", actuel, volume, nomJoueur, saisieIp);
+                        fprintf(fichier, "%d\n%d\n%s\n%s\n%s\n", actuel, volume, nomJoueur, saisieIp, port);
                         fclose(fichier);
                     }
                     else{
@@ -770,42 +820,8 @@ int menu(int *classe, char * port, char * nbCli){
 
                 //charger param
                 else if(SDL_PointInRect(&point, &tab_img[12].posBoutonFen) && pos_actuelle == DANS_PARAM){
-                    FILE * fichier = fopen(cheminParamTxt, "r");
-                    char joueur[NB_MAX_CAR_JOUEUR];
-
-                    if(fichier){
-                        fscanf(fichier, "%d %d %s %s", &actuel, &volume, joueur, saisieIp);
-                        
-                        if (!strcmp(joueur, "#")){
-                            
-                            nomJoueur[0] = '#';
-                            nbCarJoueur = 0;
-                        } 
-
-                        else{
-                            strcpy(nomJoueur, joueur);
-                            nbCarJoueur = strlen(nomJoueur);
-                        }
-                            
-
-                        if (strcmp(saisieIp, "@") == 0) {
-                            saisieIp[0] = '@';
-                            nbCarIp = 0;
-                        } 
-
-                        else{
-                            nbCarIp = strlen(saisieIp);
-                        }
-                        maj_texte(tab_texte + 6, nomJoueur);
-                        maj_texte(tab_texte + 16, saisieIp);
-                        fclose(fichier);
-                        modifications = 1;
-
-                    }
-                    else{
-                        printf("\nFichier %s introuvable. Veuillez sauvegarder vos paramètres avant de les charger.\n", cheminParamTxt);
-                        end(111);
-                    }
+                    charger_param(cheminParamTxt, &volume, &nbCarIp, port);
+                    modifications = 1;
                 }
 
                 //volume +

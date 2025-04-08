@@ -28,7 +28,7 @@ int main(){
         //être serveur
         if(code == 1 || code == 2){
             char commande[15]; commande[0] = '\0';
-            strcat(commande, " ./serv ");
+            strcat(commande, " ./bin/serv ");
             strcat(commande, port);
             strcat(commande, "&\0");
             system(commande);

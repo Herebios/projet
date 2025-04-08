@@ -150,7 +150,7 @@ int main_server(int port, int nb_clients) {
 							retirer_objet_tuile(tuile, ind);
 							char buffer[30]; buffer[0] = '\0';
 							sprintf(buffer, "%d %d;", GET_OBJET, ind);
- 							printf("\nbuffer : %s; strlen : %d\n", buffer, strlen(buffer));
+ 							printf("\nbuffer : %s; strlen : %ld\n", buffer, strlen(buffer));
 							printf("\nsocket : %d && ind : %d\n", clients[ind_j].socket, ind);
 							send(clients[ind_j].socket, buffer, strlen(buffer), 0);
 						}
