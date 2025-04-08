@@ -80,23 +80,24 @@ $(function() {
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define __CAST_CLIENT__</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;cast.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {onTouch, onEnd} state;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structcast__zone__s.html">cast_zone_s</a> <a class="code hl_struct" href="structcast__zone__s.html">cast_zone_t</a>;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="structcast__zone__s.html">    9</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structcast__zone__s.html">cast_zone_s</a>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_struct" href="structcast__t.html">cast_t</a> cast;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_struct" href="structcomp__s.html">comp_t</a>* comp;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <a class="code hl_struct" href="structpos__t.html">pos_t</a> pos;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>};</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><a class="code hl_struct" href="structcast__zone__s.html">cast_zone_t</a> * newCastZone(<a class="code hl_struct" href="structtuile__t.html">tuile_t</a> *tuile, <a class="code hl_struct" href="structcomp__s.html">comp_t</a> *comp, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <a class="code hl_struct" href="structpos__t.html">pos_t</a> pos);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><a class="code hl_struct" href="structcast__zone__s.html">cast_zone_t</a> *getCastZone(<a class="code hl_struct" href="structtuile__t.html">tuile_t</a> *tuile, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><a class="code hl_struct" href="structcast__zone__s.html">cast_zone_t</a> *removeCastZone(<a class="code hl_struct" href="structtuile__t.html">tuile_t</a> *tuile, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="astructcast__t_html"><div class="ttname"><a href="structcast__t.html">cast_t</a></div><div class="ttdef"><b>Definition</b> cast.h:10</div></div>
-<div class="ttc" id="astructcast__zone__s_html"><div class="ttname"><a href="structcast__zone__s.html">cast_zone_s</a></div><div class="ttdef"><b>Definition</b> cast_client.h:9</div></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">// -lrt ou -lc</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">//seconds : 1.0e-9 ; ms : 1.0e-6</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {onTouch, onEnd} state;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structcast__zone__s.html">cast_zone_s</a> <a class="code hl_struct" href="structcast__zone__s.html">cast_zone_t</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="structcast__zone__s.html">   10</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structcast__zone__s.html">cast_zone_s</a>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_struct" href="structcast__t.html">cast_t</a> cast;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <a class="code hl_struct" href="structcomp__s.html">comp_t</a>* comp;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <a class="code hl_struct" href="structpos__t.html">pos_t</a> pos;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>};</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><a class="code hl_struct" href="structcast__zone__s.html">cast_zone_t</a> * newCastZone(<a class="code hl_struct" href="structtuile__t.html">tuile_t</a> *tuile, <a class="code hl_struct" href="structcomp__s.html">comp_t</a> *comp, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <a class="code hl_struct" href="structpos__t.html">pos_t</a> pos);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><a class="code hl_struct" href="structcast__zone__s.html">cast_zone_t</a> *getCastZone(<a class="code hl_struct" href="structtuile__t.html">tuile_t</a> *tuile, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><a class="code hl_struct" href="structcast__zone__s.html">cast_zone_t</a> *removeCastZone(<a class="code hl_struct" href="structtuile__t.html">tuile_t</a> *tuile, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="astructcast__t_html"><div class="ttname"><a href="structcast__t.html">cast_t</a></div><div class="ttdef"><b>Definition</b> cast.h:11</div></div>
+<div class="ttc" id="astructcast__zone__s_html"><div class="ttname"><a href="structcast__zone__s.html">cast_zone_s</a></div><div class="ttdef"><b>Definition</b> cast_client.h:10</div></div>
 <div class="ttc" id="astructcomp__s_html"><div class="ttname"><a href="structcomp__s.html">comp_s</a></div><div class="ttdef"><b>Definition</b> competences.h:5</div></div>
 <div class="ttc" id="astructpos__t_html"><div class="ttname"><a href="structpos__t.html">pos_t</a></div><div class="ttdef"><b>Definition</b> types.h:18</div></div>
 <div class="ttc" id="astructtuile__t_html"><div class="ttname"><a href="structtuile__t.html">tuile_t</a></div><div class="ttdef"><b>Definition</b> def.h:49</div></div>

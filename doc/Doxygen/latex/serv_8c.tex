@@ -7,7 +7,9 @@ code principal du serveur
 
 {\ttfamily \#include \"{}serv\+\_\+socket.\+h\"{}}\newline
 {\ttfamily \#include \"{}serv\+\_\+jeu.\+h\"{}}\newline
-Include dependency graph for serv.\+c\+:\nopagebreak
+{\ttfamily \#include \"{}serv\+\_\+commun.\+h\"{}}\newline
+Include dependency graph for serv.\+c\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -24,8 +26,8 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{serv_8c_a02d8fcdf971627b7f67e6753c4f97d54}\label{serv_8c_a02d8fcdf971627b7f67e6753c4f97d54} 
-int {\bfseries main\+\_\+server} (int nb\+\_\+clients)
+\Hypertarget{serv_8c_a1c1027f0f1391922c7eb6041d0853f9e}\label{serv_8c_a1c1027f0f1391922c7eb6041d0853f9e} 
+int {\bfseries main\+\_\+server} (int port, int nb\+\_\+clients)
 \item 
 \Hypertarget{serv_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{serv_8c_a0ddf1224851353fc92bfbff6f499fa97} 
 int {\bfseries main} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})

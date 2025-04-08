@@ -1,27 +1,32 @@
 <map id="src/file.h" name="src/file.h">
-<area shape="rect" id="Node000001" title="Fonctions de manipulation de file." alt="" coords="167,5,244,31"/>
-<area shape="rect" id="Node000002" href="$cli__commun_8h_source.html" title=" " alt="" coords="55,79,191,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,42,138,80,134,76,180,38"/>
-<area shape="rect" id="Node000006" href="$serv__commun_8h.html" title=" " alt="" coords="248,79,397,104"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="237,35,305,76,302,81,235,40"/>
+<area shape="rect" id="Node000001" title="Fonctions de manipulation de file." alt="" coords="213,5,291,31"/>
+<area shape="rect" id="Node000002" href="$cli__commun_8h_source.html" title=" " alt="" coords="101,79,237,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,42,185,80,181,76,227,38"/>
+<area shape="rect" id="Node000007" href="$serv__commun_8h.html" title=" " alt="" coords="319,79,468,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="288,34,371,76,369,81,285,39"/>
 <area shape="rect" id="Node000003" href="$cli__jeu_8h_source.html" title=" " alt="" coords="5,152,104,177"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="104,116,68,154,64,150,100,112"/>
-<area shape="rect" id="Node000004" href="$cli_8c_source.html" title=" " alt="" coords="61,225,131,251"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="71,188,92,224,87,227,66,191"/>
-<area shape="rect" id="Node000005" href="$main_8c.html" title=" " alt="" coords="169,299,258,324"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="128,255,196,296,193,301,125,260"/>
-<area shape="rect" id="Node000007" href="$serv__commun_8c.html" title="fonctions communes pour le serv" alt="" coords="129,152,277,177"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="293,113,224,154,221,149,290,109"/>
-<area shape="rect" id="Node000008" href="$serv__jeu_8h.html" title=" " alt="" coords="301,152,413,177"/>
-<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="337,115,354,151,349,153,332,118"/>
-<area shape="rect" id="Node000011" href="$serv__socket_8h.html" title=" " alt="" coords="438,152,573,177"/>
-<area shape="poly" id="edge11_Node000006_Node000011" title=" " alt="" coords="366,106,476,149,474,154,364,111"/>
-<area shape="rect" id="Node000009" href="$serv_8c.html" title="code principal du serveur" alt="" coords="324,225,407,251"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="363,191,367,225,361,226,358,191"/>
-<area shape="rect" id="Node000010" href="$serv__jeu_8c.html" title="fonctions de contrôle du jeu" alt="" coords="189,225,299,251"/>
-<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="329,187,264,227,261,223,326,183"/>
-<area shape="poly" id="edge9_Node000009_Node000005" title=" " alt="" coords="330,259,239,301,237,296,328,254"/>
-<area shape="poly" id="edge12_Node000011_Node000009" title=" " alt="" coords="472,186,389,227,387,223,469,181"/>
-<area shape="rect" id="Node000012" href="$serv__socket_8c.html" title="fonctions socket pour le serv" alt="" coords="439,225,572,251"/>
-<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="508,191,508,225,503,225,503,191"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="141,113,75,154,72,150,138,109"/>
+<area shape="rect" id="Node000004" href="$cli_8h_source.html" title=" " alt="" coords="25,225,97,251"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="60,191,63,225,58,225,54,191"/>
+<area shape="rect" id="Node000005" href="$cli_8c_source.html" title=" " alt="" coords="166,299,237,324"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="97,254,180,296,177,301,95,259"/>
+<area shape="rect" id="Node000006" href="$main_8c.html" title=" " alt="" coords="193,372,282,397"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="216,335,234,371,229,373,211,337"/>
+<area shape="rect" id="Node000008" href="$cast__server_8h_source.html" title=" " alt="" coords="647,152,777,177"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="458,104,661,149,660,154,457,110"/>
+<area shape="rect" id="Node000009" href="$serv_8c.html" title="code principal du serveur" alt="" coords="323,225,405,251"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="413,114,426,144,428,161,425,178,406,207,383,227,379,223,402,203,420,176,423,161,421,146,408,117"/>
+<area shape="rect" id="Node000010" href="$serv__commun_8c.html" title="fonctions communes pour le serv" alt="" coords="263,152,411,177"/>
+<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="378,117,348,154,344,150,373,113"/>
+<area shape="rect" id="Node000011" href="$serv__jeu_8h.html" title=" " alt="" coords="128,152,240,177"/>
+<area shape="poly" id="edge11_Node000007_Node000011" title=" " alt="" coords="347,111,219,154,217,149,346,106"/>
+<area shape="rect" id="Node000013" href="$serv__socket_8h.html" title=" " alt="" coords="487,152,622,177"/>
+<area shape="poly" id="edge14_Node000007_Node000013" title=" " alt="" coords="433,107,529,149,527,154,431,112"/>
+<area shape="poly" id="edge9_Node000009_Node000006" title=" " alt="" coords="347,263,249,374,245,370,343,260"/>
+<area shape="poly" id="edge12_Node000011_Node000009" title=" " alt="" coords="226,180,336,223,334,228,224,185"/>
+<area shape="rect" id="Node000012" href="$serv__jeu_8c.html" title="fonctions de contrôle du jeu" alt="" coords="129,225,239,251"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="187,191,187,225,181,225,181,191"/>
+<area shape="poly" id="edge15_Node000013_Node000009" title=" " alt="" coords="512,185,396,228,394,223,510,180"/>
+<area shape="rect" id="Node000014" href="$serv__socket_8c.html" title="fonctions socket pour le serv" alt="" coords="488,225,621,251"/>
+<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="557,191,557,225,552,225,552,191"/>
 </map>

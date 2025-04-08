@@ -1,0 +1,12 @@
+<map id="src/inventaire.h" name="src/inventaire.h">
+<area shape="rect" id="Node000001" title="fonctions d&#39;affichage de l&#39;inventaire d&#39;un joueur" alt="" coords="5,5,128,31"/>
+<area shape="rect" id="Node000002" href="$cli_8h_source.html" title=" " alt="" coords="31,152,103,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,44,53,73,52,104,65,151,60,152,47,104,47,72,55,43"/>
+<area shape="rect" id="Node000005" href="$cli__jeu_8h_source.html" title=" " alt="" coords="61,79,160,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="83,41,106,77,101,80,79,44"/>
+<area shape="rect" id="Node000003" href="$cli_8c_source.html" title=" " alt="" coords="31,225,102,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="69,191,69,225,64,225,64,191"/>
+<area shape="rect" id="Node000004" href="$main_8c.html" title=" " alt="" coords="22,299,111,324"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="69,264,69,299,64,299,64,264"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="98,117,76,153,72,150,94,114"/>
+</map>
