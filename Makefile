@@ -40,7 +40,7 @@ OBJS_SERV = \
 	$(BIN_DIR)/objet.o
 
 # Cibles
-build: all clean
+.PHONY build: all clean doc
 
 all: client serv
 
@@ -49,6 +49,9 @@ client: $(OBJS_CLIENT) src/Main.c
 
 serv: $(OBJS_SERV)
 	$(CC) $^ -o $(BIN_DIR)/serv $(LDFLAGS)
+
+doc: Doxyfile
+	doxygen Doxyfile
 
 # Règles de compilation des fichiers serveur
 $(BIN_DIR)/serv.o: $(SRC_DIR)/serv.c $(SRC_DIR)/serv_socket.h $(SRC_DIR)/serv_jeu.h

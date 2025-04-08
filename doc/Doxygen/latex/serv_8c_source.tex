@@ -150,7 +150,7 @@
 \DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ retirer\_objet\_tuile(tuile,\ ind);}
 \DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[30];\ buffer[0]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
 \DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sprintf(buffer,\ \textcolor{stringliteral}{"{}\%d\ \%d;"{}},\ GET\_OBJET,\ ind);}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)nbuffer\ :\ \%s;\ strlen\ :\ \%d\(\backslash\)n"{}},\ buffer,\ strlen(buffer));}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)nbuffer\ :\ \%s;\ strlen\ :\ \%ld\(\backslash\)n"{}},\ buffer,\ strlen(buffer));}
 \DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)nsocket\ :\ \%d\ \&\&\ ind\ :\ \%d\(\backslash\)n"{}},\ clients[ind\_j].socket,\ ind);}
 \DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ send(clients[ind\_j].socket,\ buffer,\ strlen(buffer),\ 0);}
 \DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
@@ -220,13 +220,14 @@
 \DoxyCodeLine{00220\ \}}
 \DoxyCodeLine{00221\ }
 \DoxyCodeLine{00222\ \textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ *argv[])\{}
-\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{if}(argc\ !=\ 2)\{}
-\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ puts(\textcolor{stringliteral}{"{}pas\ de\ port"{}});}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{if}(argc\ !=\ 3)\{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ puts(\textcolor{stringliteral}{"{}pas\ de\ port\ ou\ pas\ de\ nbJoueur"{}});}
 \DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
 \DoxyCodeLine{00226\ \ \ \ \ \}}
-\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordflow}{if}(atoi(argv[1])\ >\ 1024)}
-\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ main\_server(atoi(argv[1]),\ 2);}
-\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{00230\ \}}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordtype}{int}\ port\ =\ atoi(argv[1]),\ nbJoueur\ =\ atoi(argv[2]);}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordflow}{if}(port\ \&\&\ nbJoueur)}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ main\_server(port,\ nbJoueur);}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00231\ \}}
 
 \end{DoxyCode}

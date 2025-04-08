@@ -224,7 +224,7 @@ $(function() {
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                            retirer_objet_tuile(tuile, ind);</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                            <span class="keywordtype">char</span> buffer[30]; buffer[0] = <span class="charliteral">&#39;\0&#39;</span>;</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                            sprintf(buffer, <span class="stringliteral">&quot;%d %d;&quot;</span>, GET_OBJET, ind);</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                            printf(<span class="stringliteral">&quot;\nbuffer : %s; strlen : %d\n&quot;</span>, buffer, strlen(buffer));</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                            printf(<span class="stringliteral">&quot;\nbuffer : %s; strlen : %ld\n&quot;</span>, buffer, strlen(buffer));</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                            printf(<span class="stringliteral">&quot;\nsocket : %d &amp;&amp; ind : %d\n&quot;</span>, clients[ind_j].socket, ind);</div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                            send(clients[ind_j].socket, buffer, strlen(buffer), 0);</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                        }</div>
@@ -294,14 +294,15 @@ $(function() {
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>}</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]){</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="keywordflow">if</span>(argc != 2){</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        puts(<span class="stringliteral">&quot;pas de port&quot;</span>);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="keywordflow">if</span>(argc != 3){</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        puts(<span class="stringliteral">&quot;pas de port ou pas de nbJoueur&quot;</span>);</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    }</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keywordflow">if</span>(atoi(argv[1]) &gt; 1024)</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        main_server(atoi(argv[1]), 2);</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>}</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keywordtype">int</span> port = atoi(argv[1]), nbJoueur = atoi(argv[2]);</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordflow">if</span>(port &amp;&amp; nbJoueur)</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        main_server(port, nbJoueur);</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>}</div>
 <div class="ttc" id="aserv__commun_8h_html"><div class="ttname"><a href="serv__commun_8h.html">serv_commun.h</a></div></div>
 <div class="ttc" id="aserv__jeu_8c_html_a77143faecfc66417e853b04ce4c33c7a"><div class="ttname"><a href="serv__jeu_8c.html#a77143faecfc66417e853b04ce4c33c7a">maj_tuile</a></div><div class="ttdeci">void maj_tuile(perso_t *joueurs, int ind_j)</div><div class="ttdoc">!compléter avec les autres infos</div><div class="ttdef"><b>Definition</b> serv_jeu.c:81</div></div>
 <div class="ttc" id="aserv__jeu_8h_html"><div class="ttname"><a href="serv__jeu_8h.html">serv_jeu.h</a></div></div>
