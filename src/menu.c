@@ -382,12 +382,13 @@ créée une texture à partir du chemin vers une image, le stocke dans le champ 
     if(!image->texture) end(5);
 }
 
-void charger_param(char * cheminParamTxt, int * volume, int * nbCarIp){
+void charger_param(char * cheminParamTxt, int * volume, int * nbCarIp, char * port){
     FILE * fichier = fopen(cheminParamTxt, "r");
     char joueur[NB_MAX_CAR_JOUEUR];
+    char port_temp[5];
 
     if(fichier){
-        fscanf(fichier, "%d %d %s %s", &actuel, volume, joueur, saisieIp);
+        fscanf(fichier, "%d %d %s %s %s", &actuel, volume, joueur, saisieIp, port_temp);
         
         if (!strcmp(joueur, "#")){
             
@@ -398,6 +399,17 @@ void charger_param(char * cheminParamTxt, int * volume, int * nbCarIp){
         else{
             strcpy(nomJoueur, joueur);
             nbCarJoueur = strlen(nomJoueur);
+        }
+
+        if (!strcmp(port, "%")){
+            
+            port[0] = '#';
+            nbCarPort = 0;
+        } 
+
+        else{
+            strcpy(port, port_temp);
+            nbCarPort = strlen(port);
         }
             
 
@@ -641,7 +653,7 @@ int menu(int *classe, char * port, char * nbCli){
 
 
 
-    charger_param(cheminParamTxt, &volume, &nbCarIp);
+    charger_param(cheminParamTxt, &volume, &nbCarIp, port);
     aff_menu(&pos_actuelle, tabBoutonsMenu, bouton_select, &volume, nbCarIp, port, nbClients);
     
 
@@ -794,10 +806,11 @@ int menu(int *classe, char * port, char * nbCli){
                 //sauvegarde param
                 else if(SDL_PointInRect(&point, &tab_img[11].posBoutonFen) && pos_actuelle == DANS_PARAM){
                     FILE * fichier = fopen(cheminParamTxt, "w");
+                    if(!nbCarPort) port[0] = '%';
                     if(!nbCarJoueur) nomJoueur[0] = '#';
                     if(!nbCarIp) saisieIp[0] = '@';
                     if(fichier){
-                        fprintf(fichier, "%d\n%d\n%s\n%s", actuel, volume, nomJoueur, saisieIp);
+                        fprintf(fichier, "%d\n%d\n%s\n%s\n%s\n", actuel, volume, nomJoueur, saisieIp, port);
                         fclose(fichier);
                     }
                     else{
@@ -807,7 +820,7 @@ int menu(int *classe, char * port, char * nbCli){
 
                 //charger param
                 else if(SDL_PointInRect(&point, &tab_img[12].posBoutonFen) && pos_actuelle == DANS_PARAM){
-                    charger_param(cheminParamTxt, &volume, &nbCarIp);
+                    charger_param(cheminParamTxt, &volume, &nbCarIp, port);
                     modifications = 1;
                 }
 
