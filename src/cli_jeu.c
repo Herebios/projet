@@ -25,8 +25,8 @@ void init_joueurs_client(perso_t *joueurs){
 
 void charger_sdl_objets(SDL_Texture * textures_objets[NB_OBJETS]){
 	for(int i=0; i<NB_OBJETS; i++){
-		char * objnom = malloc(strlen(tab_objets[i].nom) + strlen("../img/Objets/") + strlen(".jpg") + 1);//ajouter .jpg et "../img/Objets/"
-		strcpy(objnom, "../img/Objets/");
+		char * objnom = malloc(strlen(tab_objets[i].nom) + strlen("img/Objets/") + strlen(".jpg") + 1);//ajouter .jpg et "img/Objets/"
+		strcpy(objnom, "img/Objets/");
         strcat(objnom, tab_objets[i].nom);
 		strcat(objnom, ".jpg");
 		textures_objets[i] = get_nouv_texture(objnom);
@@ -36,7 +36,7 @@ void charger_sdl_objets(SDL_Texture * textures_objets[NB_OBJETS]){
 void charger_sdl_joueurs(perso_t joueurs[], SDL_Texture * textures_joueurs[][4]){
 	memset(textures_joueurs, 0, 32 * nb_joueurs);
 	char * fichier[]={"Face.png", "Dos.png", "Gauche.png", "Droite.png"};
-	char path[128]="../img/Characters/";
+	char path[128]="img/Characters/";
 	int len1=strlen(path);
 	for (int i=0; i<nb_joueurs; i++){
 		switch(joueurs[i].classe){

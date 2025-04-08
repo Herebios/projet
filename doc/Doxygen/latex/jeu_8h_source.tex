@@ -20,37 +20,39 @@
 \DoxyCodeLine{00021\ \textcolor{keyword}{extern}\ SDL\_Renderer\ *renderer;}
 \DoxyCodeLine{00022\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structpos__t}{pos\_t}}\ deplacement[8];\textcolor{comment}{//multiplicateur\ pour\ la\ direction}}
 \DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{keywordtype}{void}\ end(\textcolor{keywordtype}{int});}
-\DoxyCodeLine{00025\ \textcolor{comment}{//Fonctions\ d'initialisation\ du\ jeu}}
-\DoxyCodeLine{00026\ \textcolor{keywordtype}{void}\ init\_sdl(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \textcolor{keywordtype}{void}\ init\_jeu(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{jeu_8h_a8bf0b65ac066bc3f4fc9721527903d6b}{init\_biomes}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{00030\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{jeu_8h_a39f07d6ddf2971c2bb06c57e34c712ae}{init\_map}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{00031\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{jeu_8h_a4bc667978c3923daf59f71d047b6c127}{init\_tuile}}(\mbox{\hyperlink{structtuile__t}{tuile\_t}}*,\ nom\_biome\_t,\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int});}
-\DoxyCodeLine{00032\ \textcolor{keywordtype}{void}\ detruire\_tuile(\mbox{\hyperlink{structtuile__t}{tuile\_t}}*,\ \textcolor{keywordtype}{int}\ mode);}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{jeu_8h_a566f82de4dc2cae01d20bd0c9de30053}{ajouter\_objet\_tuile}}(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *\ t,\ \textcolor{keywordtype}{int}\ ind\_o,\ \mbox{\hyperlink{structpos__t}{pos\_t}}\ pos\_tuile);}
-\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{jeu_8h_aea7f7d4d47b861dbb95f9bd63e12d234}{retirer\_objet\_tuile}}(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *\ t,\ \textcolor{keywordtype}{int}\ ind\_o);}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ ajouter\_joueur\_tuile(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *\ t,\ \textcolor{keywordtype}{int}\ ind\_j);}
-\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ retirer\_joueur\_tuile(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *\ t,\ \textcolor{keywordtype}{int}\ ind\_j);}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ nouv\_texture(\textcolor{keywordtype}{char}*,\ SDL\_Texture\ *textures[],\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*);}
-\DoxyCodeLine{00042\ SDL\_Texture\ *\ get\_nouv\_texture(\textcolor{keywordtype}{char}*);}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \textcolor{comment}{//a\ dans\ b}}
-\DoxyCodeLine{00045\ \textcolor{keywordtype}{int}\ inclus(SDL\_Rect*\ a,\ SDL\_Rect*\ b);}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{jeu_8h_a24dff0add127c4fc4b5a818d483e1403}{avancer}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{void}\ end(\textcolor{keywordtype}{int});}
+\DoxyCodeLine{00026\ \textcolor{comment}{//Fonctions\ d'initialisation\ du\ jeu}}
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}\ init\_sdl(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ init\_jeu(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{jeu_8h_a8bf0b65ac066bc3f4fc9721527903d6b}{init\_biomes}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{jeu_8h_a39f07d6ddf2971c2bb06c57e34c712ae}{init\_map}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{jeu_8h_a4bc667978c3923daf59f71d047b6c127}{init\_tuile}}(\mbox{\hyperlink{structtuile__t}{tuile\_t}}*,\ nom\_biome\_t,\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{void}\ detruire\_tuile(\mbox{\hyperlink{structtuile__t}{tuile\_t}}*,\ \textcolor{keywordtype}{int}\ mode);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{jeu_8h_a566f82de4dc2cae01d20bd0c9de30053}{ajouter\_objet\_tuile}}(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *\ t,\ \textcolor{keywordtype}{int}\ ind\_o,\ \mbox{\hyperlink{structpos__t}{pos\_t}}\ pos\_tuile);}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{jeu_8h_aea7f7d4d47b861dbb95f9bd63e12d234}{retirer\_objet\_tuile}}(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *\ t,\ \textcolor{keywordtype}{int}\ ind\_o);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ ajouter\_joueur\_tuile(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *\ t,\ \textcolor{keywordtype}{int}\ ind\_j);}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{void}\ retirer\_joueur\_tuile(\mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *\ t,\ \textcolor{keywordtype}{int}\ ind\_j);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{void}\ nouv\_texture(\textcolor{keywordtype}{char}*,\ SDL\_Texture\ *textures[],\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*);}
+\DoxyCodeLine{00043\ SDL\_Texture\ *\ get\_nouv\_texture(\textcolor{keywordtype}{char}*);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{//a\ dans\ b}}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{int}\ inclus(SDL\_Rect*\ a,\ SDL\_Rect*\ b);}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{char}\ collision(SDL\_Rect\ a,\ SDL\_Rect\ b);}
 \DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *\ get\_tuile\_from\_pos(\mbox{\hyperlink{structpos__t}{pos\_t}}\ pos);}
-\DoxyCodeLine{00050\ \mbox{\hyperlink{structpos__t}{pos\_t}}\ get\_pos\_from\_coo(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y);}
-\DoxyCodeLine{00051\ \mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *get\_tuile\_joueur(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *\ p);}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \textcolor{comment}{//pos\_tuile}}
-\DoxyCodeLine{00054\ \textcolor{keywordtype}{void}\ position\_perso(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *p,\ \mbox{\hyperlink{structpos__t}{pos\_t}}*\ pos);}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{jeu_8h_a24dff0add127c4fc4b5a818d483e1403}{avancer}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *\ get\_tuile\_from\_pos(\mbox{\hyperlink{structpos__t}{pos\_t}}\ pos);}
+\DoxyCodeLine{00052\ \mbox{\hyperlink{structpos__t}{pos\_t}}\ get\_pos\_from\_coo(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y);}
+\DoxyCodeLine{00053\ \mbox{\hyperlink{structtuile__t}{tuile\_t}}\ *get\_tuile\_joueur(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *\ p);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{//pos\_tuile}}
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{void}\ position\_perso(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *p,\ \mbox{\hyperlink{structpos__t}{pos\_t}}*\ pos);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

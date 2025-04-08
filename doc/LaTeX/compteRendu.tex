@@ -26,7 +26,7 @@
         \href{https://github.com/Herebios/projet}{Lien vers le Github}
     }
     
-    \author{Baptiste M, Lucas R, Nathan M, Ilann T} 
+    \author{Baptiste Moulay, Lucas Revebel--Longhi, Nathan Morin, Ilann Thourault} 
     \date{\today} 
     \maketitle
 
@@ -57,10 +57,10 @@
     Le serveur communique avec les clients en envoyant toutes les informations nécessaires à l’affichage du jeu par le client qui renvoie des informations au serveur 
     en fonction des actions du joueur.
     
-    \section{Organisation du Projet}
+    \section{Organisation du projet}
     Le groupe a organisé le travail autour de différents outils pour contrôler l’avancement du projet. Le dépôt git sert à stocker les fichiers. Un document partagé Google Drive a servi à noter les idées au lancement du projet et à préparer le compte-rendu. Puis, l’application Trello et un diagramme de Gantt nous ont permis de répartir les tâches efficacement au cours du temps.
 
-        \subsection{Planning Prévisionnel}
+        \subsection{Planning prévisionnel}
         Ci-dessous notre planning prévisionnel sur 3 mois. (Voir Figure~\ref{fig:Gant})
         \begin{figure}[H]
             \begin{center}
@@ -75,7 +75,7 @@
         Nous nous sommes répartis les tâches de la manière suivante :
         \begin{itemize}
             \item Baptiste : affichage du client, déplacement d’un personnage, gestion de la carte et des tuiles. Réalisation de la partie réseau, de l’envoi des informations au lancement du jeu, le format des messages, la mémorisation et le traitement des informations du jeu pour le client et le serveur.       
-            \item Lucas : réalisation du réseau de neurones, une partie qu'il n’est pas possible de rattacher au jeu dans son état actuel. Lucas a aussi sa part dans la partie réseaux avec la création de la file et la mise en place des threads et de l’écoute des flux. Les compétences ont aussi été développées, dans l’état l’implémentation n’est pas concluante et ne peut pas être ajoutée au jeu. Résolution de nombreux bugs dans tout le projet. 
+            \item Lucas : réalisation du réseau de neurones comme adversaire pour les joueurs, une partie qu'il n’est pas possible de rattacher au jeu dans son état actuel. Lucas a aussi sa part dans la partie réseaux avec la création de la file et la mise en place des threads et de l’écoute des flux. Les compétences ont aussi été développées, dans l’état l’implémentation n’est pas concluante et ne peut pas être ajoutée au jeu. Résolution de nombreux bugs dans tout le projet. 
             \item Ilann : réalisation du menu, dans le but de récupérer le pseudo, le personnage ainsi que l'adresse IP d’un joueur ou serveur. Réalisation de l’affichage des objets dans l’inventaire des joueurs ainsi que leur récupération sur la carte et la possibilité de les relâcher.  
             \item Nathan : réalisation des statistiques des personnages, création des objets permettant la modification des statistiques du joueur et implémentation des monstres (partiellement intégrés au jeu). Génération de beaucoup d'images et de textures de la map, laissant une liberté de choix graphique.
         \end{itemize}
@@ -104,7 +104,7 @@
                     \label{fig:OrbeMystique}
                 \end{minipage}
             \end{figure}
-            \subsubsection{Sprites et Personnages}
+            \subsubsection{Sprites et personnages}
             Quatre personnages sont présents dans le jeu :
             \begin{itemize}
                 \item Archer
@@ -132,7 +132,7 @@
                     \label{fig:Archer}
                 \end{minipage}
             \end{figure}
-            \subsubsection{Tuiles et Biomes}
+            \subsubsection{Tuiles et biomes}
             Six biomes différents sont implémentés dans le jeu.\\
             Chaque biome a :
             \begin{itemize}
@@ -350,7 +350,7 @@
             Il renvoie ensuite à tous les joueurs présents sur la tuile, la position de ce joueur s'il se déplace.\\\\
             Le serveur s'arrête à la fin du jeu, c'est-à-dire au moment où les joueurs se déconnectent en renvoyant le code d'arrêt '!'.
 
-        \subsection{Rendu Graphique}
+        \subsection{Rendu graphique}
         Cette partie traitera de l'utilisation de la librairie SDL2 qui sert pour le rendu graphique du jeu.
             \subsubsection{Menu Principal}
             Nous allons maintenant présenter la mise en œuvre du menu principal de notre jeu. 
@@ -421,10 +421,10 @@
                 \paragraph{Gestion des événements du menu}\leavevmode\newline
                 Les événements en SDL sont gérés à l’aide d’une structure \textit{SDL\_Event} fournie par SDL. Nous nous en servons dans notre projet pour détecter les clics de la souris et les touches pressées au clavier. 
 
-                    \subparagraph{souris}\leavevmode\newline
+                    \subparagraph{Souris}\leavevmode\newline
                     Les clics souris sont assez simples à gérer : si l’événement est de type clic de souris, on crée un \textit{\texttt{SDL\_Point}\footnote{une position sur la fenêtre représentée par deux coordonnées x et y.}} correspondant aux coordonnées du curseur de la souris. De nombreuses conditions testent si le clic de la souris est inclus dans le rectangle d’un bouton à l’aide de la fonction \textit{SDL\_PointInRect} et de la valeur de \textit{pos\_actuelle}. En fonction des boutons cliqués, différentes actions se passent. Il est possible de naviguer entre les différentes sections du menu de cette manière. 
 
-                    \subparagraph{clavier}\leavevmode\newline
+                    \subparagraph{Clavier}\leavevmode\newline
                     Les saisies au clavier servent à modifier des chaînes de caractères (adresse IP, pseudo du joueur) mais aussi à se déplacer dans les sections du mens à l’aide des flèches et des touches frappées. La saisie de l’adresse IP se fait via un switch dans la fonction \textit{saisie\_touche\_ip} vue précédemment. \\
                     Pour la saisie du nom du joueur, on ajoute simplement chaque caractère alphanumérique à la chaîne du nom du joueur. \\
                     Il est possible de supprimer les caractères dans les deux saisies.\\

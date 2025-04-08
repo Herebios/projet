@@ -1,0 +1,77 @@
+\doxysection{src/inventaire.h File Reference}
+\hypertarget{inventaire_8h}{}\label{inventaire_8h}\index{src/inventaire.h@{src/inventaire.h}}
+
+
+fonctions d\textquotesingle{}affichage de l\textquotesingle{}inventaire d\textquotesingle{}un joueur  
+
+
+{\ttfamily \#include \"{}perso.\+h\"{}}\newline
+{\ttfamily \#include \"{}prepro.\+h\"{}}\newline
+{\ttfamily \#include \"{}objet.\+h\"{}}\newline
+Include dependency graph for inventaire.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{inventaire_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{inventaire_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{inventaire_8h_a81c0ba8fc0d50e98ffd2487845639ce9}{chemin\+\_\+objet}} (\mbox{\hyperlink{structobjet__s}{objet\+\_\+t}} \texorpdfstring{$\ast$}{*}obj)
+\begin{DoxyCompactList}\small\item\em Renvoie le chemin vers le fichier de l\textquotesingle{}image correspondant à l\textquotesingle{}objet. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{inventaire_8h_a6be2d17c175707261c5d365c6cd8a5c3}{show\+\_\+inventaire}} (SDL\+\_\+\+Renderer \texorpdfstring{$\ast$}{*}renderer, \mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}perso)
+\begin{DoxyCompactList}\small\item\em Affiche l\textquotesingle{}inventaire d\textquotesingle{}un joueur en bas de son écran. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+fonctions d\textquotesingle{}affichage de l\textquotesingle{}inventaire d\textquotesingle{}un joueur 
+
+\begin{DoxyAuthor}{Author}
+Ilann 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{inventaire_8h_a81c0ba8fc0d50e98ffd2487845639ce9}\label{inventaire_8h_a81c0ba8fc0d50e98ffd2487845639ce9} 
+\index{inventaire.h@{inventaire.h}!chemin\_objet@{chemin\_objet}}
+\index{chemin\_objet@{chemin\_objet}!inventaire.h@{inventaire.h}}
+\doxysubsubsection{\texorpdfstring{chemin\_objet()}{chemin\_objet()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} chemin\+\_\+objet (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structobjet__s}{objet\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{obj }\end{DoxyParamCaption})}
+
+
+
+Renvoie le chemin vers le fichier de l\textquotesingle{}image correspondant à l\textquotesingle{}objet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & Le pointeur sur objet \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Une chaîne de caractères 
+\end{DoxyReturn}
+\Hypertarget{inventaire_8h_a6be2d17c175707261c5d365c6cd8a5c3}\label{inventaire_8h_a6be2d17c175707261c5d365c6cd8a5c3} 
+\index{inventaire.h@{inventaire.h}!show\_inventaire@{show\_inventaire}}
+\index{show\_inventaire@{show\_inventaire}!inventaire.h@{inventaire.h}}
+\doxysubsubsection{\texorpdfstring{show\_inventaire()}{show\_inventaire()}}
+{\footnotesize\ttfamily void show\+\_\+inventaire (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer \texorpdfstring{$\ast$}{*}}]{renderer,  }\item[{\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{perso }\end{DoxyParamCaption})}
+
+
+
+Affiche l\textquotesingle{}inventaire d\textquotesingle{}un joueur en bas de son écran. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em perso} & Un personnage \\
+\hline
+{\em renderer} & Pour l\textquotesingle{}affichage SDL \\
+\hline
+\end{DoxyParams}
