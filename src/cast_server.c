@@ -10,7 +10,7 @@ cast_zone_t * newCastZone(tuile_t *tuile, comp_t *comp, pos_t pos, struct timesp
     ajout_fin_liste(tuile->liste_casts, cast, sizeof (cast_zone_t *));
 
     char paquet[512];
-    sprintf(paquet, "%d",)
+    //  sprintf(paquet, "%d",);
 
 
     sprintf(paquet, ";\0");
