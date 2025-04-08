@@ -87,7 +87,7 @@ void init_biomes(){
 	//charger textures
 	biome_t *biome;
 	char *noms[]={"base", "desert", "foret", "glace", "montagne", "neige", "plaine"};
-	char path[100]="../img/Tiles/Biomes/";
+	char path[100]="img/Tiles/Biomes/";
 	for(i=0; i<NB_BIOMES; i++){
 	    //!! base, id 0
 	    if(i){
@@ -111,7 +111,7 @@ void init_biomes(){
 	                break;
 	        }
 			nouv_texture(path, biome->textures, &biome->nb_textures);
-			path[20]='\0';//"../img/Tiles/Biomes/"
+			path[20]='\0';//"img/Tiles/Biomes/"
 	    }
 	    }
 	}
