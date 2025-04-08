@@ -10,8 +10,8 @@ SDL_Rect inventaire[5] = {(SDL_Rect){W * 0.31, H * 0.91, RECT_INVENTAIRE, RECT_I
                     (SDL_Rect){W * 0.73, H * 0.91, RECT_INVENTAIRE, RECT_INVENTAIRE}};
 
 char * chemin_objet(objet_t * obj){
-    char * chaine = malloc(strlen("../img/Objets/") + strlen(obj->nom) + strlen(".jpg") + 1);
-    strcpy(chaine, "../img/Objets/");
+    char * chaine = malloc(strlen("img/Objets/") + strlen(obj->nom) + strlen(".jpg") + 1);
+    strcpy(chaine, "img/Objets/");
     strcat(chaine, obj->nom);
     strcat(chaine, ".jpg");
     return chaine;
