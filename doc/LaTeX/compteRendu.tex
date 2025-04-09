@@ -40,7 +40,7 @@
     Pendant une partie, deux équipes s’affrontent pour détruire la base adverse tout en protégeant la leur.
     Nous nous sommes fixé comme contrainte de développer ce jeu en réseau.
 
-    \section{Analyse}
+    \section{Présentation du jeu}
     Dans le menu, chaque joueur choisit son pseudo ainsi que la classe de son personnage, ce qui lui confère des capacités uniques qu’il peut utiliser au cours de la partie pour prendre l’avantage sur l’équipe adverse.
     Vous avez alors le choix entre être le serveur de la partie, être joueur d’une partie ou être les deux à la fois. \\
     Après cela, vous arrivez dans une salle d’attente, en attendant que les autres joueurs se joignent à vous. Une fois que la personne jouant le rôle de serveur lance la partie, le jeu démarre. \\
@@ -53,10 +53,16 @@
     Chaque objet a une rareté et confère au joueur différents effets. Plus la rareté de l’objet est élevée, plus les effets bonus conférés au joueur sont importants. \\
     Un système de combat est mis en place entre les joueurs d’équipes différentes lorsqu’ils se trouvent sur la même tuile. \\
     Les points de vie ainsi que les objets du joueur sont affichés sur son écran à la manière d’un inventaire \href{https://fr.wikipedia.org/wiki/Minecraft}{Minecraft}.\\ 
-    La gestion des entités dynamiques et des tuiles de la map est réalisée grâce à l’implémentation d’une liste générique. 
     Le serveur communique avec les clients en envoyant toutes les informations nécessaires à l’affichage du jeu par le client qui renvoie des informations au serveur 
     en fonction des actions du joueur.
-    
+
+	\section{Analyse}
+	Nous allons développer différents modules pour structurer le code.
+	Il y aura un menu pour le jeu. Différents boutons devront être présents pour lancer le jeu, que ce soit le serveur ou les clients. Le client rejoindra le serveur avec son adresse IP.
+	Différents modules vont implémenter les éléments du jeu : les personnages, les objets, les monstres, les compétences.
+	Enfin, le code principal du jeu sera divisé entre le client et le serveur. Chacun aura des fonctions pour communiquer en réseau et d'autres de gestion du jeu en trois parties : celles propres au client, celles propres au serveur et celles communes.
+	Nous aurons besoin de structures de données. Nous utiliserons une file pour la gestion des messages réseau en interne. La gestion des entités dynamiques des tuiles de la map sera réalisée avec l’implémentation d’une liste générique.
+   
     \section{Organisation du projet}
     Le groupe a organisé le travail autour de différents outils pour contrôler l’avancement du projet. Le dépôt git sert à stocker les fichiers. Un document partagé Google Drive a servi à noter les idées au lancement du projet et à préparer le compte-rendu. Puis, l’application Trello et un diagramme de Gantt nous ont permis de répartir les tâches efficacement au cours du temps.
 
