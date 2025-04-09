@@ -152,7 +152,9 @@ int main_server(int port, int nb_clients) {
 							sprintf(buffer, "%d %d;", GET_OBJET, ind);
  							printf("\nbuffer : %s; strlen : %ld\n", buffer, strlen(buffer));
 							printf("\nsocket : %d && ind : %d\n", clients[ind_j].socket, ind);
-							send(clients[ind_j].socket, buffer, strlen(buffer), 0);
+							for(tete_liste(tuile->liste_joueurs); !hors_liste(tuile->liste_joueurs); suivant_liste(tuile->liste_joueurs)){
+								send(clients[*(int*)get_liste(tuile->liste_joueurs)].socket, buffer, strlen(buffer), 0);
+							}
 						}
 					}
 					break;

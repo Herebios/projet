@@ -235,7 +235,9 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 				case GET_OBJET:{
 					int ind_o;
 					sscanf(data_skip(data, 1), "%d", &ind_o);
+					tuile_t * tuile = get_tuile_from_pos(j->pos_map);
 					ajouter_objet_joueur(j, ind_o);
+					retirer_objet_tuile(tuile, ind_o);
 				}
 			}
 			free(data);

@@ -1,9 +1,7 @@
 <map id="src/serv_socket.h" name="src/serv_socket.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="48,5,183,31"/>
-<area shape="rect" id="Node000002" href="$serv_8c.html" title="code principal du serveur" alt="" coords="9,79,91,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,43,63,80,59,77,93,39"/>
-<area shape="rect" id="Node000004" href="$serv__socket_8c.html" title="fonctions socket pour le serv" alt="" coords="115,79,249,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,39,173,77,169,80,134,43"/>
-<area shape="rect" id="Node000003" href="$main_8c.html" title=" " alt="" coords="5,152,95,177"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="53,118,53,152,47,152,47,118"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="45,5,179,31"/>
+<area shape="rect" id="Node000002" href="$serv_8c.html" title="code principal du serveur" alt="" coords="5,79,88,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,43,59,80,55,77,90,39"/>
+<area shape="rect" id="Node000003" href="$serv__socket_8c.html" title="fonctions socket pour le serv" alt="" coords="112,79,245,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="134,39,170,77,166,80,131,43"/>
 </map>
