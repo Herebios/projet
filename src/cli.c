@@ -238,6 +238,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 					tuile_t * tuile = get_tuile_from_pos(j->pos_map);
 					ajouter_objet_joueur(j, ind_o);
 					retirer_objet_tuile(tuile, ind_o);
+					show_inventaire(renderer, j);
 				}
 			}
 			free(data);
@@ -259,7 +260,6 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 			objet_tuile_t * obj = get_liste(tuile_courante->liste_objets);
 			SDL_RenderCopy(renderer, textures_objets[obj->objet->ind], NULL, &(SDL_Rect){obj->pos.x * CARRE_W, obj->pos.y * CARRE_H, CARRE_W, CARRE_H});
 		}
-		show_inventaire(renderer, j);
 
 
 
