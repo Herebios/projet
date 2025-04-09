@@ -236,7 +236,6 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 					int ind_o, ind_p;
 					sscanf(data_skip(data, 1), "%d %d", &ind_o, &ind_p);
 					tuile_t * tuile = get_tuile_from_pos(j->pos_map);
-					printf("%d", ind_p);
 					if (j->iperso == ind_p){
 						ajouter_objet_joueur(j, ind_o);
 					}
