@@ -40,7 +40,7 @@ OBJS_SERV = \
 	$(BIN_DIR)/objet.o
 
 # Cibles
-.PHONY build: all clean doc
+.PHONY build: all clean
 
 all: client serv
 
