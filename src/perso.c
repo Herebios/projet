@@ -29,29 +29,17 @@ void creer_perso(perso_t * p, classe_t classe, char * nom, int indice, int equip
 
 	//stats de base en fonction de la classe
 	switch(classe){
-		case tank:
-            memcpy(p->stats_base, (int[4]){120,60,5,8}, sizeof(int[4]));
-			break;
-		case guerrier:
-            memcpy(p->stats_base, (int[4]){100,50,10,16}, sizeof(int[4]));
-			break;
 		case mage:
 			memcpy(p->stats_base, (int[4]){50,10,50,12}, sizeof(int[4]));
 			break;
 		case archer:
-			memcpy(p->stats_base, (int[4]){60,40,15,18}, sizeof(int[4]));
-			break;
-		case informaticien:
-			memcpy(p->stats_base, (int[4]){70,15,20,12}, sizeof(int[4]));
+			memcpy(p->stats_base, (int[4]){60,40,15,15}, sizeof(int[4]));
 			break;
 		case ninja:
-			memcpy(p->stats_base, (int[4]){65,30,10,20}, sizeof(int[4]));
-			break;
-		case druide:
-			memcpy(p->stats_base, (int[4]){85,25,40,14}, sizeof(int[4]));
+			memcpy(p->stats_base, (int[4]){65,30,10,16}, sizeof(int[4]));
 			break;
 		case vampire:
-			memcpy(p->stats_base, (int[4]){90,30,20,20}, sizeof(int[4]));
+			memcpy(p->stats_base, (int[4]){90,30,20,13}, sizeof(int[4]));
 			break;
 	}
 	update_stats(p);

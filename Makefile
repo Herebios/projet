@@ -97,7 +97,12 @@ $(BIN_DIR)/inventaire.o: $(SRC_DIR)/inventaire.c $(SRC_DIR)/inventaire.h
 $(BIN_DIR)/menu.o: $(SRC_DIR)/menu.c $(SRC_DIR)/menu.h
 	$(CC) $(SRC_DIR)/menu.c -o $@ -c -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
+mrproprer: clean
+	rm $(BIN_DIR)/VoidBorn $(BIN_DIR)/serv $(BIN_DIR)/cli
+
 # Nettoyage
 clean:
-	rm -f $(BIN_DIR)/*.o $(BIN_DIR)/VoidBorn $(BIN_DIR)/serv $(BIN_DIR)/cli
+	rm -f $(BIN_DIR)/*.o
+
+
 .PHONY: all build clean client serv
