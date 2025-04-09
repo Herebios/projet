@@ -148,12 +148,15 @@ int main_server(int port, int nb_clients) {
 							int ind = obj->objet - tab_objets;
 							ajouter_objet_joueur(p, ind);
 							retirer_objet_tuile(tuile, ind);
-							char buffer[30]; buffer[0] = '\0';
-							sprintf(buffer, "%d %d;", GET_OBJET, ind);
+							char buffer[32]; buffer[0] = '\0';
+							sprintf(buffer, "%d %d ", GET_OBJET, ind);
  							printf("\nbuffer : %s; strlen : %ld\n", buffer, strlen(buffer));
 							printf("\nsocket : %d && ind : %d\n", clients[ind_j].socket, ind);
 							for(tete_liste(tuile->liste_joueurs); !hors_liste(tuile->liste_joueurs); suivant_liste(tuile->liste_joueurs)){
-								send(clients[*(int*)get_liste(tuile->liste_joueurs)].socket, buffer, strlen(buffer), 0);
+								int p = *(int*)get_liste(tuile->liste_joueurs);
+								sprintf(buffer, "%1d;", p);
+								send(clients[p].socket, buffer, strlen(buffer), 0);
+								buffer[30] = '\0';
 							}
 						}
 					}
