@@ -219,8 +219,6 @@ void nouv_texture(char * path, SDL_Texture *textures[], unsigned char *nb_textur
     SDL_Surface *surface = IMG_Load(path);
     if(textures[*nb_textures] = SDL_CreateTextureFromSurface(renderer, surface))
         (*nb_textures)++;
-    else    
-        printf("erreur chargement de la texture\n");
     SDL_FreeSurface(surface);
 }
 
