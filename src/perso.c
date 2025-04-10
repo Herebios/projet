@@ -116,21 +116,22 @@ void update_stats(perso_t * p) {
     }
 }
 
-void ajouter_objet_joueur(perso_t * perso, int ind_obj) {
+int ajouter_objet_joueur(perso_t * perso, int ind_obj) {
     int i=0;
-	printf("ajout obj\n");
     //trouver la première place libre
     while(perso->objets[i] && i<PERSO_OBJETS_MAX) i++;
-    if(i==PERSO_OBJETS_MAX)return;//pas de place
+    if(i==PERSO_OBJETS_MAX)return 0;//pas de place
     perso->objets[i] = tab_objets+ind_obj;
 	perso->textures_objets[i] = IMG_LoadTexture(renderer, chemin_objet(tab_objets + ind_obj));
+	update_stats(perso);
+	return 1;
 }
 void retirer_objet_joueur(perso_t * perso, int ind_inv) {
-	printf("retrait obj\n");
     perso->objets[ind_inv] = NULL;
 	if(perso->textures_objets[ind_inv] != NULL){
 		SDL_DestroyTexture(perso->textures_objets[ind_inv]);
 	perso->textures_objets[ind_inv] = NULL;
+	update_stats(perso);
 	}
 }
 /*

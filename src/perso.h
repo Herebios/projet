@@ -70,8 +70,9 @@ void update_stats(perso_t *);
  * @brief Ajoute un objet à l'inventaire d'un joueur
  * @param Pointeur sur perso
  * @param Indice de l'objet dans tab_objets
+ * @return un entier
  */
-void ajouter_objet_joueur(perso_t *, int);
+int ajouter_objet_joueur(perso_t *, int);
 
 /**
  * @brief Retire un objet de l'inventaire du joueur
