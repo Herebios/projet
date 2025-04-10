@@ -483,8 +483,7 @@ int menu(int *classe, char * port, char * nbCli){
         //end(100);
     }
     
-    Mix_VolumeMusic(volume);
-    Mix_PlayMusic(musique, -1);
+    
     
 
     //récupère la taille de la fenêtre
@@ -653,6 +652,10 @@ int menu(int *classe, char * port, char * nbCli){
 
 
     charger_param(cheminParamTxt, &volume, &nbCarIp, port, nbClients);
+
+    Mix_VolumeMusic(volume);
+    Mix_PlayMusic(musique, -1);
+    
     aff_menu(&pos_actuelle, tabBoutonsMenu, bouton_select, &volume, nbCarIp, port, nbClients);
     
 
