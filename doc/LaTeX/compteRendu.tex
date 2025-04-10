@@ -57,11 +57,36 @@
     en fonction des actions du joueur.
 
 	\section{Analyse}
-	Nous allons développer différents modules pour structurer le code.
-	Il y aura un menu pour le jeu. Différents boutons devront être présents pour lancer le jeu, que ce soit le serveur ou les clients. Le client rejoindra le serveur avec son adresse IP.
-	Différents modules vont implémenter les éléments du jeu : les personnages, les objets, les monstres, les compétences.
-	Enfin, le code principal du jeu sera divisé entre le client et le serveur. Chacun aura des fonctions pour communiquer en réseau et d'autres de gestion du jeu en trois parties : celles propres au client, celles propres au serveur et celles communes.
-	Nous aurons besoin de structures de données. Nous utiliserons une file pour la gestion des messages réseau en interne. La gestion des entités dynamiques des tuiles de la map sera réalisée avec l’implémentation d’une liste générique.
+	Nous allons développer différents modules pour structurer le jeu.
+        \subsection{Menu Principal}
+        Il permet au joueur de saisir différentes informations telles que la classe de son personnage, souhaite-t-il être client ou serveur etc. 
+        Pour sélectionner ces paramètres via le menu, il nous a fallu créer un système de gestion de boutons. 
+        Grâce à l'utilisation des événements de la bibliothèque SDL, il a été simple d'implémenter cette fonctionnalitée. Le client rejoins le serveur en 
+        saisissant son adresse IP dans le menu. 
+        \subsection{Map}
+        La carte du jeu est construite à partir de différentes tuiles, chacune incluant une grille de cases.
+        Chaque tuile possède un biome qui modifie la texture des cases qu'elle possède.
+        Les cases peuvent être de différents types, pour par exemple faire en sorte que le joueur puisse sortir d'une tuile en se mettant sur les bonnes cases.
+        La carte est créé procéduralement, à partir de la génération d'une graine aléatoire.
+        Pour la gestion des objets, compétences, joueurs, qui vous seront présenté ensuite, chaque tuile utilise plusieurs listes génériques. 
+        \subsection{Objets}
+        Les objets possèdent 4 statistiques qui vont altérer le gameplay du joueur qui les porte.
+        Chacune de ces statistiques va soit s'ajouter soit multiplier celles déjà présentes sur le joueur.
+        Le joueur peut récupérer un objet au sol, en se déplaçant sur l'objet et en appuyant sur la touche E.
+        L'objet est ensuite ajouté à l'inventaire du joueur s'il lui reste de la place.
+        Pour ne plus avoir les effets d'un objet, ou pour pouvoir en récupérer un autre, le joueur peut relâcher un objet sur la tuile grâce aux touches 1 à 5.
+        \subsection{Compétences}
+        Les compétences sont définies dés le démarrage du jeu, en fonction du personnage choisi par le joueur.
+        Un même personnage possède différents types de compétences, chacune avec des comportements différens.
+        Dans tout les cas, la compétence lancée va évoluer tout au long de sa durée de vie, en se déplaçant, en touchant des joueurs etc jusqu'à sa disparition.
+        \subsection{Réseau}
+        La communication entre les clients et le serveur se base sur l'écoute de flux.
+        Ce principe force l'utilisation de threads et l'implémentation d'une file commune à tous les threads du jeu.
+        Une phase d'attente est mise en place.
+        Ensuite les paquets utilisent une table pour préciser l'action des joueurs (changer de tuile, se tourner ou se déplacer).
+        Il faut aussi fermer le réseau une fois que la déconnexion des joueurs a commencé.
+
+
    
     \section{Organisation du projet}
     Le groupe a organisé le travail autour de différents outils pour contrôler l’avancement du projet. Le dépôt git sert à stocker les fichiers. Un document partagé Google Drive a servi à noter les idées au lancement du projet et à préparer le compte-rendu. Puis, l’application Trello et un diagramme de Gantt nous ont permis de répartir les tâches efficacement au cours du temps.
