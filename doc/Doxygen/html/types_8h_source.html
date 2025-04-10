@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TempSDL_Project: src/types.h Source File</title>
+<title>VoidBorn: src/types.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">TempSDL_Project
+   <div id="projectname">VoidBorn
    </div>
   </td>
  </tr>
@@ -46,6 +46,11 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -85,7 +90,7 @@ $(function() {
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {sortie, normal, obstacle1, obstacle2, NB_TEXTURES_BIOME} type_carre;</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {base, desert, foret, glace, montagne, neige, plaine, NB_BIOMES} nom_biome_t;</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="comment">//foret, volcan, marais, grotte, enfer, tour_magie, chateau_fort</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {administrateur, tank, guerrier, mage, archer, informaticien, ninja, druide, vampire, NB_CLASSES} classe_t;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {mage, archer, ninja, vampire, NB_CLASSES} classe_t;</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {vie, force, magie, speed, NB_STATS} stat_t;</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {zone, projectile, instant} comp_type;</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {atk1, atk2, skill, mouv, NB_COMP} icomp_t;</div>
@@ -93,10 +98,12 @@ $(function() {
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structcomp__s.html">comp_s</a> <a class="code hl_struct" href="structcomp__s.html">comp_t</a>;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structobjet__s.html">objet_s</a> <a class="code hl_struct" href="structobjet__s.html">objet_t</a>;</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structperso__s.html">perso_s</a> <a class="code hl_struct" href="structperso__s.html">perso_t</a>;</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structpos__t.html">   18</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordtype">int</span> x;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordtype">int</span> y;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}<a class="code hl_struct" href="structpos__t.html">pos_t</a>;</div>
+</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#endif</span></div>

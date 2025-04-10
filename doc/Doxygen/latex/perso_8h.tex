@@ -5,11 +5,11 @@
 Permet la créations de personnages des joueurs.  
 
 
-{\ttfamily \#include \"{}prepro.\+h\"{}}\newline
-{\ttfamily \#include \"{}objet.\+h\"{}}\newline
-{\ttfamily \#include \"{}competences.\+h\"{}}\newline
-{\ttfamily \#include \"{}SDL\+\_\+def.\+h\"{}}\newline
-{\ttfamily \#include \"{}types.\+h\"{}}\newline
+{\ttfamily \#include "{}prepro.\+h"{}}\newline
+{\ttfamily \#include "{}objet.\+h"{}}\newline
+{\ttfamily \#include "{}competences.\+h"{}}\newline
+{\ttfamily \#include "{}SDL\+\_\+def.\+h"{}}\newline
+{\ttfamily \#include "{}types.\+h"{}}\newline
 Include dependency graph for perso.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -17,8 +17,7 @@ Include dependency graph for perso.\+h\+:\nopagebreak
 \includegraphics[width=350pt]{perso_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -49,7 +48,7 @@ void \mbox{\hyperlink{perso_8h_ad42e66c8b4d2342b9393e58e6064dcf0}{afficher\+\_\+
 \begin{DoxyCompactList}\small\item\em Affiche les stats d\textquotesingle{}un perso en console. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{perso_8h_a1ad8a33e1b8155c700cdfbcf501be0f6}{update\+\_\+stats}} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*})
 \begin{DoxyCompactList}\small\item\em Recalcule les stats d\textquotesingle{}un personnage en prenant en compte ses objets. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{perso_8h_ab77df48f3f80ed330bdb11063a0b05be}{ajouter\+\_\+objet\+\_\+joueur}} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}, int)
+int \mbox{\hyperlink{perso_8h_a3b9d6c1d4b38d4781df4b716bb7187f4}{ajouter\+\_\+objet\+\_\+joueur}} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}, int)
 \begin{DoxyCompactList}\small\item\em Ajoute un objet à l\textquotesingle{}inventaire d\textquotesingle{}un joueur. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{perso_8h_a5536e83d4b178942597706b10e17a87b}{retirer\+\_\+objet\+\_\+joueur}} (\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}, int)
 \begin{DoxyCompactList}\small\item\em Retire un objet de l\textquotesingle{}inventaire du joueur. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -94,11 +93,11 @@ Affiche les stats d\textquotesingle{}un perso en console.
 {\em Pointeur} & sur le perso \\
 \hline
 \end{DoxyParams}
-\Hypertarget{perso_8h_ab77df48f3f80ed330bdb11063a0b05be}\label{perso_8h_ab77df48f3f80ed330bdb11063a0b05be} 
+\Hypertarget{perso_8h_a3b9d6c1d4b38d4781df4b716bb7187f4}\label{perso_8h_a3b9d6c1d4b38d4781df4b716bb7187f4} 
 \index{perso.h@{perso.h}!ajouter\_objet\_joueur@{ajouter\_objet\_joueur}}
 \index{ajouter\_objet\_joueur@{ajouter\_objet\_joueur}!perso.h@{perso.h}}
 \doxysubsubsection{\texorpdfstring{ajouter\_objet\_joueur()}{ajouter\_objet\_joueur()}}
-{\footnotesize\ttfamily void ajouter\+\_\+objet\+\_\+joueur (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{perso,  }\item[{int}]{ind\+\_\+obj }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int ajouter\+\_\+objet\+\_\+joueur (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structperso__s}{perso\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{perso,  }\item[{int}]{ind\+\_\+obj }\end{DoxyParamCaption})}
 
 
 
@@ -111,6 +110,9 @@ Ajoute un objet à l\textquotesingle{}inventaire d\textquotesingle{}un joueur.
 {\em Indice} & de l\textquotesingle{}objet dans tab\+\_\+objets \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+un entier 
+\end{DoxyReturn}
 \Hypertarget{perso_8h_a7a78678e8b46c53b656053c3c34db6cd}\label{perso_8h_a7a78678e8b46c53b656053c3c34db6cd} 
 \index{perso.h@{perso.h}!creer\_perso@{creer\_perso}}
 \index{creer\_perso@{creer\_perso}!perso.h@{perso.h}}

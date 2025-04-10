@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TempSDL_Project: Main Page</title>
+<title>VoidBorn: VoidBorn</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">TempSDL_Project
+   <div id="projectname">VoidBorn
    </div>
   </td>
  </tr>
@@ -68,10 +68,119 @@ $(function() {
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">TempSDL_Project Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">VoidBorn </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a> <b>URL du dépôt Git</b> : <a href="https://github.com/Herebios/projet">https://github.com/Herebios/projet</a></p>
+<hr  />
+<h1><a class="anchor" id="autotoc_md2"></a>
+👥 Contributeurs</h1>
+<ul>
+<li>Baptiste MOULAY <br  />
+</li>
+<li>Lucas REVERBEL-LONGHI <br  />
+</li>
+<li>Nathan MORIN <br  />
+</li>
+<li>Ilann THOURAULT <br  />
+</li>
+</ul>
+<hr  />
+<h1><a class="anchor" id="autotoc_md4"></a>
+📝 Description</h1>
+<p>Nous sommes un groupe de quatre étudiants à l’Université du Mans. <br  />
+ Notre objectif a été de créer un jeu en respectant un délai d’environ <b>3 mois</b>.</p>
+<p>Lors de notre phase de réflexion, nous souhaitions créer un <b>jeu multijoueur en deux dimensions</b> à l’aide de la librairie graphique <b>SDL2</b> en <b>langage C</b>.</p>
+<hr  />
+<h1><a class="anchor" id="autotoc_md6"></a>
+🎯 Objectifs initiaux</h1>
+<ul>
+<li>Jeu multijoueur (partie serveur, partie client) <br  />
+</li>
+<li>Personnages avec une classe, des statistiques, des compétences et des objets <br  />
+</li>
+<li>Système de combat via des compétences dépendantes des classes des personnages <br  />
+</li>
+<li>Graphisme (personnages, map, objets, compétences) <br  />
+</li>
+<li>Menu (interface de lancement du jeu) <br  />
+</li>
+</ul>
+<hr  />
+<h1><a class="anchor" id="autotoc_md8"></a>
+❌ Objectifs non atteints</h1>
+<ul>
+<li>Intégration du système d'équipes <br  />
+</li>
+<li>Développement des compétences pour le combat <br  />
+</li>
+<li>Développement du système de victoire <br  />
+</li>
+</ul>
+<hr  />
+<h1><a class="anchor" id="autotoc_md10"></a>
+⚙️  Fonctionnement</h1>
+<p>Dans le menu, chaque joueur choisit son pseudo ainsi que la classe de son personnage, ce qui lui confère des capacités uniques qu'il peut utiliser au cours de la partie pour prendre l'avantage sur l'équipe adverse. <br  />
+ Vous avez alors le choix entre être le serveur de la partie, être joueur d'une partie créée par une autre personne ou être les deux à la fois. <br  />
+ Après cela, vous arrivez dans une salle d'attente, en attendant que les autres joueurs se joignent à vous. Une fois que la personne jouant le rôle de serveur lance la partie, le jeu démarre. <br  />
+ La map de notre jeu se décompose en plusieurs zones que nous appelons tuiles, chacune ayant un biome (neige, plaine, etc) choisi aléatoirement. <br  />
+ Les joueurs ne peuvent visualiser qu'une tuile du jeu à la fois. <br  />
+ Cependant, il est possible de changer de tuile en passant par des portes placées à différents endroits aux bords de la tuile à la manière de The Binding of Isaac. <br  />
+ Des obstacles sont générés aléatoirement sur la map, limitant les déplacements des joueurs. <br  />
+ Des monstres sont également présents sur la map, se dirigeant vers le joueur le plus proche pour l'attaquer. Lorsque le monstre est tué, il lâche un objet que le joueur peut ramasser et ajouter à son inventaire. <br  />
+ Chaque objet a une rareté et confère au joueur différents effets. Plus la rareté de l'objet est élevée, plus les effets bonus conférés au joueur sont importants. <br  />
+ Un système de combat est mis en place entre les joueurs d'équipes différentes lorsqu'ils se trouvent sur la même tuile. <br  />
+ Les points de vie ainsi que les objets du joueur sont affichés sur son écran à la manière d'un inventaire Minecraft. <br  />
+ La gestion des entités dynamiques et des tuiles de la map est réalisée grâce à l'implémentation d'une liste générique. <br  />
+ Le serveur communique avec les clients en envoyant toutes les informations nécessaires à l'affichage du jeu par le client qui renvoie des informations au serveur en fonction des actions du joueur. <br  />
+</p>
+<hr  />
+<h1><a class="anchor" id="autotoc_md12"></a>
+Comment lancer une partie ?</h1>
+<p>Pour lancer une partie, il faut être au moins deux joueurs. <br  />
+ Cependant, il est possible de jouer tout seul en lançant le jeu deux fois via deux terminaux en suivant les instructions suivantes et en saisissant <em>127.0.0.1</em> comme adresse IP. <br  />
+ </p>
+<h2><a class="anchor" id="autotoc_md13"></a>
+Pour le joueur désigné comme serveur, il faut:</h2>
+<ol type="1">
+<li>Communiquer avec tous les autres joueurs son adresse IP. Pour obtenir son adresse ip, il faut exécuter dans un terminal cette commande : <em>hostname -I</em>.</li>
+<li>Lancer l'exécutable du jeu en faisant ./bin/VoidBorn si vous vous situez à la racine du projet. <br  />
+</li>
+<li>Insérer son pseudonyme, choisir son personnage, changer ses paramètres si besoin. <br  />
+</li>
+<li>Dans la section <em>Jouer</em>, tous les joueurs insèrent un même port dispo nible. <br  />
+ <blockquote class="doxtable">
+<p>&zwj;Dans le cas où le port ne serait pas accessible, un message d'erreur <em>libération</em> s'affiche dans le terminal dès le lancement du jeu. Pas de panique, il suffit de recommencer en changeant de port. </p>
+</blockquote>
+</li>
+<li>Choisir l'option <em>Créer partie</em>.</li>
+<li>Insérer le nombre de clients à l'aide du clavier et choisir l'option <em>Etre joueur</em> si vous souhaitez être serveur et joueur. <blockquote class="doxtable">
+<p>&zwj;L'option être serveur ne vous permettra pas de jouer mais seulement d'être l'hôte de la partie. <br  />
+ </p>
+</blockquote>
+</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md14"></a>
+Pour les autres joueurs, il faut:</h2>
+<ol type="1">
+<li>Lancer le jeu via la commande ./bin/VoidBorn.</li>
+<li>Insérer son pseudonyme, choisir son personnage, changer ses paramètres si besoin.</li>
+<li>Dans la section <em>Jouer</em>, insérer le port choisit, puis cliquer sur <em>Rejoindre partie</em>.</li>
+<li>Il ne reste plus qu'à entrer l'adresse IP du serveur et d'attendre les autres joueurs !</li>
+</ol>
+<h1><a class="anchor" id="autotoc_md15"></a>
+Comment jouer ?</h1>
+<p>Lorsque le jeu se lance, vous incarnez un personnage auquel il est possible de faire faire différentes actions : <br  />
+</p><ul>
+<li>se déplacer avec les 4 flèches directionelles <em>UP DOWN RIGHT LEFT</em>.</li>
+<li>récupérer un objet dans son inventaire en se déplaçant dessus et en appuyant sur la touche <em>E</em> du clavier.</li>
+<li>jeter un objet de son inventaire, en appuyant sur une des touches 1 à 5.</li>
+<li>attaquer un autre joueur en regardant dans sa direction et en étant à deux cases de lui via la touche <em>espace</em>.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md16"></a>
+Bon jeu !</h2>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

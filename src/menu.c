@@ -134,7 +134,7 @@ void aff_menu(position_menu * pos, int tabBouton[], int bouton_choisi, int * vol
                             
                             dessine_texte(14);
 
-                            if(volume)
+                            if(*volume)
                                 dessine_image(19);    
                             else 
                                 dessine_image(20);

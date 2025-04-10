@@ -21,30 +21,31 @@
 \DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ stats\_base[4];\textcolor{comment}{//stats\ de\ base}}
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{int}\ stats[4];\textcolor{comment}{//stats\ après\ objets}}
 \DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{int}\ vie\_reelle;}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{structcomp__s}{comp\_t}}\ *\ competences[NB\_COMP];\textcolor{comment}{//icomp\_t\ indice}}
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{structobjet__s}{objet\_t}}\ *\ objets[PERSO\_OBJETS\_MAX];\textcolor{comment}{//pointeurs\ sur\ les\ objets\ statiques}}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ iperso,\ equipe;}
-\DoxyCodeLine{00030\ \ \ \ \ SDL\_Rect\ rect;\textcolor{comment}{//position\ tuile}}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{structpos__t}{pos\_t}}\ pos\_map;\textcolor{comment}{//position\ map,\ indices\ pour\ map[][]}}
-\DoxyCodeLine{00032\ \}\mbox{\hyperlink{structperso__s}{perso\_t}};}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a7a78678e8b46c53b656053c3c34db6cd}{creer\_perso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ classe\_t,\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keywordtype}{int}\ ind,\ \textcolor{keywordtype}{int}\ equipe);}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_ab2c4c0976f5c28885329e733a010d269}{detruire\_perso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00053\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a7f58f6295b0ebb674adfa7e0f040278a}{afficher\_objets\_perso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00059\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_ad42e66c8b4d2342b9393e58e6064dcf0}{afficher\_stats\_perso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a1ad8a33e1b8155c700cdfbcf501be0f6}{update\_stats}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
-\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00025\ \ \ \ \ SDL\_Texture\ *\ textures\_objets[5];}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{structcomp__s}{comp\_t}}\ *\ competences[NB\_COMP];\textcolor{comment}{//icomp\_t\ indice}}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{structobjet__s}{objet\_t}}\ *\ objets[PERSO\_OBJETS\_MAX];\textcolor{comment}{//pointeurs\ sur\ les\ objets\ statiques}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ iperso,\ equipe;}
+\DoxyCodeLine{00031\ \ \ \ \ SDL\_Rect\ rect;\textcolor{comment}{//position\ tuile}}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{structpos__t}{pos\_t}}\ pos\_map;\textcolor{comment}{//position\ map,\ indices\ pour\ map[][]}}
+\DoxyCodeLine{00033\ \}\mbox{\hyperlink{structperso__s}{perso\_t}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a7a78678e8b46c53b656053c3c34db6cd}{creer\_perso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ classe\_t,\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keywordtype}{int}\ ind,\ \textcolor{keywordtype}{int}\ equipe);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_ab2c4c0976f5c28885329e733a010d269}{detruire\_perso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a7f58f6295b0ebb674adfa7e0f040278a}{afficher\_objets\_perso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_ad42e66c8b4d2342b9393e58e6064dcf0}{afficher\_stats\_perso}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a1ad8a33e1b8155c700cdfbcf501be0f6}{update\_stats}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *);}
 \DoxyCodeLine{00067\ }
-\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_ab77df48f3f80ed330bdb11063a0b05be}{ajouter\_objet\_joueur}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{int});}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00080\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a5536e83d4b178942597706b10e17a87b}{retirer\_objet\_joueur}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{int});}
-\DoxyCodeLine{00081\ }
-\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{perso_8h_a3b9d6c1d4b38d4781df4b716bb7187f4}{ajouter\_objet\_joueur}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00082\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{perso_8h_a5536e83d4b178942597706b10e17a87b}{retirer\_objet\_joueur}}(\mbox{\hyperlink{structperso__s}{perso\_t}}\ *,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

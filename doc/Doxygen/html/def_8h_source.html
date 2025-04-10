@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>TempSDL_Project: src/def.h Source File</title>
+<title>VoidBorn: src/def.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">TempSDL_Project
+   <div id="projectname">VoidBorn
    </div>
   </td>
  </tr>
@@ -46,6 +46,11 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -105,11 +110,14 @@ $(function() {
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">}perso_t;</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">*/</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="};">
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structobjet__tuile__t.html">   30</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span>{</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_struct" href="structobjet__s.html">objet_t</a> * objet;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_struct" href="structpos__t.html">pos_t</a> pos;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}<a class="code hl_struct" href="structobjet__tuile__t.html">objet_tuile_t</a>;</div>
+</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structpnj__t.html">   35</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span>{</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">int</span> id;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    SDL_Rect rect;</div>
@@ -117,13 +125,17 @@ $(function() {
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    SDL_Texture *texture;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">int</span> *quetes;<span class="comment">//pas encore de struct</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}<a class="code hl_struct" href="structpnj__t.html">pnj_t</a>;</div>
+</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structbiome__t.html">   43</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span>{</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    nom_biome_t id_biome;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    SDL_Texture *textures[NB_TEXTURES_BIOME];<span class="comment">//type_carre indice</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> nb_textures;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}<a class="code hl_struct" href="structbiome__t.html">biome_t</a>;</div>
+</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="};">
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structtuile__t.html">   49</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span>{</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//15x8 textures de 128x128 pour écran 1920x1080</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
@@ -135,6 +147,7 @@ $(function() {
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_struct" href="structliste.html">liste</a> * liste_mobs;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_struct" href="structliste.html">liste</a> * liste_casts;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}<a class="code hl_struct" href="structtuile__t.html">tuile_t</a>;</div>
+</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aliste_8h_html"><div class="ttname"><a href="liste_8h.html">liste.h</a></div><div class="ttdoc">Fonctions de manipulation de listes.</div></div>
