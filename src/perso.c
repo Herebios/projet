@@ -4,6 +4,16 @@
 
 #include "prepro.h"
 #include "perso.h"
+#include "jeu.h"
+#include "inventaire.h"
+
+char * chemin_objet(objet_t * obj){
+    char * chaine = malloc(strlen("img/Objets/") + strlen(obj->nom) + strlen(".jpg") + 1);
+    strcpy(chaine, "img/Objets/");
+    strcat(chaine, obj->nom);
+    strcat(chaine, ".jpg");
+    return chaine;
+}
 
 void creer_perso(perso_t * p, classe_t classe, char * nom, int indice, int equipe){
 	if(nom && *nom)
@@ -26,6 +36,8 @@ void creer_perso(perso_t * p, classe_t classe, char * nom, int indice, int equip
 		p->competences[i]=NULL;
 	for (i=0; i<PERSO_OBJETS_MAX; i++)
 		p->objets[i]=NULL;
+	for(int i = 0 ; i < 5 ; i++)
+		p->textures_objets[i] = NULL;
 
 	//stats de base en fonction de la classe
 	switch(classe){
@@ -106,13 +118,20 @@ void update_stats(perso_t * p) {
 
 void ajouter_objet_joueur(perso_t * perso, int ind_obj) {
     int i=0;
+	printf("ajout obj\n");
     //trouver la première place libre
     while(perso->objets[i] && i<PERSO_OBJETS_MAX) i++;
     if(i==PERSO_OBJETS_MAX)return;//pas de place
     perso->objets[i] = tab_objets+ind_obj;
+	perso->textures_objets[i] = IMG_LoadTexture(renderer, chemin_objet(tab_objets + ind_obj));
 }
 void retirer_objet_joueur(perso_t * perso, int ind_inv) {
+	printf("retrait obj\n");
     perso->objets[ind_inv] = NULL;
+	if(perso->textures_objets[ind_inv] != NULL){
+		SDL_DestroyTexture(perso->textures_objets[ind_inv]);
+	perso->textures_objets[ind_inv] = NULL;
+	}
 }
 /*
 int main(void){

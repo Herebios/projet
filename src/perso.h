@@ -22,6 +22,7 @@ typedef struct perso_s{
 	int stats_base[4];//stats de base
 	int stats[4];//stats après objets
 	int vie_reelle;
+	SDL_Texture * textures_objets[5];
 
 	comp_t * competences[NB_COMP];//icomp_t indice
 	objet_t * objets[PERSO_OBJETS_MAX];//pointeurs sur les objets statiques

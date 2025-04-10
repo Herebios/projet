@@ -9,16 +9,10 @@ SDL_Rect inventaire[5] = {(SDL_Rect){W * 0.31, H * 0.91, RECT_INVENTAIRE, RECT_I
                     (SDL_Rect){W * 0.62, H * 0.91, RECT_INVENTAIRE, RECT_INVENTAIRE},
                     (SDL_Rect){W * 0.73, H * 0.91, RECT_INVENTAIRE, RECT_INVENTAIRE}};
 
-char * chemin_objet(objet_t * obj){
-    char * chaine = malloc(strlen("img/Objets/") + strlen(obj->nom) + strlen(".jpg") + 1);
-    strcpy(chaine, "img/Objets/");
-    strcat(chaine, obj->nom);
-    strcat(chaine, ".jpg");
-    return chaine;
-}
 
 
 
+/*
 void show_inventaire(SDL_Renderer * renderer, perso_t * perso){
     //W et H sont des constantes de prepro.h
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -88,6 +82,35 @@ void show_inventaire(SDL_Renderer * renderer, perso_t * perso){
     SDL_DestroyTexture(texture5);
 
 }
+*/
+void show_inventaire(SDL_Renderer *renderer, perso_t *perso) {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    int j;
+    for (int i = 0 ; i < 5 ; i++) {
+        
+        for (j = 0 ; j < 5 ; j++) {
+            SDL_RenderDrawRect(renderer, &inventaire[i]);
+            inventaire[i].x += 1;
+            inventaire[i].y += 1;
+        }
+        inventaire[i].w -= j;
+        inventaire[i].h -= j;
+        
+        
+        if (perso->textures_objets[i] != NULL) {
+            SDL_RenderCopy(renderer, perso->textures_objets[i], NULL, &inventaire[i]);
+        }
+        
+
+        for (j = 0 ; j < 5 ; j++) {
+            inventaire[i].x -= 1;
+            inventaire[i].y -= 1;
+        }
+        inventaire[i].w += j;
+        inventaire[i].h += j;
+    }
+}
+
                     
                     
 
