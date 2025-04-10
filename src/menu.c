@@ -382,13 +382,13 @@ créée une texture à partir du chemin vers une image, le stocke dans le champ 
     if(!image->texture) end(5);
 }
 
-void charger_param(char * cheminParamTxt, int * volume, int * nbCarIp, char * port){
+void charger_param(char * cheminParamTxt, int * volume, int * nbCarIp, char * port, char * nbClients){
     FILE * fichier = fopen(cheminParamTxt, "r");
     char joueur[NB_MAX_CAR_JOUEUR];
     char port_temp[5];
 
     if(fichier){
-        fscanf(fichier, "%d %d %s %s %s", &actuel, volume, joueur, saisieIp, port_temp);
+        fscanf(fichier, "%d %d %s %s %s %c", &actuel, volume, joueur, saisieIp, port_temp, &nbClients[0]);
         
         if (!strcmp(joueur, "#")){
             
@@ -427,7 +427,6 @@ void charger_param(char * cheminParamTxt, int * volume, int * nbCarIp, char * po
     }
     else{
         printf("\nFichier %s introuvable. Veuillez sauvegarder vos paramètres avant de les charger.\n", cheminParamTxt);
-        end(111);
     }
 }
 
@@ -653,7 +652,7 @@ int menu(int *classe, char * port, char * nbCli){
 
 
 
-    charger_param(cheminParamTxt, &volume, &nbCarIp, port);
+    charger_param(cheminParamTxt, &volume, &nbCarIp, port, nbClients);
     aff_menu(&pos_actuelle, tabBoutonsMenu, bouton_select, &volume, nbCarIp, port, nbClients);
     
 
@@ -810,7 +809,7 @@ int menu(int *classe, char * port, char * nbCli){
                     if(!nbCarJoueur) nomJoueur[0] = '#';
                     if(!nbCarIp) saisieIp[0] = '@';
                     if(fichier){
-                        fprintf(fichier, "%d\n%d\n%s\n%s\n%s\n", actuel, volume, nomJoueur, saisieIp, port);
+                        fprintf(fichier, "%d\n%d\n%s\n%s\n%s\n%c\n", actuel, volume, nomJoueur, saisieIp, port, nbClients[0]);
                         fclose(fichier);
                     }
                     else{
@@ -820,7 +819,7 @@ int menu(int *classe, char * port, char * nbCli){
 
                 //charger param
                 else if(SDL_PointInRect(&point, &tab_img[12].posBoutonFen) && pos_actuelle == DANS_PARAM){
-                    charger_param(cheminParamTxt, &volume, &nbCarIp, port);
+                    charger_param(cheminParamTxt, &volume, &nbCarIp, port, nbClients);
                     modifications = 1;
                 }
 
