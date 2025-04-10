@@ -61,14 +61,14 @@
         \subsection{Menu Principal}
         Il permet au joueur de saisir différentes informations telles que la classe de son personnage, souhaite-t-il être client ou serveur etc. 
         Pour sélectionner ces paramètres via le menu, il nous a fallu créer un système de gestion de boutons. 
-        Grâce à l'utilisation des événements de la bibliothèque SDL, il a été simple d'implémenter cette fonctionnalitée. Le client rejoins le serveur en 
+        Grâce à l'utilisation des événements de la bibliothèque SDL, il a été simple d'implémenter cette fonctionnalité. Le client rejoins le serveur en 
         saisissant son adresse IP dans le menu. 
         \subsection{Map}
         La carte du jeu est construite à partir de différentes tuiles, chacune incluant une grille de cases.
         Chaque tuile possède un biome qui modifie la texture des cases qu'elle possède.
         Les cases peuvent être de différents types, pour par exemple faire en sorte que le joueur puisse sortir d'une tuile en se mettant sur les bonnes cases.
         La carte est créé procéduralement, à partir de la génération d'une graine aléatoire.
-        Pour la gestion des objets, compétences, joueurs, qui vous seront présenté ensuite, chaque tuile utilise plusieurs listes génériques. 
+        Chaque tuile utilise plusieurs listes génériques pour la gestion des objets, compétences et joueurs. 
         \subsection{Objets}
         Les objets possèdent 4 statistiques qui vont altérer le gameplay du joueur qui les porte.
         Chacune de ces statistiques va soit s'ajouter soit multiplier celles déjà présentes sur le joueur.
