@@ -204,8 +204,9 @@ void ajouter_joueur_tuile(tuile_t * t, int ind){
 
 void retirer_joueur_tuile(tuile_t * t, int ind_j){
 	int *ind_lu;
+
 	for(tete_liste(t->liste_joueurs); !hors_liste(t->liste_joueurs); suivant_liste(t->liste_joueurs)){
-		ind_lu = get_liste(t->liste_joueurs);
+		ind_lu = (int *) get_liste(t->liste_joueurs);
 		if(*ind_lu == ind_j){
 			supprimer_liste(t->liste_joueurs);
 			return;

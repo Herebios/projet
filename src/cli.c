@@ -180,6 +180,7 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 			data=defiler(file_socket);
 			int action;
 			sscanf(data, "%d", &action);
+			//printf("\naction : %d", action);
 			switch(action){
 				case SPAWN_OBJET:{
 					int ind_o;
@@ -223,7 +224,9 @@ int main_client(char * ip, int port, char * pseudo, classe_t classe) {
 				case ADD_JOUEUR_TUILE:{
 					int ind;
 					sscanf(data_skip(data, 1), "%d", &ind);
-					ajouter_joueur_tuile(tuile_courante, ind);
+					if (tuile_courante){
+						ajouter_joueur_tuile(tuile_courante, ind);
+					}
 					break;
 				}
 				case RM_JOUEUR_TUILE:{

@@ -67,6 +67,17 @@ int main_server(int port, int nb_clients) {
 	for(int i=0; i<nb_clients; i++){
 		maj_tuile(joueurs, i);
 	}
+	for (int i = 0; i < nb_clients; i++){
+		tuile_t *t = get_tuile_joueur(joueurs+i);
+		char buffer2[16];
+		int ind_lu;
+		sprintf(buffer2, "%d %d;", ADD_JOUEUR_TUILE, i);
+		for(tete_liste(t->liste_joueurs); !hors_liste(t->liste_joueurs); suivant_liste(t->liste_joueurs)){
+			ind_lu = *(int*)get_liste(t->liste_joueurs);
+			if(ind_lu != i)
+				send(clients[ind_lu].socket, buffer2, strlen(buffer2), 0); // *1
+		}
+	}
 	/*on[i] correspond à clients[i].online, pour mémoriser lequels sont off et ne les compter qu'une fois
 	on décrémente nb_on, qui est incrémenté quand le thread accepte un nouveau client
 	quand nb_on sera à 0 et premier_client à 1, le serveur s'arrêtera
